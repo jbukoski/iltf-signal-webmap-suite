@@ -1,0 +1,120 @@
+/*Custom CSS styles*/
+
+    html, body, #sidebar, #container {
+        height: 100%;
+        margin: 0px;
+    }
+    body {
+        padding-top: 50px;
+    }
+    label {
+        font-weight: normal;
+    }
+    .table {
+        margin-bottom: 0px;
+    }
+    #map {
+        height: 100%;
+        margin: 0px;
+        -webkit-box-shadow: 0 -1px 10px rgba(0,0,0,0.5);
+        -moz-box-shadow: 0 -1px 10px rgba(0,0,0,0.5);
+        box-shadow: 0 -1px 10px rgba(0,0,0,0.5);
+    }
+    #loading {
+        position: absolute;
+        width: 220px;
+        height: 19px;
+        top: 50%;
+        left: 50%;
+        margin: -10px 0 0 -110px;
+        z-index: 20001;
+    }
+    .navbar .navbar-brand {
+        font-weight: bold;
+        font-size: 22px;
+        color: white;
+        white-space: nowrap;
+    }
+    .navbar-collapse.in {
+        overflow-y: hidden;
+    }
+    .tt-dropdown-menu {
+        overflow: auto;
+    }
+    .tt-hint, .tt-query {
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        border-radius: 4px;
+    }
+    .typeahead-header {
+        margin: 0 5px 5px 5px;
+        padding: 3px 0;
+        border-bottom: 1px solid #ccc;
+    }
+    .search-container {
+        width: 250px;
+    }
+    #searchbox {
+        -webkit-border-top-left-radius: 4px;
+        -webkit-border-bottom-left-radius: 4px;
+        -moz-border-top-left-radius: 4px;
+        -moz-border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+    .leaflet-popup-content {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .leaflet-popup-content-wrapper {
+        border-radius: 5px;
+    }
+    .panel-heading a:hover {
+        text-decoration: none;
+    }
+    @media (max-width: 992px) {
+        .navbar .navbar-brand {
+            font-size: 18px;
+            float: left;
+        }
+        .search-container {
+            width: 150px;
+        }
+        .leaflet-control-attribution {
+            display: none;
+        }
+    }
+    @media (max-width: 767px){
+        .search-container {
+            width: 100%;
+        }
+    }
+    /* Print Handling */
+    @media print {
+        .navbar, .toggle, #sidebar {
+            display: none !important;
+        }
+    }
+    .color-box {
+	width: 20px;
+	height: 15px;
+	display: inline-block;
+	background-color: #040289;
+	float: left;
+	border: 1px solid;
+	top: 10px;
+    }
+    .legLab {
+	position: relative;
+	top: -4px;
+    }
+
+    .tahoe-leg {
+	position: relative;
+	top: 10px;
+    }
