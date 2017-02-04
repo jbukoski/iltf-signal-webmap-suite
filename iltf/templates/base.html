@@ -1,0 +1,156 @@
+{% load leaflet_tags %}
+{% load geojson_tags %}
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-3.0.1.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'lib/leaflet-0.7.1/leaflet.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/MarkerCluster.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'lib/typeahead.js/typeahead.js-bootstrap.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'dist/leaflet.draw.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'lib/opacity/Control.Opacity.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'lib/jquery/jquery-ui-1.10.3.custom.min.css' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle btn" data-toggle="collapse" data-target=".navbar-collapse" style="height: 34px; padding: 5px 10px; margin-right: 10px;"><i class="fa fa-ellipsis-v" style="color: white"></i></button>
+                <button id="toggle" type="button" class="navbar-toggle btn" style="height: 34px; padding: 5px 10px; margin-right: 10px;"><i id="toggleIcon" class="fa fa-check-square-o" style="color: white"></i></button>
+                <a class="navbar-brand" href="http://www.tamaya-nsn.gov/index.html" target="_blank_">Pueblo of Santa Ana</a>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav pull-left">
+                    <a class="navbar-brand" href="#" style="font-size: 0.75m; color: gray;">Land & Natural Assets Map</a>
+                </ul>
+            </div>
+        </div>
+        
+        <div id='container' class='row'>
+            {% block container %}{% endblock %}
+        </div>
+
+        <script type="text/javascript" src="{% static 'lib/leaflet-0.7.1/leaflet.js' %}"></script>
+        <script type="text/javascript" src="{% static 'lib/jquery-2.0.3.js' %}"></script>
+        <script type="text/javascript" src="{% static 'lib/bootstrap-3.0.1.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'lib/d3.v3/d3.v3.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/ajax_leaflet/leaflet.ajax.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'assets/typeahead.js/typeahead.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'lib/leaflet.markercluster.js' %}"></script>
+        <script type="text/javascript" src="{% static 'lib/colorbrewer/colorbrewer.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/src/Leaflet.draw.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/src/edit/handler/Edit.Poly.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/edit/handler/Edit.SimpleShape.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/edit/handler/Edit.Circle.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/edit/handler/Edit.Rectangle.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/edit/handler/Edit.Marker.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/src/draw/handler/Draw.Feature.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/draw/handler/Draw.Polyline.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/draw/handler/Draw.Polygon.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/draw/handler/Draw.SimpleShape.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/draw/handler/Draw.Rectangle.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/draw/handler/Draw.Circle.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/draw/handler/Draw.Marker.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/src/ext/TouchEvents.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/ext/LatLngUtil.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/ext/GeometryUtil.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/ext/LineUtil.Intersect.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/ext/Polyline.Intersect.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/ext/Polygon.Intersect.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/src/Control.Draw.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/Tooltip.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/Toolbar.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/src/draw/DrawToolbar.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/edit/EditToolbar.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/edit/handler/EditToolbar.Edit.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/src/edit/handler/EditToolbar.Delete.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'lib/opacity/Control.Opacity.js' %}"></script>
+        <script type="text/javascript" src="{% static 'lib/jquery/jquery-1.9.1.js' %}"></script>
+        <script type="text/javascript" src="{% static 'lib/jquery/jquery-ui-1.10.3.custom.min.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+        <script type="text/javascript">
+
+////////////////////////////
+////// Overlay Layers //////
+////////////////////////////
+
+    var boundary = new L.GeoJSON.AJAX("{% url 'boundary' %}", {
+        style: { clickable: false,
+                 weight: 3,
+                 color: '#000000',
+                 dashArray: 3,
+                 opacity: 1,
+                 fill: false,
+               }
+    });
+
+    /*var mbl = {{ qs_results|geojsonfeature|safe }};
+    L.geoJson(mbl).addTo(map);*/
+
+    var mblInt = new L.GeoJSON(null, {
+        style: { color: '#000000',
+               }
+        });
+    
+    $.getJSON('{% url "mbls" %}', function (data) {
+        mblInt.addData(data);
+    });
+
+    /*var mblInt = new L.GeoJSON.AJAX("{% url 'mbls' %}", {
+        style: { clickable: true,
+                 weight: 3,
+                 opacity: 0.75,
+               }
+    });*/
+
+    var roads = new L.GeoJSON(null, {
+        style: {color: '#797976',
+                weight: 1.5,
+                dashArray: 1,
+                opacity: 1,
+                clickable: true,
+               }
+    });
+
+    $.getJSON('{% url "roads" %}', function (data) {
+        roads.addData(data);
+    });
+    
+    var bulkDens = new L.GeoJSON.AJAX("{% url 'bulk_density' %}", {
+        style: { clickable: true,
+                 weight: 1.5,
+                 dashArray: 1,
+                 opacity: 0.6,
+                 fill: true,
+               }
+    });
+
+
+
+////////////////////////////
+////// Leaflet Map /////////
+////////////////////////////
+
+    var map = L.map("map", {
+        zoom: 11,
+        center: [35.435, -106.54], 
+        minZoom: 6,
+        maxZoom: 20,
+        layers: [recent, boundary, mblInt, roads]
+    });
+
+        </script>
+    </body>
+</html>

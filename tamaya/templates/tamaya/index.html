@@ -414,14 +414,14 @@
             /*var mbl = {{ qs_results|geojsonfeature|safe }};
             L.geoJson(mbl).addTo(map);*/
 
-            /*var mblInt = new L.GeoJSON(null, {
+            var mblInt = new L.GeoJSON(null, {
                 style: { color: '#000000',
                        }
                 });
             
             $.getJSON('{% url "mbls" %}', function (data) {
                 mblInt.addData(data);
-            }); */
+            });
 
             /*var mblInt = new L.GeoJSON.AJAX("{% url 'mbls' %}", {
                 style: { clickable: true,
@@ -432,22 +432,17 @@
 
             var roads = new L.GeoJSON(null, {
                 style: {color: '#797976',
+                        weight: 1.5,
+                        dashArray: 1,
+                        opacity: 1,
+                        clickable: true,
                        }
             });
+
             $.getJSON('{% url "roads" %}', function (data) {
                 roads.addData(data);
             });
             
-            /*var roads = new L.GeoJSON.AJAX("{% url 'roads' %}", {
-                style: { clickable: true,
-                         weight: 1.5,
-                         color: '#797976',
-                         dashArray: 1,
-                         opacity: 1,
-                         fill: false,
-                       }
-            });*/
-
             var bulkDens = new L.GeoJSON.AJAX("{% url 'bulk_density' %}", {
                 style: { clickable: true,
                          weight: 1.5,
@@ -468,7 +463,7 @@
                 center: [35.435, -106.54], 
                 minZoom: 6,
                 maxZoom: 20,
-                layers: [recent, boundary, roads]
+                layers: [recent, boundary, mblInt, roads]
             });
 
        	    // Add Leaflet-Draw controls

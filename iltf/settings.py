@@ -60,7 +60,8 @@ ROOT_URLCONF = 'iltf.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['iltf/templates',
+                 'tamaya/templates/tamaya'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
