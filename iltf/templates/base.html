@@ -15,23 +15,10 @@
         <link rel="stylesheet" type="text/css" href="{% static 'lib/jquery/jquery-ui-1.10.3.custom.min.css' %}">
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     </head>
+
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle btn" data-toggle="collapse" data-target=".navbar-collapse" style="height: 34px; padding: 5px 10px; margin-right: 10px;"><i class="fa fa-ellipsis-v" style="color: white"></i></button>
-                <button id="toggle" type="button" class="navbar-toggle btn" style="height: 34px; padding: 5px 10px; margin-right: 10px;"><i id="toggleIcon" class="fa fa-check-square-o" style="color: white"></i></button>
-                <a class="navbar-brand" href="http://www.tamaya-nsn.gov/index.html" target="_blank_">Pueblo of Santa Ana</a>
-            </div>
-            <div class="navbar-collapse collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav pull-left">
-                    <a class="navbar-brand" href="#" style="font-size: 0.75m; color: gray;">Land & Natural Assets Map</a>
-                </ul>
-            </div>
-        </div>
-        
-        <div id='container' class='row'>
-            {% block container %}{% endblock %}
-        </div>
+
+        {% block side_bar %}{% endblock side_bar %}
 
         <script type="text/javascript" src="{% static 'lib/leaflet-0.7.1/leaflet.js' %}"></script>
         <script type="text/javascript" src="{% static 'lib/jquery-2.0.3.js' %}"></script>
@@ -80,77 +67,7 @@
 
         <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 
-        <script type="text/javascript">
+        {% block layers %}{% endblock layers %}
 
-////////////////////////////
-////// Overlay Layers //////
-////////////////////////////
-
-    var boundary = new L.GeoJSON.AJAX("{% url 'boundary' %}", {
-        style: { clickable: false,
-                 weight: 3,
-                 color: '#000000',
-                 dashArray: 3,
-                 opacity: 1,
-                 fill: false,
-               }
-    });
-
-    /*var mbl = {{ qs_results|geojsonfeature|safe }};
-    L.geoJson(mbl).addTo(map);*/
-
-    var mblInt = new L.GeoJSON(null, {
-        style: { color: '#000000',
-               }
-        });
-    
-    $.getJSON('{% url "mbls" %}', function (data) {
-        mblInt.addData(data);
-    });
-
-    /*var mblInt = new L.GeoJSON.AJAX("{% url 'mbls' %}", {
-        style: { clickable: true,
-                 weight: 3,
-                 opacity: 0.75,
-               }
-    });*/
-
-    var roads = new L.GeoJSON(null, {
-        style: {color: '#797976',
-                weight: 1.5,
-                dashArray: 1,
-                opacity: 1,
-                clickable: true,
-               }
-    });
-
-    $.getJSON('{% url "roads" %}', function (data) {
-        roads.addData(data);
-    });
-    
-    var bulkDens = new L.GeoJSON.AJAX("{% url 'bulk_density' %}", {
-        style: { clickable: true,
-                 weight: 1.5,
-                 dashArray: 1,
-                 opacity: 0.6,
-                 fill: true,
-               }
-    });
-
-
-
-////////////////////////////
-////// Leaflet Map /////////
-////////////////////////////
-
-    var map = L.map("map", {
-        zoom: 11,
-        center: [35.435, -106.54], 
-        minZoom: 6,
-        maxZoom: 20,
-        layers: [recent, boundary, mblInt, roads]
-    });
-
-        </script>
     </body>
 </html>

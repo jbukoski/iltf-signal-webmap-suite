@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 
 def index(request):
-    return HttpResponse("Hello, world.")
+    return render(request, 'comanche/index.html', {
+        'title': 'Comanche',
+    })
 
