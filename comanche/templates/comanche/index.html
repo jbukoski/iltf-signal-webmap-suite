@@ -38,20 +38,14 @@
                                     <div class="panel-body" style="padding: 0px 15px;">
 					<div class="checkbox">    
 					    <label>
-                                                <input type="checkbox" name="overlayLayers" id="boundary" z-index="1" checked>
-                                                &nbsp Reservation boundary (approximate)	
+                                                <input type="checkbox" name="overlayLayers" id="counties" z-index="1" checked>
+                                                &nbsp Counties
                                             </label>
                                         </div>
 					<div class="checkbox">    
 					    <label>
-                                                <input type="checkbox" name="overlayLayers" id="mblInt" z-index="2" checked>
-                                                &nbsp Master business leases			
-                                            </label>
-                                        </div>
-					<div class="checkbox">    
-					    <label>
-                                                <input type="checkbox" name="overlayLayers" id="roads" z-index="3" checked>
-                                                &nbsp Reservation roads				
+                                                <input type="checkbox" name="overlayLayers" id="cotton" z-index="1" checked>
+                                                &nbsp Cotton County Parcels
                                             </label>
                                         </div>
 				    </div>
@@ -187,58 +181,35 @@
 ////////////////////////////
 ////// Overlay Layers //////
 ////////////////////////////
-/*
-    var boundary = new L.GeoJSON.AJAX("{% url 'boundary' %}", {
-        style: { clickable: false
+
+    var counties = new L.GeoJSON.AJAX("{% url 'counties' %}", {
+        style: { clickable: false,
                  weight: 3,
                  color: '#000000',
                  dashArray: 3,
                  opacity: 1,
-                 fill: false,
                }
     });
 
-    var mblInt = new L.GeoJSON(null, {
-        style: { color: '#000000',
-               }
-        });
-    
-    $.getJSON('{% url "mbls" %}', function (data) {
-        mblInt.addData(data);
-    });
-
-    var roads = new L.GeoJSON(null, {
-        style: {color: '#797976',
-                weight: 1.5,
-                dashArray: 1,
-                opacity: 1,
-                clickable: true,
-               }
-    });
-
-    $.getJSON('{% url "roads" %}', function (data) {
-        roads.addData(data);
-    });
-    
-    var bulkDens = new L.GeoJSON.AJAX("{% url 'bulk_density' %}", {
-        style: { clickable: true,
-                 weight: 1.5,
+    var cotton = new L.GeoJSON.AJAX("{% url 'cotton' %}", {
+        style: { clickable: false,
+                 weight: 1,
+                 color: '#040289',
                  dashArray: 1,
-                 opacity: 0.6,
-                 fill: true,
+                 opacity: 0.7,
                }
     });
-*/
+
 ////////////////////////////
 ////// Leaflet Map /////////
 ////////////////////////////
 
     var map = L.map("map", {
         zoom: 8,
-        center: [35.8, -98.4], 
+        center: [34.79, -98.45], 
         minZoom: 6,
         maxZoom: 20,
-        layers: [recent]
+        layers: [recent, counties, cotton]
     });
 
 </script>

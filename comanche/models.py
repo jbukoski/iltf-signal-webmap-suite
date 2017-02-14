@@ -27,21 +27,88 @@ class cotton(models.Model):
     image = models.CharField(max_length=254)
     legal = models.CharField(max_length=254)
 
-    geom = models.GeometryField(srid=-1)
+    geom = models.MultiPolygonField(srid=4326)
 
     objects = models.GeoManager()
 
     def __str__(self):
         return '%s' % (self.parcelid)
 
-## TODO: Added the below function to account for polygon/multipolygon features in
-## the cotton model. The data currently won't load into a database. Try to
-## fix, but also try to get other data into a model.
-## https://gis.stackexchange.com/questions/13498/
-##     can-polygons-be-generalized-to-multipolygons-in-geodjango
+class caddo(models.Model):
+    objectid = models.IntegerField()
+    objectid_1 = models.IntegerField()
+    parcel_id = models.CharField(max_length=50)
+    shape_leng = models.FloatField()
+    rec_num = models.CharField(max_length=10)
+    shape_le_1 = models.FloatField()
+    shape_area = models.FloatField()
 
-    def save(self, *args, **kwargs):
-        # if geom ends up as a Polgon, make it into a MultiPolygon
-        if self.geom and isinstance(self.geom, geos.Polygon):
-            self.geom = geos.MultiPolygon(self.geom)
-            self.save(*args, **kwargs)
+    geom = models.MultiPolygonField(srid=4326)
+
+    objects = models.GeoManager()
+
+    def __str__(self):
+        return '%s' % (self.objectid)
+
+class counties(models.Model):
+    objectid = models.IntegerField()
+    name = models.CharField(max_length=32)
+    state_name = models.CharField(max_length=35)
+    state_fips = models.CharField(max_length=2)
+    cnty_fips = models.CharField(max_length=3)
+    fips = models.CharField(max_length=5)
+    population = models.IntegerField()
+    pop_sqmi = models.FloatField()
+    pop2010 = models.IntegerField()
+    pop10_sqmi = models.FloatField()
+    white = models.IntegerField()
+    black = models.IntegerField()
+    ameri_es = models.IntegerField()
+    asian = models.IntegerField()
+    hawn_pi = models.IntegerField()
+    hispanic = models.IntegerField()
+    other = models.IntegerField()
+    mult_race = models.IntegerField()
+    males = models.IntegerField()
+    females = models.IntegerField()
+    age_under5 = models.IntegerField()
+    age_5_9 = models.IntegerField()
+    age_10_14 = models.IntegerField()
+    age_15_19 = models.IntegerField()
+    age_20_24 = models.IntegerField()
+    age_25_34 = models.IntegerField()
+    age_35_44 = models.IntegerField()
+    age_45_54 = models.IntegerField()
+    age_55_64 = models.IntegerField()
+    age_65_74 = models.IntegerField()
+    age_75_84 = models.IntegerField()
+    age_85_up = models.IntegerField()
+    med_age = models.FloatField()
+    med_age_m = models.FloatField()
+    med_age_f = models.FloatField()
+    households = models.IntegerField()
+    ave_hh_sz = models.FloatField()
+    hsehld_1_m = models.IntegerField()
+    hsehld_1_f = models.IntegerField()
+    marhh_chd = models.IntegerField()
+    marhh_no_c = models.IntegerField()
+    mhh_child = models.IntegerField()
+    fhh_child = models.IntegerField()
+    families = models.IntegerField()
+    ave_fam_sz = models.FloatField()
+    hse_units = models.IntegerField()
+    vacant = models.IntegerField()
+    owner_occ = models.IntegerField()
+    renter_occ = models.IntegerField()
+    no_farms12 = models.FloatField()
+    ave_size12 = models.FloatField()
+    crop_acr12 = models.FloatField()
+    ave_sale12 = models.FloatField()
+    sqmi = models.FloatField()
+    shape_leng = models.FloatField()
+    shape_area = models.FloatField()
+    geom = models.MultiPolygonField(srid=4326)
+
+    def __str__(self):
+        return '%s' % (self.objectid)
+

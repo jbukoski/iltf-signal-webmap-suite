@@ -3,7 +3,6 @@ from djgeojson.views import GeoJSONLayerView
 from . import views
 from tamaya.models import boundary, mbls, roads
 from django.contrib.gis import admin
-from djgeojson.views import GeoJSONLayerView
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
