@@ -1,6 +1,6 @@
-## Source Code for the GeoDjango based ILTF webmaps
+# Source Code for the GeoDjango based ILTF webmaps
 ## Product of SIG-NAL, Inc.
-## Primary author: Jacob J. Bukoski
+### Primary author: Jacob J. Bukoski
 
 #### Packages necessary on Dukono
 
@@ -25,7 +25,7 @@ To be installed with 'pip':
   1. Install all necessary packages and modules
   2. Create database
     - -U postgres, adjusted password permissions to 'md5'
-  3. `python mange.py makemigrations`
+  3. `python manage.py makemigrations`
   4. `python manage.py migrate`
   5. Load data to database
 
