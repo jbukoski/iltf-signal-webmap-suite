@@ -48,6 +48,12 @@
                                                 &nbsp Cotton County Parcels
                                             </label>
                                         </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="caddo" z-index="1">
+                                                &nbsp Caddo County parcels
+                                            </label>
+                                        </div>
 				    </div>
 				</div>
                             </div> <!--Closes 'panel panel-default'-->
@@ -63,13 +69,7 @@
 					<div class="checkbox">    
 					    <label>
                                                 <input type="checkbox" name="overlayLayers" id="soil_pH" z-index="3">
-                                                &nbsp Soil surface pH, weighted average		
-                                            </label>
-                                        </div>
-					<div class="checkbox">    
-					    <label>                                               
-                                                <input type="checkbox" name="overlayLayers" id="bulkDens" z-index="3">
-                                                &nbsp Soil bulk density				
+                                                &nbsp PLACEHOLDER FOR SOIL DATA		
                                             </label>
                                         </div>
 				    </div>
@@ -199,6 +199,15 @@
                  opacity: 0.7,
                }
     });
+
+/*    var caddo = new L.GeoJSON.AJAX("{% url 'caddo' %}", {
+        style: { clickable: false,
+                 weight: 1,
+                 color: '#052793',
+                 dashArray: 1,
+                 opacity: 0.7,
+               }
+    });*/
 
 ////////////////////////////
 ////// Leaflet Map /////////
