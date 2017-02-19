@@ -7,8 +7,8 @@ from django.contrib.gis import admin
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^boundary/', views.boundary_view, name='boundary'),
-    url(r'^mbls/', GeoJSONLayerView.as_view(model=mbls), name='mbls'),
-    url(r'^roads/', GeoJSONLayerView.as_view(model=roads), name='roads'),
+    url(r'^mbls/', views.mbls_view, name='mbls'),
+    url(r'^roads/', views.roads_view, name='roads'),
     url(r'^bulk_density/', views.bulk_density_view, name='bulk_density'),
-
+    url(r'^soil_ph/', views.soil_ph_view, name='soil_ph'),
 ]

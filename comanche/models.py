@@ -2,6 +2,7 @@ from django.contrib.gis.db import models
 from django.contrib.gis import geos
 
 class cotton(models.Model):
+    cotton_id = models.AutoField(primary_key=True)
     parcelid = models.CharField(max_length=34)
     ag_acres = models.FloatField()
     asd_acres = models.FloatField()
@@ -35,6 +36,7 @@ class cotton(models.Model):
         return '%s' % (self.parcelid)
 
 class caddo(models.Model):
+    caddo_id = models.AutoField(primary_key=True)
     objectid = models.IntegerField()
     objectid_1 = models.IntegerField()
     parcel_id = models.CharField(max_length=50)
@@ -51,6 +53,7 @@ class caddo(models.Model):
         return '%s' % (self.objectid)
 
 class counties(models.Model):
+    counties_id = models.AutoField(primary_key=True)
     objectid = models.IntegerField()
     name = models.CharField(max_length=32)
     state_name = models.CharField(max_length=35)

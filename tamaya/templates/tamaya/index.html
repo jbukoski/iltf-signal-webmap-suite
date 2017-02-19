@@ -66,15 +66,15 @@
                                 <div id="soil-layers" class="panel-collapse collapse in">
                                     <div class="panel-body" style="padding: 0px 15px;">
 					<div class="checkbox">    
-					    <label>
-                                                <input type="checkbox" name="overlayLayers" id="soil_pH" z-index="3">
-                                                &nbsp Soil surface pH, weighted average					
-                                            </label>
-                                        </div>
-					<div class="checkbox">    
 					    <label>                                               
                                                 <input type="checkbox" name="overlayLayers" id="bulkDens" z-index="3">
                                                 &nbsp Soil bulk density				
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="soil_ph" z-index="3">
+                                                &nbsp Soil surface pH, weighted average
                                             </label>
                                         </div>
 				    </div>
@@ -255,34 +255,102 @@
                }
     });
 
-    var mblInt = new L.GeoJSON(null, {
-        style: { color: '#000000',
-               }
-        });
-    
-    $.getJSON('{% url "mbls" %}', function (data) {
-        mblInt.addData(data);
+    var mblInt = new L.GeoJSON.AJAX("{% url 'mbls' %}", {
+        style: function (feature) {
+                    if (feature.properties.comment === "Hyatt Tamaya") {
+                        return {
+                            clickable: true,
+                            weight: 2,
+                            color: '#4FE11E',
+                            opacity: 1,
+                            fill: true,
+                            fillOpacity: 0.5
+                        };
+                    };
+                    if (feature.properties.comment === "Prairie Star") {
+                        return {
+                            clickable: true,
+                            weight: 2,
+                            color: '#e8f73e',
+                            opacity: 1,
+                            fill: true,
+                            fillOpacity: 0.5
+                        };
+                    };
+                    if (feature.properties.comment === "Santa Ana Golf / Star Casino") {
+                        return {
+                            
+                            clickable: true,
+                            weight: 2,
+                            color: '#A73BC8',
+                            opacity: 1,
+                            fill: true,
+                            fillOpacity: 0.5
+                        };
+                    };
+		    if (feature.properties.comment === "Southern Sandoval Investments") {
+                        return {
+                            
+                            clickable: true,
+                            weight: 2,
+                            color: '#FF7F00',
+                            opacity: 1,
+                            fill: true,
+                            fillOpacity: 0.5
+                        };
+                    };
+		    if (feature.properties.comment === "Twin Warriors") {
+                        return {
+                            
+                            clickable: true,
+                            weight: 2,
+                            color: '#DB5373',
+                            opacity: 1,
+                            fill: true,
+                            fillOpacity: 0.5
+                        };
+                    };
+                },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Name:&nbsp;</strong>" + feature.properties.comment.toString() + "</br>" +
+                "<strong>Area:&nbsp;</strong>" + feature.properties.area.toString() + "</br>" +
+                "<strong>Perimeter:&nbsp;</strong>" + feature.properties.perimeter.toString()
+            );
+        }
     });
 
-    var roads = new L.GeoJSON(null, {
+    var roads = new L.GeoJSON.AJAX("{% url 'roads' %}", {
         style: {color: '#797976',
-                weight: 1.5,
+                weight: 2,
                 dashArray: 1,
                 opacity: 1,
                 clickable: true,
-               }
+               },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "</br>" +
+                "<strong>Surface type:&nbsp;</strong>" + feature.properties.surface.toString() + "</br>" +
+                "<strong>Condition:&nbsp;</strong>" + feature.properties.condition.toString()
+            );
+        },
     });
 
-    $.getJSON('{% url "roads" %}', function (data) {
-        roads.addData(data);
-    });
-    
     var bulkDens = new L.GeoJSON.AJAX("{% url 'bulk_density' %}", {
         style: { clickable: true,
                  weight: 1.5,
                  dashArray: 1,
                  opacity: 0.6,
-                 fill: true,
+                 fill: false,
+               }
+    });
+
+    var soil_ph = new L.GeoJSON.AJAX("{% url 'soil_ph' %}", {
+        style: {clickable: true,
+                 weight: 1.5,
+                 dashArray: 1,
+                 opacity: 0.6,
+                 fill: false,
                }
     });
 

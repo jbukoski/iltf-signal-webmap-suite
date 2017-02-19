@@ -1,6 +1,8 @@
 import os
 from django.contrib.gis.utils import LayerMapping
-from .models import boundary, mbls, roads, bulk_density
+from .models import boundary, mbls, roads, bulk_density, soil_ph
+
+# Admin mappings and shapefiles
 
 boundary_mapping = {
     'id' : 'Id',
@@ -27,7 +29,7 @@ mbls_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'mbl_
 
 roads_mapping = {
     'length' : 'LENGTH',
-    'id' : 'ID__',
+    'rd_id' : 'ID__',
     'access' : 'ACCESS',
     'name' : 'NAME',
     'number' : 'NUMBER',
@@ -45,7 +47,9 @@ roads_mapping = {
     'geom' : 'MULTILINESTRING',
 }
 
-bulk_density_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'bulk_density_1_3_bar.shp'))
+roads_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'reservation_roads.shp'))
+
+# Soil layer mappings and shapefiles
 
 bulk_density_mapping = {
     'areasymbol' : 'AREASYMBOL',
@@ -57,7 +61,19 @@ bulk_density_mapping = {
     'geom' : 'MULTIPOLYGON',
 }
 
-roads_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'reservation_roads.shp'))
+bulk_density_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'bulk_density_1_3_bar.shp'))
+
+soil_ph_mapping = {
+    'areasymbol' : 'AREASYMBOL',
+    'spatialver' : 'SPATIALVER',
+    'musym' : 'MUSYM',
+    'mukey' : 'MUKEY',
+    'mukey_1' : 'MUKEY_1',
+    'phwater' : 'pHwater',
+    'geom' : 'POLYGON',
+}
+
+soil_ph_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'pH_surface_weighted_average.shp'))
 
 def run(verbose=True):
 
@@ -84,4 +100,10 @@ def run(verbose=True):
         transform=False, encoding='iso-8859-1',
     )
     bulk_density_lm.save(strict=True, verbose=verbose)
+
+    soil_ph_lm = LayerMapping(
+        soil_ph, soil_ph_shp, soil_ph_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    soil_ph_lm.save(strict=True, verbose=verbose)
 
