@@ -5,9 +5,11 @@ from django.core.serializers import serialize
 
 def index(request):
     bndry = boundary.objects.all()
+    ph_json = serialize('geojson', soil_ph.objects.all(), geometry_field="geom", fields=('phwater'))
     return render(request, 'tamaya/index.html', {
         'title': 'Santa Ana Pueblo of NM',
         'bndry': bndry,
+        'ph_json': ph_json,
     })
 
 def boundary_view(request):

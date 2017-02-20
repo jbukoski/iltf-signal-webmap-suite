@@ -6,7 +6,7 @@
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome-4.7.0/css/font-awesome.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-3.0.1.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'lib/leaflet-0.7.1/leaflet.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'leaflet/leaflet.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/MarkerCluster.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'lib/typeahead.js/typeahead.js-bootstrap.css' %}">
@@ -20,7 +20,7 @@
 
         {% block side_bar %}{% endblock side_bar %}
 
-        <script type="text/javascript" src="{% static 'lib/leaflet-0.7.1/leaflet.js' %}"></script>
+        <script type="text/javascript" src="{% static 'leaflet/leaflet.js' %}"></script>
         <script type="text/javascript" src="{% static 'lib/jquery-2.0.3.js' %}"></script>
         <script type="text/javascript" src="{% static 'lib/bootstrap-3.0.1.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'lib/d3.v3/d3.v3.js' %}"></script>
@@ -65,9 +65,11 @@
         <script type="text/javascript" src="{% static 'lib/jquery/jquery-1.9.1.js' %}"></script>
         <script type="text/javascript" src="{% static 'lib/jquery/jquery-ui-1.10.3.custom.min.js' %}"></script>
 
+        <script src="http://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.bundled.js"></script>
+
         <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 
         {% block layers %}{% endblock layers %}
-
+ 
     </body>
 </html>

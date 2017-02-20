@@ -94,121 +94,12 @@
       });
     recent.setZIndex(8);
 
-
-///////////////////////////////////////
-////// Add Leaflet-Draw controls //////
-///////////////////////////////////////
-
-    // Initialize the FeatureGroup to store editable layers
-
-    var drawnItems = new L.FeatureGroup();
-    map.addLayer(drawnItems);
-
-    // Specify some custom options for the Drawing tools
-
-	var drawOptions = {
-	draw: {
-		polygon: {
-			showArea: true
-			}
-	},
-	edit: {
-		featureGroup: drawnItems
-		}
-	}
-
-	// Initialize the draw control and pass it the FeatureGroup of editable layers
-	var drawControl = new L.Control.Draw(drawOptions);
-	
-	map.addControl(drawControl);
-
-	map.on('draw:created', function (e) {
-	var type = e.layerType,
-		layer = e.layer;
-
-	if (type === 'marker') {
-		layer.bindPopup('A popup!');
-	}
-
-	// Do whatever else you need to. (save to db, add to map etc)
-	drawnItems.addLayer(layer);
-	});
-
-    // Add opacity controls
-
-    var opacitySlider = new L.Control.opacitySlider();
-    map.addControl(opacitySlider);
-
-    //opacitySlider.setOpacityLayer(landfire)
-
-
-
 // Larger screens get expanded layer control
     if (document.body.clientWidth <= 767) {
         var isCollapsed = true;
     } else {
         var isCollapsed = false;
     };
-
-    // Highlight search box text on click
-    $("#searchbox").click(function () {
-        $(this).select();
-    });
-
-    // Typeahead search functionality
-    $(document).one("ajaxStop", function() {
-        $("#loading").hide();
-        $("#searchbox").typeahead([{
-            name: "HabitatLeases",
-            local: habitatLeasesSearch,
-            minLength: 2,
-            header: "<h4 class='typeahead-header'>HabitatLeases</h4>"
-        },]).on("typeahead:selected", function (obj, datum) {
-            if (datum.layer === "HabitatLeases") {
-                map.setView([datum.lat, datum.lng], 16);
-                if (map._layers[datum.id]) {
-                    map._layers[datum.id].openPopup();
-                };
-            };
-            if (datum.layer === "Boroughs") {
-                map.fitBounds(datum.bounds);
-            };
-            if (datum.layer === "Theaters") {
-                if (!map.hasLayer(theaters)) {
-                    map.addLayer(theaters);
-                    $("#theaters").prop("checked", true);
-                };
-                map.setView([datum.lat, datum.lng], 17);
-                if (map._layers[datum.id]) {
-                    map._layers[datum.id].openPopup();
-                };
-            };
-            if (datum.layer === "Museums") {
-                if (!map.hasLayer(museums)) {
-                    map.addLayer(museums);
-                    $("#museums").prop("checked", true);
-                };
-                map.setView([datum.lat, datum.lng], 17);
-                if (map._layers[datum.id]) {
-                    map._layers[datum.id].openPopup();
-                };
-            };
-            if (datum.layer === "GeoNames") {
-                map.setView([datum.lat, datum.lng], 14);
-            };
-            if ($("#navbar-collapse").height() > 50) {
-                $("#navbar-collapse").collapse("hide");
-            };
-        }).on("typeahead:initialized ", function () {
-            $(".tt-dropdown-menu").css("max-height", 300);
-        }).on("typeahead:opened", function () {
-            $(".navbar-collapse.in").css("max-height", $(document).height()-$(".navbar-header").height());
-            $(".navbar-collapse.in").css("height", $(document).height()-$(".navbar-header").height());
-        }).on("typeahead:closed", function () {
-            $(".navbar-collapse.in").css("max-height", "");
-            $(".navbar-collapse.in").css("height", "");
-        });
-    });
 
     // Placeholder hack for IE
     if (navigator.appName == "Microsoft Internet Explorer") {

@@ -262,9 +262,9 @@
                             clickable: true,
                             weight: 2,
                             color: '#4FE11E',
-                            opacity: 1,
+                            opacity: 0.5,
                             fill: true,
-                            fillOpacity: 0.5
+                            fillOpacity: 0.2,
                         };
                     };
                     if (feature.properties.comment === "Prairie Star") {
@@ -274,40 +274,37 @@
                             color: '#e8f73e',
                             opacity: 1,
                             fill: true,
-                            fillOpacity: 0.5
+                            fillOpacity: 0.2,
                         };
                     };
                     if (feature.properties.comment === "Santa Ana Golf / Star Casino") {
                         return {
-                            
                             clickable: true,
                             weight: 2,
                             color: '#A73BC8',
                             opacity: 1,
                             fill: true,
-                            fillOpacity: 0.5
+                            fillOpacity: 0.2,
                         };
                     };
 		    if (feature.properties.comment === "Southern Sandoval Investments") {
                         return {
-                            
                             clickable: true,
                             weight: 2,
                             color: '#FF7F00',
                             opacity: 1,
                             fill: true,
-                            fillOpacity: 0.5
+                            fillOpacity: 0.2,
                         };
                     };
 		    if (feature.properties.comment === "Twin Warriors") {
                         return {
-                            
                             clickable: true,
                             weight: 2,
                             color: '#DB5373',
                             opacity: 1,
                             fill: true,
-                            fillOpacity: 0.5
+                            fillOpacity: 0.2,
                         };
                     };
                 },
@@ -336,6 +333,7 @@
         },
     });
 
+/*
     var bulkDens = new L.GeoJSON.AJAX("{% url 'bulk_density' %}", {
         style: { clickable: true,
                  weight: 1.5,
@@ -352,6 +350,17 @@
                  opacity: 0.6,
                  fill: false,
                }
+    });
+*/
+
+    var soil_vector2 = new L.GeoJSON.AJAX("{% url 'soil_ph' %}");
+
+    var soil_vector = $.ajax({
+        url: "{% url 'soil_ph' %}"
+    });
+ 
+    var soil_ph = L.vectorGrid.slicer(soil_vector2, {
+        rendererFactory: L.svg.tile,
     });
 
 
