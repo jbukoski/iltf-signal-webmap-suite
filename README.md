@@ -36,4 +36,8 @@ TO DO:
   - Vector Slicing for faster display of geojson layers
    - From GeoDjango framework?
   - Add in other layers
+  - Set up as deployable app
+  - Build user adjustable layers
+  - Change background map in Admin page
+  - Deploy to SIG server
 
