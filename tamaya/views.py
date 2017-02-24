@@ -2,6 +2,7 @@ from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from .models import boundary, mbls, roads, bulk_density, soil_ph
 from django.core.serializers import serialize
+import json
 
 def index(request):
     bndry = boundary.objects.all()
