@@ -31,5 +31,13 @@ To be installed with 'pip':
 
 TO DO:
 
-  - Enable mod-wsgi and host development webmaps from server
+  - ~~Styling and popup content~~
+  - Build Raster models
+  - Vector Slicing for faster display of geojson layers
+   - From GeoDjango framework?
+  - Add in other layers
+  - Set up as deployable app
+  - Build user adjustable layers
+  - Change background map in Admin page
+  - Deploy to SIG server
 
