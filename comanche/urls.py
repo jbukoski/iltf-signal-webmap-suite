@@ -1,8 +1,7 @@
-from django.conf.urls import url
-from . import views
 from comanche.models import counties, cotton, caddo
-from django.contrib.gis import admin
+from django.conf.urls import url
 from djgeojson.views import GeoJSONLayerView
+from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),

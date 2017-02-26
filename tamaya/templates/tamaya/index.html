@@ -49,7 +49,7 @@
                                         </div>
 					<div class="checkbox">    
 					    <label>
-                                                <input type="checkbox" name="overlayLayers" id="roads" z-index="3" checked>
+                                                <input type="checkbox" name="overlayLayers" id="roads" z-index="3">
                                                 &nbsp Reservation roads					
                                             </label>
                                         </div>
@@ -361,10 +361,8 @@
 
     soil_ph = L.vectorGrid.slicer( soil_vector, {
         rendererFactory: L.svg.tile,
-        vectorTileLayerStyles: {
-            sliced: {color: 'black'}
-        }
-    })
+        vectorTileLayerStyles: {color: 'black'}
+    });
 
 ////////////////////////////
 ////// Leaflet Map /////////
@@ -375,10 +373,8 @@
         center: [35.435, -106.54], 
         minZoom: 6,
         maxZoom: 20,
-        layers: []
+        layers: [recent, boundary, mblInt, roads]
     });
-
-    map.getPane('sliced').style.zIndex = 900;
 
 ///////////////////////////////////////
 ////// Add Leaflet-Draw controls //////
