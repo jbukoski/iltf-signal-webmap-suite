@@ -112,6 +112,8 @@ class counties(models.Model):
     shape_area = models.FloatField()
     geom = models.MultiPolygonField(srid=4326)
 
+    objects = models.GeoManager()
+
     def __str__(self):
         return '%s' % (self.objectid)
 

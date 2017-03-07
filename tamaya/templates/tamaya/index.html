@@ -43,7 +43,7 @@
                                         </div>
 					<div class="checkbox">    
 					    <label>
-                                                <input type="checkbox" name="overlayLayers" id="mblInt" z-index="2" checked>
+                                                <input type="checkbox" name="overlayLayers" id="mbls" z-index="2" checked>
                                                 &nbsp Master business leases					
                                             </label>
                                         </div>
@@ -255,7 +255,7 @@
                }
     });
 
-    var mblInt = new L.GeoJSON.AJAX("{% url 'mbls' %}", {
+    var mbls = new L.GeoJSON.AJAX("{% url 'mbls' %}", {
         style: function (feature) {
                     if (feature.properties.comment === "Hyatt Tamaya") {
                         return {
@@ -351,18 +351,13 @@
                  fill: false,
                }
     });
-*/
 
     var soil_vector1 = new L.GeoJSON.AJAX("{% url 'soil_ph' %}");
 
     var soil_vector2 = $.getJSON("{% url 'soil_ph' %}");
 
     var soil_vector = {% autoescape off %}{{ ph_json }}{% endautoescape %};
-
-    soil_ph = L.vectorGrid.slicer( soil_vector, {
-        rendererFactory: L.svg.tile,
-        vectorTileLayerStyles: {color: 'black'}
-    });
+*/
 
 ////////////////////////////
 ////// Leaflet Map /////////
@@ -373,7 +368,7 @@
         center: [35.435, -106.54], 
         minZoom: 6,
         maxZoom: 20,
-        layers: [recent, boundary, mblInt, roads]
+        layers: [recent, boundary, mbls]
     });
 
 ///////////////////////////////////////

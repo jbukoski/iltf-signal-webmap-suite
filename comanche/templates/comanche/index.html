@@ -182,7 +182,7 @@
 ////// Overlay Layers //////
 ////////////////////////////
 
-    var counties = new L.GeoJSON("{% url 'counties' %}", {
+    var counties = new L.GeoJSON.AJAX("{% url 'counties' %}", {
         style: { clickable: false,
                  weight: 3,
                  color: '#000000',
@@ -200,14 +200,14 @@
                }
     });
 
-/*    var caddo = new L.GeoJSON.AJAX("{% url 'caddo' %}", {
+    var caddo = new L.GeoJSON.AJAX("{% url 'caddo' %}", {
         style: { clickable: false,
                  weight: 1,
                  color: '#052793',
                  dashArray: 1,
                  opacity: 0.7,
                }
-    });*/
+    });
 
 ////////////////////////////
 ////// Leaflet Map /////////
@@ -220,6 +220,52 @@
         maxZoom: 20,
         layers: [recent, counties, cotton]
     });
+
+///////////////////////////////////////
+////// Add Leaflet-Draw controls //////
+///////////////////////////////////////
+
+    // Initialize the FeatureGroup to store editable layers
+
+    var drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    // Specify some custom options for the Drawing tools
+
+	var drawOptions = {
+	draw: {
+		polygon: {
+			showArea: true
+			}
+	},
+	edit: {
+		featureGroup: drawnItems
+		}
+	}
+
+	// Initialize the draw control and pass it the FeatureGroup of editable layers
+	var drawControl = new L.Control.Draw(drawOptions);
+	
+	map.addControl(drawControl);
+
+	map.on('draw:created', function (e) {
+	var type = e.layerType,
+		layer = e.layer;
+
+	if (type === 'marker') {
+		layer.bindPopup('A popup!');
+	}
+
+	// Do whatever else you need to. (save to db, add to map etc)
+	drawnItems.addLayer(layer);
+	});
+
+    // Add opacity controls
+
+    var opacitySlider = new L.Control.opacitySlider();
+    map.addControl(opacitySlider);
+
+    //opacitySlider.setOpacityLayer(landfire)
 
 </script>
 

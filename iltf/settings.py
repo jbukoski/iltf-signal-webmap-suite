@@ -78,6 +78,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'iltf.wsgi.application'
 
+SERIALIZATION_MODULES = {
+    'geojson': 'django.contrib.gis.serializers.geojson',
+}
+
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
