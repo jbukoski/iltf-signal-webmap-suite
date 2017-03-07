@@ -1,6 +1,25 @@
 import os
 from django.contrib.gis.utils import LayerMapping
-from .models import cotton, caddo, counties
+from .models import cotton, caddo, counties, grady, jefferson, kiowa, stephens, tillman
+
+
+# Parcels mappings
+
+caddo_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'Parcels_Caddo_County_UTM14_NAD83_4326.shp'))
+
+caddo_mapping = {
+    'objectid' : 'OBJECTID',
+    'objectid_1' : 'OBJECTID_1',
+    'parcel_id' : 'PARCEL_ID',
+    'shape_leng' : 'Shape_Leng',
+    'rec_num' : 'REC_NUM',
+    'shape_le_1' : 'Shape_Le_1',
+    'shape_area' : 'Shape_Area',
+    'geom' : 'POLYGON',
+}
+
+
+cotton_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'Parcels_Cotton_County_4326.shp'))
 
 cotton_mapping = {
     'parcelid' : 'PARCELID',
@@ -30,20 +49,106 @@ cotton_mapping = {
     'geom' : 'POLYGON',
 }
 
-cotton_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'Parcels_Cotton_County_4326.shp'))
 
-caddo_mapping = {
+grady_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'Parcels_Grady_UTM14_NAD83_4326.shp'))
+
+grady_mapping = {
     'objectid' : 'OBJECTID',
-    'objectid_1' : 'OBJECTID_1',
-    'parcel_id' : 'PARCEL_ID',
+    'label' : 'LABEL',
+    'name' : 'NAME',
+    'acres' : 'ACRES',
+    'parcel' : 'PARCEL',
+    'mpin' : 'MPIN',
+    'problem' : 'PROBLEM',
     'shape_leng' : 'Shape_Leng',
-    'rec_num' : 'REC_NUM',
+    'shape_area' : 'Shape_Area',
+    'geom' : 'POLYGON',
+}
+
+
+jefferson_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'Parcels_Jefferson_UTM14_NAD83L_4326.shp'))
+
+jefferson_mapping = {
+    'objectid' : 'OBJECTID',
+    'label' : 'LABEL',
+    'name' : 'NAME',
+    'acres' : 'ACRES',
+    'parcel' : 'PARCEL',
+    'mpin' : 'MPIN',
+    'shape_leng' : 'Shape_Leng',
+    'shape_area' : 'Shape_Area',
+    'geom' : 'POLYGON',
+}
+
+
+kiowa_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'Parcels_Kiowa_County_UTM14_NAD83_4326.shp'))
+
+kiowa_mapping = {
+    'objectid_1' : 'OBJECTID_1',
+    'objectid' : 'OBJECTID',
+    'parcelnum' : 'PARCELNUM',
+    'shape_leng' : 'Shape_Leng',
+    'acreage' : 'acreage',
+    'parcelid' : 'ParcelID',
+    'owner' : 'Owner',
+    'addr1' : 'Addr1',
+    'addr2' : 'Addr2',
+    'city' : 'City',
+    'st' : 'St',
+    'zip' : 'Zip',
+    'school' : 'School',
+    'acres' : 'Acres',
+    'ownerperc' : 'OwnerPerc',
+    'mktland' : 'MktLand',
+    'assdland' : 'AssdLand',
+    'mktimp' : 'MktImp',
+    'assdimp' : 'AssdImp',
+    'mktother' : 'MktOther',
+    'assdother' : 'AssdOther',
+    'exemption' : 'Exemption',
+    'dblexempt' : 'DblExempt',
+    'image' : 'Image',
+    'legal' : 'Legal',
     'shape_le_1' : 'Shape_Le_1',
     'shape_area' : 'Shape_Area',
     'geom' : 'POLYGON',
 }
 
-caddo_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'Parcels_Caddo_County_UTM14_NAD83_4326.shp'))
+
+stephens_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'Parcels_Stephens_UTM14_NAD83_4326.shp'))
+
+stephens_mapping = {
+    'objectid' : 'OBJECTID',
+    'label' : 'LABEL',
+    'name' : 'NAME',
+    'acres' : 'ACRES',
+    'parcel' : 'PARCEL',
+    'mpin' : 'MPIN',
+    'account' : 'ACCOUNT',
+    'shape_leng' : 'Shape_Leng',
+    'shape_area' : 'Shape_Area',
+    'geom' : 'POLYGON',
+}
+
+
+tillman_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'Parcels_Tillman_County_UTM14_NAD83_4326.shp'))
+
+tillman_mapping = {
+    'objectid_1' : 'OBJECTID_1',
+    'objectid' : 'OBJECTID',
+    'label' : 'LABEL',
+    'owner' : 'OWNER',
+    'acres' : 'ACRES',
+    'parcel' : 'PARCEL',
+    'mpin' : 'MPIN',
+    'shape_leng' : 'Shape_Leng',
+    'shape_le_1' : 'Shape_Le_1',
+    'shape_area' : 'Shape_Area',
+    'geom' : 'POLYGON',
+}
+
+
+# Counties mapping
 
 counties_mapping = {
     'objectid' : 'OBJECTID',
@@ -109,17 +214,47 @@ counties_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', '
 
 def run(verbose=True):
 
-    cotton_lm = LayerMapping(
-        cotton, cotton_shp, cotton_mapping,
-        transform = False, encoding = 'iso-8859-1',
-    )
-
-    cotton_lm.save(strict=True, verbose=verbose)
     caddo_lm = LayerMapping(
         caddo, caddo_shp, caddo_mapping,
         transform = False, encoding = 'iso-8859-1',
     )
     caddo_lm.save(strict=True, verbose=verbose)
+
+    cotton_lm = LayerMapping(
+        cotton, cotton_shp, cotton_mapping,
+        transform = False, encoding = 'iso-8859-1',
+    )
+    cotton_lm.save(strict=True, verbose=verbose)
+ 
+    grady_lm = LayerMapping(
+        grady, grady_shp, grady_mapping,
+        transform = False, encoding = 'iso-8859-1',
+    )
+    grady_lm.save(strict=True, verbose=verbose)
+
+    jefferson_lm = LayerMapping(
+        jefferson, jefferson_shp, jefferson_mapping,
+        transform = False, encoding = 'iso-8859-1',
+    )
+    jefferson_lm.save(strict=True, verbose=verbose)
+
+    kiowa_lm = LayerMapping(
+        kiowa, kiowa_shp, kiowa_mapping,
+        transform = False, encoding = 'iso-8859-1',
+    )
+    kiowa_lm.save(strict=True, verbose=verbose)
+
+    stephens_lm = LayerMapping(
+        stephens, stephens_shp, stephens_mapping,
+        transform = False, encoding = 'iso-8859-1',
+    )
+    stephens_lm.save(strict=True, verbose=verbose)
+
+    tillman_lm = LayerMapping(
+        tillman, tillman_shp, tillman_mapping,
+        transform = False, encoding = 'iso-8859-1',
+    )
+    tillman_lm.save(strict=True, verbose=verbose)
 
     counties_lm = LayerMapping(
         counties, counties_shp, counties_mapping,

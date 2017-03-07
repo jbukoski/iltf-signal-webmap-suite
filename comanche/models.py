@@ -1,56 +1,7 @@
 from django.contrib.gis.db import models
 from django.contrib.gis import geos
 
-class cotton(models.Model):
-    cotton_id = models.AutoField(primary_key=True)
-    parcelid = models.CharField(max_length=34)
-    ag_acres = models.FloatField()
-    asd_acres = models.FloatField()
-    agparcelid = models.CharField(max_length=25)
-    parcelid_1 = models.CharField(max_length=254)
-    owner = models.CharField(max_length=254)
-    addr1 = models.CharField(max_length=254)
-    addr2 = models.CharField(max_length=254)
-    city = models.CharField(max_length=254)
-    st = models.CharField(max_length=254)
-    zip = models.CharField(max_length=254)
-    school = models.BigIntegerField()
-    acres = models.FloatField()
-    ownerperc = models.FloatField()
-    mktland = models.BigIntegerField()
-    assdland = models.BigIntegerField()
-    mktimp = models.BigIntegerField()
-    assdimp = models.BigIntegerField()
-    mktother = models.BigIntegerField()
-    assdother = models.BigIntegerField()
-    exemption = models.BigIntegerField()
-    dblexempt = models.BigIntegerField()
-    image = models.CharField(max_length=254)
-    legal = models.CharField(max_length=254)
-
-    geom = models.MultiPolygonField(srid=4326)
-
-    objects = models.GeoManager()
-
-    def __str__(self):
-        return '%s' % (self.parcelid)
-
-class caddo(models.Model):
-    caddo_id = models.AutoField(primary_key=True)
-    objectid = models.IntegerField()
-    objectid_1 = models.IntegerField()
-    parcel_id = models.CharField(max_length=50)
-    shape_leng = models.FloatField()
-    rec_num = models.CharField(max_length=10)
-    shape_le_1 = models.FloatField()
-    shape_area = models.FloatField()
-
-    geom = models.MultiPolygonField(srid=4326)
-
-    objects = models.GeoManager()
-
-    def __str__(self):
-        return '%s' % (self.objectid)
+# Counties model
 
 class counties(models.Model):
     counties_id = models.AutoField(primary_key=True)
@@ -110,6 +61,7 @@ class counties(models.Model):
     sqmi = models.FloatField()
     shape_leng = models.FloatField()
     shape_area = models.FloatField()
+
     geom = models.MultiPolygonField(srid=4326)
 
     objects = models.GeoManager()
@@ -117,3 +69,163 @@ class counties(models.Model):
     def __str__(self):
         return '%s' % (self.objectid)
 
+# Parcels models, in alphabetical order
+
+class cotton(models.Model):
+    cotton_id = models.AutoField(primary_key=True)
+    parcelid = models.CharField(max_length=34)
+    ag_acres = models.FloatField()
+    asd_acres = models.FloatField()
+    agparcelid = models.CharField(max_length=25)
+    parcelid_1 = models.CharField(max_length=254)
+    owner = models.CharField(max_length=254)
+    addr1 = models.CharField(max_length=254)
+    addr2 = models.CharField(max_length=254)
+    city = models.CharField(max_length=254)
+    st = models.CharField(max_length=254)
+    zip = models.CharField(max_length=254)
+    school = models.BigIntegerField()
+    acres = models.FloatField()
+    ownerperc = models.FloatField()
+    mktland = models.BigIntegerField()
+    assdland = models.BigIntegerField()
+    mktimp = models.BigIntegerField()
+    assdimp = models.BigIntegerField()
+    mktother = models.BigIntegerField()
+    assdother = models.BigIntegerField()
+    exemption = models.BigIntegerField()
+    dblexempt = models.BigIntegerField()
+    image = models.CharField(max_length=254)
+    legal = models.CharField(max_length=254)
+
+    geom = models.MultiPolygonField(srid=4326)
+
+    objects = models.GeoManager()
+
+    def __str__(self):
+        return '%s' % (self.parcelid)
+
+class caddo(models.Model):
+    caddo_id = models.AutoField(primary_key=True)
+    objectid = models.IntegerField()
+    objectid_1 = models.IntegerField()
+    parcel_id = models.CharField(max_length=50)
+    shape_leng = models.FloatField()
+    rec_num = models.CharField(max_length=10)
+    shape_le_1 = models.FloatField()
+    shape_area = models.FloatField()
+
+    geom = models.MultiPolygonField(srid=4326)
+
+    objects = models.GeoManager()
+
+    def __str__(self):
+        return '%s' % (self.objectid)
+
+class grady(models.Model):
+    objectid = models.IntegerField()
+    label = models.CharField(max_length=5)
+    name = models.CharField(max_length=24)
+    acres = models.CharField(max_length=24)
+    parcel = models.CharField(max_length=24)
+    mpin = models.CharField(max_length=21)
+    problem = models.CharField(max_length=12)
+    shape_leng = models.FloatField()
+    shape_area = models.FloatField()
+
+    geom = models.MultiPolygonField(srid=4326)
+
+    objects = models.GeoManager()
+
+    def __str__(self):
+        return '%s' % (self.objectid)
+
+class jefferson(models.Model):
+    objectid = models.IntegerField()
+    label = models.CharField(max_length=3)
+    name = models.CharField(max_length=24)
+    acres = models.CharField(max_length=24)
+    parcel = models.CharField(max_length=24)
+    mpin = models.CharField(max_length=21)
+    shape_leng = models.FloatField()
+    shape_area = models.FloatField()
+
+    geom = models.MultiPolygonField(srid=4326)
+
+    objects = models.GeoManager()
+
+    def __str__(self):
+        return '%s' % (self.objectid)
+
+class kiowa(models.Model):
+    objectid_1 = models.IntegerField()
+    objectid = models.IntegerField()
+    parcelnum = models.CharField(max_length=254)
+    shape_leng = models.FloatField()
+    acreage = models.FloatField()
+    parcelid = models.CharField(max_length=254)
+    owner = models.CharField(max_length=254)
+    addr1 = models.CharField(max_length=254)
+    addr2 = models.CharField(max_length=254)
+    city = models.CharField(max_length=254)
+    st = models.CharField(max_length=254)
+    zip = models.CharField(max_length=254)
+    school = models.CharField(max_length=254)
+    acres = models.FloatField()
+    ownerperc = models.FloatField()
+    mktland = models.IntegerField()
+    assdland = models.IntegerField()
+    mktimp = models.IntegerField()
+    assdimp = models.IntegerField()
+    mktother = models.IntegerField()
+    assdother = models.IntegerField()
+    exemption = models.IntegerField()
+    dblexempt = models.IntegerField()
+    image = models.CharField(max_length=254)
+    legal = models.CharField(max_length=254)
+    shape_le_1 = models.FloatField()
+    shape_area = models.FloatField()
+
+    geom = models.MultiPolygonField(srid=4326)
+
+    objects = models.GeoManager()
+
+    def __str__(self):
+        return '%s' % (self.objectid)
+
+class stephens(models.Model):
+    objectid = models.IntegerField()
+    label = models.CharField(max_length=5)
+    name = models.CharField(max_length=24)
+    acres = models.CharField(max_length=24)
+    parcel = models.CharField(max_length=24)
+    mpin = models.CharField(max_length=21)
+    account = models.CharField(max_length=9)
+    shape_leng = models.FloatField()
+    shape_area = models.FloatField()
+
+    geom = models.MultiPolygonField(srid=4326)
+
+    objects = models.GeoManager()
+
+    def __str__(self):
+        return '%s' % (self.objectid)
+
+class tillman(models.Model):
+    objectid_1 = models.IntegerField()
+    objectid = models.IntegerField()
+    label = models.CharField(max_length=5)
+    owner = models.CharField(max_length=24)
+    acres = models.CharField(max_length=24)
+    parcel = models.CharField(max_length=24)
+    mpin = models.CharField(max_length=21)
+    shape_leng = models.FloatField()
+    shape_le_1 = models.FloatField()
+    shape_area = models.FloatField()
+
+    geom = models.MultiPolygonField(srid=4326)
+
+    objects = models.GeoManager()
+
+    def __str__(self):
+        return '%s' % (self.objectid)
