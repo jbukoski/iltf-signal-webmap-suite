@@ -89,4 +89,15 @@ class soil_ph(models.Model):
     def __str__(self):
         return '%s' % (self.ph_id)
 
+# User-defined layers
 
+class user_pts(models.Model):
+    point_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=30)
+    comment = models.CharField(max_length=100)
+    geom = models.MultiPointField(srid=4326)
+
+    objects = models.GeoManager()
+
+    def __str__(self):
+        return '%s' % (self.point_id)

@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
-from .models import boundary, mbls, roads, bulk_density, soil_ph
+from .models import boundary, mbls, roads, bulk_density, soil_ph, user_pts
 from django.core.serializers import serialize
 import json
 
@@ -33,4 +33,6 @@ def soil_ph_view(request):
     soil_ph_json = serialize('geojson', soil_ph.objects.all(), geometry_field="geom", fields=('phwater'))
     return HttpResponse(soil_ph_json, content_type='json')
 
-
+def user_points_view(request):
+    user_pt_json = serialize('geojson', user_pts.objects.all(), geometry_field="geom", fields=('name', 'comment'))
+    return HttpResponse(user_pt_json, content_type='json')

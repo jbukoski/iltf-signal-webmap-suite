@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^roads/', views.roads_view, name='roads'),
     url(r'^bulk_density/', views.bulk_density_view, name='bulk_density'),
     url(r'^soil_ph/', views.soil_ph_view, name='soil_ph'),
+    url(r'^user_pts/', views.user_points_view, name='user_points'),
 ]

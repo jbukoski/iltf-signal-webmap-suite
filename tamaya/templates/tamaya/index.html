@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block side_bar %}
 
@@ -80,6 +81,30 @@
 				    </div>
 				</div>
                             </div>  
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#veg-layers">
+                                        User-defined Layers
+                                    </a>
+                                </div>
+                                <div id="veg-layers" class="panel-collapse collapse in">
+                                    <div class="panel-body" style="padding: 0px 15px;">
+                                        <div class="checkbox">    
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="user_points" z-index="3">
+                                                &nbsp User points                                        
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="user_polygons" z-index="3">
+                                                &nbsp User polygons
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 			    <!--<div class="panel panel-default">
                                 <div class="panel-heading">
@@ -263,7 +288,7 @@
                             weight: 2,
                             color: '#4FE11E',
                             fill: true,
-                            fillOpacity: 0.1,
+                            fillOpacity: 0.2,
                         };
                     };
                     if (feature.properties.comment === "Prairie Star") {
@@ -272,7 +297,7 @@
                             weight: 2,
                             color: '#e8f73e',
                             fill: true,
-                            fillOpacity: 0.1,
+                            fillOpacity: 0.2,
                         };
                     };
                     if (feature.properties.comment === "Santa Ana Golf / Star Casino") {
@@ -281,7 +306,7 @@
                             weight: 2,
                             color: '#A73BC8',
                             fill: true,
-                            fillOpacity: 0.1,
+                            fillOpacity: 0.2,
                         };
                     };
 		    if (feature.properties.comment === "Southern Sandoval Investments") {
@@ -290,7 +315,7 @@
                             weight: 2,
                             color: '#FF7F00',
                             fill: true,
-                            fillOpacity: 0.1,
+                            fillOpacity: 0.2,
                         };
                     };
 		    if (feature.properties.comment === "Twin Warriors") {
@@ -299,7 +324,7 @@
                             weight: 2,
                             color: '#DB5373',
                             fill: true,
-                            fillOpacity: 0.1,
+                            fillOpacity: 0.2,
                         };
                     };
                 },
@@ -354,6 +379,17 @@
     var soil_vector = {% autoescape off %}{{ ph_json }}{% endautoescape %};
 */
 
+    var user_points = new L.GeoJSON.AJAX("{% url 'user_points' %}", {
+        style: {clickable: true,
+        },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "</br>" +
+                "<strong>Comment:&nbsp;</strong>" + feature.properties.comment.toString()
+            );
+        },
+    });
+
 ////////////////////////////
 ////// Leaflet Map /////////
 ////////////////////////////
@@ -375,13 +411,24 @@
     var drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
 
+    L.control.scale().addTo(map);
+    L.easyPrint().addTo(map);
+
+    var north = L.control({position: "bottomright"});
+    north.onAdd = function(map) {
+        var div = L.DomUtil.create("div", "info legend");
+        div.innerHTML = '<img src="{% static '/img/north_arrow.png' %}" height = "40" width = "40">';
+        return div;
+    }
+    north.addTo(map);
+
     // Specify some custom options for the Drawing tools
 
-	var drawOptions = {
-	draw: {
-		polygon: {
-			showArea: true
-			}
+    var drawOptions = {
+    draw: {
+        polygon: {
+            showArea: true
+          }
 	},
 	edit: {
 		featureGroup: drawnItems
