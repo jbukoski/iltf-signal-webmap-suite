@@ -25,7 +25,7 @@ SECRET_KEY = 'p$hzb%-=ecua%)#%@_1l9*+scl4zsv+-s#_=4&ptj7p3l3h!td'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['iltf.sig-gis.com']
+ALLOWED_HOSTS = ['iltf.sig-gis.com', '127.0.0.1']
 
 
 # Application definition

@@ -3,6 +3,8 @@
 
 {% block side_bar %}
 
+    <title>Santa Ana Pueblo Land & Natural Assets Map</title>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle btn" data-toggle="collapse" data-target=".navbar-collapse" style="height: 34px; padding: 5px 10px; margin-right: 10px;"><i class="fa fa-ellipsis-v" style="color: white"></i></button>
@@ -412,7 +414,7 @@
     map.addLayer(drawnItems);
 
     L.control.scale().addTo(map);
-    L.easyPrint().addTo(map);
+//    L.easyPrint().addTo(map);
 
     var north = L.control({position: "bottomright"});
     north.onAdd = function(map) {
