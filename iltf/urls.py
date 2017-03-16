@@ -8,11 +8,10 @@ from comanche.admin import comanche_admin
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^iltf.sig-gis/admin/', admin.site.urls),
-    url(r'^tamaya.sig-gis/', include('tamaya.urls')),
-    url(r'^tamaya.sig-gis/admin', include(tamaya_admin.urls)),
-    url(r'^comanche.sig-gis/', include('comanche.urls')),
-    url(r'^comanche.sig-gis/admin', include(comanche_admin.urls)),
-]
+url(r'^admin/', admin.site.urls),
+url(r'^tamaya/', include('tamaya.urls')),
+url(r'^tamaya/admin/', include(tamaya_admin.urls)),
+url(r'^comanche/', include('comanche.urls')),
+url(r'^comanche/admin/', include(comanche_admin.urls)),]
 
 urlpatterns += staticfiles_urlpatterns()

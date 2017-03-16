@@ -25,7 +25,7 @@ SECRET_KEY = 'p$hzb%-=ecua%)#%@_1l9*+scl4zsv+-s#_=4&ptj7p3l3h!td'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['iltf.sig-gis.com']
 
 
 # Application definition
@@ -93,6 +93,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
         'USER': 'postgres',
+        'PASSWORD': 'sig_pass',
     }
 }
 
