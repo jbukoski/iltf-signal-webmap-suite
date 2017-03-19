@@ -83,7 +83,7 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="org_matter" z-index="3">
-                                                &nbsp Organic matter (%)
+                                                &nbsp Organic matter
                                             </label>
                                         </div>
                                         <div class="checkbox">
@@ -101,7 +101,7 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="texture" z-index="3">
-                                                &nbsp Soil texture
+                                                &nbsp Texture
                                             </label>
                                         </div>
 				    </div>
@@ -120,6 +120,12 @@
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="user_points" z-index="3">
                                                 &nbsp User points                                        
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="user_lines" z-index="3">
+                                                &nbsp User lines
                                             </label>
                                         </div>
                                         <div class="checkbox">
@@ -381,21 +387,17 @@
 
     var bulkDens = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
-		    switch (feature.properties.bulk_densi) {
-			case 1.25: return {color: "#ffffff", fillColor: "#E3CE9F", fillOpacity: 0.8, weight:1};
-			case 1.4: return {color: "#ffffff", fillColor: "#DBC593", fillOpacity: 0.8, weight: 1};
-			case 1.41: return {color: "#ffffff", fillColor: '#D4BC88', fillOpacity: 0.8, weight: 1};
-			case 1.42: return {color: "#ffffff", fillColor: '#CCB37C', fillOpacity: 0.8, weight: 1};
-			case 1.43: return {color: "#ffffff", fillColor: '#C5AB71', fillOpacity: 0.8, weight: 1};
-			case 1.48: return {color: "#ffffff", fillColor: '#BDA266', fillOpacity: 0.8, weight: 1};
-			case 1.5: return {color: "#ffffff", fillColor: '#B6995A', fillOpacity: 0.8, weight: 1};
-			case 1.51: return {color: "#ffffff", fillColor: '#AF914F', fillOpacity: 0.8, weight: 1};
-			case 1.52: return {color: "#ffffff", fillColor: '#A78844', fillOpacity: 0.8, weight: 1};
-			case 1.55: return {color: "#ffffff", fillColor: '#A07F38', fillOpacity: 0.8, weight: 1};
-			case 1.57: return {color: "#ffffff", fillColor: '#98762D', fillOpacity: 0.8, weight: 1};
-			case 1.6: return {color: "#ffffff", fillColor: '#916E22', fillOpacity: 0.8, weight: 1};
-			case 1.69: return {color: "#ffffff", fillColor: '#896516', fillOpacity: 0.8, weight: 1};
-			case 1.7: return {color: "#ffffff", fillColor: '#825C0B', fillOpacity: 0.8, weight: 1};
+		    switch (true) {
+                        case (feature.properties.bulk_densi <= 1.3): 
+                            return {color: "#ffffff", fillColor: "#E3CE9F", fill: true, fillOpacity: 0.8, weight: 0.8};
+                        case (feature.properties.bulk_densi > 1.3 && feature.properties.bulk_densi <= 1.4): 
+                            return {color: "#ffffff", fillColor: "#C5AB71", fill: true, fillOpacity: 0.8, weight: 0.8};
+                        case (feature.properties.bulk_densi > 1.4 && feature.properties.bulk_densi <= 1.5): 
+                            return {color: "#ffffff", fillColor: "#B6995A", fill: true, fillOpacity: 0.8, weight: 0.8};
+                        case (feature.properties.bulk_densi > 1.5 && feature.properties.bulk_densi <= 1.6): 
+                            return {color: "#ffffff", fillColor: "#A07F38", fill: true, fillOpacity: 0.8, weight: 0.8};
+                        case (feature.properties.bulk_densi > 1.6): 
+                            return {color: "#ffffff", fillColor: "#825C0B", fill: true, fillOpacity: 0.8, weight: 0.8};
 			}
         },
         onEachFeature: function(feature, layer) {                        
@@ -410,10 +412,10 @@
     var composting = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
                     switch (feature.properties.composting) {
-                        case 'Poor': return {color: "#BC3812", fill: true, fillOpacity: 0.8};
-                        case 'Fair': return {color: "#553ADB", fill: true, fillOpacity: 0.8};
-                        case 'Good': return {color: '#08794E', fill: true, fillOpacity: 0.8};
-                        case 'Not rated': return {color: '#B2C7EE', fill: true, fillOpacity: 0.8};
+                        case 'Poor': return {color: "#ffffff", fillColor: "#BC3812", fill: true, fillOpacity: 0.8, weight: 0.8};
+                        case 'Fair': return {color: "#ffffff", fillColor: "#553ADB", fill: true, fillOpacity: 0.8, weight: 0.8};
+                        case 'Good': return {color: "#ffffff", fillColor: '#08794E', fill: true, fillOpacity: 0.8, weight: 0.8};
+                        case 'Not rated': return {color: "#ffffff", fillColor: '#B2C7EE', fill: true, fillOpacity: 0.8, weight: 0.8};
                         }
         },
         onEachFeature: function(feature, layer) {                        
@@ -427,22 +429,29 @@
 
     var org_matter = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
-                    switch (feature.properties.org_matter) {
-                        case 'Poor': return {color: "#ffffff", fillColor: "#E3CE9F", fillOpacity: 0.8, weight:1};
-                        case 'Fair': return {color: "#ffffff", fillColor: "#DBC593", fillOpacity: 0.8, weight: 1};
-                        case 'Good': return {color: "#ffffff", fillColor: '#D4BC88', fillOpacity: 0.8, weight: 1};
-                        case 'Not rated': return {color: "#ffffff", fillColor: '#CCB37C', fillOpacity: 0.8, weight: 1};
-                        }
+                   switch (true) {
+                       case (feature.properties.org_matter > 1.5): 
+                           return {color: "#ffffff", fillColor: '#397D02', fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.org_matter > 1.25 && feature.properties.org_matter <= 1.5): 
+                           return {color: "#ffffff", fillColor: "#567E3A", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.org_matter > 1.00 && feature.properties.org_matter <= 1.25): 
+                           return {color: "#ffffff", fillColor: "#61B329", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.org_matter > 0.75 && feature.properties.org_matter <= 1.00): 
+                           return {color: "#ffffff", fillColor: "#A6D785", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.org_matter > 0.5 && feature.properties.org_matter <= 0.75): 
+                           return {color: "#ffffff", fillColor: "#8AA37B", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       default: 
+                           return {color: "#ffffff", fillColor: "#687E5A", fill: true, fillOpacity: 0.8, weight: 0.8};
+                   }
         },
         onEachFeature: function(feature, layer) {                        
             layer.bindPopup(
                 "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
-                "</br><strong>Organic matter:&nbsp;</strong>" + feature.properties.org_matter, {
+                "</br><strong>Organic matter:&nbsp;</strong>" + feature.properties.org_matter + "&nbsp;(%)", {
                 closeButton: false
             });
         },
     });
-
 
     var soil_ph = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
@@ -469,7 +478,29 @@
     });
 
     var taxonomy = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
-        style: {color: '#040289' 
+        style: function(feature) {
+                   switch (true) {
+                       case (feature.properties.tax_class.includes("Calciorthids")): 
+                           return {color: "#ffffff", fillColor: "#d12ea1", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.tax_class.includes("Haplargids")): 
+                           return {color: "#ffffff", fillColor: "#3a2466", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.tax_class.includes("Haplustalfs")): 
+                           return {color: "#ffffff", fillColor: "#1c1ed1", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.tax_class.includes("Torrifluvents")): 
+                           return {color: "#ffffff", fillColor: "#a17153", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.tax_class.includes("Torriorthents")): 
+                           return {color: "#ffffff", fillColor: "#f17369", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.tax_class.includes("Torripsamments")): 
+                           return {color: "#ffffff", fillColor: "#55360c", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.tax_class.includes("Ustifluvents")): 
+                           return {color: "#ffffff", fillColor: "#7f4a21", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.tax_class.includes("Ustipsamments")): 
+                           return {color: "#ffffff", fillColor: "#58f171", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.tax_class.includes("Ustorthents")): 
+                           return {color: "#ffffff", fillColor: "#7c607c", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       default:
+                           return {color: "#ffffff", fillColor: "#ffffff", fill: true, fillOpacity: 0.8, weight: 0.8}; 
+                   }
                },
         onEachFeature: function(feature, layer) {                        
             layer.bindPopup(
@@ -482,17 +513,26 @@
 
     var texture = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
-                    switch (feature.properties.texture) {
-                        case 7: return {color: "#ffffff", fillColor: "#d7191c", fillOpacity: 0.8, weight: 1};
-                        case 7.1: return {color: "#ffffff", fillColor: "#e65437", fillOpacity: 0.8, weight: 1};
-                        case 7.3: return {color: "#ffffff", fillColor: '#f59053', fillOpacity: 0.8, weight: 1};
-                        case 7.5: return {color: "#ffffff", fillColor: '#fdbe73', fillOpacity: 0.8, weight: 1};
-                        case 7.6: return {color: "#ffffff", fillColor: '#fede99', fillOpacity: 0.8, weight: 1};
-                        case 7.7: return {color: "#ffffff", fillColor: '#ffffbf', fillOpacity: 0.8, weight: 1};
-                        case 7.8: return {color: "#ffffff", fillColor: '#ddf1bf', fillOpacity: 0.8, weight: 1};
-                        case 7.9: return {color: "#ffffff", fillColor: '#bbe3a9', fillOpacity: 0.8, weight: 1};
-                        case 8.0: return {color: "#ffffff", fillColor: '#91cba8', fillOpacity: 0.8, weight: 1};
-                        case 8.1: return {color: "#ffffff", fillColor: '#5ea781', fillOpacity: 0.8, weight: 1};
+                    switch (true) {
+                       case (feature.properties.texture.toLowerCase().includes("clay loam")): 
+                           return {color: "#ffffff", fillColor: "#CCCC00", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.texture.toLowerCase().includes("cobbly loam")): 
+                           return {color: "#ffffff", fillColor: "#999900", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.texture.toLowerCase().includes("fine sand")): 
+                           return {color: "#ffffff", fillColor: "#ffd700", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.texture.toLowerCase().includes("loam")): 
+                           return {color: "#ffffff", fillColor: "#FFFF00", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.texture.toLowerCase().includes("loamy sand")): 
+                           return {color: "#ffffff", fillColor: "#ffa500", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.texture.toLowerCase().includes("sand")): 
+                           return {color: "#ffffff", fillColor: "#ff8c00", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.texture.toLowerCase().includes("sandy loam")): 
+                           return {color: "#ffffff", fillColor: "#FFFF66", fill: true, fillOpacity: 0.8, weight: 0.8};
+                       case (feature.properties.texture.toLowerCase().includes("stony loam")): 
+                           return {color: "#ffffff", fillColor: "#666600", fill: true, fillOpacity: 0.8, weight: 0.8};
+
+                       default:
+                           return {color: "#ffffff", fillColor: "#ffffff", fill: true, fillOpacity: 0.8, weight: 0.8};
                     }
         },
         onEachFeature: function(feature, layer) {                        
@@ -503,6 +543,8 @@
             });
         }, 
     });
+
+////// User defined layers //////
 
     var user_points = new L.GeoJSON.AJAX("{% url 'user_points' %}", {
         style: {clickable: true,

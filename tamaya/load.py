@@ -47,7 +47,7 @@ roads_mapping = {
     'geom' : 'MULTILINESTRING',
 }
 
-roads_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'reservation_roads.shp'))
+roads_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'reservation_roads_simplified.shp'))
 
 # Soil layer mappings and shapefiles
 
