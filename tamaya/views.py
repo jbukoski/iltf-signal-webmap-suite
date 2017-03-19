@@ -1,16 +1,14 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
-from .models import boundary, mbls, roads, bulk_density, soil_ph, user_pts
+from .models import boundary, mbls, roads, soil_data, user_pts
 from django.core.serializers import serialize
 import json
 
 def index(request):
     bndry = boundary.objects.all()
-    ph_json = serialize('geojson', soil_ph.objects.all(), geometry_field="geom", fields=('phwater'))
     return render(request, 'tamaya/index.html', {
         'title': 'Santa Ana Pueblo of NM',
         'bndry': bndry,
-        'ph_json': ph_json,
     })
 
 def boundary_view(request):
@@ -25,14 +23,18 @@ def roads_view(request):
     roads_json = serialize('geojson', roads.objects.all(), geometry_field="geom", fields=('name', 'surface', 'comment', 'condition', 'id'))
     return HttpResponse(roads_json, content_type='json')
 
-def bulk_density_view(request):
-    bulk_density_json = serialize('geojson', bulk_density.objects.all(), geometry_field="geom", fields=('db3rdbar'))
-    return HttpResponse(bulk_density_json, content_type='json')
-
-def soil_ph_view(request):
-    soil_ph_json = serialize('geojson', soil_ph.objects.all(), geometry_field="geom", fields=('phwater'))
-    return HttpResponse(soil_ph_json, content_type='json')
+def soil_data_view(request):
+    soil_data_json = serialize('geojson', soil_data.objects.all(), geometry_field="geom", fields=('poly_id','tax_class', 'org_matter', 'composting', 'texture', 'ph_water', 'bulk_densi'))
+    return HttpResponse(soil_data_json, content_type='json')
 
 def user_points_view(request):
     user_pt_json = serialize('geojson', user_pts.objects.all(), geometry_field="geom", fields=('name', 'comment'))
     return HttpResponse(user_pt_json, content_type='json')
+
+# Downloads
+
+#def boundary_dl(request):
+#    zip_file = open(), 'r')
+#    response = HttpResponse(zip_file, content_type = 'application/force-download')
+#    response['Content-Disposition'] = 'attachment; filename="bulk_density_1_3_bar.zip"'
+#    return response

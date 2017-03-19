@@ -1,6 +1,6 @@
 import os
 from django.contrib.gis.utils import LayerMapping
-from .models import boundary, mbls, roads, bulk_density, soil_ph
+from .models import boundary, mbls, roads, soil_data
 
 # Admin mappings and shapefiles
 
@@ -51,29 +51,23 @@ roads_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'res
 
 # Soil layer mappings and shapefiles
 
-bulk_density_mapping = {
+soil_data_mapping = {
+    'poly_id' : 'poly_id',
     'areasymbol' : 'AREASYMBOL',
     'spatialver' : 'SPATIALVER',
     'musym' : 'MUSYM',
     'mukey' : 'MUKEY',
     'mukey_1' : 'MUKEY_1',
-    'db3rdbar' : 'Db3rdbar',
-    'geom' : 'MULTIPOLYGON',
-}
-
-bulk_density_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'bulk_density_1_3_bar.shp'))
-
-soil_ph_mapping = {
-    'areasymbol' : 'AREASYMBOL',
-    'spatialver' : 'SPATIALVER',
-    'musym' : 'MUSYM',
-    'mukey' : 'MUKEY',
-    'mukey_1' : 'MUKEY_1',
-    'phwater' : 'pHwater',
+    'tax_class' : 'tax_class',
+    'org_matter' : 'org_matter',
+    'composting' : 'composting',
+    'texture' : 'texture',
+    'ph_water' : 'ph_water',
+    'bulk_densi' : 'bulk_densi',
     'geom' : 'POLYGON',
 }
 
-soil_ph_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'pH_surface_weighted_average.shp'))
+soil_data_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'tamaya_soil_data.shp'))
 
 def run(verbose=True):
 
@@ -95,15 +89,8 @@ def run(verbose=True):
     )
     roads_lm.save(strict=True, verbose=verbose)
 
-    bulk_density_lm = LayerMapping(
-        bulk_density, bulk_density_shp, bulk_density_mapping,
+    soil_data_lm = LayerMapping(
+        soil_data, soil_data_shp, soil_data_mapping,
         transform=False, encoding='iso-8859-1',
     )
-    bulk_density_lm.save(strict=True, verbose=verbose)
-
-    soil_ph_lm = LayerMapping(
-        soil_ph, soil_ph_shp, soil_ph_mapping,
-        transform=False, encoding='iso-8859-1',
-    )
-    soil_ph_lm.save(strict=True, verbose=verbose)
-
+    soil_data_lm.save(strict=True, verbose=verbose)

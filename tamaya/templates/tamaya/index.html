@@ -71,13 +71,37 @@
 					<div class="checkbox">    
 					    <label>                                               
                                                 <input type="checkbox" name="overlayLayers" id="bulkDens" z-index="3">
-                                                &nbsp Soil bulk density				
+                                                &nbsp Bulk density				
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="composting" z-index="3">
+                                                &nbsp Composting, medium and final cover
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="org_matter" z-index="3">
+                                                &nbsp Organic matter (%)
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="soil_ph" z-index="3">
-                                                &nbsp Soil surface pH, weighted average
+                                                &nbsp Surface pH, weighted average
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="taxonomy" z-index="3">
+                                                &nbsp Taxonomic classification
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="texture" z-index="3">
+                                                &nbsp Soil texture
                                             </label>
                                         </div>
 				    </div>
@@ -229,7 +253,7 @@
 			<h3>Download Data Layers:</h3>
 			    <p> The data layers displayed on this webmap can be downloaded for use in desktop GIS software here.</p>
 			    </br>
-			    <!--<h4><strong>Soil layers</strong></h4>
+			    <h4><strong>Soil layers</strong></h4>
 			        <ul>
                     		    <li><a href="./downloads/ph_surface_weighted_average.zip">Soil surface pH, weighted average</a></li>
 				    <li><a href="./downloads/bulk_density_1_3_bar.zip">Soil bulk density</a></li>
@@ -241,7 +265,7 @@
 			    <h4><strong>Vegetation layers</strong></h4>
 			        <ul>
                     		    <li><a href="./downloads/landfire-evt-tamaya.tif">Existing vegetation type, LANDFIRE</a></li>
-				</ul>-->
+				</ul>
 			    </br>
 			    </br>
                                           
@@ -290,7 +314,7 @@
                             weight: 2,
                             color: '#4FE11E',
                             fill: true,
-                            fillOpacity: 0.2,
+                            fillOpacity: 0.5,
                         };
                     };
                     if (feature.properties.comment === "Prairie Star") {
@@ -299,7 +323,7 @@
                             weight: 2,
                             color: '#e8f73e',
                             fill: true,
-                            fillOpacity: 0.2,
+                            fillOpacity: 0.5,
                         };
                     };
                     if (feature.properties.comment === "Santa Ana Golf / Star Casino") {
@@ -308,7 +332,7 @@
                             weight: 2,
                             color: '#A73BC8',
                             fill: true,
-                            fillOpacity: 0.2,
+                            fillOpacity: 0.5,
                         };
                     };
 		    if (feature.properties.comment === "Southern Sandoval Investments") {
@@ -317,7 +341,7 @@
                             weight: 2,
                             color: '#FF7F00',
                             fill: true,
-                            fillOpacity: 0.2,
+                            fillOpacity: 0.5,
                         };
                     };
 		    if (feature.properties.comment === "Twin Warriors") {
@@ -326,7 +350,7 @@
                             weight: 2,
                             color: '#DB5373',
                             fill: true,
-                            fillOpacity: 0.2,
+                            fillOpacity: 0.5,
                         };
                     };
                 },
@@ -355,31 +379,130 @@
         },
     });
 
-/*
-    var bulkDens = new L.GeoJSON.AJAX("{% url 'bulk_density' %}", {
-        style: { clickable: true,
-                 weight: 1.5,
-                 dashArray: 1,
-                 opacity: 0.6,
-                 fill: false,
-               }
+    var bulkDens = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
+        style: function(feature) {
+		    switch (feature.properties.bulk_densi) {
+			case 1.25: return {color: "#ffffff", fillColor: "#E3CE9F", fillOpacity: 0.8, weight:1};
+			case 1.4: return {color: "#ffffff", fillColor: "#DBC593", fillOpacity: 0.8, weight: 1};
+			case 1.41: return {color: "#ffffff", fillColor: '#D4BC88', fillOpacity: 0.8, weight: 1};
+			case 1.42: return {color: "#ffffff", fillColor: '#CCB37C', fillOpacity: 0.8, weight: 1};
+			case 1.43: return {color: "#ffffff", fillColor: '#C5AB71', fillOpacity: 0.8, weight: 1};
+			case 1.48: return {color: "#ffffff", fillColor: '#BDA266', fillOpacity: 0.8, weight: 1};
+			case 1.5: return {color: "#ffffff", fillColor: '#B6995A', fillOpacity: 0.8, weight: 1};
+			case 1.51: return {color: "#ffffff", fillColor: '#AF914F', fillOpacity: 0.8, weight: 1};
+			case 1.52: return {color: "#ffffff", fillColor: '#A78844', fillOpacity: 0.8, weight: 1};
+			case 1.55: return {color: "#ffffff", fillColor: '#A07F38', fillOpacity: 0.8, weight: 1};
+			case 1.57: return {color: "#ffffff", fillColor: '#98762D', fillOpacity: 0.8, weight: 1};
+			case 1.6: return {color: "#ffffff", fillColor: '#916E22', fillOpacity: 0.8, weight: 1};
+			case 1.69: return {color: "#ffffff", fillColor: '#896516', fillOpacity: 0.8, weight: 1};
+			case 1.7: return {color: "#ffffff", fillColor: '#825C0B', fillOpacity: 0.8, weight: 1};
+			}
+        },
+        onEachFeature: function(feature, layer) {                        
+            layer.bindPopup(
+                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
+                "</br><strong>Bulk density:&nbsp;</strong>" + feature.properties.bulk_densi, {
+                closeButton: false
+            });
+        },
     });
 
-    var soil_ph = new L.GeoJSON.AJAX("{% url 'soil_ph' %}", {
-        style: {clickable: true,
-                 weight: 1.5,
-                 dashArray: 1,
-                 opacity: 0.6,
-                 fill: false,
-               }
+    var composting = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
+        style: function(feature) {
+                    switch (feature.properties.composting) {
+                        case 'Poor': return {color: "#BC3812", fill: true, fillOpacity: 0.8};
+                        case 'Fair': return {color: "#553ADB", fill: true, fillOpacity: 0.8};
+                        case 'Good': return {color: '#08794E', fill: true, fillOpacity: 0.8};
+                        case 'Not rated': return {color: '#B2C7EE', fill: true, fillOpacity: 0.8};
+                        }
+        },
+        onEachFeature: function(feature, layer) {                        
+            layer.bindPopup(
+                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
+                "</br><strong>Composting cover:&nbsp;</strong>" + feature.properties.composting, {
+                closeButton: false
+            });
+        },
     });
 
-    var soil_vector1 = new L.GeoJSON.AJAX("{% url 'soil_ph' %}");
+    var org_matter = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
+        style: function(feature) {
+                    switch (feature.properties.org_matter) {
+                        case 'Poor': return {color: "#ffffff", fillColor: "#E3CE9F", fillOpacity: 0.8, weight:1};
+                        case 'Fair': return {color: "#ffffff", fillColor: "#DBC593", fillOpacity: 0.8, weight: 1};
+                        case 'Good': return {color: "#ffffff", fillColor: '#D4BC88', fillOpacity: 0.8, weight: 1};
+                        case 'Not rated': return {color: "#ffffff", fillColor: '#CCB37C', fillOpacity: 0.8, weight: 1};
+                        }
+        },
+        onEachFeature: function(feature, layer) {                        
+            layer.bindPopup(
+                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
+                "</br><strong>Organic matter:&nbsp;</strong>" + feature.properties.org_matter, {
+                closeButton: false
+            });
+        },
+    });
 
-    var soil_vector2 = $.getJSON("{% url 'soil_ph' %}");
 
-    var soil_vector = {% autoescape off %}{{ ph_json }}{% endautoescape %};
-*/
+    var soil_ph = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
+        style: function(feature) {
+		    switch (feature.properties.ph_water) {
+			case 7: return {color: "#ffffff", fillColor: "#d7191c", fillOpacity: 0.8, weight: 1};
+			case 7.1: return {color: "#ffffff", fillColor: "#e65437", fillOpacity: 0.8, weight: 1};
+			case 7.3: return {color: "#ffffff", fillColor: '#f59053', fillOpacity: 0.8, weight: 1};
+			case 7.5: return {color: "#ffffff", fillColor: '#fdbe73', fillOpacity: 0.8, weight: 1};
+			case 7.6: return {color: "#ffffff", fillColor: '#fede99', fillOpacity: 0.8, weight: 1};
+			case 7.7: return {color: "#ffffff", fillColor: '#ffffbf', fillOpacity: 0.8, weight: 1};
+			case 7.8: return {color: "#ffffff", fillColor: '#ddf1bf', fillOpacity: 0.8, weight: 1};
+			case 7.9: return {color: "#ffffff", fillColor: '#bbe3a9', fillOpacity: 0.8, weight: 1};
+			case 8.0: return {color: "#ffffff", fillColor: '#91cba8', fillOpacity: 0.8, weight: 1};
+			case 8.1: return {color: "#ffffff", fillColor: '#5ea781', fillOpacity: 0.8, weight: 1};
+                    }
+        },
+        onEachFeature: function(feature, layer) {                        
+            layer.bindPopup(
+                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
+                "</br><strong>Soil pH:&nbsp;</strong>" + feature.properties.ph_water, {
+                closeButton: false
+            });
+        }, 
+    });
+
+    var taxonomy = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
+        style: {color: '#040289' 
+               },
+        onEachFeature: function(feature, layer) {                        
+            layer.bindPopup(
+                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
+                "</br><strong>Taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
+                closeButton: false
+            });
+        }, 
+    });
+
+    var texture = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
+        style: function(feature) {
+                    switch (feature.properties.texture) {
+                        case 7: return {color: "#ffffff", fillColor: "#d7191c", fillOpacity: 0.8, weight: 1};
+                        case 7.1: return {color: "#ffffff", fillColor: "#e65437", fillOpacity: 0.8, weight: 1};
+                        case 7.3: return {color: "#ffffff", fillColor: '#f59053', fillOpacity: 0.8, weight: 1};
+                        case 7.5: return {color: "#ffffff", fillColor: '#fdbe73', fillOpacity: 0.8, weight: 1};
+                        case 7.6: return {color: "#ffffff", fillColor: '#fede99', fillOpacity: 0.8, weight: 1};
+                        case 7.7: return {color: "#ffffff", fillColor: '#ffffbf', fillOpacity: 0.8, weight: 1};
+                        case 7.8: return {color: "#ffffff", fillColor: '#ddf1bf', fillOpacity: 0.8, weight: 1};
+                        case 7.9: return {color: "#ffffff", fillColor: '#bbe3a9', fillOpacity: 0.8, weight: 1};
+                        case 8.0: return {color: "#ffffff", fillColor: '#91cba8', fillOpacity: 0.8, weight: 1};
+                        case 8.1: return {color: "#ffffff", fillColor: '#5ea781', fillOpacity: 0.8, weight: 1};
+                    }
+        },
+        onEachFeature: function(feature, layer) {                        
+            layer.bindPopup(
+                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
+                "</br><strong>Soil texture:&nbsp;</strong>" + feature.properties.texture, {
+                closeButton: false
+            });
+        }, 
+    });
 
     var user_points = new L.GeoJSON.AJAX("{% url 'user_points' %}", {
         style: {clickable: true,
