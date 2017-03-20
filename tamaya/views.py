@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from .models import boundary, mbls, roads, soil_data, user_pts, user_lines, user_polygons
 from django.core.serializers import serialize
 import json
+import csv
+import os
+import pysal
 
 def index(request):
     bndry = boundary.objects.all()
@@ -41,8 +44,20 @@ def user_polygons_view(request):
 
 # Downloads
 
-def boundary_dl(request):
-    f = open('/home/jbukoski/sig/geodjango/iltf/tamaya/downloads/bulk_density_1_3_bar.zip', "r")
-    response = HttpResponse(f, content_type = 'application/force-download')
+def bd_dl_view(request):
+    path = os.path.dirname(os.path.abspath(__file__))
+
+    download_file = open(os.path.join(path, 'downloads', 'bulk_density_1_3_bar.zip'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="bulk_density_1_3_bar.zip"'
+
+    return response
+
+def ph_dl_view(request):
+    path = os.path.dirname(os.path.abspath(__file__))
+
+    download_file = open(os.path.join(path, 'downloads', 'ph_surface_weighted_average.zip'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="ph_surface_weighted_average.zip"'
+
     return response
