@@ -259,14 +259,20 @@
 			<h3>Download Data Layers:</h3>
 			    <p> The data layers displayed on this webmap can be downloaded for use in desktop GIS software here.</p>
 			    </br>
+                            <h4><strong>Admin layers</strong></h4>
+                                <ul>
+                                    <li><a href="{% url 'boundary_dl' %}">Reservation boundary (.shp)</a></li>
+                                    <li><a href="{% url 'mbl_dl' %}">Master business leases (.shp)</a></li>
+                                    <li><a href="{% url 'roads_dl' %}">Reservation roads (.shp)</a></li>
+                                </ul>
 			    <h4><strong>Soil layers</strong></h4>
 			        <ul>
-                    		    <li><a href="#">Soil surface pH, weighted average</a></li>
-				    <li><a href="./downloads/bulk_density_1_3_bar.zip">Soil bulk density</a></li>
-				    <li><a href="./downloads/organic_matter.zip">Organic matter</a></li>
-				    <li><a href="./downloads/soil_taxonomy.zip">Soil taxonomic classification</a></li>
-				    <li><a href="./downloads/surface_texture_dcp.zip">Surface soil texture</a></li>
-				    <li><a href="./downloads/composting_medium_and_final_cover.zip">Compost</a></li>
+                    		    <li><a href="{% url 'bulk_dens_dl' %}">Soil bulk density (.shp)</a></li>
+				    <li><a href="{% url 'compost_dl' %}">Composting medium and final cover (.shp)</a></li>
+				    <li><a href="{% url 'om_dl' %}">Percent organic matter (.shp)</a></li>
+				    <li><a href="{% url 'ph_dl' %}">Soil pH (.shp)</a></li>
+				    <li><a href="{% url 'tax_cl_dl' %}">Soil taxonomic class (.shp)</a></li>
+				    <li><a href="{% url 'texture_dl' %}">Soil texture (.shp)</a></li>
 				</ul>
 			    <h4><strong>Vegetation layers</strong></h4>
 			        <ul>
