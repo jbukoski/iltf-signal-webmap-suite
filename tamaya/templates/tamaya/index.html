@@ -403,7 +403,8 @@
         onEachFeature: function(feature, layer) {                        
             layer.bindPopup(
                 "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
-                "</br><strong>Bulk density:&nbsp;</strong>" + feature.properties.bulk_densi + "&nbsp;g/cm" + "3".sup(), {
+                "</br><strong>Bulk density:&nbsp;</strong>" + feature.properties.bulk_densi + "&nbsp;g/cm" + "3".sup() + 
+                "</br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
                 closeButton: false
             });
         },
@@ -421,7 +422,8 @@
         onEachFeature: function(feature, layer) {                        
             layer.bindPopup(
                 "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
-                "</br><strong>Composting cover:&nbsp;</strong>" + feature.properties.composting, {
+                "</br><strong>Composting cover:&nbsp;</strong>" + feature.properties.composting +
+                "</br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
                 closeButton: false
             });
         },
@@ -447,7 +449,8 @@
         onEachFeature: function(feature, layer) {                        
             layer.bindPopup(
                 "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
-                "</br><strong>Organic matter:&nbsp;</strong>" + feature.properties.org_matter + "%", {
+                "</br><strong>Organic matter:&nbsp;</strong>" + feature.properties.org_matter + "%" +
+                "</br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
                 closeButton: false
             });
         },
@@ -471,7 +474,8 @@
         onEachFeature: function(feature, layer) {                        
             layer.bindPopup(
                 "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
-                "</br><strong>Soil pH:&nbsp;</strong>" + feature.properties.ph_water, {
+                "</br><strong>Soil pH:&nbsp;</strong>" + feature.properties.ph_water +
+                "</br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
                 closeButton: false
             });
         }, 
@@ -538,7 +542,8 @@
         onEachFeature: function(feature, layer) {                        
             layer.bindPopup(
                 "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
-                "</br><strong>Soil texture:&nbsp;</strong>" + feature.properties.texture, {
+                "</br><strong>Soil texture:&nbsp;</strong>" + feature.properties.texture +
+                "</br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
                 closeButton: false
             });
         }, 
