@@ -91,3 +91,25 @@ class user_pts(models.Model):
 
     def __str__(self):
         return '%s' % (self.point_id)
+
+class user_lines(models.Model):
+    line_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=30)
+    comment = models.CharField(max_length=100)
+    geom = models.MultiLineStringField(srid=4326)
+
+    objects = models.GeoManager()
+
+    def __str__(self):
+        return '%s' % (self.line_id)
+
+class user_polygons(models.Model):
+    polygon_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=30)
+    comment = models.CharField(max_length=100)
+    geom = models.MultiPolygonField(srid=4326)
+
+    objects = models.GeoManager()
+
+    def __str__(self):
+        return '%s' % (self.polygon_id)

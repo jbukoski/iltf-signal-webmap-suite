@@ -261,7 +261,7 @@
 			    </br>
 			    <h4><strong>Soil layers</strong></h4>
 			        <ul>
-                    		    <li><a href="./downloads/ph_surface_weighted_average.zip">Soil surface pH, weighted average</a></li>
+                    		    <li><a href="#">Soil surface pH, weighted average</a></li>
 				    <li><a href="./downloads/bulk_density_1_3_bar.zip">Soil bulk density</a></li>
 				    <li><a href="./downloads/organic_matter.zip">Organic matter</a></li>
 				    <li><a href="./downloads/soil_taxonomy.zip">Soil taxonomic classification</a></li>
@@ -403,7 +403,7 @@
         onEachFeature: function(feature, layer) {                        
             layer.bindPopup(
                 "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
-                "</br><strong>Bulk density:&nbsp;</strong>" + feature.properties.bulk_densi, {
+                "</br><strong>Bulk density:&nbsp;</strong>" + feature.properties.bulk_densi + "&nbsp;g/cm" + "3".sup(), {
                 closeButton: false
             });
         },
@@ -447,7 +447,7 @@
         onEachFeature: function(feature, layer) {                        
             layer.bindPopup(
                 "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
-                "</br><strong>Organic matter:&nbsp;</strong>" + feature.properties.org_matter + "&nbsp;(%)", {
+                "</br><strong>Organic matter:&nbsp;</strong>" + feature.properties.org_matter + "%", {
                 closeButton: false
             });
         },
@@ -456,16 +456,16 @@
     var soil_ph = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
 		    switch (feature.properties.ph_water) {
-			case 7: return {color: "#ffffff", fillColor: "#d7191c", fillOpacity: 0.8, weight: 1};
-			case 7.1: return {color: "#ffffff", fillColor: "#e65437", fillOpacity: 0.8, weight: 1};
-			case 7.3: return {color: "#ffffff", fillColor: '#f59053', fillOpacity: 0.8, weight: 1};
-			case 7.5: return {color: "#ffffff", fillColor: '#fdbe73', fillOpacity: 0.8, weight: 1};
-			case 7.6: return {color: "#ffffff", fillColor: '#fede99', fillOpacity: 0.8, weight: 1};
-			case 7.7: return {color: "#ffffff", fillColor: '#ffffbf', fillOpacity: 0.8, weight: 1};
-			case 7.8: return {color: "#ffffff", fillColor: '#ddf1bf', fillOpacity: 0.8, weight: 1};
-			case 7.9: return {color: "#ffffff", fillColor: '#bbe3a9', fillOpacity: 0.8, weight: 1};
-			case 8.0: return {color: "#ffffff", fillColor: '#91cba8', fillOpacity: 0.8, weight: 1};
-			case 8.1: return {color: "#ffffff", fillColor: '#5ea781', fillOpacity: 0.8, weight: 1};
+			case 7: return {color: "#ffffff", fillColor: "#d7191c", fillOpacity: 0.8, weight: 0.8};
+			case 7.1: return {color: "#ffffff", fillColor: "#e65437", fillOpacity: 0.8, weight: 0.8};
+			case 7.3: return {color: "#ffffff", fillColor: '#f59053', fillOpacity: 0.8, weight: 0.8};
+			case 7.5: return {color: "#ffffff", fillColor: '#fdbe73', fillOpacity: 0.8, weight: 0.8};
+			case 7.6: return {color: "#ffffff", fillColor: '#fede99', fillOpacity: 0.8, weight: 0.8};
+			case 7.7: return {color: "#ffffff", fillColor: '#ffffbf', fillOpacity: 0.8, weight: 0.8};
+			case 7.8: return {color: "#ffffff", fillColor: '#ddf1bf', fillOpacity: 0.8, weight: 0.8};
+			case 7.9: return {color: "#ffffff", fillColor: '#bbe3a9', fillOpacity: 0.8, weight: 0.8};
+			case 8.0: return {color: "#ffffff", fillColor: '#91cba8', fillOpacity: 0.8, weight: 0.8};
+			case 8.1: return {color: "#ffffff", fillColor: '#5ea781', fillOpacity: 0.8, weight: 0.8};
                     }
         },
         onEachFeature: function(feature, layer) {                        
@@ -547,6 +547,28 @@
 ////// User defined layers //////
 
     var user_points = new L.GeoJSON.AJAX("{% url 'user_points' %}", {
+        style: {clickable: true,
+        },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "</br>" +
+                "<strong>Comment:&nbsp;</strong>" + feature.properties.comment.toString()
+            );
+        },
+    });
+
+    var user_lines = new L.GeoJSON.AJAX("{% url 'user_lines' %}", {
+        style: {clickable: true,
+        },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "</br>" +
+                "<strong>Comment:&nbsp;</strong>" + feature.properties.comment.toString()
+            );
+        },
+    });
+
+    var user_polygons = new L.GeoJSON.AJAX("{% url 'user_polygons' %}", {
         style: {clickable: true,
         },
         onEachFeature: function(feature, layer) {

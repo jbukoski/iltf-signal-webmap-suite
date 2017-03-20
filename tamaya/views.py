@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
-from .models import boundary, mbls, roads, soil_data, user_pts
+from .models import boundary, mbls, roads, soil_data, user_pts, user_lines, user_polygons
 from django.core.serializers import serialize
 import json
 
@@ -31,10 +31,18 @@ def user_points_view(request):
     user_pt_json = serialize('geojson', user_pts.objects.all(), geometry_field="geom", fields=('name', 'comment'))
     return HttpResponse(user_pt_json, content_type='json')
 
+def user_lines_view(request):
+    user_lines_json = serialize('geojson', user_lines.objects.all(), geometry_field="geom", fields=('name', 'comment'))
+    return HttpResponse(user_lines_json, content_type='json')
+
+def user_polygons_view(request):
+    user_polygons_json = serialize('geojson', user_polygons.objects.all(), geometry_field="geom", fields=('name', 'comment'))
+    return HttpResponse(user_polygons_json, content_type='json')
+
 # Downloads
 
-#def boundary_dl(request):
-#    zip_file = open(), 'r')
-#    response = HttpResponse(zip_file, content_type = 'application/force-download')
-#    response['Content-Disposition'] = 'attachment; filename="bulk_density_1_3_bar.zip"'
-#    return response
+def boundary_dl(request):
+    f = open('/home/jbukoski/sig/geodjango/iltf/tamaya/downloads/bulk_density_1_3_bar.zip', "r")
+    response = HttpResponse(f, content_type = 'application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="bulk_density_1_3_bar.zip"'
+    return response
