@@ -14,6 +14,9 @@ class boundary(models.Model):
 
     objects = models.GeoManager()
 
+    class Meta:
+        verbose_name_plural = 'Boundary'
+
     def __str__(self):
         return '%s' % (self.id)
 
@@ -29,6 +32,9 @@ class mbls(models.Model):
     geom = models.PolygonField(srid=4326)
 
     objects = models.GeoManager()
+
+    class Meta:
+        verbose_name_plural = 'Master Business Leases'
 
     def __str__(self):
         return '%s' % (self.comment)
@@ -54,6 +60,9 @@ class roads(models.Model):
 
     geom = models.MultiLineStringField(srid=4326)
 
+    class Meta:
+        verbose_name_plural = 'Reservation Roads'
+
     def __str__(self):
         return '%s' % (self.roads_id)
 
@@ -76,6 +85,9 @@ class soil_data(models.Model):
 
     objects = models.GeoManager()
 
+    class Meta:
+        verbose_name_plural = 'Soil Data'
+
     def __str__(self):
         return '%s' % (self.poly_id)
 
@@ -89,6 +101,9 @@ class user_pts(models.Model):
 
     objects = models.GeoManager()
 
+    class Meta:
+        verbose_name_plural = 'User-defined Points'
+
     def __str__(self):
         return '%s' % (self.point_id)
 
@@ -100,6 +115,9 @@ class user_lines(models.Model):
 
     objects = models.GeoManager()
 
+    class Meta:
+        verbose_name_plural = 'User-defined Lines'
+
     def __str__(self):
         return '%s' % (self.line_id)
 
@@ -110,6 +128,9 @@ class user_polygons(models.Model):
     geom = models.MultiPolygonField(srid=4326)
 
     objects = models.GeoManager()
+
+    class Meta:
+        verbose_name_plural = 'User-defined Polygons'
 
     def __str__(self):
         return '%s' % (self.polygon_id)
