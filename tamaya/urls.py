@@ -2,9 +2,11 @@ from django.conf.urls import include, url
 from djgeojson.views import GeoJSONLayerView
 from . import views
 from django.contrib.gis import admin
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^login/$', auth_views.login, {'template_name': 'registration/login.html'}),
     url(r'^boundary/', views.boundary_view, name='boundary'),
     url(r'^mbls/', views.mbls_view, name='mbls'),
     url(r'^roads/', views.roads_view, name='roads'),

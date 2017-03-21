@@ -19,6 +19,7 @@ To be installed with 'pip':
   4. psycopg2
   5. mod-wsgi
   6. django-raster (gave issues)
+  7. django-wms
 
 #### Installation instructions:
 

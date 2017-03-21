@@ -63,7 +63,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['iltf/templates',
                  'tamaya/templates/tamaya',
-                 'comanche/templates/comanche'],
+                 'comanche/templates/comanche',
+                ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

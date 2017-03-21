@@ -1,18 +1,23 @@
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponse
+from django.conf import settings
+from django.shortcuts import render, render_to_response, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import boundary, mbls, roads, soil_data, user_pts, user_lines, user_polygons
 from django.core.serializers import serialize
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 import json
-import csv
 import os
-import pysal
 
+@login_required(login_url='/login/')
 def index(request):
     bndry = boundary.objects.all()
     return render(request, 'tamaya/index.html', {
         'title': 'Santa Ana Pueblo of NM',
         'bndry': bndry,
     })
+
+def home(request):
+    return HttpResponseRedirect(urlresolvers.reverse('admin:app_list', args=("tamaya/",)))
 
 def boundary_view(request):
     boundary_json = serialize('geojson', boundary.objects.all(), geometry_field="geom")

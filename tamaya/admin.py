@@ -3,7 +3,8 @@ from django.contrib.admin import AdminSite
 from .models import boundary, mbls, roads, soil_data, user_pts, user_lines, user_polygons
 
 class tamayaAdmin(AdminSite):
-    site_header = 'Santa Ana Pueblo Administration'
+    site_header = 'Santa Ana Pueblo Webmap Login'
+    site_url = '/tamaya/'
 
 tamaya_admin = tamayaAdmin(name='tamaya_admin')
 tamaya_admin.register(boundary)

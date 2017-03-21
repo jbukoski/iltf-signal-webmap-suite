@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+
+    <title> Santa Ana Webmap Login </title>
+    <style>
+    #container {
+        margin: 10% auto;
+        width: 28em;
+        text-align: center;
+    }
+    </style>
+
+</head>
+
+<body>
+<div id="container">
+    <h3> Santa Ana Pueblo Webmap Login</h3>
+    <form class="login" method="POST" action="/login/">
+
+        {% csrf_token %}
+
+        {{form.as_p}}
+
+        <input type="submit" class="logBut" value="Log in"/>
+        <input type="hidden" name="next" value="/tamaya/" />
+    </form>
+</div>
+</body>
+</html>
