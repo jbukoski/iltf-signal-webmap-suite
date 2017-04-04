@@ -27,6 +27,7 @@
                     <li class="active"><a href="#layers" data-toggle="tab"><i class="fa fa-check-square-o"></i>&nbsp;Layers</a></li>
 		    <li><a href="#legend" data-toggle="tab"><i class="fa fa-barcode"></i>&nbsp;Legends</a></li>
 		    <li><a href="#download" data-toggle="tab"><i class="fa fa-download"></i>&nbsp;Data</a></li>
+            <li><a href="#upload" data-toggle="tab"><i class="fa fa-upload"></i>&nbsp;Import</a></li>
                 </ul>
 
                 <div class="tab-content" style="padding-top: 10px;">
@@ -41,22 +42,22 @@
                                 </div>
                                 <div id="admin-layers" class="panel-collapse collapse in">
                                     <div class="panel-body" style="padding: 0px 15px;">
-					<div class="checkbox">    
+					<div class="checkbox">
 					    <label>
                                                 <input type="checkbox" name="overlayLayers" id="boundary" z-index="1" checked>
-                                                &nbsp Reservation boundary (approximate)			
+                                                &nbsp Reservation boundary (approximate)
                                             </label>
                                         </div>
-					<div class="checkbox">    
+					<div class="checkbox">
 					    <label>
                                                 <input type="checkbox" name="overlayLayers" id="mbls" z-index="2" checked>
-                                                &nbsp Master business leases					
+                                                &nbsp Master business leases
                                             </label>
                                         </div>
-					<div class="checkbox">    
+					<div class="checkbox">
 					    <label>
                                                 <input type="checkbox" name="overlayLayers" id="roads" z-index="3" checked>
-                                                &nbsp Reservation roads					
+                                                &nbsp Reservation roads
                                             </label>
                                         </div>
 				    </div>
@@ -71,10 +72,10 @@
                                 </div>
                                 <div id="soil-layers" class="panel-collapse collapse in">
                                     <div class="panel-body" style="padding: 0px 15px;">
-					<div class="checkbox">    
-					    <label>                                               
+					<div class="checkbox">
+					    <label>
                                                 <input type="checkbox" name="overlayLayers" id="bulkDens" z-index="3">
-                                                &nbsp Bulk density				
+                                                &nbsp Bulk density
                                             </label>
                                         </div>
                                         <div class="checkbox">
@@ -109,7 +110,7 @@
                                         </div>
 				    </div>
 				</div>
-                            </div>  
+                            </div>
 
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -119,10 +120,10 @@
                                 </div>
                                 <div id="veg-layers" class="panel-collapse collapse in">
                                     <div class="panel-body" style="padding: 0px 15px;">
-                                        <div class="checkbox">    
+                                        <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="user_points" z-index="3">
-                                                &nbsp User points                                        
+                                                &nbsp User points
                                             </label>
                                         </div>
                                         <div class="checkbox">
@@ -149,16 +150,16 @@
                                 </div>
                                 <div id="veg-layers" class="panel-collapse collapse in">
                                     <div class="panel-body" style="padding: 0px 15px;">
-					<div class="checkbox">    
+					<div class="checkbox">
 					    <label>
                                                 <input type="checkbox" name="overlayLayers" id="landfire" z-index="99">
-                                                &nbsp Existing vegetation type, LANDFIRE					
+                                                &nbsp Existing vegetation type, LANDFIRE
                                             </label>
                                         </div>
 				    </div>
 				</div>
-                            </div> --> 
-							
+                            </div> -->
+
 			    <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#imagery">
@@ -170,22 +171,22 @@
 					<div class="radio">
 					    <label>
                                                 <input type="radio" name="basemapLayers" id="recent"checked>
-                                                &nbsp Digital Globe imagery, no roads				
+                                                &nbsp Digital Globe imagery, no roads
                                             </label>
                                         </div>
                                         <div class="radio">
 					    <label>
                                                 <input type="radio" name="basemapLayers" id="hybrid">
-                                                &nbsp Digital Globe imagery, with roads				
+                                                &nbsp Digital Globe imagery, with roads
                                             </label>
                                         </div>
-					<div class="radio">    
+					<div class="radio">
 					    <label>
                                                 <input type="radio" name="basemapLayers" id="topo">
                                                 &nbsp Topography, ESRI
                                             </label>
-                                        </div>                                     
-				    </div> 
+                                        </div>
+				    </div>
 			        </div>
 			    </div> <!--Closes 'panel panel-default'-->
 			 </br>
@@ -256,7 +257,7 @@
 			    </br>
 
 			</div> <!--Closes 'panel-group'-->
-                    </div> <!--Closes tab-pane="legend"-->  
+                    </div> <!--Closes tab-pane="legend"-->
 
 		    <div class="tab-pane" id="download">
 			<h3>Download Data Layers:</h3>
@@ -283,7 +284,7 @@
 				</ul>-->
 			    </br>
 			    </br>
-                                          
+
                      </div> <!--Closes tab-pane="download"-->
 
                 </div> <!--Closes 'tab-content'-->
@@ -397,22 +398,22 @@
     var bulkDens = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
 		    switch (true) {
-                        case (feature.properties.bulk_densi <= 1.3): 
+                        case (feature.properties.bulk_densi <= 1.3):
                             return {color: "#ffffff", fillColor: "#E3CE9F", fill: true, fillOpacity: 0.8, weight: 0.8};
-                        case (feature.properties.bulk_densi > 1.3 && feature.properties.bulk_densi <= 1.4): 
+                        case (feature.properties.bulk_densi > 1.3 && feature.properties.bulk_densi <= 1.4):
                             return {color: "#ffffff", fillColor: "#C5AB71", fill: true, fillOpacity: 0.8, weight: 0.8};
-                        case (feature.properties.bulk_densi > 1.4 && feature.properties.bulk_densi <= 1.5): 
+                        case (feature.properties.bulk_densi > 1.4 && feature.properties.bulk_densi <= 1.5):
                             return {color: "#ffffff", fillColor: "#B6995A", fill: true, fillOpacity: 0.8, weight: 0.8};
-                        case (feature.properties.bulk_densi > 1.5 && feature.properties.bulk_densi <= 1.6): 
+                        case (feature.properties.bulk_densi > 1.5 && feature.properties.bulk_densi <= 1.6):
                             return {color: "#ffffff", fillColor: "#A07F38", fill: true, fillOpacity: 0.8, weight: 0.8};
-                        case (feature.properties.bulk_densi > 1.6): 
+                        case (feature.properties.bulk_densi > 1.6):
                             return {color: "#ffffff", fillColor: "#825C0B", fill: true, fillOpacity: 0.8, weight: 0.8};
 			}
         },
-        onEachFeature: function(feature, layer) {                        
+        onEachFeature: function(feature, layer) {
             layer.bindPopup(
-                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
-                "</br><strong>Bulk density:&nbsp;</strong>" + feature.properties.bulk_densi + "&nbsp;g/cm" + "3".sup() + 
+                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id +
+                "</br><strong>Bulk density:&nbsp;</strong>" + feature.properties.bulk_densi + "&nbsp;g/cm" + "3".sup() +
                 "</br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
                 closeButton: false
             });
@@ -428,9 +429,9 @@
                         case 'Not rated': return {color: "#ffffff", fillColor: '#B2C7EE', fill: true, fillOpacity: 0.8, weight: 0.8};
                         }
         },
-        onEachFeature: function(feature, layer) {                        
+        onEachFeature: function(feature, layer) {
             layer.bindPopup(
-                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
+                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id +
                 "</br><strong>Composting cover:&nbsp;</strong>" + feature.properties.composting +
                 "</br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
                 closeButton: false
@@ -441,23 +442,23 @@
     var org_matter = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
                    switch (true) {
-                       case (feature.properties.org_matter > 1.5): 
+                       case (feature.properties.org_matter > 1.5):
                            return {color: "#ffffff", fillColor: '#397D02', fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.org_matter > 1.25 && feature.properties.org_matter <= 1.5): 
+                       case (feature.properties.org_matter > 1.25 && feature.properties.org_matter <= 1.5):
                            return {color: "#ffffff", fillColor: "#567E3A", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.org_matter > 1.00 && feature.properties.org_matter <= 1.25): 
+                       case (feature.properties.org_matter > 1.00 && feature.properties.org_matter <= 1.25):
                            return {color: "#ffffff", fillColor: "#61B329", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.org_matter > 0.75 && feature.properties.org_matter <= 1.00): 
+                       case (feature.properties.org_matter > 0.75 && feature.properties.org_matter <= 1.00):
                            return {color: "#ffffff", fillColor: "#A6D785", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.org_matter > 0.5 && feature.properties.org_matter <= 0.75): 
+                       case (feature.properties.org_matter > 0.5 && feature.properties.org_matter <= 0.75):
                            return {color: "#ffffff", fillColor: "#8AA37B", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       default: 
+                       default:
                            return {color: "#ffffff", fillColor: "#687E5A", fill: true, fillOpacity: 0.8, weight: 0.8};
                    }
         },
-        onEachFeature: function(feature, layer) {                        
+        onEachFeature: function(feature, layer) {
             layer.bindPopup(
-                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
+                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id +
                 "</br><strong>Organic matter:&nbsp;</strong>" + feature.properties.org_matter + "%" +
                 "</br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
                 closeButton: false
@@ -480,82 +481,82 @@
 			case 8.1: return {color: "#ffffff", fillColor: '#5ea781', fillOpacity: 0.8, weight: 0.8};
                     }
         },
-        onEachFeature: function(feature, layer) {                        
+        onEachFeature: function(feature, layer) {
             layer.bindPopup(
-                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
+                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id +
                 "</br><strong>Soil pH:&nbsp;</strong>" + feature.properties.ph_water +
                 "</br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
                 closeButton: false
             });
-        }, 
+        },
     });
 
     var taxonomy = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
                    switch (true) {
-                       case (feature.properties.tax_class.includes("Calciorthids")): 
+                       case (feature.properties.tax_class.includes("Calciorthids")):
                            return {color: "#ffffff", fillColor: "#d12ea1", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.tax_class.includes("Haplargids")): 
+                       case (feature.properties.tax_class.includes("Haplargids")):
                            return {color: "#ffffff", fillColor: "#3a2466", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.tax_class.includes("Haplustalfs")): 
+                       case (feature.properties.tax_class.includes("Haplustalfs")):
                            return {color: "#ffffff", fillColor: "#1c1ed1", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.tax_class.includes("Torrifluvents")): 
+                       case (feature.properties.tax_class.includes("Torrifluvents")):
                            return {color: "#ffffff", fillColor: "#a17153", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.tax_class.includes("Torriorthents")): 
+                       case (feature.properties.tax_class.includes("Torriorthents")):
                            return {color: "#ffffff", fillColor: "#f17369", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.tax_class.includes("Torripsamments")): 
+                       case (feature.properties.tax_class.includes("Torripsamments")):
                            return {color: "#ffffff", fillColor: "#55360c", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.tax_class.includes("Ustifluvents")): 
+                       case (feature.properties.tax_class.includes("Ustifluvents")):
                            return {color: "#ffffff", fillColor: "#7f4a21", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.tax_class.includes("Ustipsamments")): 
+                       case (feature.properties.tax_class.includes("Ustipsamments")):
                            return {color: "#ffffff", fillColor: "#58f171", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.tax_class.includes("Ustorthents")): 
+                       case (feature.properties.tax_class.includes("Ustorthents")):
                            return {color: "#ffffff", fillColor: "#7c607c", fill: true, fillOpacity: 0.8, weight: 0.8};
                        default:
-                           return {color: "#ffffff", fillColor: "#ffffff", fill: true, fillOpacity: 0.8, weight: 0.8}; 
+                           return {color: "#ffffff", fillColor: "#ffffff", fill: true, fillOpacity: 0.8, weight: 0.8};
                    }
                },
-        onEachFeature: function(feature, layer) {                        
+        onEachFeature: function(feature, layer) {
             layer.bindPopup(
-                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
+                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id +
                 "</br><strong>Taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
                 closeButton: false
             });
-        }, 
+        },
     });
 
     var texture = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
                     switch (true) {
-                       case (feature.properties.texture.toLowerCase().includes("clay loam")): 
+                       case (feature.properties.texture.toLowerCase().includes("clay loam")):
                            return {color: "#ffffff", fillColor: "#CCCC00", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.texture.toLowerCase().includes("cobbly loam")): 
+                       case (feature.properties.texture.toLowerCase().includes("cobbly loam")):
                            return {color: "#ffffff", fillColor: "#999900", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.texture.toLowerCase().includes("fine sand")): 
+                       case (feature.properties.texture.toLowerCase().includes("fine sand")):
                            return {color: "#ffffff", fillColor: "#ffd700", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.texture.toLowerCase().includes("loam")): 
+                       case (feature.properties.texture.toLowerCase().includes("loam")):
                            return {color: "#ffffff", fillColor: "#FFFF00", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.texture.toLowerCase().includes("loamy sand")): 
+                       case (feature.properties.texture.toLowerCase().includes("loamy sand")):
                            return {color: "#ffffff", fillColor: "#ffa500", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.texture.toLowerCase().includes("sand")): 
+                       case (feature.properties.texture.toLowerCase().includes("sand")):
                            return {color: "#ffffff", fillColor: "#ff8c00", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.texture.toLowerCase().includes("sandy loam")): 
+                       case (feature.properties.texture.toLowerCase().includes("sandy loam")):
                            return {color: "#ffffff", fillColor: "#FFFF66", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       case (feature.properties.texture.toLowerCase().includes("stony loam")): 
+                       case (feature.properties.texture.toLowerCase().includes("stony loam")):
                            return {color: "#ffffff", fillColor: "#666600", fill: true, fillOpacity: 0.8, weight: 0.8};
 
                        default:
                            return {color: "#ffffff", fillColor: "#ffffff", fill: true, fillOpacity: 0.8, weight: 0.8};
                     }
         },
-        onEachFeature: function(feature, layer) {                        
+        onEachFeature: function(feature, layer) {
             layer.bindPopup(
-                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id + 
+                "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id +
                 "</br><strong>Soil texture:&nbsp;</strong>" + feature.properties.texture +
                 "</br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
                 closeButton: false
             });
-        }, 
+        },
     });
 
 ////// User defined layers //////
@@ -599,7 +600,7 @@
 
     var map = L.map("map", {
         zoom: 11,
-        center: [35.435, -106.54], 
+        center: [35.435, -106.54],
         minZoom: 6,
         maxZoom: 20,
         layers: [recent, boundary, mbls, roads]
@@ -640,7 +641,7 @@
 
 	// Initialize the draw control and pass it the FeatureGroup of editable layers
 	var drawControl = new L.Control.Draw(drawOptions);
-	
+
 	map.addControl(drawControl);
 
 	map.on('draw:created', function (e) {
@@ -666,4 +667,3 @@
 
 
 {% endblock layers %}
-
