@@ -3,3 +3,5 @@
 /tamaya/downloads
 /iltf/settings.py
 /iltf/urls.py
+.DS_Store
+iltf.sql
