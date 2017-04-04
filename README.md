@@ -24,11 +24,20 @@ To be installed with 'pip':
 #### Installation instructions:
 
   1. Install all necessary packages and modules
-  2. Create database
-    - -U postgres, adjusted password permissions to 'md5'
-  3. `python manage.py makemigrations`
-  4. `python manage.py migrate`
-  5. Load data to database
+  2. Dump and create database (if necessary)
+        ```
+            $ psql -U postgres
+            # CREATE DATABASE iltf;
+            # CREATE EXTENSION postgis;
+            # CREATE EXTENSION postgis_topology;
+            # \q
+            $ psql iltf < iltf.sql
+        ```
+  3. Create database **(This may be old / need to be deleted)**
+    - -U postgres, adjusted password permissions to 'sig_pass'
+  4. `python manage.py makemigrations`
+  5. `python manage.py migrate`
+  6. Load data to database
 
 TO DO:
 
@@ -41,4 +50,3 @@ TO DO:
   - Build user adjustable layers
   - Change background map in Admin page
   - Deploy to SIG server
-
