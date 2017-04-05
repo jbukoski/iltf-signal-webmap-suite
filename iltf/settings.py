@@ -39,11 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'comanche',
-    'tamaya',
     'djgeojson',
     'leaflet',
     'raster',
+    'comanche',
+    'lbst',
+    'tamaya',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,7 @@ TEMPLATES = [
         'DIRS': ['iltf/templates',
                  'tamaya/templates/tamaya',
                  'comanche/templates/comanche',
+                 'lbst/templates/lbst',
                 ],
         'APP_DIRS': True,
         'OPTIONS': {

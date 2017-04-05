@@ -1,0 +1,394 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block side_bar %}
+
+    <title>Lower Brule Sioux Tribe</title>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle btn" data-toggle="collapse" data-target=".navbar-collapse" style="height: 34px; padding: 5px 10px; margin-right: 10px;"><i class="fa fa-ellipsis-v" style="color: white"></i></button>
+            <button id="toggle" type="button" class="navbar-toggle btn" style="height: 34px; padding: 5px 10px; margin-right: 10px;"><i id="toggleIcon" class="fa fa-check-square-o" style="color: white"></i></button>
+            <a class="navbar-brand" href="https://www.lowerbrulesiouxtribe.com/" target="_blank_">Lower Brule Sioux</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav pull-left">
+                <a class="navbar-brand" href="#" style="font-size: 0.75m; color: gray;">Land & Natural Assets Map</a>
+            </ul>
+            <!--<ul class="nav navbar-nav pull-right">
+                <a class="navbar-brand" href="/tamaya/admin/logout/" style="font-size: 18px; color: grey;">Log Out</a>
+            </ul>-->
+        </div>
+    </div>
+
+    <div class="row" id="container">
+            <div class="col-sm-3 col-lg-3" id="sidebar" style="padding: 10px; overflow: auto;">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active"><a href="#layers" data-toggle="tab"><i class="fa fa-check-square-o"></i>&nbsp;Layers</a></li>
+		    <li><a href="#legend" data-toggle="tab"><i class="fa fa-barcode"></i>&nbsp;Legends</a></li>
+		    <li><a href="#download" data-toggle="tab"><i class="fa fa-download"></i>&nbsp;Data</a></li>
+                </ul>
+
+                <div class="tab-content" style="padding-top: 10px;">
+                    <div class="tab-pane active" id="layers">
+                        <div class="panel-group">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#admin-layers">
+                                        Administrative Layers
+                                    </a>
+                                </div>
+                                <div id="admin-layers" class="panel-collapse collapse in">
+                                    <div class="panel-body" style="padding: 0px 15px;">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="food_plots" z-index="1" checked>
+                                                &nbsp Food Plots
+                                            </label>
+                                        </div>
+					<div class="checkbox">    
+					    <label>
+                                                <input type="checkbox" name="overlayLayers" id="grasslands" z-index="2" checked>
+                                                &nbsp Grassland Exports
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="habitat_leases" z-index="2" checked>
+                                                &nbsp Habitat Leases
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="shelterbelts" z-index="2" checked>
+                                                &nbsp Homesite Shelterbelts
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="trees_shrubs" z-index="2" checked>
+                                                &nbsp Trees and Shrubs
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="wetlands" z-index="2" checked>
+                                                &nbsp Wetlands
+                                            </label>
+                                        </div>
+				    </div>
+				</div>
+                            </div> <!--Closes 'panel panel-default'-->
+
+			    <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#soil-layers">
+                                        Soil Layers
+                                    </a>
+                                </div>
+                                <div id="soil-layers" class="panel-collapse collapse in">
+                                    <div class="panel-body" style="padding: 0px 15px;">
+				    </div>
+				</div>
+                            </div>  
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#veg-layers">
+                                        User-defined Layers
+                                    </a>
+                                </div>
+                                <div id="veg-layers" class="panel-collapse collapse in">
+                                    <div class="panel-body" style="padding: 0px 15px;">
+                                        <div class="checkbox">    
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="user_points" z-index="3">
+                                                &nbsp User points                                        
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="user_lines" z-index="3">
+                                                &nbsp User lines
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="user_polygons" z-index="3">
+                                                &nbsp User polygons
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+			    <!--<div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#veg-layers">
+                                        Vegetation Layers
+                                    </a>
+                                </div>
+                                <div id="veg-layers" class="panel-collapse collapse in">
+                                    <div class="panel-body" style="padding: 0px 15px;">
+					<div class="checkbox">    
+					    <label>
+                                                <input type="checkbox" name="overlayLayers" id="landfire" z-index="99">
+                                                &nbsp Existing vegetation type, LANDFIRE					
+                                            </label>
+                                        </div>
+				    </div>
+				</div>
+                            </div> --> 
+							
+			    <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#imagery">
+                                        Base Layers
+                                    </a>
+                                </div>
+                                <div id="imagery" class="panel-collapse collapse in">
+                                    <div class="panel-body" style="padding: 0px 15px;">
+					<div class="radio">
+					    <label>
+                                                <input type="radio" name="basemapLayers" id="recent"checked>
+                                                &nbsp Digital Globe imagery, no roads				
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+					    <label>
+                                                <input type="radio" name="basemapLayers" id="hybrid">
+                                                &nbsp Digital Globe imagery, with roads				
+                                            </label>
+                                        </div>
+					<div class="radio">    
+					    <label>
+                                                <input type="radio" name="basemapLayers" id="topo">
+                                                &nbsp Topography, ESRI
+                                            </label>
+                                        </div>                                     
+				    </div> 
+			        </div>
+			    </div> <!--Closes 'panel panel-default'-->
+			 </br>
+
+			</div>  <!--Closes 'panel group'-->
+                    </div> <!--Closes id='layers'-->
+
+		    <div class="tab-pane" id="legend">
+		      <div class="panel-group">
+
+			  <h4><strong>Vegetation:</strong></h4>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#landfire-labels">
+                                        INSERT VEGETATION LAYER HERE
+                                    </a>
+                                </div>
+			    </div>
+			  </br>
+			</div> <!--Closes 'panel-group'-->
+                    </div> <!--Closes tab-pane="legend"-->  
+
+		    <div class="tab-pane" id="download">
+			<h3>Download Data Layers:</h3>
+			    <p> The data layers displayed on this webmap can be downloaded for use in desktop GIS software here.</p>
+			    </br>
+                            <h4><strong>Admin layers</strong></h4>
+                                <ul>
+			            <!--<li><a href="{% url 'boundary_dl' %}">Reservation boundary (.shp)</a></li>-->
+                                </ul>
+			    </br>
+			    </br>
+                                          
+                     </div> <!--Closes tab-pane="download"-->
+
+                </div> <!--Closes 'tab-content'-->
+            </div> <!--Closes ID="sidebar"-->
+
+            <div class="col-sm-9 col-lg-9" id="map"></div> <!--Adds map-->
+
+        </div> <!--Closes ID="container"-->
+
+{% endblock side_bar %}
+
+{% block layers %}
+
+<script type="text/javascript">
+
+////////////////////////////
+////// Overlay Layers //////
+////////////////////////////
+
+    var food_plots = new L.GeoJSON.AJAX("{% url 'food_plots' %}", {
+        style: { clickable: true,
+                 weight: 3,
+                 color: '#e31a1c',
+                 fill: true,
+                 fillColor: '#e31a1c',
+                 fillOpacity: 0.5,
+               }
+        });
+
+
+    var grasslands = new L.GeoJSON.AJAX("{% url 'grasslands' %}", {
+        style: { clickable: true,
+                 weight: 3,
+                 color: '#4bbb00',
+                 fill: true,
+                 fillColor: '#4bbb00',
+                 fillOpacity: 0.5,
+               }
+        });
+
+
+    var habitat_leases = new L.GeoJSON.AJAX("{% url 'habitat_leases' %}", {
+        style: { clickable: true,
+                 weight: 3,
+                 color: '#ff7f00',
+                 fill: true,
+                 fillOpacity: 0.5,
+               }
+        });
+
+
+    var shelterbelts = new L.GeoJSON.AJAX("{% url 'shelterbelts' %}", {
+        style: { clickable: true,
+                 weight: 3,
+                 color: '#010789',
+                 fill: true,
+                 fillOpacity: 0.5,
+               }
+        });
+
+
+    var trees_shrubs = new L.GeoJSON.AJAX("{% url 'trees_shrubs' %}", {
+        style: { clickable: true,
+                 weight: 3,
+                 color: '#006cle',
+                 fill: true,
+                 fillOpacity: 0.5,
+               }
+        });
+
+
+    var wetlands = new L.GeoJSON.AJAX("{% url 'wetlands' %}", {
+        style: { clickable: true,
+                 weight: 3,
+                 color: '#0808ff',
+                 fill: true,
+                 fillOpacity: 0.5,
+               }
+        });
+
+
+
+////// User defined layers //////
+
+    var user_points = new L.GeoJSON.AJAX("{% url 'user_points' %}", {
+        style: {clickable: true,
+        },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "</br>" +
+                "<strong>Comment:&nbsp;</strong>" + feature.properties.comment.toString()
+            );
+        },
+    });
+
+    var user_lines = new L.GeoJSON.AJAX("{% url 'user_lines' %}", {
+        style: {clickable: true,
+        },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "</br>" +
+                "<strong>Comment:&nbsp;</strong>" + feature.properties.comment.toString()
+            );
+        },
+    });
+
+    var user_polygons = new L.GeoJSON.AJAX("{% url 'user_polygons' %}", {
+        style: {clickable: true,
+        },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "</br>" +
+                "<strong>Comment:&nbsp;</strong>" + feature.properties.comment.toString()
+            );
+        },
+    });
+
+////////////////////////////
+////// Leaflet Map /////////
+////////////////////////////
+
+    var map = L.map("map", {
+        zoom: 10,
+        center: [44.1291, -99.8314], 
+        minZoom: 6,
+        maxZoom: 20,
+        layers: [recent, food_plots, grasslands, habitat_leases]
+    });
+
+///////////////////////////////////////
+////// Add Leaflet-Draw controls //////
+///////////////////////////////////////
+
+    // Initialize the FeatureGroup to store editable layers
+
+    var drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    L.control.scale().addTo(map);
+    L.easyPrint().addTo(map);
+
+    var north = L.control({position: "bottomright"});
+    north.onAdd = function(map) {
+        var div = L.DomUtil.create("div", "info legend");
+        div.innerHTML = '<img src="{% static '/img/north_arrow.png' %}" height = "40" width = "40">';
+        return div;
+    }
+    north.addTo(map);
+
+    // Specify some custom options for the Drawing tools
+
+    var drawOptions = {
+    draw: {
+        polygon: {
+            showArea: true
+          }
+	},
+	edit: {
+		featureGroup: drawnItems
+		}
+	}
+
+	// Initialize the draw control and pass it the FeatureGroup of editable layers
+	var drawControl = new L.Control.Draw(drawOptions);
+	
+	map.addControl(drawControl);
+
+	map.on('draw:created', function (e) {
+	var type = e.layerType,
+		layer = e.layer;
+
+	if (type === 'marker') {
+		layer.bindPopup('A popup!');
+	}
+
+	// Do whatever else you need to. (save to db, add to map etc)
+	drawnItems.addLayer(layer);
+	});
+
+    // Add opacity controls
+
+    /*var opacitySlider = new L.Control.opacitySlider();
+    map.addControl(opacitySlider);*/
+
+    //opacitySlider.setOpacityLayer(landfire)
+
+</script>
+
+
+{% endblock layers %}
+
