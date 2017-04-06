@@ -23,4 +23,6 @@ urlpatterns = [
     url(r'^ph_dl/', views.ph_dl_view, name='ph_dl'),
     url(r'^tax_cl_dl/', views.taxonomy_dl_view, name='tax_cl_dl'),
     url(r'^texture_dl/', views.texture_dl_view, name='texture_dl'),
+    url(r'^sample_dl/', views.sample_dl_view, name='sample_dl'),
+    url(r'^sample_up/', views.sample_up_view, name='sample_up'),
 ]

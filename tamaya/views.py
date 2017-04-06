@@ -120,3 +120,24 @@ def texture_dl_view(request):
     response['Content-Disposition'] = 'attachment; filename="soil_texture_dcp.zip"'
 
     return response
+
+######################
+## Import Utilities ##
+######################
+
+def sample_dl_view(request):
+    download_file = open(os.path.join(path, 'downloads', 'sample.zip'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="sample.zip"'
+
+    return response
+
+def sample_up_view(request):
+
+    print("\nCheck in sample upload view function....\n")
+
+    download_file = open(os.path.join(path, 'downloads', 'sample.zip'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="sample.zip"'
+
+    return response
