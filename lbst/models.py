@@ -1,5 +1,111 @@
 from django.contrib.gis.db import models
 
+# Admin Layers
+
+class lbst_boundary(models.Model):
+    boundary_id = models.AutoField(primary_key = True)
+    objectid = models.BigIntegerField()
+    own_type = models.CharField(max_length=254)
+    own_name = models.CharField(max_length=254)
+    mgr_name_d = models.CharField(max_length=254)
+    p_des_tp = models.CharField(max_length=254)
+    p_loc_ds = models.CharField(max_length=254)
+    p_des_nm = models.CharField(max_length=254)
+    p_loc_nm = models.CharField(max_length=254)
+    s_des_tp = models.CharField(max_length=254)
+    s_loc_ds = models.CharField(max_length=254)
+    s_des_nm = models.CharField(max_length=254)
+    s_loc_nm = models.CharField(max_length=254)
+    t_des_tp = models.CharField(max_length=254)
+    t_loc_ds = models.CharField(max_length=254)
+    t_des_nm = models.CharField(max_length=254)
+    t_loc_nm = models.CharField(max_length=254)
+    state_nm = models.CharField(max_length=254)
+    gap_sts = models.CharField(max_length=254)
+    iucn_cat = models.CharField(max_length=254)
+    gis_src = models.CharField(max_length=254)
+    src_date = models.CharField(max_length=254)
+    comments = models.CharField(max_length=254)
+    gis_acres = models.FloatField()
+    status = models.CharField(max_length=254)
+    fia_code = models.CharField(max_length=254)
+    shape_leng = models.FloatField()
+    res_status = models.CharField(max_length=254)
+    shape_le_1 = models.FloatField()
+    shape_area = models.FloatField()
+
+    geom = models.MultiPolygonField(srid=4326)
+
+    class Meta:
+        verbose_name_plural = 'Reservation Boundary'
+
+    def __str__(self):
+        return '%s' % (self.boundary_id)
+
+class lbst_parcels(models.Model):
+    parcel_id = models.AutoField(primary_key=True)
+    area = models.FloatField()
+    perimeter = models.FloatField()
+    biglst_field = models.FloatField()
+    biglst_id = models.FloatField()
+    pls_town = models.CharField(max_length=4)
+    pls_range = models.CharField(max_length=4)
+    pls_sec = models.CharField(max_length=2)
+    pls_pm = models.CharField(max_length=2)
+    lst_owntyp = models.CharField(max_length=1)
+    lst_restyp = models.CharField(max_length=1)
+    lst_open = models.CharField(max_length=2)
+    lst_tractn = models.CharField(max_length=8)
+    lst_suffix = models.CharField(max_length=3)
+    lst_mtract = models.CharField(max_length=8)
+    lst_msuffi = models.CharField(max_length=3)
+    lst_lot = models.CharField(max_length=3)
+    lst_area = models.FloatField()
+    lst_sym = models.IntegerField()
+    acres = models.BigIntegerField()
+    owntype = models.FloatField()
+    owner = models.FloatField()
+    own = models.FloatField()
+    num = models.FloatField()
+
+    geom = models.MultiPolygonField(srid=4326)
+
+    class Meta:
+        verbose_name_plural = 'Reservation Boundary'
+
+    def __str__(self):
+        return '%s' % (self.parcel_id)
+
+class lbst_new_parcels(models.Model):
+    new_parcel_id = models.AutoField(primary_key=True)
+    objectid = models.BigIntegerField()
+    area = models.FloatField()
+    perimeter = models.FloatField()
+    bigplsc_field = models.BigIntegerField()
+    bigplsc_id = models.BigIntegerField()
+    sec = models.IntegerField()
+    town = models.CharField(max_length=3)
+    rng = models.CharField(max_length=3)
+    mer = models.IntegerField()
+    shape_leng = models.FloatField()
+    shape_area = models.FloatField()
+    remarks = models.CharField(max_length=150)
+    purch_name = models.CharField(max_length=50)
+    purch_date = models.CharField(max_length=50)
+    sect_t_r = models.CharField(max_length=50)
+    legal_desc = models.CharField(max_length=250)
+    acres_field = models.BigIntegerField()
+
+    geom = models.MultiPolygonField(srid=4326)
+
+    class Meta:
+        verbose_name_plural = 'Newly Acquired Parcels'
+
+    def __str__(self):
+        return '%s' % (self.new_parcel_id)
+
+# Wildlife Habitat Layers
+
 class food_plots(models.Model):
     food_plot_id = models.AutoField(primary_key = True)
     objectid = models.IntegerField()

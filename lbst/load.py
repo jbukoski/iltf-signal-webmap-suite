@@ -1,6 +1,99 @@
 import os
 from django.contrib.gis.utils import LayerMapping
-from .models import food_plots, grasslands, habitat_leases, shelterbelts, trees_shrubs, wetlands
+from .models import lbst_boundary, lbst_parcels, lbst_new_parcels, food_plots, grasslands, habitat_leases, shelterbelts, trees_shrubs, wetlands
+
+# Admin Layers
+
+boundary_mapping = {
+    'objectid' : 'OBJECTID',
+    'own_type' : 'own_type',
+    'own_name' : 'own_name',
+    'mgr_name_d' : 'mgr_name_d',
+    'p_des_tp' : 'p_des_tp',
+    'p_loc_ds' : 'p_loc_ds',
+    'p_des_nm' : 'p_des_nm',
+    'p_loc_nm' : 'p_loc_nm',
+    's_des_tp' : 's_des_tp',
+    's_loc_ds' : 's_loc_ds',
+    's_des_nm' : 's_des_nm',
+    's_loc_nm' : 's_loc_nm',
+    't_des_tp' : 't_des_tp',
+    't_loc_ds' : 't_loc_ds',
+    't_des_nm' : 't_des_nm',
+    't_loc_nm' : 't_loc_nm',
+    'state_nm' : 'state_nm',
+    'gap_sts' : 'gap_sts',
+    'iucn_cat' : 'iucn_cat',
+    'gis_src' : 'gis_src',
+    'src_date' : 'src_date',
+    'comments' : 'comments',
+    'gis_acres' : 'gis_acres',
+    'status' : 'status',
+    'fia_code' : 'FIA_code',
+    'shape_leng' : 'Shape_Leng',
+    'res_status' : 'Res_status',
+    'shape_le_1' : 'Shape_Le_1',
+    'shape_area' : 'Shape_Area',
+    'geom' : 'MULTIPOLYGON',
+}
+
+boundary_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'reservation_boundary.shp'))
+
+
+parcels_mapping = {
+    'area' : 'AREA',
+    'perimeter' : 'PERIMETER',
+    'biglst_field' : 'BIGLST_',
+    'biglst_id' : 'BIGLST_ID',
+    'pls_town' : 'PLS_TOWN',
+    'pls_range' : 'PLS_RANGE',
+    'pls_sec' : 'PLS_SEC',
+    'pls_pm' : 'PLS_PM',
+    'lst_owntyp' : 'LST_OWNTYP',
+    'lst_restyp' : 'LST_RESTYP',
+    'lst_open' : 'LST_OPEN',
+    'lst_tractn' : 'LST_TRACTN',
+    'lst_suffix' : 'LST_SUFFIX',
+    'lst_mtract' : 'LST_MTRACT',
+    'lst_msuffi' : 'LST_MSUFFI',
+    'lst_lot' : 'LST_LOT',
+    'lst_area' : 'LST_AREA',
+    'lst_sym' : 'LST_SYM',
+    'acres' : 'ACRES',
+    'owntype' : 'OWNTYPE',
+    'owner' : 'OWNER',
+    'own' : 'OWN',
+    'num' : 'NUM',
+    'geom' : 'MULTIPOLYGON',
+}
+
+parcels_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'parcels.shp'))
+
+lbst_new_parcels_mapping = {
+    'objectid' : 'OBJECTID',
+    'area' : 'AREA',
+    'perimeter' : 'PERIMETER',
+    'bigplsc_field' : 'BIGPLSC_',
+    'bigplsc_id' : 'BIGPLSC_ID',
+    'sec' : 'SEC',
+    'town' : 'TOWN',
+    'rng' : 'RNG',
+    'mer' : 'MER',
+    'shape_leng' : 'Shape_Leng',
+    'shape_area' : 'Shape_Area',
+    'remarks' : 'remarks',
+    'purch_name' : 'Purch_name',
+    'purch_date' : 'Purch_date',
+    'sect_t_r' : 'SECT_T_R',
+    'legal_desc' : 'legal_desc',
+    'acres_field' : 'ACRES_',
+    'geom' : 'MULTIPOLYGON',
+}
+
+new_parcels_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'new_parcels.shp'))
+
+
+# Wildlife Habitat Layers
 
 food_plots_mapping = {
     'objectid' : 'OBJECTID',
@@ -95,6 +188,27 @@ wetlands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__fi
 
 
 def run(verbose=True):
+
+    boundary_lm  = LayerMapping(
+        lbst_boundary, boundary_shp, boundary_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    boundary_lm.save(strict=True, verbose=verbose)
+
+
+    parcels_lm = LayerMapping(
+        lbst_parcels, parcels_shp, parcels_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    parcels_lm.save(strict=True, verbose=verbose)
+
+
+    new_parcels_lm = LayerMapping(
+        lbst_new_parcels, new_parcels_shp, lbst_new_parcels_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    new_parcels_lm.save(strict=True, verbose=verbose)
+
 
     food_plots_lm = LayerMapping(
         food_plots, food_plots_shp, food_plots_mapping,

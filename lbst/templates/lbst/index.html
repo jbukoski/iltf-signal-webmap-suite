@@ -35,45 +35,75 @@
 
                             <div class="panel panel-default">
                                 <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#soil-layers">
+                                        Admin Layers
+                                    </a>
+                                </div>
+                                <div id="soil-layers" class="panel-collapse collapse in">
+                                    <div class="panel-body" style="padding: 0px 15px;">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="boundary" z-index="2" checked>
+                                                &nbsp Boundary
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="parcels" z-index="2" checked>
+                                                &nbsp Parcels
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="new_parcels" z-index="2">
+                                                &nbsp Newly Acquired Parcels
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#admin-layers">
-                                        Administrative Layers
+                                        Wildlife Habitat Layers
                                     </a>
                                 </div>
                                 <div id="admin-layers" class="panel-collapse collapse in">
                                     <div class="panel-body" style="padding: 0px 15px;">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="overlayLayers" id="food_plots" z-index="1" checked>
+                                                <input type="checkbox" name="overlayLayers" id="food_plots" z-index="1">
                                                 &nbsp Food Plots
                                             </label>
                                         </div>
 					<div class="checkbox">    
 					    <label>
-                                                <input type="checkbox" name="overlayLayers" id="grasslands" z-index="2" checked>
-                                                &nbsp Grassland Exports
+                                                <input type="checkbox" name="overlayLayers" id="grasslands" z-index="2">
+                                                &nbsp Grasslands
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="overlayLayers" id="habitat_leases" z-index="2" checked>
+                                                <input type="checkbox" name="overlayLayers" id="habitat_leases" z-index="2">
                                                 &nbsp Habitat Leases
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="overlayLayers" id="shelterbelts" z-index="2" checked>
+                                                <input type="checkbox" name="overlayLayers" id="shelterbelts" z-index="2">
                                                 &nbsp Homesite Shelterbelts
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="overlayLayers" id="trees_shrubs" z-index="2" checked>
+                                                <input type="checkbox" name="overlayLayers" id="trees_shrubs" z-index="2">
                                                 &nbsp Trees and Shrubs
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="overlayLayers" id="wetlands" z-index="2" checked>
+                                                <input type="checkbox" name="overlayLayers" id="wetlands" z-index="2">
                                                 &nbsp Wetlands
                                             </label>
                                         </div>
@@ -220,6 +250,39 @@
 ////// Overlay Layers //////
 ////////////////////////////
 
+// Admin layers
+
+    var boundary = new L.GeoJSON.AJAX("{% url 'lbst_boundary' %}", {
+        style: { clickable: true,
+                 color: '#000000',
+                 fill: false,
+                 dashArray: 3,
+               }
+        });
+
+
+// STYLE THESE BY OWNERSHIP TYPE LATER
+
+    var parcels = new L.GeoJSON.AJAX("{% url 'lbst_parcels' %}", {
+        style: { clickable: true,
+                 weight: 0.5,
+                 color: '#040289',
+                 fill: true,
+               }
+        });
+
+    var new_parcels = new L.GeoJSON.AJAX("{% url 'lbst_new_parcels' %}", {
+        style: { clickable: true,
+                 weight: 0.5,
+                 color: '#ff6347',
+                 fill: true,
+               }
+        });
+
+
+// Wildlife Habitat Layers
+
+
     var food_plots = new L.GeoJSON.AJAX("{% url 'food_plots' %}", {
         style: { clickable: true,
                  weight: 3,
@@ -324,10 +387,10 @@
 
     var map = L.map("map", {
         zoom: 10,
-        center: [44.1291, -99.8314], 
+        center: [44.1291, -99.8], 
         minZoom: 6,
         maxZoom: 20,
-        layers: [recent, food_plots, grasslands, habitat_leases]
+        layers: [recent, boundary, parcels]
     });
 
 ///////////////////////////////////////
