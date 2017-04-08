@@ -282,11 +282,44 @@
                     <ul>
                         <li><a href="{% url 'sample_dl' %}">Sampler 1</a></li>
                     </ul>
-                    </br>
                     <h4><strong>Upload local *.shp* file:</strong></h4>
-                    <ul>
-                        <li><a href="{% url 'sample_up' %}">Sampler 2</a></li>
-                    </ul>
+                    <br>
+                    <!--form role="form" method="POST" action="" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label class="btn btn-default btn-file">
+                                <input type="file" id="uploadFile" onchange="uploader()">
+                                <p id="showUpload"></p>
+                            </label>
+                        </div>
+                    </form>
+                    </br>
+                    <a href="{% url 'sample_up' %}"><button id="sendUpload" class="btn btn-danger" style="display: none">Upload File</button></a-->
+                    <form role="form" method="POST" action="{% url 'sample_up' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="btn btn-default btn-file">
+                                <input type="file" id="uploadFile" onchange="uploader()">
+                                <p id="showUpload"></p>
+                            </label>
+                        </div>
+                        </br>
+                        <button id="sendUpload" class="btn btn-danger" style="display: none" type="submit">Upload File</button>
+                    </form>
+                    <!--form role="form" method='POST' action='' enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="btn btn-default btn-file">
+                                <input type="file" name="fileInput">
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-danger">Upload File</button>
+                        <hr>
+                        <a href="{% url 'sample_up' %}"><button type="submit" class="btn btn-danger">Upload File</button></a>
+                        <hr>
+                        <ul>
+                            <a href="{% url 'sample_up' %}" style="btn btn-danger">Upload File</a>
+                        </ul>
+                    </form-->
     			    </br>
     			    </br>
                 </div> <!--Closes tab-pane="upload"-->
@@ -311,10 +344,63 @@
 <script type="text/javascript">
 
 ////////////////////////////
+////// Upload Layers //////
+////////////////////////////
+
+function uploader() {
+    /*
+        Update on SHP file upload from user.
+        HTML is updated to reflect file name and size (meta data).
+    */
+
+    var x = document.getElementById("uploadFile");
+    var txt = " ";
+    var file;
+    var checkerr = false;
+
+    if ( "files" in x ) {
+        if ( x.files.length == 0 ) {
+            txt = "<br>Select one or more files.<br>";
+        } else {
+            txt += "<hr><h5>File Breakdown</h5><br>";
+            file = x.files[0];
+            checkerr = true;
+
+            if ( "name" in file ) {
+                txt += "<strong>File Name: </strong>" + file.name + "<br>";
+            }
+
+            if ( "size" in file ) {
+                txt += "<strong>File Size: </strong>" + file.size + " bytes <br>";
+            }
+
+            if ( "lastModifiedDate" in file ) {
+                txt += "<strong>File Last Modified: </strong>" + file.lastModifiedDate + "<br>";
+            }
+        }
+    } else {
+        if ( x.value == "" ) {
+            txt += "Select a SHP file to upload.";
+        } else {
+            txt += "<strong>The files property is not supported by your browser!</strong><hr>";
+            txt += "<strong>File path: </strong>" + x.value;
+        }
+    }
+    document.getElementById("showUpload").innerHTML = txt;
+
+    if ( checkerr ) {
+        document.getElementById("sendUpload").style.display = "block";
+    } else {
+        document.getElementById("sendUpload").style.display = "none";
+    }
+}
+
+
+////////////////////////////
 ////// Overlay Layers //////
 ////////////////////////////
 
-    var boundary = new L.GeoJSON.AJAX("{% url 'boundary' %}", {
+    var boundary=new L.GeoJSON.AJAX("{% url 'boundary' %}", {
         style: { clickable: false,
                  weight: 3,
                  color: '#000000',
@@ -324,7 +410,7 @@
                }
     });
 
-    var mbls = new L.GeoJSON.AJAX("{% url 'mbls' %}", {
+    var mbls=new L.GeoJSON.AJAX("{% url 'mbls' %}", {
         style: function (feature) {
                     if (feature.properties.comment === "Hyatt Tamaya") {
                         return {
@@ -381,7 +467,7 @@
         }
     });
 
-    var roads = new L.GeoJSON.AJAX("{% url 'roads' %}", {
+    var roads=new L.GeoJSON.AJAX("{% url 'roads' %}", {
         style: {color: '#797976',
                 weight: 2,
                 dashArray: 1,
@@ -397,7 +483,7 @@
         },
     });
 
-    var bulkDens = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
+    var bulkDens=new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
 		    switch (true) {
                         case (feature.properties.bulk_densi <= 1.3):
@@ -422,7 +508,7 @@
         },
     });
 
-    var composting = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
+    var composting=new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
                     switch (feature.properties.composting) {
                         case 'Poor': return {color: "#ffffff", fillColor: "#BC3812", fill: true, fillOpacity: 0.8, weight: 0.8};
@@ -441,7 +527,7 @@
         },
     });
 
-    var org_matter = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
+    var org_matter=new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
                    switch (true) {
                        case (feature.properties.org_matter > 1.5):
@@ -468,7 +554,7 @@
         },
     });
 
-    var soil_ph = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
+    var soil_ph=new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
 		    switch (feature.properties.ph_water) {
 			case 7: return {color: "#ffffff", fillColor: "#d7191c", fillOpacity: 0.8, weight: 0.8};
@@ -493,7 +579,7 @@
         },
     });
 
-    var taxonomy = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
+    var taxonomy=new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
                    switch (true) {
                        case (feature.properties.tax_class.includes("Calciorthids")):
@@ -527,7 +613,7 @@
         },
     });
 
-    var texture = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
+    var texture=new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
                     switch (true) {
                        case (feature.properties.texture.toLowerCase().includes("clay loam")):
@@ -563,7 +649,7 @@
 
 ////// User defined layers //////
 
-    var user_points = new L.GeoJSON.AJAX("{% url 'user_points' %}", {
+    var user_points=new L.GeoJSON.AJAX("{% url 'user_points' %}", {
         style: {clickable: true,
         },
         onEachFeature: function(feature, layer) {
@@ -574,7 +660,7 @@
         },
     });
 
-    var user_lines = new L.GeoJSON.AJAX("{% url 'user_lines' %}", {
+    var user_lines=new L.GeoJSON.AJAX("{% url 'user_lines' %}", {
         style: {clickable: true,
         },
         onEachFeature: function(feature, layer) {
@@ -585,7 +671,7 @@
         },
     });
 
-    var user_polygons = new L.GeoJSON.AJAX("{% url 'user_polygons' %}", {
+    var user_polygons=new L.GeoJSON.AJAX("{% url 'user_polygons' %}", {
         style: {clickable: true,
         },
         onEachFeature: function(feature, layer) {
@@ -600,7 +686,7 @@
 ////// Leaflet Map /////////
 ////////////////////////////
 
-    var map = L.map("map", {
+    var map=L.map("map", {
         zoom: 11,
         center: [35.435, -106.54],
         minZoom: 6,
@@ -614,23 +700,23 @@
 
     // Initialize the FeatureGroup to store editable layers
 
-    var drawnItems = new L.FeatureGroup();
+    var drawnItems=new L.FeatureGroup();
     map.addLayer(drawnItems);
 
     L.control.scale().addTo(map);
     L.easyPrint().addTo(map);
 
-    var north = L.control({position: "bottomright"});
-    north.onAdd = function(map) {
-        var div = L.DomUtil.create("div", "info legend");
-        div.innerHTML = '<img src="{% static '/img/north_arrow.png' %}" height = "40" width = "40">';
+    var north=L.control({position: "bottomright"});
+    north.onAdd=function(map) {
+        var div=L.DomUtil.create("div", "info legend");
+        div.innerHTML='<img src="{% static '/img/north_arrow.png' %}" height="40" width="40">';
         return div;
     }
     north.addTo(map);
 
     // Specify some custom options for the Drawing tools
 
-    var drawOptions = {
+    var drawOptions={
     draw: {
         polygon: {
             showArea: true
@@ -642,13 +728,13 @@
 	}
 
 	// Initialize the draw control and pass it the FeatureGroup of editable layers
-	var drawControl = new L.Control.Draw(drawOptions);
+	var drawControl=new L.Control.Draw(drawOptions);
 
 	map.addControl(drawControl);
 
 	map.on('draw:created', function (e) {
-	var type = e.layerType,
-		layer = e.layer;
+	var type=e.layerType,
+		layer=e.layer;
 
 	if (type === 'marker') {
 		layer.bindPopup('A popup!');
@@ -660,7 +746,7 @@
 
     // Add opacity controls
 
-    var opacitySlider = new L.Control.opacitySlider();
+    var opacitySlider=new L.Control.opacitySlider();
     map.addControl(opacitySlider);
 
     //opacitySlider.setOpacityLayer(landfire)

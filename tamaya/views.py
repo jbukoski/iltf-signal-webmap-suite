@@ -136,6 +136,61 @@ def sample_up_view(request):
 
     print("\nCheck in sample upload view function....\n")
 
+    print("\n===========")
+    print("request: ", request)
+    print("request.FILES: ", request.FILES)
+    print("===========\n")
+
+    if request.method == "POST":
+
+        print("\nWithin request.method == POST...\n")
+
+        """
+        if len(request.files) > 0:
+
+            print("\nRequest.file detected...\n")
+            fileStruct = request.files['fileInput']
+
+            # check if the post request has the file part
+            if 'fileInput' not in request.files:
+                print("\nNo file part\n")
+                #return redirect(request.url)
+
+            # if user does not select file, browser also
+            # submit a empty part without filename
+            if fileStruct.filename == '':
+                print("\nNo selected file\n")
+                #return redirect(request.url)
+
+            if fileStruct.filename:
+
+                print("\n--------------")
+                print("...File upload is valid filename and structure...")
+                print("--------------\n")
+
+
+                filename = secure_filename(fileStruct.filename)
+                fileStruct.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+                # Add Bib file to relative path
+                absPathh = os.path.abspath(UPLOAD_FOLDER + filename)
+                bibDB = bib_parse(absPathh)
+
+                if "collectName" in request.form:
+                    if (request.form["collectName"] == '') or (len(request.form["collectName"]) == 0):
+                        collectName = "Default"
+                    else:
+                        collectName = request.form["collectName"]
+                else:
+                    collectName = "Default"
+
+
+                # Create table and pass in collection name
+                create_table(collectName, bibDB)
+
+                return render_template("showresults.html", collectName = collectName, filenamee = filename, fileUpload = bibDB[0], fileSize = len(bibDB))
+                """
+
     download_file = open(os.path.join(path, 'downloads', 'sample.zip'), "rb")
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="sample.zip"'

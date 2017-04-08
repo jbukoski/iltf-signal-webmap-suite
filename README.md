@@ -39,6 +39,12 @@ To be installed with 'pip':
   5. `python manage.py migrate`
   6. Load data to database
 
+#### Start app
+
+```
+    $ python manage.py runserver
+```
+
 TO DO:
 
   - ~~Styling and popup content~~
