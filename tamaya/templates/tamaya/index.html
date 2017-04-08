@@ -294,17 +294,30 @@
                     </form>
                     </br>
                     <a href="{% url 'sample_up' %}"><button id="sendUpload" class="btn btn-danger" style="display: none">Upload File</button></a-->
+
                     <form role="form" method="POST" action="{% url 'sample_up' %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
-                            <label class="btn btn-default btn-file">
-                                <input type="file" id="uploadFile" onchange="uploader()">
-                                <p id="showUpload"></p>
+                            <label class="btn btn-default btn-file" style="display: block;">
+                                <input name="docfile" type="file" id="uploadFile" onchange="uploader()">
+                                <div id="showUpload" style="overflow: auto;"></div>
                             </label>
                         </div>
                         </br>
                         <button id="sendUpload" class="btn btn-danger" style="display: none" type="submit">Upload File</button>
                     </form>
+                    <br>
+                    <!-- List of uploaded documents -->
+                    {% if documents %}
+                        <ul>
+                            {% for document in documents %}
+                                <li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p id="needDocs" style="display: block;">No documents.</p>
+                    {% endif %}
+                    <br>
                     <!--form role="form" method='POST' action='' enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
@@ -375,7 +388,7 @@ function uploader() {
             }
 
             if ( "lastModifiedDate" in file ) {
-                txt += "<strong>File Last Modified: </strong>" + file.lastModifiedDate + "<br>";
+                txt += "<strong>File Last Modified: </strong><br>" + file.lastModifiedDate + "<br>";
             }
         }
     } else {
@@ -390,8 +403,10 @@ function uploader() {
 
     if ( checkerr ) {
         document.getElementById("sendUpload").style.display = "block";
+        document.getElementById("needDocs").style.display = "none";
     } else {
         document.getElementById("sendUpload").style.display = "none";
+        document.getElementById("needDocs").style.display = "block";
     }
 }
 

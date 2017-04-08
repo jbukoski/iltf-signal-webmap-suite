@@ -8,8 +8,53 @@ from django.contrib.admin.views.decorators import staff_member_required
 import json
 import os
 
+from django.template import RequestContext
+from django.urls import reverse
+from .forms import Document, DocumentForm
+
+def list(request):
+    # Handles file upload
+
+    print("\nCheck in list view function....\n")
+
+    print("\n===========")
+    print("list request: ", request)
+    print("list request.FILES: ", request.FILES)
+    print("===========\n")
+
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            newdoc = Document(docfile = request.FILES['docfile'])
+            newdoc.save()
+
+            # Redirect to the document list after POST
+            return HttpResponseRedirect(reverse('tamaya.views.list'))
+    else:
+        form = DocumentForm()       # Empty
+
+    # Load documents from the list page
+    documents = Document.objects.all()
+
+    # Render list page with all documents
+    """return render_to_response(
+        'tamaya/list.html',
+        {
+            'documents' : documents,
+            'form' : form
+        },
+        context_instance=RequestContext(request)
+    )"""
+    context = {'documents' : documents, 'form' : form}
+    return render(request, 'tamaya/list.html', context)
+
+
 @login_required(login_url='/login/')
 def index(request):
+
+    print("\n\nTHIS IS IN INDEX()\n\n")
+
     bndry = boundary.objects.all()
     return render(request, 'tamaya/index.html', {
         'title': 'Santa Ana Pueblo of NM',
@@ -17,6 +62,9 @@ def index(request):
     })
 
 def home(request):
+
+    print("\n\nTHIS IS IN HOME()\n\n")
+
     return HttpResponseRedirect(urlresolvers.reverse('admin:app_list', args=("tamaya/",)))
 
 def boundary_view(request):
@@ -134,62 +182,60 @@ def sample_dl_view(request):
 
 def sample_up_view(request):
 
-    print("\nCheck in sample upload view function....\n")
-
     print("\n===========")
-    print("request: ", request)
-    print("request.FILES: ", request.FILES)
+    print("sample_up request: ", request)
+    print("sample_up request.FILES: ", request.FILES)
     print("===========\n")
 
-    if request.method == "POST":
 
+    if request.method == 'GET':
+
+        print("\n\nThis is a GET event...\n\n")
+        form = DocumentForm()
+        document = "wowie"
+
+    elif request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
         print("\nWithin request.method == POST...\n")
 
-        """
-        if len(request.files) > 0:
+        if form.is_valid():
 
-            print("\nRequest.file detected...\n")
-            fileStruct = request.files['fileInput']
+            filenamee = request.FILES['docfile']
+            print("\n\nfilenamee: ", filenamee)
+            print("\n\n")
 
-            # check if the post request has the file part
-            if 'fileInput' not in request.files:
-                print("\nNo file part\n")
-                #return redirect(request.url)
+            newdoc = Document(docfile = request.FILES['docfile'])
+            #newdoc.save()
+            # Redirect to the document list after POST
+            return HttpResponseRedirect(reverse('sample_up'))
 
-            # if user does not select file, browser also
-            # submit a empty part without filename
-            if fileStruct.filename == '':
-                print("\nNo selected file\n")
-                #return redirect(request.url)
+        else:
 
-            if fileStruct.filename:
+            print("\n\nForm is NOT VALID...")
+            #print("\nrequest.FILES['docfile']): ", request.FILES['docfile'])
+            print("\n\n")
 
-                print("\n--------------")
-                print("...File upload is valid filename and structure...")
-                print("--------------\n")
+            documents = "uh oh"
+            context = {'documents' : documents, 'form' : form}
 
+            #newdoc = Document(docfile = request.FILES['docfile'])
+            #newdoc.save()
 
-                filename = secure_filename(fileStruct.filename)
-                fileStruct.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return render(request, 'tamaya/index.html', context)
 
-                # Add Bib file to relative path
-                absPathh = os.path.abspath(UPLOAD_FOLDER + filename)
-                bibDB = bib_parse(absPathh)
+    else:
+        form = DocumentForm()       # Empty
 
-                if "collectName" in request.form:
-                    if (request.form["collectName"] == '') or (len(request.form["collectName"]) == 0):
-                        collectName = "Default"
-                    else:
-                        collectName = request.form["collectName"]
-                else:
-                    collectName = "Default"
+    # Load documents from the list page
+    #documents = Document.objects.all()
+    documents = "uh oh"
 
-
-                # Create table and pass in collection name
-                create_table(collectName, bibDB)
-
-                return render_template("showresults.html", collectName = collectName, filenamee = filename, fileUpload = bibDB[0], fileSize = len(bibDB))
-                """
+    # Render list page with all documents
+    #return render (
+    #    request,
+    #    'tamaya/',
+    #    {'documents' : documents, 'form' : form}
+    #)
 
     download_file = open(os.path.join(path, 'downloads', 'sample.zip'), "rb")
     response = HttpResponse(download_file, content_type='application/force-download')

@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^texture_dl/', views.texture_dl_view, name='texture_dl'),
     url(r'^sample_dl/', views.sample_dl_view, name='sample_dl'),
     url(r'^sample_up/', views.sample_up_view, name='sample_up'),
+    url(r'^list/$', views.list, name='list')
 ]
