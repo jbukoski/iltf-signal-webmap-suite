@@ -205,17 +205,16 @@ def sample_up_view(request):
             print("\n\n")
 
             newdoc = Document(docfile = request.FILES['docfile'])
-            #newdoc.save()
+            newdoc.save()
             # Redirect to the document list after POST
-            return HttpResponseRedirect(reverse('sample_up'))
+            #return HttpResponseRedirect(reverse('sample_up'))
+            return HttpResponseRedirect('tamaya/')
 
         else:
 
-            print("\n\nForm is NOT VALID...")
-            #print("\nrequest.FILES['docfile']): ", request.FILES['docfile'])
-            print("\n\n")
+            print("\n\nForm is NOT VALID...\n\n")
 
-            documents = "uh oh"
+            documents = "No Document"
             context = {'documents' : documents, 'form' : form}
 
             #newdoc = Document(docfile = request.FILES['docfile'])
@@ -228,7 +227,7 @@ def sample_up_view(request):
 
     # Load documents from the list page
     #documents = Document.objects.all()
-    documents = "uh oh"
+    documents = "No Document"
 
     # Render list page with all documents
     #return render (
