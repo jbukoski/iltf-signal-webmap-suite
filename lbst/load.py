@@ -1,6 +1,7 @@
 import os
 from django.contrib.gis.utils import LayerMapping
 from .models import lbst_boundary, lbst_parcels, lbst_new_parcels, food_plots, grasslands, habitat_leases, shelterbelts, trees_shrubs, wetlands
+from . import models
 
 # Admin Layers
 
@@ -186,6 +187,18 @@ wetlands_mapping = {
 
 wetlands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'wetlands.shp'))
 
+# C layers
+
+avoided_c_mapping = {
+    'feat_id' : 'Id',
+    'mgmt_unit' : 'Mgmt_Unit',
+    'yr_establi' : 'Yr_Establi',
+    'acres' : 'Acres',
+    'geom' : 'MULTIPOLYGON',
+}
+
+avoided_c_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'avoided_c.shp'))
+
 
 def run(verbose=True):
 
@@ -249,3 +262,9 @@ def run(verbose=True):
         transform=False, encoding='iso-8859-1',
     )
     wetlands_lm.save(strict=True, verbose=verbose)
+
+    avoided_c_lm = LayerMapping(
+        models.avoided_c, avoided_c_shp, avoided_c_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    avoided_c_lm.save(strict=True, verbose=verbose)

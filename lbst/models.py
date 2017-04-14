@@ -214,7 +214,6 @@ class wetlands(models.Model):
     cost_field = models.BigIntegerField()
     size_ac_field = models.FloatField()
     year_done = models.IntegerField()
-
     geom = models.MultiPolygonField(srid=4326)
 
     class Meta:
@@ -222,3 +221,24 @@ class wetlands(models.Model):
 
     def __str__(self):
         return '%s' % (self.wetlands_id)
+
+# Carbon layers
+
+class avoided_c(models.Model):
+    avoided_c_id = models.AutoField(primary_key = True)
+    feat_id = models.IntegerField()
+    mgmt_unit = models.CharField(max_length=25)
+    yr_establi = models.IntegerField()
+    acres = models.FloatField()
+    geom = models.MultiPolygonField(srid=4326)
+
+    def __str__(self):
+        return '%s' % (self.avoided_c_id)
+
+
+
+
+
+
+
+

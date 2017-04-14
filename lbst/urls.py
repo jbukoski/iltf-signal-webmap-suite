@@ -15,5 +15,6 @@ urlpatterns = [
     url(r'^shelterbelts/', views.shelterbelts_view, name='shelterbelts'),
     url(r'^trees_shrubs/', views.trees_shrubs_view, name='trees_shrubs'),
     url(r'^wetlands/', views.wetlands_view, name='wetlands'),
+    url(r'^avoided_c/', views.avoided_c_view, name='avoided_c'),
 ]
 

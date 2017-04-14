@@ -5,6 +5,7 @@ from django.core.serializers import serialize
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import lbst_boundary, lbst_parcels, lbst_new_parcels, food_plots, grasslands, habitat_leases, shelterbelts, trees_shrubs, wetlands
+from . import models
 import json
 import os
 
@@ -49,3 +50,8 @@ def trees_shrubs_view(request):
 def wetlands_view(request):
     wetlands_json = serialize('geojson', wetlands.objects.all(), geometry_field="geom")
     return HttpResponse(wetlands_json, content_type='json')
+
+def avoided_c_view(request):
+    avoided_c_json = serialize('geojson', models.avoided_c.objects.all(), geometry_field="geom")
+    return HttpResponse(avoided_c_json, content_type='json')
+
