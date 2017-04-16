@@ -53,28 +53,21 @@ def list(request):
 # Specify downloads path
 path = os.path.dirname(os.path.abspath(__file__))
 
-print("\n\nPath in views.py: ", path)
-print("\n\n")
+print("\nPath in views.py: ", path, "\n")
 
-raw_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), 'r+')
+raw_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), 'r+').read()
 
-print("\n\nraw_json: ", raw_json, "\n\n")
-
-load_json = json.load(raw_json)
-
+#load_json = json.load(raw_json)
+load_json = json.dumps(raw_json)
 #print("\n\nload_json: ", load_json, "\n\n")
-#string_json = json.dumps(raw_json)
-#print("\n\nstring_json: ", string_json, "\n\n")
-raw_json.close()
+#raw_json.close()
 
 @login_required(login_url='/login/')
 def index(request):
 
     print("\n\nTHIS IS IN INDEX()\n\n")
 
-    print("\n\nIn index - load_json: ", load_json, "\n\n")
-
-    #fooJson = "../media/tamaya/uploaded/boundary.geojson"
+    #print("\n\nIn index - load_json: ", load_json, "\n\n")
 
     bndry = boundary.objects.all()
     return render(request, 'tamaya/index.html', {
@@ -209,9 +202,8 @@ def sample_up_view(request):
 
     if request.method == 'GET':
 
-        print("\n\nThis is a GET event...\n\n")
+        print("\nThis is a GET event...\n")
         form = DocumentForm()
-        document = "wowie"
 
     elif request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
@@ -220,18 +212,20 @@ def sample_up_view(request):
         if form.is_valid():
 
             filenamee = request.FILES['docfile']
-            print("\n\nfilenamee: ", filenamee)
-            print("\n\n")
+            print("\n\nfilenamee: ", filenamee, "\n\n")
 
             newdoc = Document(docfile = request.FILES['docfile'])
-            #newdoc.save()
+            newdoc.save()
+
+            print("\n\nnewdoc: ", newdoc, "\n\n")
+
             # Redirect to the document list after POST
-            #return HttpResponseRedirect(reverse('sample_up'))
+            return HttpResponseRedirect(reverse('tamaya/'))
             #return HttpResponseRedirect('tamaya/')
 
         else:
 
-            print("\n\nForm is NOT VALID...\n\n")
+            print("\nForm is NOT VALID...\n")
 
             documents = "No Document"
             context = {'documents' : documents, 'form' : form}
@@ -244,9 +238,6 @@ def sample_up_view(request):
     else:
         form = DocumentForm()       # Empty
 
-    # Load documents from the list page
-    #documents = Document.objects.all()
-    documents = "No Document"
 
     # Render list page with all documents
     #return render (
@@ -260,3 +251,18 @@ def sample_up_view(request):
     #response['Content-Disposition'] = 'attachment; filename="sample.zip"'
 
     #return response
+
+    # Load documents from the list page
+    documents = Document.objects.all()
+
+    # Render list page with all documents
+    """return render_to_response(
+        'tamaya/list.html',
+        {
+            'documents' : documents,
+            'form' : form
+        },
+        context_instance=RequestContext(request)
+    )"""
+    context = {'documents' : documents, 'form' : form}
+    return render(request, 'tamaya/index.html', context)

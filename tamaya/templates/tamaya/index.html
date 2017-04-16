@@ -278,13 +278,13 @@
                 </div> <!--Closes tab-pane="download"-->
                 <div class="tab-pane" id="upload">
 		            <h3>Upload Data Layers:</h3>
-	                <p> New data layers (SHP, *.shp* files) can be uploaded to this webmap and used along with existing data for interactivity and visualizations.</p>
+	                <p> New data layers (GeoJSON, *.geojson* files) can be uploaded to this webmap and used along with existing data for interactivity and visualizations.</p>
     			    </br>
-                    <h4><strong>Example local *.shp* file:</strong></h4>
+                    <h4><strong>Example local *.geojson* file:</strong></h4>
                     <ul>
-                        <li><a href="{% url 'sample_dl' %}">Sampler 1</a></li>
+                        <li><a href="{% url 'sample_dl' %}">Download sample GeoJSON</a></li>
                     </ul>
-                    <h4><strong>Upload local *.shp* file:</strong></h4>
+                    <h4><strong>Upload local *.geojson* file:</strong></h4>
                     <br>
                     <!--form role="form" method="POST" action="" enctype="multipart/form-data">
                         <div class="form-group">
@@ -309,7 +309,7 @@
                         <button id="sendUpload" class="btn btn-danger" style="display: none" type="submit">Upload File</button>
                     </form>
                     <br>
-                    <!-- List of uploaded documents -->
+                    <!-- List of uploaded documents >
                     {% if documents %}
                         <ul>
                             {% for document in documents %}
@@ -319,7 +319,13 @@
                     {% else %}
                         <p id="needDocs" style="display: block;">No documents.</p>
                     {% endif %}
+                    <br-->
+                    <hr>
                     <br>
+                    <h3>Render Static GeoJSON:</h3>
+	                <p>Render file **media/tamaya/uploaded/boundary.geojson** located in the web app.</p>
+    			    </br>
+                    <button class="btn btn-danger" onclick="show_static()">Render boundary.geojson</button>
                     <!--form role="form" method='POST' action='' enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
@@ -364,7 +370,39 @@
 
 var sample_json = "{{ samplejson | escapejs }}";
 
-debugger;
+function show_static() {
+    /*
+        Show static geojson file on user button click.
+    */
+
+    debugger;
+
+    try {
+
+        var static_geojson = new L.GeoJSON.AJAX(sample_json);
+        static_geojson.addTo(map);
+
+        /*$.getJSON(sample_json, function(data) {
+            L.geoJson(data).addTo(map);
+        });*/
+
+        /*$.ajax({
+            type: "POST",
+            url: sample_json,
+            dataType: 'json',
+            success: function( response ) {
+                geojson_layer = L.geoJson(response).addTo(map);
+                map.fitBounds(geojson_layer.getBounds());
+            }
+        });*/
+
+    } catch(err) {
+
+        debugger;
+        alert("Error on rendering static geoJson : 'media/tamaya/uploaded/boundary.geojson'");
+
+    }
+}
 
 function uploader() {
     /*
@@ -396,13 +434,6 @@ function uploader() {
             if ( "lastModifiedDate" in file ) {
                 txt += "<strong>File Last Modified: </strong><br>" + file.lastModifiedDate + "<br>";
             }
-
-            debugger;
-
-            var fooLayer = new L.GeoJSON.AJAX(file);
-            fooLayer.addTo(map);
-
-            debugger;
         }
     } else {
         if ( x.value == "" ) {
