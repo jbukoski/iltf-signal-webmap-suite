@@ -50,15 +50,37 @@ def list(request):
     return render(request, 'tamaya/list.html', context)
 
 
+# Specify downloads path
+path = os.path.dirname(os.path.abspath(__file__))
+
+print("\n\nPath in views.py: ", path)
+print("\n\n")
+
+raw_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), 'r+')
+
+print("\n\nraw_json: ", raw_json, "\n\n")
+
+load_json = json.load(raw_json)
+
+#print("\n\nload_json: ", load_json, "\n\n")
+#string_json = json.dumps(raw_json)
+#print("\n\nstring_json: ", string_json, "\n\n")
+raw_json.close()
+
 @login_required(login_url='/login/')
 def index(request):
 
     print("\n\nTHIS IS IN INDEX()\n\n")
 
+    print("\n\nIn index - load_json: ", load_json, "\n\n")
+
+    #fooJson = "../media/tamaya/uploaded/boundary.geojson"
+
     bndry = boundary.objects.all()
     return render(request, 'tamaya/index.html', {
         'title': 'Santa Ana Pueblo of NM',
         'bndry': bndry,
+        'samplejson': load_json
     })
 
 def home(request):
@@ -98,9 +120,6 @@ def user_polygons_view(request):
 ###############
 ## Downloads ##
 ###############
-
-# Specify downloads path
-path = os.path.dirname(os.path.abspath(__file__))
 
 # Admin layers
 
@@ -205,10 +224,10 @@ def sample_up_view(request):
             print("\n\n")
 
             newdoc = Document(docfile = request.FILES['docfile'])
-            newdoc.save()
+            #newdoc.save()
             # Redirect to the document list after POST
             #return HttpResponseRedirect(reverse('sample_up'))
-            return HttpResponseRedirect('tamaya/')
+            #return HttpResponseRedirect('tamaya/')
 
         else:
 
@@ -236,8 +255,8 @@ def sample_up_view(request):
     #    {'documents' : documents, 'form' : form}
     #)
 
-    download_file = open(os.path.join(path, 'downloads', 'sample.zip'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="sample.zip"'
+    #download_file = open(os.path.join(path, 'downloads', 'sample.zip'), "rb")
+    #response = HttpResponse(download_file, content_type='application/force-download')
+    #response['Content-Disposition'] = 'attachment; filename="sample.zip"'
 
-    return response
+    #return response

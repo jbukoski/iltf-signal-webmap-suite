@@ -3,7 +3,9 @@
 
 {% block side_bar %}
 
-    <title>Santa Ana Pueblo Land & Natural Assets Map</title>
+    <!--title>Santa Ana Pueblo Land & Natural Assets Map</title-->
+
+    <title>{{ title }}</title>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
@@ -360,6 +362,10 @@
 ////// Upload Layers //////
 ////////////////////////////
 
+var sample_json = "{{ samplejson | escapejs }}";
+
+debugger;
+
 function uploader() {
     /*
         Update on SHP file upload from user.
@@ -390,6 +396,13 @@ function uploader() {
             if ( "lastModifiedDate" in file ) {
                 txt += "<strong>File Last Modified: </strong><br>" + file.lastModifiedDate + "<br>";
             }
+
+            debugger;
+
+            var fooLayer = new L.GeoJSON.AJAX(file);
+            fooLayer.addTo(map);
+
+            debugger;
         }
     } else {
         if ( x.value == "" ) {
