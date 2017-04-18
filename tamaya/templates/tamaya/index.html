@@ -278,52 +278,43 @@
                 </div> <!--Closes tab-pane="download"-->
                 <div class="tab-pane" id="upload">
 		            <h3>Upload Data Layers:</h3>
-	                <p> New data layers (GeoJSON, *.geojson* files) can be uploaded to this webmap and used along with existing data for interactivity and visualizations.</p>
+	                <p> New data layers (GeoJSON, <b>.geojson</b> files) can be uploaded to this webmap and used along with existing data for interactivity and visualizations.</p>
     			    </br>
-                    <h4><strong>Example local *.geojson* file:</strong></h4>
+                    <h4><strong>Example local <i>.geojson</i> file:</strong></h4>
                     <ul>
                         <li><a href="{% url 'sample_dl' %}">Download sample GeoJSON</a></li>
                     </ul>
-                    <h4><strong>Upload local *.geojson* file:</strong></h4>
+                    <h4><strong>Upload local <i>.geojson</i> file:</strong></h4>
                     <br>
-                    <!--form role="form" method="POST" action="" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label class="btn btn-default btn-file">
-                                <input type="file" id="uploadFile" onchange="uploader()">
-                                <p id="showUpload"></p>
-                            </label>
-                        </div>
-                    </form>
-                    </br>
-                    <a href="{% url 'sample_up' %}"><button id="sendUpload" class="btn btn-danger" style="display: none">Upload File</button></a-->
-
                     <form role="form" method="POST" action="{% url 'sample_up' %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
                             <label class="btn btn-default btn-file" style="display: block;">
-                                <input name="docfile" type="file" id="uploadFile" onchange="uploader()">
-                                <div id="showUpload" style="overflow: auto;"></div>
+                                <input name="docfile" type="file" id="upload_file" onchange="uploader()">
+                                <div id="show_upload" style="overflow: auto;"></div>
                             </label>
                         </div>
                         </br>
-                        <button id="sendUpload" class="btn btn-danger" style="display: none" type="submit">Upload File</button>
+                        <button id="send_upload" class="btn btn-danger" style="display: none" type="submit">Upload File</button>
                     </form>
                     <br>
-                    <!-- List of uploaded documents >
+                    <!-- List of uploaded documents -->
+                    <h4><strong>Files uploaded to web app:</strong></h4>
                     {% if documents %}
                         <ul>
                             {% for document in documents %}
-                                <li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li>
+                                <!--li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li-->
+                                <li>{{ document.docfile.name }}</li>
                             {% endfor %}
                         </ul>
                     {% else %}
-                        <p id="needDocs" style="display: block;">No documents.</p>
+                        <p id="need_docs" style="display: block;">No documents.</p>
                     {% endif %}
-                    <br-->
+                    <br>
                     <hr>
                     <br>
                     <h3>Render Static GeoJSON:</h3>
-	                <p>Render file **media/tamaya/uploaded/boundary.geojson** located in the web app.</p>
+	                <p>Render file <b>media/tamaya/uploaded/boundary.geojson</b> located in the web app.</p>
     			    </br>
                     <button class="btn btn-danger" onclick="show_static()">Render boundary.geojson</button>
                     <!--form role="form" method='POST' action='' enctype="multipart/form-data">
@@ -410,7 +401,7 @@ function uploader() {
         HTML is updated to reflect file name and size (meta data).
     */
 
-    var x = document.getElementById("uploadFile");
+    var x = document.getElementById("upload_file");
     var txt = " ";
     var file;
     var checkerr = false;
@@ -443,14 +434,14 @@ function uploader() {
             txt += "<strong>File path: </strong>" + x.value;
         }
     }
-    document.getElementById("showUpload").innerHTML = txt;
+    document.getElementById("show_upload").innerHTML = txt;
 
     if ( checkerr ) {
-        document.getElementById("sendUpload").style.display = "block";
-        document.getElementById("needDocs").style.display = "none";
+        document.getElementById("send_upload").style.display = "block";
+        //document.getElementById("need_docs").style.display = "none";
     } else {
-        document.getElementById("sendUpload").style.display = "none";
-        document.getElementById("needDocs").style.display = "block";
+        document.getElementById("send_upload").style.display = "none";
+        //document.getElementById("need_docs").style.display = "block";
     }
 }
 

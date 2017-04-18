@@ -49,14 +49,10 @@ def list(request):
     context = {'documents' : documents, 'form' : form}
     return render(request, 'tamaya/list.html', context)
 
-
 # Specify downloads path
 path = os.path.dirname(os.path.abspath(__file__))
 
-print("\nPath in views.py: ", path, "\n")
-
 raw_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), 'r+').read()
-
 #load_json = json.load(raw_json)
 load_json = json.dumps(raw_json)
 #print("\n\nload_json: ", load_json, "\n\n")
@@ -77,9 +73,6 @@ def index(request):
     })
 
 def home(request):
-
-    print("\n\nTHIS IS IN HOME()\n\n")
-
     return HttpResponseRedirect(urlresolvers.reverse('admin:app_list', args=("tamaya/",)))
 
 def boundary_view(request):
@@ -186,19 +179,14 @@ def texture_dl_view(request):
 ######################
 
 def sample_dl_view(request):
-    download_file = open(os.path.join(path, 'downloads', 'sample.zip'), "rb")
+    #download_file = open(os.path.join(path, 'downloads', 'sample.zip'), "rb")
+    download_file = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), "rb")
     response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="sample.zip"'
+    response['Content-Disposition'] = 'attachment; filename="boundary.geojson"'
 
     return response
 
 def sample_up_view(request):
-
-    print("\n===========")
-    print("sample_up request: ", request)
-    print("sample_up request.FILES: ", request.FILES)
-    print("===========\n")
-
 
     if request.method == 'GET':
 
@@ -217,11 +205,10 @@ def sample_up_view(request):
             newdoc = Document(docfile = request.FILES['docfile'])
             newdoc.save()
 
-            print("\n\nnewdoc: ", newdoc, "\n\n")
-
             # Redirect to the document list after POST
-            return HttpResponseRedirect(reverse('tamaya/'))
-            #return HttpResponseRedirect('tamaya/')
+            #return HttpResponseRedirect(reverse(newdoc.url))
+            return HttpResponseRedirect(reverse('sample_up'))
+            #return HttpResponseRedirect(reverse('index'))
 
         else:
 
