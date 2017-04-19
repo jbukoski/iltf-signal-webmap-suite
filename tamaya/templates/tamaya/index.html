@@ -290,7 +290,7 @@
                         {% csrf_token %}
                         <div class="form-group">
                             <label class="btn btn-default btn-file" style="display: block;">
-                                <input name="docfile" type="file" id="upload_file" onchange="uploader()">
+                                <input name="docfile" type="file" id="upload_file" onchange="uploader()" value="{{ request.path }}">
                                 <div id="show_upload" style="overflow: auto;"></div>
                             </label>
                         </div>
@@ -317,21 +317,17 @@
 	                <p>Render file <b>media/tamaya/uploaded/boundary.geojson</b> located in the web app.</p>
     			    </br>
                     <button class="btn btn-danger" onclick="show_static()">Render boundary.geojson</button>
-                    <!--form role="form" method='POST' action='' enctype="multipart/form-data">
+                    <br>
+                    <hr>
+                    <br>
+                    <h3>Delete Uploaded GeoJSON:</h3>
+                    <p>Clear out previously uploaded GeoJSON files from the server.</p>
+                    <!--button class="btn btn-info" onclick=""><a href="{% url 'delete_up' %}">Delete files</a></button-->
+                    <form role="form" method="POST" action="{% url 'delete_up' %}" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <div class="form-group">
-                            <label class="btn btn-default btn-file">
-                                <input type="file" name="fileInput">
-                            </label>
-                        </div>
-                        <button type="submit" class="btn btn-danger">Upload File</button>
-                        <hr>
-                        <a href="{% url 'sample_up' %}"><button type="submit" class="btn btn-danger">Upload File</button></a>
-                        <hr>
-                        <ul>
-                            <a href="{% url 'sample_up' %}" style="btn btn-danger">Upload File</a>
-                        </ul>
-                    </form-->
+                        <input name="del_files" type="file" id="del_files" value="{{ request.path }}" style="display: none;">
+                        <button id="del_uploads" class="btn btn-info" type="submit">Delete Files</button>
+                    </form>
     			    </br>
     			    </br>
                 </div> <!--Closes tab-pane="upload"-->

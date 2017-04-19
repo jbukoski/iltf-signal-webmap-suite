@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^sample_dl/', views.sample_dl_view, name='sample_dl'),
     url(r'^sample_up/', views.sample_up_view, name='sample_up'),
     url(r'^list/$', views.list, name='list'),
-    url(r'^render_geojson/', views.render_geojson_view, name='render_geojson')
+    url(r'^render_geojson/', views.render_geojson_view, name='render_geojson'),
+    url(r'^delete_up/', views.delete_up_view, name='delete_up'),
 ]

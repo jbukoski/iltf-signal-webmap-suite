@@ -213,7 +213,8 @@ def sample_up_view(request):
             return HttpResponseRedirect(reverse('sample_up'))
             #return HttpResponseRedirect(reverse('index'))
 
-            #return render_to_response('tamaya/index.html', locals())
+            #next = request.POST.get('docfile', '/tamaya')
+            #return HttpResponseRedirect(next)
 
         else:
 
@@ -238,23 +239,28 @@ def sample_up_view(request):
     #    {'documents' : documents, 'form' : form}
     #)
 
-    #download_file = open(os.path.join(path, 'downloads', 'sample.zip'), "rb")
-    #response = HttpResponse(download_file, content_type='application/force-download')
-    #response['Content-Disposition'] = 'attachment; filename="sample.zip"'
-
-    #return response
-
     # Load documents from the list page
     documents = Document.objects.all()
-
-    # Render list page with all documents
-    """return render_to_response(
-        'tamaya/list.html',
-        {
-            'documents' : documents,
-            'form' : form
-        },
-        context_instance=RequestContext(request)
-    )"""
     context = {'documents' : documents, 'form' : form}
     return render(request, 'tamaya/index.html', context)
+
+def delete_up_view(request):
+
+    print("\n\nWithin delete_up")
+
+    i = 0
+    documents = Document.objects.all()
+    for document in documents:
+
+        i += 1
+        print("--\ni: ", i)
+        print("document: ", document)
+        #print("document.docfile.url: ", document.docfile.url)
+
+        document.delete()
+
+    print("\n\n")
+
+    #next = request.POST.get('del_files', '/tamaya')
+    #return HttpResponseRedirect(next)
+    return HttpResponseRedirect(reverse('index'))
