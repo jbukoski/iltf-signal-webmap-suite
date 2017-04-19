@@ -54,7 +54,7 @@ path = os.path.dirname(os.path.abspath(__file__))
 
 raw_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), 'r+').read()
 #load_json = json.load(raw_json)
-load_json = json.dumps(raw_json)
+#load_json = json.dumps(raw_json)
 #print("\n\nload_json: ", load_json, "\n\n")
 #raw_json.close()
 
@@ -69,11 +69,14 @@ def index(request):
     return render(request, 'tamaya/index.html', {
         'title': 'Santa Ana Pueblo of NM',
         'bndry': bndry,
-        'samplejson': load_json
+        #'samplejson': load_json
     })
 
 def home(request):
     return HttpResponseRedirect(urlresolvers.reverse('admin:app_list', args=("tamaya/",)))
+
+def render_geojson_view(request):
+    return HttpResponse(raw_json, content_type='json')
 
 def boundary_view(request):
     boundary_json = serialize('geojson', boundary.objects.all(), geometry_field="geom")
@@ -209,6 +212,8 @@ def sample_up_view(request):
             #return HttpResponseRedirect(reverse(newdoc.url))
             return HttpResponseRedirect(reverse('sample_up'))
             #return HttpResponseRedirect(reverse('index'))
+
+            #return render_to_response('tamaya/index.html', locals())
 
         else:
 

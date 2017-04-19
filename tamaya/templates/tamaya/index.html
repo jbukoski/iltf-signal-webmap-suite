@@ -359,7 +359,9 @@
 ////// Upload Layers //////
 ////////////////////////////
 
-var sample_json = "{{ samplejson | escapejs }}";
+//var sample_json = "{{ samplejson | escapejs }}";
+
+//var sample_json = "{% url 'render_geojson' %}";
 
 function show_static() {
     /*
@@ -370,7 +372,8 @@ function show_static() {
 
     try {
 
-        var static_geojson = new L.GeoJSON.AJAX(sample_json);
+        var static_geojson = new L.GeoJSON.AJAX("{% url 'render_geojson' %}");
+        //var static_geojson = new L.GeoJSON.AJAX(sample_json);
         static_geojson.addTo(map);
 
         /*$.getJSON(sample_json, function(data) {
