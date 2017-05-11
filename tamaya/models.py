@@ -1,6 +1,6 @@
 from django.contrib.gis.db import models
 
-# Admin layers
+# ADMIN LAYERS
 
 class boundary(models.Model):
     boundary_id = models.AutoField(primary_key=True)
@@ -39,6 +39,8 @@ class mbls(models.Model):
     def __str__(self):
         return '%s' % (self.comment)
 
+# ROAD LAYERS
+
 class roads(models.Model):
     roads_id = models.AutoField(primary_key=True)
     length = models.FloatField()
@@ -66,7 +68,26 @@ class roads(models.Model):
     def __str__(self):
         return '%s' % (self.roads_id)
 
-# Soil Layers
+# HYDROLOGY LAYERS
+
+class watersheds(models.Model):
+    watershed_id = models.AutoField(primary_key=True)
+    objectid = models.BigIntegerField()
+    source = models.BigIntegerField()
+    huc_8 = models.CharField(max_length=8)
+    hu_8_name = models.CharField(max_length=80)
+    shape_leng = models.FloatField()
+    shape_area = models.FloatField()
+    
+    geom = models.MultiPolygonField(srid=4326)
+
+    class Meta:
+        verbose_name_plural = 'Watersheds'
+
+    def __str__(self):
+        return '%s' % (self.watershed_id)
+
+# SOIL LAYERS
 
 class soil_data(models.Model):
     poly_id = models.BigIntegerField()
@@ -91,7 +112,7 @@ class soil_data(models.Model):
     def __str__(self):
         return '%s' % (self.poly_id)
 
-# User-defined layers
+# USER-DEFINED LAYERS
 
 class user_pts(models.Model):
     point_id = models.AutoField(primary_key=True)

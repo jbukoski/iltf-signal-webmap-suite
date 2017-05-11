@@ -1,6 +1,6 @@
 import os
 from django.contrib.gis.utils import LayerMapping
-from .models import boundary, mbls, roads, soil_data
+from . import models
 
 # Admin mappings and shapefiles
 
@@ -49,6 +49,20 @@ roads_mapping = {
 
 roads_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'reservation_roads_simplified.shp'))
 
+# HYDROLOGY LAYERS
+
+watersheds_mapping = {
+    'objectid' : 'OBJECTID',
+    'source' : 'Source',
+    'huc_8' : 'HUC_8',
+    'hu_8_name' : 'HU_8_Name',
+    'shape_leng' : 'Shape_Leng',
+    'shape_area' : 'Shape_Area',
+    'geom' : 'MULTIPOLYGON',
+}
+
+watersheds_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'tamaya', 'PSA_WatershedBasins_4326.shp'))
+
 # Soil layer mappings and shapefiles
 
 soil_data_mapping = {
@@ -72,25 +86,31 @@ soil_data_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 
 def run(verbose=True):
 
     boundary_lm = LayerMapping(
-        boundary, boundary_shp, boundary_mapping,
+        models.boundary, boundary_shp, boundary_mapping,
         transform=False, encoding='iso-8859-1',
     )
     boundary_lm.save(strict=True, verbose=verbose)
 
     mbls_lm = LayerMapping(
-        mbls, mbls_shp, mbls_mapping,
+        models.mbls, mbls_shp, mbls_mapping,
         transform=False, encoding='iso-8859-1',
     )
     mbls_lm.save(strict=True, verbose=verbose)
 
     roads_lm = LayerMapping(
-        roads, roads_shp, roads_mapping,
+        models.roads, roads_shp, roads_mapping,
         transform=False, encoding='iso-8859-1',
     )
     roads_lm.save(strict=True, verbose=verbose)
 
+    watersheds_lm = LayerMapping(
+        models.watersheds, watersheds_shp, watersheds_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    watersheds_lm.save(strict=True, verbose=verbose)
+
     soil_data_lm = LayerMapping(
-        soil_data, soil_data_shp, soil_data_mapping,
+        models.soil_data, soil_data_shp, soil_data_mapping,
         transform=False, encoding='iso-8859-1',
     )
     soil_data_lm.save(strict=True, verbose=verbose)

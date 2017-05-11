@@ -59,6 +59,12 @@
                                                 &nbsp Reservation roads					
                                             </label>
                                         </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="watersheds" z-index="3">
+                                                &nbsp Watersheds
+                                            </label>
+                                        </div>
 				    </div>
 				</div>
                             </div> <!--Closes 'panel panel-default'-->
@@ -393,6 +399,20 @@
             );
         },
     });
+
+    var watersheds = new L.GeoJSON.AJAX("{% url 'watersheds' %}", {
+        style: {color: '#797976',
+                weight: 2,
+                dashArray: 1,
+                opacity: 1,
+                clickable: true,
+               },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+            );
+        },
+    });
+
 
     var bulkDens = new L.GeoJSON.AJAX("{% url 'soil_data' %}", {
         style: function(feature) {
