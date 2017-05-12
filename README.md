@@ -39,6 +39,34 @@ To be installed with 'pip':
   5. `python manage.py migrate`
   6. Load data to database
 
+#### Start app
+
+```
+    $ python manage.py runserver
+```
+
+#### File upload
+
+Need to add the following to **settings.py**:
+
+```
+    # Media files
+
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/media/'
+```
+
+Need to add the following to **models.py**:
+
+```
+    from django.db import models
+    
+    class Document(models.Model):
+        docfile = models.FileField(upload_to='documents/')
+```
+
+<hr>
+
 TO DO:
 
   - ~~Styling and popup content~~
