@@ -113,8 +113,17 @@ label {
 		position: relative;
 		top: -4px;
 	    }
-	
+
 	    .tahoe-leg {
 		position: relative;
 		top: 10px;
 	    }
+
+/**************************************
+ Oliver modified CSS below
+ **************************************/
+
+.nav-tabs>li>a {
+    margin-right: 0px;
+    padding: 10px 12px;
+}
