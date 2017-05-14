@@ -94,6 +94,14 @@ def soil_data_view(request):
     soil_data_json = serialize('geojson', soil_data.objects.all(), geometry_field="geom", fields=('poly_id','tax_class', 'org_matter', 'composting', 'texture', 'ph_water', 'bulk_densi'))
     return HttpResponse(soil_data_json, content_type='json')
 
+###############
+
+def bndry_points_view(request):
+    bndry_pt_json = serialize('geojson', Document.objects.all(), geometry_field="geom", fields=('name', 'comment'))
+    return HttpResponse(bndry_pt_json, content_type='json')
+
+###############
+
 def user_points_view(request):
     user_pt_json = serialize('geojson', user_pts.objects.all(), geometry_field="geom", fields=('name', 'comment'))
     return HttpResponse(user_pt_json, content_type='json')

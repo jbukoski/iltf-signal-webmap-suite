@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^mbls/', views.mbls_view, name='mbls'),
     url(r'^roads/', views.roads_view, name='roads'),
     url(r'^soil_data/', views.soil_data_view, name='soil_data'),
+    url(r'^bndry_pts/', views.bndry_points_view, name='bndry_points'),
     url(r'^user_pts/', views.user_points_view, name='user_points'),
     url(r'^user_lines/', views.user_lines_view, name='user_lines'),
     url(r'^user_polygons/', views.user_polygons_view, name='user_polygons'),

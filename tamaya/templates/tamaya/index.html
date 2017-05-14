@@ -121,6 +121,12 @@
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div class="checkbox">
                                         <label>
+                                            <input type="checkbox" name="overlayLayers" id="bndry_points" z-index="3">
+                                                &nbsp Boundary points
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
                                             <input type="checkbox" name="overlayLayers" id="user_points" z-index="3">
                                                 &nbsp User points
                                         </label>
@@ -697,6 +703,17 @@ function uploader() {
     });
 
 ////// User defined layers //////
+
+    var bndry_points=new L.GeoJSON.AJAX("{% url 'bndry_points' %}", {
+        style: {clickable: true,
+        },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "</br>" +
+                "<strong>Comment:&nbsp;</strong>" + feature.properties.comment.toString()
+            );
+        },
+    });
 
     var user_points=new L.GeoJSON.AJAX("{% url 'user_points' %}", {
         style: {clickable: true,
