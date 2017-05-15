@@ -1,6 +1,6 @@
 # Source Code for the GeoDjango based ILTF webmaps
 ## Product of SIG-NAL, Inc.
-### Primary author: Jacob J. Bukoski
+### Primary authors: Jacob J. Bukoski & Oliver Muellerklein
 
 #### Packages necessary on Dukono
 
