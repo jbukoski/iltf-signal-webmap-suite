@@ -42,22 +42,22 @@
                                 </div>
                                 <div id="admin-layers" class="panel-collapse collapse in">
                                     <div class="panel-body" style="padding: 0px 15px;">
-					<div class="checkbox">    
+					<div class="checkbox">
 					    <label>
                                                 <input type="checkbox" name="overlayLayers" id="boundary" z-index="1" checked>
-                                                &nbsp Reservation boundary (approximate)			
+                                                &nbsp Reservation boundary (approximate)
                                             </label>
                                         </div>
-					<div class="checkbox">    
+					<div class="checkbox">
 					    <label>
                                                 <input type="checkbox" name="overlayLayers" id="mbls" z-index="2" checked>
-                                                &nbsp Master business leases					
+                                                &nbsp Master business leases
                                             </label>
                                         </div>
-					<div class="checkbox">    
+					<div class="checkbox">
 					    <label>
                                                 <input type="checkbox" name="overlayLayers" id="roads" z-index="3" checked>
-                                                &nbsp Reservation roads					
+                                                &nbsp Reservation roads
                                             </label>
                                         </div>
                                         <div class="checkbox">
@@ -78,10 +78,10 @@
                                 </div>
                                 <div id="soil-layers" class="panel-collapse collapse in">
                                     <div class="panel-body" style="padding: 0px 15px;">
-					<div class="checkbox">    
-					    <label>                                               
+					<div class="checkbox">
+					    <label>
                                                 <input type="checkbox" name="overlayLayers" id="bulkDens" z-index="3">
-                                                &nbsp Bulk density				
+                                                &nbsp Bulk density
                                             </label>
                                         </div>
                                         <div class="checkbox">
@@ -143,6 +143,21 @@
                                                 &nbsp User polygons
                                         </label>
                                     </div>
+                                    <hr>
+                                    <!-- List of uploaded documents -->
+                                    {% if documents %}
+                                        {% for document in documents %}
+                                            <!--li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li-->
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="overlayLayers" z-index="3">
+                                                        &nbsp {{ document.docfile.name }}
+                                                </label>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p>No documents.</p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
