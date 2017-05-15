@@ -28,15 +28,16 @@ mbls_mapping = {
 mbls_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'mbl_int.shp'))
 
 roads_mapping = {
+    'distance' : 'distance',
     'length' : 'LENGTH',
-    'rd_id' : 'ID__',
+    'id_field' : 'ID__',
     'access' : 'ACCESS',
     'name' : 'NAME',
     'number' : 'NUMBER',
     'surface' : 'SURFACE',
     'condition' : 'CONDITION',
-    'rd_class' : 'CLASS',
-    'rd_type' : 'TYPE',
+    'road_class' : 'CLASS',
+    'road_type' : 'TYPE',
     'sa_id' : 'SA_ID',
     'surf_type' : 'Surf_Type',
     'status' : 'Status',
@@ -47,7 +48,7 @@ roads_mapping = {
     'geom' : 'MULTILINESTRING',
 }
 
-roads_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'reservation_roads_simplified.shp'))
+roads_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'tamaya', 'psa_roads_4326.shp'))
 
 # HYDROLOGY LAYERS
 
@@ -61,7 +62,25 @@ watersheds_mapping = {
     'geom' : 'MULTIPOLYGON',
 }
 
-watersheds_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'tamaya', 'PSA_WatershedBasins_4326.shp'))
+watersheds_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'tamaya', 'psa_watershedbasins_4326.shp'))
+
+subwatersheds_mapping = {
+    'id' : 'Id',
+    'watershed' : 'Watershed',
+    'subwatshed' : 'SubWatshed',
+    'wsno' : 'wsNo',
+    'acres' : 'Acres',
+    'aveslope' : 'AveSlope',
+    'geom' : 'MULTIPOLYGON',
+}
+
+subwatersheds_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'tamaya', 'psa_subwatersheds_4326.shp'))
+
+surfacehydro_mapping = {
+    'id' : 'Id',
+    'geom' : 'MULTILINESTRING',
+}
+surfacehydro_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'tamaya', 'psa_surfacehydrology_4326.shp'))
 
 # Soil layer mappings and shapefiles
 
@@ -108,6 +127,19 @@ def run(verbose=True):
         transform=False, encoding='iso-8859-1',
     )
     watersheds_lm.save(strict=True, verbose=verbose)
+
+    subwatersheds_lm = LayerMapping(
+        models.subwatersheds, subwatersheds_shp, subwatersheds_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    subwatersheds_lm.save(strict=True, verbose=verbose)
+
+    surfacehydro_lm = LayerMapping(
+        models.surfacehydro, surfacehydro_shp, surfacehydro_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    surfacehydro_lm.save(strict=True, verbose=verbose)
+
 
     soil_data_lm = LayerMapping(
         models.soil_data, soil_data_shp, soil_data_mapping,
