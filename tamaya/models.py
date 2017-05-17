@@ -1,5 +1,14 @@
 from django.contrib.gis.db import models
 
+# RASTER 
+## TESTING FUNCTIONALITY
+
+class testRaster(models.Model):
+    raster_id = models.TextField(primary_key=True, default=23)
+    name = models.TextField(default='tester')
+    raster = models.RasterField()
+
+
 # ADMIN LAYERS
 
 class boundary(models.Model):

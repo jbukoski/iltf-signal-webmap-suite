@@ -422,6 +422,9 @@ function uploader() {
 ////// Overlay Layers //////
 ////////////////////////////
 
+    var testRast = new L.tileLayer('/raster/tiles/1/{z}/{x}/{y}.png');
+
+
     var boundary=new L.GeoJSON.AJAX("{% url 'boundary' %}", {
         style: { clickable: false,
                  weight: 3,
@@ -752,7 +755,7 @@ function uploader() {
         center: [35.435, -106.54],
         minZoom: 6,
         maxZoom: 20,
-        layers: [recent, boundary, mbls, roads]
+        layers: [recent, boundary, mbls, roads, testRast]
     });
 
 ///////////////////////////////////////
