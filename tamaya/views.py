@@ -99,6 +99,14 @@ def watersheds_view(request):
     watersheds_json = serialize('geojson', models.watersheds.objects.all(), geometry_field="geom")
     return HttpResponse(watersheds_json, content_type="json")
 
+def subwatersheds_view(request):
+    subwatersheds_json = serialize('geojson', models.subwatersheds.objects.all(), geometry_field="geom")
+    return HttpResponse(subwatersheds_json, content_type="json")
+
+def surfacehydro_view(request):
+    surfacehydro_json = serialize('geojson', models.surfacehydro.objects.all(), geometry_field="geom")
+    return HttpResponse(surfacehydro_json, content_type="json")
+
 def soil_data_view(request):
     soil_data_json = serialize('geojson', models.soil_data.objects.all(), geometry_field="geom", fields=('poly_id','tax_class', 'org_matter', 'composting', 'texture', 'ph_water', 'bulk_densi'))
     return HttpResponse(soil_data_json, content_type='json')

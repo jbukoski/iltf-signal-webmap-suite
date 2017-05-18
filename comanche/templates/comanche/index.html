@@ -40,13 +40,19 @@
                                     <div class="panel-body" style="padding: 0px 15px;">
 					<div class="checkbox">    
 					    <label>
-                                                <input type="checkbox" name="overlayLayers" id="counties" z-index="1" checked>
+                                                <input type="checkbox" name="overlayLayers" id="counties" z-index="2" checked>
                                                 &nbsp Counties
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="boundaries" z-index="1" checked>
+                                                &nbsp Reservation boundaries
                                             </label>
                                         </div>
 					<div class="checkbox">    
 					    <label>
-                                                <input type="checkbox" name="overlayLayers" id="cotton" z-index="1" checked>
+                                                <input type="checkbox" name="overlayLayers" id="cotton" z-index="1">
                                                 &nbsp Cotton County Parcels
                                             </label>
                                         </div>
@@ -71,7 +77,7 @@
 					<div class="checkbox">    
 					    <label>
                                                 <input type="checkbox" name="overlayLayers" id="soil_pH" z-index="3">
-                                                &nbsp PLACEHOLDER FOR SOIL DATA		
+                                                &nbsp ~~placeholder~~
                                             </label>
                                         </div>
 				    </div>
@@ -259,6 +265,15 @@
          }
     });
 
+    var boundaries = new L.GeoJSON.AJAX("{% url 'boundaries' %}", {
+        style: { clickable: true,
+                 weight: 3,
+                 color: '#000000',
+                 dashArray: 3,
+                 fill: false,
+               },
+    });
+
     var cotton = new L.GeoJSON.AJAX("{% url 'cotton' %}", {
         style: { clickable: false,
                  weight: 1,
@@ -287,7 +302,7 @@
         center: [34.79, -98.45], 
         minZoom: 6,
         maxZoom: 20,
-        layers: [recent, counties, cotton]
+        layers: [recent, counties, boundaries]
     });
 
 ///////////////////////////////////////

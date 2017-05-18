@@ -43,23 +43,23 @@ class mbls(models.Model):
 
 class roads(models.Model):
     roads_id = models.AutoField(primary_key=True)
+    distance = models.FloatField()
     length = models.FloatField()
-    rd_id = models.IntegerField(default=9999)
-    access = models.CharField(max_length=80)
-    name = models.CharField(max_length=80)
-    number = models.CharField(max_length=80)
-    surface = models.CharField(max_length=80)
-    condition = models.CharField(max_length=80)
-    rd_class = models.FloatField()
-    rd_type = models.CharField(max_length=80)
-    sa_id = models.CharField(max_length=80)
-    surf_type = models.CharField(max_length=80)
-    status = models.CharField(max_length=80)
-    hunting = models.CharField(max_length=80)
-    comment = models.CharField(max_length=80)
-    restrict = models.CharField(max_length=80)
-    roadrepair = models.CharField(max_length=80)
-
+    id_field = models.BigIntegerField()
+    access = models.CharField(max_length=254)
+    name = models.CharField(max_length=254)
+    number = models.CharField(max_length=254)
+    surface = models.CharField(max_length=254)
+    condition = models.CharField(max_length=254)
+    road_class = models.FloatField(max_length=254)
+    road_type = models.CharField(max_length=254)
+    sa_id = models.CharField(max_length=254)
+    surf_type = models.CharField(max_length=254)
+    status = models.CharField(max_length=254)
+    hunting = models.CharField(max_length=254)
+    comment = models.CharField(max_length=254)
+    restrict = models.CharField(max_length=254)
+    roadrepair = models.BigIntegerField()
     geom = models.MultiLineStringField(srid=4326)
 
     class Meta:
@@ -78,7 +78,6 @@ class watersheds(models.Model):
     hu_8_name = models.CharField(max_length=80)
     shape_leng = models.FloatField()
     shape_area = models.FloatField()
-
     geom = models.MultiPolygonField(srid=4326)
 
     class Meta:
@@ -86,6 +85,33 @@ class watersheds(models.Model):
 
     def __str__(self):
         return '%s' % (self.watershed_id)
+
+class subwatersheds(models.Model):
+    subwatershed_id = models.AutoField(primary_key=True)
+    id = models.BigIntegerField()
+    watershed = models.CharField(max_length=50)
+    subwatshed = models.IntegerField()
+    wsno = models.CharField(max_length=50)
+    acres = models.FloatField()
+    aveslope = models.FloatField()
+    geom = models.MultiPolygonField(srid=4326)
+
+    class Meta:
+        verbose_name_plural = 'Subwatersheds'
+
+    def __str__(self):
+        return '%s' % (self.subwatershed_id)
+
+class surfacehydro(models.Model):
+    surfacehydro_id = models.AutoField(primary_key=True)
+    id = models.BigIntegerField()
+    geom = models.MultiLineStringField(srid=4326)
+
+    class Meta:
+        verbose_name_plural = 'Surface hydrology'
+
+    def __str__(self):
+        return '%s' % (self.surfacehydro_id)
 
 # SOIL LAYERS
 
