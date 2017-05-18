@@ -211,8 +211,6 @@ def texture_dl_view(request):
 
 def sample_dl_view(request):
 
-    print("\n\nWithin sample_dl_view")
-
     try:
         if request.GET:
 
@@ -224,12 +222,10 @@ def sample_dl_view(request):
             end_file_name = len(body_raw)
             loc_file_name = body_raw.find("file_name")
             start_file_name = loc_file_name + 10        # where 'file_name=' starts + ends
-            text_name = body_raw[start_file_name:end_file_name]
+            try_text_name = body_raw[start_file_name:end_file_name]
+            text_name = try_text_name.replace("%2F", "/")
 
             if text_name == "boundary.geojson":
-
-                print("\nTEXT_NAME is boundary.geojson...")
-                print("======================\n\n")
 
                 download_file = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), "rb")
                 response = HttpResponse(download_file, content_type='application/force-download')
@@ -240,24 +236,23 @@ def sample_dl_view(request):
 
                 all_docs = models.Document.objects.all()
 
-                #print("document.docfile.url: ", document.docfile.url)
-
-                print("\nall_docs: ", all_docs)
-
                 for document in all_docs:
-                    print("document.docfile.url: ", document.docfile.url)
 
+                    foo_url = document.docfile.url
+                    name_len = len(text_name)
+                    short_name = text_name[16:name_len]
 
-                print("\n+_+_++_+_+_++ in Else statement...\n\n")
-                print("text_name: ", text_name)
-                print("------\n\n")
+                    if document.docfile.name == text_name:
 
-                download_file = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), "rb")
-                response = HttpResponse(download_file, content_type='application/force-download')
-                response['Content-Disposition'] = 'attachment; filename="boundary.geojson"'
-                return response
+                        download_file = open(os.path.join(os.path.dirname(path), "media/tamaya/uploaded/", short_name), "rb")
+                        response = HttpResponse(download_file, content_type='application/force-download')
+                        response['Content-Disposition'] = 'attachment; filename="' + short_name + '"'
+                        return response
 
-
+            download_file = open(os.path.join(os.path.dirname(path), document.docfile.url), "rb")
+            response = HttpResponse(download_file, content_type='application/force-download')
+            response['Content-Disposition'] = 'attachment; filename="FAIL_FILE.sad"'
+            return response
     except:
 
         print("\nError in request POST event\n")
@@ -288,28 +283,8 @@ def sample_up_view(request):
                 newdoc = models.Document(docfile = request.FILES['docfile'])
                 newdoc.save()
 
-                print("\n\nIn sample_up_view")
-                print("request.FILES['docfile']: ", request.FILES['docfile'])
-                print("this_file.name: ", this_file.name)
-                print("file_path: ", file_path)
-                #print("newdoc: ", newdoc)
-                #print("newdoc.value: ", newdoc.value)
-                print("----------------\n\n")
-
-                #return render(request, 'index.html', {
-                #    'this_file_url' : this_file_url
-                #})
-
                 #return HttpResponseRedirect(reverse(newdoc))
                 return HttpResponseRedirect(reverse('index'))
-
-            # Redirect to the document list after POST
-            #return HttpResponseRedirect(reverse(newdoc.url))
-            #return HttpResponseRedirect(reverse('sample_up'))
-            #return HttpResponseRedirect(reverse('index'))
-            #next = request.POST.get('docfile', '/tamaya')
-            #return HttpResponseRedirect(next)
-
         return render(request, 'index.html')
 
     else:
@@ -328,12 +303,6 @@ def delete_up_view(request):
     for document in documents:
 
         i += 1
-        print("--\ni: ", i)
-        print("document: ", document)
-        #print("document.docfile.url: ", document.docfile.url)
-
         document.delete()
 
-    #next = request.POST.get('del_files', '/tamaya')
-    #return HttpResponseRedirect(next)
     return HttpResponseRedirect(reverse('index'))

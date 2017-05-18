@@ -327,7 +327,7 @@
                                         <form method="POST" enctype="multi-part" action="{% url 'sample_dl' %}" name="{{ document.docfile.name }}">
                                             {% csrf_token %}
                                             <input type="hidden" name="file_name" value="{{ document.docfile.name }}"></input>
-                                            <li><a href="javascript: void(0)"><span onclick="submit">{{ document.docfile.name }}</span></a></li>
+                                            <li><button id="{{ document.docfile.name }}" value="'false'">{{ document.docfile.name }}</button></li>
                                         </form>
                                     {% endfor %}
                                 </ul>
