@@ -6,27 +6,58 @@ from django.core.serializers import serialize
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 import json
-import os
+import os, os.path
 
 from django.template import RequestContext
 from django.urls import reverse
-from .forms import Document, DocumentForm
+from .forms import DocumentForm
+
+from django.core.files.storage import FileSystemStorage
+
+# Specify downloads path
+path = os.path.dirname(os.path.abspath(__file__))
+
+raw_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), 'r+').read()
+#load_json = json.load(raw_json)
+#load_json = json.dumps(raw_json)
+#raw_json.close()
+
+@login_required(login_url='/login/')
+def index(request):
+
+    bndry = models.boundary.objects.all()
+    documents = models.Document.objects.all()
+    upload_files = next(os.walk(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded')))[2]
+
+    for up_file in upload_files:
+
+        if up_file != ".DS_Store":
+
+            up_file_path = os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/', up_file)
+            os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/', up_file)
+
+    foo_counter = 1
+
+    for document in documents:
+        foo_counter += 1
+
+    return render(request, 'tamaya/index.html', {
+        'title': 'Santa Ana Pueblo of NM',
+        'bndry': bndry,
+        'documents': documents
+    })
+
+def home(request):
+    return HttpResponseRedirect(urlresolvers.reverse('admin:app_list', args=("tamaya/",)))
 
 def list(request):
     # Handles file upload
-
-    print("\nCheck in list view function....\n")
-
-    print("\n===========")
-    print("list request: ", request)
-    print("list request.FILES: ", request.FILES)
-    print("===========\n")
 
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
 
         if form.is_valid():
-            newdoc = Document(docfile = request.FILES['docfile'])
+            newdoc = models.Document(docfile = request.FILES['docfile'])
             newdoc.save()
 
             # Redirect to the document list after POST
@@ -35,7 +66,7 @@ def list(request):
         form = DocumentForm()       # Empty
 
     # Load documents from the list page
-    documents = Document.objects.all()
+    documents = models.Document.objects.all()
 
     # Render list page with all documents
     """return render_to_response(
@@ -48,33 +79,6 @@ def list(request):
     )"""
     context = {'documents' : documents, 'form' : form}
     return render(request, 'tamaya/list.html', context)
-
-# Specify downloads path
-path = os.path.dirname(os.path.abspath(__file__))
-
-raw_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), 'r+').read()
-#load_json = json.load(raw_json)
-#load_json = json.dumps(raw_json)
-#print("\n\nload_json: ", load_json, "\n\n")
-#raw_json.close()
-
-@login_required(login_url='/login/')
-def index(request):
-
-    print("\n\nTHIS IS IN INDEX()\n\n")
-
-    #print("\n\nIn index - load_json: ", load_json, "\n\n")
-
-    bndry = models.boundary.objects.all()
-
-    return render(request, 'tamaya/index.html', {
-        'title': 'Santa Ana Pueblo of NM',
-        'bndry': bndry,
-        #'samplejson': load_json
-    })
-
-def home(request):
-    return HttpResponseRedirect(urlresolvers.reverse('admin:app_list', args=("tamaya/",)))
 
 def render_geojson_view(request):
     return HttpResponse(raw_json, content_type='json')
@@ -195,85 +199,99 @@ def texture_dl_view(request):
 ######################
 
 def sample_dl_view(request):
-    #download_file = open(os.path.join(path, 'downloads', 'sample.zip'), "rb")
-    download_file = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="boundary.geojson"'
 
-    return response
+    try:
+        if request.GET:
+
+            print("request.GET: ", request.GET)
+
+        elif request.POST:
+
+            body_raw = request.body.decode("utf-8")
+            end_file_name = len(body_raw)
+            loc_file_name = body_raw.find("file_name")
+            start_file_name = loc_file_name + 10        # where 'file_name=' starts + ends
+            try_text_name = body_raw[start_file_name:end_file_name]
+            text_name = try_text_name.replace("%2F", "/")
+
+            if text_name == "boundary.geojson":
+
+                download_file = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), "rb")
+                response = HttpResponse(download_file, content_type='application/force-download')
+                response['Content-Disposition'] = 'attachment; filename="boundary.geojson"'
+                return response
+
+            else:
+
+                all_docs = models.Document.objects.all()
+
+                for document in all_docs:
+
+                    foo_url = document.docfile.url
+                    name_len = len(text_name)
+                    short_name = text_name[16:name_len]
+
+                    if document.docfile.name == text_name:
+
+                        download_file = open(os.path.join(os.path.dirname(path), "media/tamaya/uploaded/", short_name), "rb")
+                        response = HttpResponse(download_file, content_type='application/force-download')
+                        response['Content-Disposition'] = 'attachment; filename="' + short_name + '"'
+                        return response
+
+            download_file = open(os.path.join(os.path.dirname(path), document.docfile.url), "rb")
+            response = HttpResponse(download_file, content_type='application/force-download')
+            response['Content-Disposition'] = 'attachment; filename="FAIL_FILE.sad"'
+            return response
+    except:
+
+        print("\nError in request POST event\n")
+        return HttpResponseRedirect(reverse('index'))
 
 def sample_up_view(request):
 
     if request.method == 'GET':
-
-        print("\nThis is a GET event...\n")
         form = DocumentForm()
 
     elif request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        print("\nWithin request.method == POST...\n")
 
-        if form.is_valid():
+        if request.FILES['docfile']:
 
-            filenamee = request.FILES['docfile']
-            print("\n\nfilenamee: ", filenamee, "\n\n")
+            form = DocumentForm(request.POST, request.FILES)
 
-            newdoc = Document(docfile = request.FILES['docfile'])
-            newdoc.save()
+            if form.is_valid():
 
-            # Redirect to the document list after POST
-            #return HttpResponseRedirect(reverse(newdoc.url))
-            return HttpResponseRedirect(reverse('sample_up'))
-            #return HttpResponseRedirect(reverse('index'))
+                this_file = request.FILES['docfile']
+                file_sys = FileSystemStorage()
 
-            #next = request.POST.get('docfile', '/tamaya')
-            #return HttpResponseRedirect(next)
+                file_path = os.path.join('tamaya/uploaded/', this_file.name)
+                #file_name = file_sys.save(this_file.name, this_file)
+                #file_name = file_sys.save(file_path, this_file)
+                #this_file_url = file_sys.url(file_name)
 
-        else:
+                #filenamee = request.FILES['docfile']
+                newdoc = models.Document(docfile = request.FILES['docfile'])
+                newdoc.save()
 
-            print("\nForm is NOT VALID...\n")
-
-            documents = "No Document"
-            context = {'documents' : documents, 'form' : form}
-
-            #newdoc = Document(docfile = request.FILES['docfile'])
-            #newdoc.save()
-
-            return render(request, 'tamaya/index.html', context)
+                #return HttpResponseRedirect(reverse(newdoc))
+                return HttpResponseRedirect(reverse('index'))
+        return render(request, 'index.html')
 
     else:
         form = DocumentForm()       # Empty
 
-
-    # Render list page with all documents
-    #return render (
-    #    request,
-    #    'tamaya/',
-    #    {'documents' : documents, 'form' : form}
-    #)
-
     # Load documents from the list page
-    documents = Document.objects.all()
+    documents = models.Document.objects.all()
     context = {'documents' : documents, 'form' : form}
+
     return render(request, 'tamaya/index.html', context)
 
 def delete_up_view(request):
 
-    print("\n\nWithin delete_up")
-
     i = 0
-    documents = Document.objects.all()
+    documents = models.Document.objects.all()
     for document in documents:
 
         i += 1
-        print("--\ni: ", i)
-        print("document: ", document)
-        #print("document.docfile.url: ", document.docfile.url)
-
         document.delete()
 
-    print("\n\n")
-
-    #next = request.POST.get('del_files', '/tamaya')
-    #return HttpResponseRedirect(next)
     return HttpResponseRedirect(reverse('index'))
