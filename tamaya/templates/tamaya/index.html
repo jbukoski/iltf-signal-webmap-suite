@@ -174,7 +174,7 @@
                                     </div>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="overlayLayers" id="sample_boundary" z-index="3">
+                                            <input type="checkbox" name="overlayLayers" id="sample_boundary" z-index="3" onclick="show_static()">
                                                 &nbsp Render boundary.geojson
                                         </label>
                                     </div>
@@ -192,21 +192,6 @@
                                         {% endfor %}
                                     {% else %}
                                         <p>No documents.</p>
-                                    {% endif %}
-                                    <hr>
-                                    <!-- List of uploaded files var -->
-                                    {% if uploaded_files %}
-                                        {% for file in uploaded_files %}
-                                            <!--li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li-->
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="overlayLayers" z-index="3">
-                                                        &nbsp {{ file }}
-                                                </label>
-                                            </div>
-                                        {% endfor %}
-                                    {% else %}
-                                        <p>No uploaded files.</p>
                                     {% endif %}
                                 </div>
                             </div>
@@ -243,7 +228,7 @@
                                 <form method="POST" enctype="multi-part" action="{% url 'sample_dl' %}">
                                     {% csrf_token %}
                                     <input type="hidden" name="file_name" value="{{ document.docfile.name }}"></input>
-                                    <li><button id="{{ document.docfile.name }}" value="'false'">{{ document.docfile.name }}</button></li>
+                                    <li><button class="upload-btn" id="{{ document.docfile.name }}" value="'false'">{{ document.docfile.name }}</button></li>
                                 </form>
                             {% endfor %}
                         {% else %}
@@ -327,7 +312,7 @@
                                         <form method="POST" enctype="multi-part" action="{% url 'sample_dl' %}" name="{{ document.docfile.name }}">
                                             {% csrf_token %}
                                             <input type="hidden" name="file_name" value="{{ document.docfile.name }}"></input>
-                                            <li><button id="{{ document.docfile.name }}" value="'false'">{{ document.docfile.name }}</button></li>
+                                            <li><button class="upload-btn" id="{{ document.docfile.name }}" value="'false'">{{ document.docfile.name }}</button></li>
                                         </form>
                                     {% endfor %}
                                 </ul>

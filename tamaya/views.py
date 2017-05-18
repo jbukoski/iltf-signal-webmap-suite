@@ -25,11 +25,8 @@ raw_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/bound
 @login_required(login_url='/login/')
 def index(request):
 
-    print("\n\nWithin index in views...\n\n")
-
     bndry = models.boundary.objects.all()
     documents = models.Document.objects.all()
-
     upload_files = next(os.walk(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded')))[2]
 
     for up_file in upload_files:
@@ -37,28 +34,12 @@ def index(request):
         if up_file != ".DS_Store":
 
             up_file_path = os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/', up_file)
-
-            print("\n\nWithin index views.py")
-            print("up_file: ", up_file)
-            print("up_file_path: ", up_file_path)
-            print("---------------\n\n")
             os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/', up_file)
 
     foo_counter = 1
 
     for document in documents:
-        print("\n\nWithin index views.py...")
-        print("counter: ", foo_counter)
         foo_counter += 1
-        print("document: ", document)
-        #print("document.value: ", document.value)
-        print("document.docfile: ", document.docfile)
-        print("==================\n\n")
-
-    print("\n\nWithin index views.py")
-    print("upload_files: ", upload_files)
-    print("len(upload_files): ", len(upload_files))
-    print("---------------\n\n")
 
     return render(request, 'tamaya/index.html', {
         'title': 'Santa Ana Pueblo of NM',
