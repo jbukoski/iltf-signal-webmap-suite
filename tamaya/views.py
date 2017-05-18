@@ -240,8 +240,17 @@ def sample_dl_view(request):
 
                 all_docs = models.Document.objects.all()
 
+                #print("document.docfile.url: ", document.docfile.url)
+
                 print("\nall_docs: ", all_docs)
+
+                for document in all_docs:
+                    print("document.docfile.url: ", document.docfile.url)
+
+
                 print("\n+_+_++_+_+_++ in Else statement...\n\n")
+                print("text_name: ", text_name)
+                print("------\n\n")
 
                 download_file = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), "rb")
                 response = HttpResponse(download_file, content_type='application/force-download')

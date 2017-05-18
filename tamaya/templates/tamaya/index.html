@@ -239,7 +239,12 @@
                         <!-- List of uploaded documents -->
                         {% if documents %}
                             {% for document in documents %}
-                                <li><a href="{% url 'sample_dl' %}">{{ document.docfile.name }}</a></li>
+                                <!--li><a href="{% url 'sample_dl' %}">{{ document.docfile.name }}</a></li-->
+                                <form method="POST" enctype="multi-part" action="{% url 'sample_dl' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="file_name" value="{{ document.docfile.name }}"></input>
+                                    <li><button id="{{ document.docfile.name }}" value="'false'">{{ document.docfile.name }}</button></li>
+                                </form>
                             {% endfor %}
                         {% else %}
                             <p><i>No uploaded documents.</i></p>
