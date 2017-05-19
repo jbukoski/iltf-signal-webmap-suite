@@ -3,8 +3,6 @@
 
 {% block side_bar %}
 
-    <!--title>Santa Ana Pueblo Land & Natural Assets Map</title-->
-
     <title>{{ title }}</title>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -145,42 +143,13 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#imagery">
-                                        Base Layers
-                                </a>
-                            </div>
-                            <div id="imagery" class="panel-collapse collapse in">
-                                <div class="panel-body" style="padding: 0px 15px;">
-                					<div class="radio">
-                					    <label>
-                                            <input type="radio" name="basemapLayers" id="recent"checked>
-                                                &nbsp Digital Globe imagery, no roads
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                					    <label>
-                                            <input type="radio" name="basemapLayers" id="hybrid">
-                                                &nbsp Digital Globe imagery, with roads
-                                        </label>
-                                    </div>
-                					<div class="radio">
-                					    <label>
-                                            <input type="radio" name="basemapLayers" id="topo">
-                                                &nbsp Topography, ESRI
-                                        </label>
-                                    </div>
-            				    </div>
-        			        </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#veg-layers">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#user-layers">
                                         User-defined Layers
                                 </a>
                             </div>
-                            <div id="veg-layers" class="panel-collapse collapse in">
+                            <div id="user-layers" class="panel-collapse collapse in">
                                 <div class="panel-body" style="padding: 0px 15px;">
-                                    <div class="checkbox">
+                                    <!--<div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="user_points" z-index="3">
                                                 &nbsp User points
@@ -203,15 +172,14 @@
                                             <input type="checkbox" name="overlayLayers" id="sample_boundary" z-index="3" onclick="show_static()">
                                                 &nbsp Render boundary.geojson
                                         </label>
-                                    </div>
-                                    <hr>
+                                    </div>-->
                                     <!-- List of uploaded documents -->
                                     {% if documents %}
                                         {% for document in documents %}
                                             <!--li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li-->
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="overlayLayers" z-index="3">
+                                                    <input type="checkbox" name="uploadLayers" id="{{ document.docfile.name }}" z-index="3">
                                                         &nbsp {{ document.docfile.name }}
                                                 </label>
                                             </div>
@@ -221,50 +189,77 @@
                                     {% endif %}
                                 </div>
                             </div>
-        			    </div> <!--Closes 'panel panel-default'-->
-            			<br>
+        	        </div> <!--Closes 'panel panel-default'-->
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#imagery">
+                                        Base Layers
+                                </a>
+                            </div>
+                            <div id="imagery" class="panel-collapse collapse in">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                		    <div class="radio">
+                		        <label>
+                                            <input type="radio" name="basemapLayers" id="recent"checked>
+                                                &nbsp Digital Globe imagery, no roads
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="basemapLayers" id="hybrid">
+                                                &nbsp Digital Globe imagery, with roads
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="basemapLayers" id="topo">
+                                                &nbsp Topography, ESRI
+                                        </label>
+                                    </div>
+            		        </div>
+        	            </div>
+                        </div> <!-- closes 'Base Layers' panel -->
+
+            	        <br>
                     </div>  <!--Closes 'panel group'-->
-                </div> <!--Closes id='layers'-->
+                </div> <!--Closes 'user-defined layers' panel-->
 
                 <div class="tab-pane" id="download">
-        		    <h3>Download Data Layers:</h3>
+                    <h3>Download Data Layers:</h3>
 	                <p> The data layers displayed on this webmap can be downloaded for use in desktop GIS software here.</p>
     			    <br>
-                    <h4><strong>Admin layers</strong></h4>
-                    <ul>
-                        <li><a href="{% url 'boundary_dl' %}">Reservation boundary (.shp)</a></li>
-                        <li><a href="{% url 'mbl_dl' %}">Master business leases (.shp)</a></li>
-                        <li><a href="{% url 'roads_dl' %}">Reservation roads (.shp)</a></li>
-                    </ul>
+                            <h4><strong>Admin layers</strong></h4>
+                                <ul>
+                                    <li><a href="{% url 'boundary_dl' %}">Reservation boundary (.shp)</a></li>
+                                    <li><a href="{% url 'mbl_dl' %}">Master business leases (.shp)</a></li>
+                                    <li><a href="{% url 'roads_dl' %}">Reservation roads (.shp)</a></li>
+                                </ul>
     			    <h4><strong>Soil layers</strong></h4>
 			        <ul>
-            		    <li><a href="{% url 'bulk_dens_dl' %}">Soil bulk density (.shp)</a></li>
+            		            <li><a href="{% url 'bulk_dens_dl' %}">Soil bulk density (.shp)</a></li>
     				    <li><a href="{% url 'compost_dl' %}">Composting medium and final cover (.shp)</a></li>
     				    <li><a href="{% url 'om_dl' %}">Percent organic matter (.shp)</a></li>
     				    <li><a href="{% url 'ph_dl' %}">Soil pH (.shp)</a></li>
     				    <li><a href="{% url 'tax_cl_dl' %}">Soil taxonomic class (.shp)</a></li>
     				    <li><a href="{% url 'texture_dl' %}">Soil texture (.shp)</a></li>
     				</ul>
-                    <h4><strong>Uploaded layers</strong></h4>
-                    <ul>
-                        <!-- List of uploaded documents -->
-                        {% if documents %}
-                            {% for document in documents %}
-                                <!--li><a href="{% url 'sample_dl' %}">{{ document.docfile.name }}</a></li-->
-                                <form method="POST" enctype="multi-part" action="{% url 'sample_dl' %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="file_name" value="{{ document.docfile.name }}"></input>
-                                    <li><button class="upload-btn" id="{{ document.docfile.name }}" value="'false'">{{ document.docfile.name }}</button></li>
-                                </form>
-                            {% endfor %}
-                        {% else %}
-                            <p><i>No uploaded documents.</i></p>
-                        {% endif %}
-                    </ul>
-			    <!--<h4><strong>Vegetation layers</strong></h4>
-			        <ul>
-                    		    <li><a href="./downloads/landfire-evt-tamaya.tif">Existing vegetation type, LANDFIRE</a></li>
-				</ul>-->
+                            <h4><strong>Uploaded layers</strong></h4>
+                                <ul>
+                                    <!-- List of uploaded documents -->
+                                    {% if documents %}
+                                        {% for document in documents %}
+                                        <!--li><a href="{% url 'sample_dl' %}">{{ document.docfile.name }}</a></li-->
+                                        <form method="POST" enctype="multi-part" action="{% url 'sample_dl' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="file_name" value="{{ document.docfile.name }}"></input>
+                                            <li><button class="upload-btn" id="{{ document.docfile.name }}" value="'false'">{{ document.docfile.name }}</button></li>
+                                        </form>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p><i>No uploaded documents.</i></p>
+                                    {% endif %}
+                                </ul>
     			    <br>
     			    <br>
                 </div> <!--Closes tab-pane="download"-->
@@ -399,7 +394,6 @@ function show_static() {
 
         var static_geojson = new L.GeoJSON.AJAX("{% url 'render_geojson' %}");
         //var static_geojson = new L.GeoJSON.AJAX(sample_json);
-        static_geojson.addTo(map);
 
         /*$.getJSON(sample_json, function(data) {
             L.geoJson(data).addTo(map);
@@ -467,21 +461,58 @@ function uploader() {
     if ( checkerr ) {
         document.getElementById("send_upload").style.display = "block";
         //document.getElementById("need_docs").style.display = "none";
+        //OLIVES! I think what might make sense is to build a layer object here using the file id... then
+        //we can use the id in the function down below to render the file via the checkbox interaction for 'uploadLayers'
     } else {
         document.getElementById("send_upload").style.display = "none";
         //document.getElementById("need_docs").style.display = "block";
     }
 }
 
+// Pulled the below code from main.js, originally written for 'overlayLayers' class in checkboxes...
+// I think what makes sense is to adjust this code for the 'uploadLayers' to toggle/untoggle them
+// the same way that the overlayLayers are being toggled.
+
+    $("input:checkbox[name='uploadLayers']").change(function () {
+        var layers = [];
+        function sortByKey(array, key) {
+            return array.sort(function (a, b) {
+                var x = a[key];
+                var y = b[key];
+                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            });
+        }
+        if ($("#" + $(this).attr("id")).is(":checked")) {
+            $("input:checkbox[name='uploadLayers']").each(function () {
+                // Remove all overlay layers
+                map.removeLayer(window[$(this).attr("id")]);
+                if ($("#" + $(this).attr("id")).is(":checked")) {
+                    // Add checked layers to array for sorting
+                    layers.push({
+                        "z-index": $(this).attr("z-index"),
+                        "layer": $(this)
+                    });
+                }
+            });
+            // Sort layers array by z-index
+            var orderedLayers = sortByKey(layers, "z-index");
+            // Loop through ordered layers array and add to map in correct order
+            $.each(orderedLayers, function () {
+                map.addLayer(window[$(this)[0].layer[0].id]);
+            });
+        } else {
+            // Simply remove unchecked layers
+            map.removeLayer(window[$(this).attr("id")]);
+        }
+    });
+
 
 ////////////////////////////
 ////// Overlay Layers //////
 ////////////////////////////
 
-<<<<<<< HEAD
-    var testRast = new L.tileLayer('/raster/tiles/1/{z}/{x}/{y}.png');
+    //var testRast = new L.tileLayer('/raster/tiles/1/{z}/{x}/{y}.png');
 
-=======
     var sample_boundary=new L.GeoJSON.AJAX("{% url 'render_geojson' %}", {
         style: { clickable: false,
                  weight: 3,
@@ -491,7 +522,6 @@ function uploader() {
                  fill: false,
                }
     });
->>>>>>> 37fdb41eedd191eb95a700371e0d8af13e09dac3
 
     var boundary=new L.GeoJSON.AJAX("{% url 'boundary' %}", {
         style: { clickable: false,
@@ -823,7 +853,7 @@ function uploader() {
         center: [35.435, -106.54],
         minZoom: 6,
         maxZoom: 20,
-        layers: [recent, boundary, mbls, roads, testRast]
+        layers: [recent, boundary, mbls, roads]
     });
 
 ///////////////////////////////////////
