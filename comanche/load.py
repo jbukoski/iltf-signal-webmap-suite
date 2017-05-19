@@ -1,7 +1,22 @@
 import os
 from django.contrib.gis.utils import LayerMapping
-from .models import cotton, caddo, counties, grady, jefferson, kiowa, stephens, tillman
+from . import models
 
+# ADMIN MAPPINGS
+
+boundaries_mapping = {
+    'aiannhce' : 'AIANNHCE',
+    'aiannhns' : 'AIANNHNS',
+    'affgeoid' : 'AFFGEOID',
+    'geoid' : 'GEOID',
+    'name' : 'NAME',
+    'lsad' : 'LSAD',
+    'aland' : 'ALAND',
+    'awater' : 'AWATER',
+    'geom' : 'MULTIPOLYGON',
+}
+
+boundaries_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'comanche', 'boundaries.shp'))
 
 # Parcels mappings
 
@@ -214,50 +229,56 @@ counties_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', '
 
 def run(verbose=True):
 
+    boundaries_lm = LayerMapping(
+        models.boundaries, boundaries_shp, boundaries_mapping,
+        transform = False, encoding = 'iso-8859-1',
+    )
+    boundaries_lm.save(strict=True, verbose=verbose)
+
     caddo_lm = LayerMapping(
-        caddo, caddo_shp, caddo_mapping,
+        models.caddo, caddo_shp, caddo_mapping,
         transform = False, encoding = 'iso-8859-1',
     )
     caddo_lm.save(strict=True, verbose=verbose)
 
     cotton_lm = LayerMapping(
-        cotton, cotton_shp, cotton_mapping,
+        models.cotton, cotton_shp, cotton_mapping,
         transform = False, encoding = 'iso-8859-1',
     )
     cotton_lm.save(strict=True, verbose=verbose)
  
     grady_lm = LayerMapping(
-        grady, grady_shp, grady_mapping,
+        models.grady, grady_shp, grady_mapping,
         transform = False, encoding = 'iso-8859-1',
     )
     grady_lm.save(strict=True, verbose=verbose)
 
     jefferson_lm = LayerMapping(
-        jefferson, jefferson_shp, jefferson_mapping,
+        models.jefferson, jefferson_shp, jefferson_mapping,
         transform = False, encoding = 'iso-8859-1',
     )
     jefferson_lm.save(strict=True, verbose=verbose)
 
     kiowa_lm = LayerMapping(
-        kiowa, kiowa_shp, kiowa_mapping,
+        models.kiowa, kiowa_shp, kiowa_mapping,
         transform = False, encoding = 'iso-8859-1',
     )
     kiowa_lm.save(strict=True, verbose=verbose)
 
     stephens_lm = LayerMapping(
-        stephens, stephens_shp, stephens_mapping,
+        models.stephens, stephens_shp, stephens_mapping,
         transform = False, encoding = 'iso-8859-1',
     )
     stephens_lm.save(strict=True, verbose=verbose)
 
     tillman_lm = LayerMapping(
-        tillman, tillman_shp, tillman_mapping,
+        models.tillman, tillman_shp, tillman_mapping,
         transform = False, encoding = 'iso-8859-1',
     )
     tillman_lm.save(strict=True, verbose=verbose)
 
     counties_lm = LayerMapping(
-        counties, counties_shp, counties_mapping,
+        models.counties, counties_shp, counties_mapping,
         transform = False, encoding = 'iso-8859-1',
     )
     counties_lm.save(strict=True, verbose=verbose)

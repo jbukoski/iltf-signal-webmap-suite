@@ -127,3 +127,10 @@ label {
     margin-right: 0px;
     padding: 10px 12px;
 }
+
+.upload-btn {
+    color: #428bca;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 6px 10px 9px;
+    border-width: 2px;
+}

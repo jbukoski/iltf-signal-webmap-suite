@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^counties/', views.counties_view, name='counties'),
+    url(r'^boundaries/', views.boundaries_view, name='boundaries'),
     url(r'^cotton/', views.cotton_view, name='cotton'),
     url(r'^caddo/', views.caddo_view, name='caddo'),
 ]
