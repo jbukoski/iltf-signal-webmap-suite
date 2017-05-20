@@ -73,7 +73,7 @@
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="overlayLayers" id="watersheds" z-index="3">
+                                            <input type="checkbox" name="overlayLayers" id="watersheds" z-index="0.5">
                                             &nbsp Watersheds
                                         </label>
                                     </div>
@@ -294,7 +294,6 @@
                             </ul>
                             <div style="height: 15px;"></div>
                             <hr>
-                            <div style="height: 15px;"></div>
                         </div>
                     </div>
                     <div class="row">
@@ -607,14 +606,38 @@ function uploader() {
     });
 
     var watersheds = new L.GeoJSON.AJAX("{% url 'watersheds' %}", {
-        style: {color: '#797976',
-                weight: 2,
-                dashArray: 1,
-                opacity: 1,
-                clickable: true,
-               },
+        style: function(feature) {
+            if (feature.properties.hu_8_name === "Jemez") {
+                return {
+                    color: '#AEEEEE',
+                    weight: 2,
+                    dashArray: 1,
+                    opacity: 0.5,
+                    clickable: true,
+                };
+            };
+            if (feature.properties.hu_8_name === "Rio Grande-Santa Fe") {
+                return {
+                    color: "#05B8CC",
+                    weight: 2,
+                    dashArray: 1,
+                    opacity: 0.5,
+                    clickable: true,
+                };
+            };
+            if (feature.properties.hu_8_name === "Rio Grande-Albuquerque") {
+                return {
+                    color: "#5F9EA0",
+                    weight: 2,
+                    dashArray: 1,
+                    opacity: 0.5,
+                    clickable: true,
+                };
+            };
+        },
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
+                "<strong>Watershed name:&nbsp;</strong>" + feature.properties.hu_8_name.toString() 
             );
         },
     });
