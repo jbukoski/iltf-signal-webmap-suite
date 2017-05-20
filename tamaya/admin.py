@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import AdminSite
-from .models import boundary, mbls, roads, soil_data, user_pts, user_lines, user_polygons
-from .forms import Document
+from .models import boundary, mbls, roads, soil_data, user_pts, user_lines, user_polygons, Document
 
 class tamayaAdmin(AdminSite):
     site_header = 'Santa Ana Pueblo Webmap Login'

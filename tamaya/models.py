@@ -1,5 +1,14 @@
 from django.contrib.gis.db import models
 
+# RASTER 
+## TESTING FUNCTIONALITY
+
+class testRaster(models.Model):
+    raster_id = models.TextField(primary_key=True, default=23)
+    name = models.TextField(default='tester')
+    raster = models.RasterField()
+
+
 # ADMIN LAYERS
 
 class boundary(models.Model):
@@ -181,3 +190,13 @@ class user_polygons(models.Model):
 
     def __str__(self):
         return '%s' % (self.polygon_id)
+
+###########################
+## For file upload
+###########################
+
+class Document(models.Model):
+    #docfile = models.FileField(upload_to='documents/')
+    #docfile = models.FileField(upload_to='tamaya/sample_up')
+    docfile = models.FileField(upload_to='tamaya/uploaded')
+    #uploaded_time = models.DateTimeField(auto_now_add=True)
