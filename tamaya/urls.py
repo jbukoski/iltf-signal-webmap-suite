@@ -3,6 +3,7 @@ from djgeojson.views import GeoJSONLayerView
 from . import views
 from django.contrib.gis import admin
 from django.contrib.auth import views as auth_views
+from .wmsviews import testView
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -32,4 +33,5 @@ urlpatterns = [
     url(r'^list/$', views.list, name='list'),
     url(r'^render_geojson/', views.render_geojson_view, name='render_geojson'),
     url(r'^delete_up/', views.delete_up_view, name='delete_up'),
+    url(r'^tile/(?P<layers>[^/]+)/(?P<z>[0-9]+)/(?P<x>[0-9]+)/(?P<y>[0-9]+)(?P<format>\.jpg|\.png)$', testView.as_view(), name='tile')
 ]
