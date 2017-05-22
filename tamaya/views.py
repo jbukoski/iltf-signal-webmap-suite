@@ -96,11 +96,11 @@ def roads_view(request):
     return HttpResponse(roads_json, content_type='json')
 
 def watersheds_view(request):
-    watersheds_json = serialize('geojson', models.watersheds.objects.all(), geometry_field="geom")
+    watersheds_json = serialize('geojson', models.watersheds.objects.all(), geometry_field="geom", fields=('watershed_id', 'hu_8_name', 'shape_area'))
     return HttpResponse(watersheds_json, content_type="json")
 
 def subwatersheds_view(request):
-    subwatersheds_json = serialize('geojson', models.subwatersheds.objects.all(), geometry_field="geom")
+    subwatersheds_json = serialize('geojson', models.subwatersheds.objects.all(), geometry_field="geom", fields=('subwatershed_id', 'watershed', 'subwatshed', 'acres'))
     return HttpResponse(subwatersheds_json, content_type="json")
 
 def surfacehydro_view(request):

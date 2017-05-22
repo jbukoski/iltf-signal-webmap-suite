@@ -12,6 +12,7 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^', include('django.contrib.auth.urls')),
+    url(r'^raster/', include('raster.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^comanche/', include('comanche.urls')),
     url(r'^comanche/admin', include(comanche_admin.urls)),
