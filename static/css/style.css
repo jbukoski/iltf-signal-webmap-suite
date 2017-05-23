@@ -170,7 +170,7 @@ Styling for index.html (home page)
 
 #index-home #logos{
     position: absolute;
-    bottom: 0;
+    bottom: 5;
     padding: 2rem;
 }
 
