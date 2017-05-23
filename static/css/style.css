@@ -1,6 +1,10 @@
 html, body, #sidebar, #container {
     height: 100%;
     margin: 0px;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center center;
+    overflow-y: hidden;
 }
 body {
     padding-top: 50px;
@@ -133,4 +137,43 @@ label {
     background-color: rgba(0, 0, 0, 0.05);
     padding: 6px 10px 9px;
     border-width: 2px;
+}
+
+/***************************************
+Styling for index.html (home page)
+***************************************/
+
+#index-home {
+    background-color: rgba(255,255,255,0.7);
+    padding: 6rem 2rem 2rem 2rem;
+    height: 100%;
+    right: 10rem;
+    position: absolute;
+}
+
+#index-home h2{
+    text-align: center;
+    font-family: 'Oswald', Sans-Serif;
+    text-transform: uppercase;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+#index-home p{
+    text-align: center;
+    font-family: "Arial", Sans-Serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+#index-home #logos{
+    position: absolute;
+    bottom: 0;
+    padding: 2rem;
+}
+
+#index-home a{
+    bottom: 0;
 }
