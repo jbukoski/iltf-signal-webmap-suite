@@ -169,6 +169,8 @@ Styling for index.html (home page)
 }
 
 #index-home #logos{
+    left: 50%;
+    margin-left: -200px;
     position: absolute;
     bottom: 5;
     padding: 2rem;
