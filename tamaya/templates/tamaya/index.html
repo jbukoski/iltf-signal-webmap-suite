@@ -478,10 +478,7 @@ function uploader() {
 ////// Overlay Layers //////
 ////////////////////////////
 
-<<<<<<< HEAD
-    var testRast = new L.tileLayer('/raster/tiles/1/{z}/{x}/{y}.png');
 
-=======
     var sample_boundary=new L.GeoJSON.AJAX("{% url 'render_geojson' %}", {
         style: { clickable: false,
                  weight: 3,
@@ -491,7 +488,6 @@ function uploader() {
                  fill: false,
                }
     });
->>>>>>> 37fdb41eedd191eb95a700371e0d8af13e09dac3
 
     var boundary=new L.GeoJSON.AJAX("{% url 'boundary' %}", {
         style: { clickable: false,
