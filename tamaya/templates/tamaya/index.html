@@ -512,6 +512,16 @@ function uploader() {
 
     //var testRast = new L.tileLayer('/raster/tiles/1/{z}/{x}/{y}.png');
 
+
+    var testTile = L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.0',
+        request: 'GetMap',
+        format: 'image/png',
+        tms: 'true',
+        layers: 'iltf:tamaya_test_raster',
+    });
+
     var sample_boundary=new L.GeoJSON.AJAX("{% url 'render_geojson' %}", {
         style: { clickable: false,
                  weight: 3,
@@ -853,7 +863,7 @@ function uploader() {
         center: [35.435, -106.54],
         minZoom: 6,
         maxZoom: 20,
-        layers: [recent, boundary, mbls]
+        layers: [recent, boundary, mbls, testTile]
     });
 
 ///////////////////////////////////////
