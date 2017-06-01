@@ -6,12 +6,14 @@ from django.conf import settings
 from comanche.admin import comanche_admin
 from lbst.admin import lbst_admin
 from tamaya.admin import tamaya_admin
+from . import views
 import tamaya
 
 admin.autodiscover()
 
 urlpatterns = [
     url(r'^', include('django.contrib.auth.urls')),
+    url(r'^$', views.index, name='index'),
     url(r'^raster/', include('raster.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^comanche/', include('comanche.urls')),
