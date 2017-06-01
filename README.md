@@ -45,6 +45,12 @@ To be installed with 'pip':
     $ python manage.py runserver
 ```
 
+or
+
+```
+    $ ./manage.py runserver
+```
+
 #### File upload
 
 Need to add the following to **settings.py**:

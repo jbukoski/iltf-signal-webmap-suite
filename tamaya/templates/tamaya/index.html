@@ -73,7 +73,7 @@
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="overlayLayers" id="watersheds" z-index="0.5">
+                                            <input type="checkbox" name="overlayLayers" id="watersheds" z-index="3">
                                             &nbsp Watersheds
                                         </label>
                                     </div>
@@ -512,6 +512,16 @@ function uploader() {
 
     //var testRast = new L.tileLayer('/raster/tiles/1/{z}/{x}/{y}.png');
 
+
+    var testTile = L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.0',
+        request: 'GetMap',
+        format: 'image/png',
+        tms: 'true',
+        layers: 'iltf:tamaya_test_raster',
+    });
+
     var sample_boundary=new L.GeoJSON.AJAX("{% url 'render_geojson' %}", {
         style: { clickable: false,
                  weight: 3,
@@ -606,7 +616,7 @@ function uploader() {
     });
 
     var watersheds = new L.GeoJSON.AJAX("{% url 'watersheds' %}", {
-        style: {color: '#AEEEEE',
+        style: {color: '#99BADD',
                 weight: 2,
                 dashArray: 1,
                 opacity: 0.5,
@@ -620,11 +630,11 @@ function uploader() {
     });
 
     var subwatersheds = new L.GeoJSON.AJAX("{% url 'subwatersheds' %}", {
-        style: {color: '#797976',
+        style: {color: '#3939b8',
                 weight: 2,
                 dashArray: 1,
                 opacity: 1,
-                clickable: true,
+                clickable: false,
                },
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
@@ -853,7 +863,7 @@ function uploader() {
         center: [35.435, -106.54],
         minZoom: 6,
         maxZoom: 20,
-        layers: [recent, boundary, mbls]
+        layers: [recent, boundary, mbls, testTile]
     });
 
 ///////////////////////////////////////
