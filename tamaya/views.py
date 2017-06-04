@@ -28,18 +28,24 @@ def index(request):
     bndry = models.boundary.objects.all()
     documents = models.Document.objects.all()
     upload_files = next(os.walk(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded')))[2]
+    upload_list = []
 
     for up_file in upload_files:
 
         if up_file != ".DS_Store":
 
             up_file_path = os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/', up_file)
-            os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/', up_file)
+            raw_doc_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/', up_file)).read()
+            upload_list.append(raw_doc_json)
 
-    foo_counter = 1
+            #print("\n=============\nWithin index upload_files")
+            #print("upload_list: ", upload_list)
+            #print("\n=========\n\n")
+
+    doc_counter = 1
 
     for document in documents:
-        foo_counter += 1
+        doc_counter += 1
 
     return render(request, 'tamaya/index.html', {
         'title': 'Santa Ana Pueblo of NM',
@@ -69,18 +75,16 @@ def list(request):
     documents = models.Document.objects.all()
 
     # Render list page with all documents
-    """return render_to_response(
-        'tamaya/list.html',
-        {
-            'documents' : documents,
-            'form' : form
-        },
-        context_instance=RequestContext(request)
-    )"""
     context = {'documents' : documents, 'form' : form}
     return render(request, 'tamaya/list.html', context)
 
-def render_geojson_view(request):
+def render_geojson_view(request, *args, **kwargs):
+
+    print("\n\n++++++++++++\nWithin render_geojson_view")
+    print("args: ", args)
+    print("kwargs: ", kwargs)
+    print("++++++++++\n\n")
+    
     return HttpResponse(raw_json, content_type='json')
 
 def boundary_view(request):
@@ -96,11 +100,11 @@ def roads_view(request):
     return HttpResponse(roads_json, content_type='json')
 
 def watersheds_view(request):
-    watersheds_json = serialize('geojson', models.watersheds.objects.all(), geometry_field="geom")
+    watersheds_json = serialize('geojson', models.watersheds.objects.all(), geometry_field="geom", fields=('watershed_id', 'hu_8_name', 'shape_area'))
     return HttpResponse(watersheds_json, content_type="json")
 
 def subwatersheds_view(request):
-    subwatersheds_json = serialize('geojson', models.subwatersheds.objects.all(), geometry_field="geom")
+    subwatersheds_json = serialize('geojson', models.subwatersheds.objects.all(), geometry_field="geom", fields=('subwatershed_id', 'watershed', 'subwatshed', 'acres'))
     return HttpResponse(subwatersheds_json, content_type="json")
 
 def surfacehydro_view(request):
@@ -292,6 +296,13 @@ def delete_up_view(request):
     for document in documents:
 
         i += 1
+
+        print("\n\n============\nDocument: ", document)
+        print("os.path.join(settings.MEDIA_ROOT, document.docfile.name): ", os.path.join(settings.MEDIA_ROOT, document.docfile.name))
+        print("\n===========\n\n")
+
+        os.remove(os.path.join(settings.MEDIA_ROOT, document.docfile.name))
         document.delete()
+
 
     return HttpResponseRedirect(reverse('index'))

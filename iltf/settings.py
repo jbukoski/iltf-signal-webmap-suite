@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'comanche',
     'lbst',
     'tamaya',
+    'wms',
 ]
 
 MIDDLEWARE = [
