@@ -496,7 +496,6 @@ function uploader() {
 
 /*    var testTile = L.tileLayer.wms('http://localhost:8080/geoserver/gwc/demo/', {
         format: 'image/png',
-        TILED: true,
         gridSet: 'EPSG:900913',
         layers: 'iltf:tamaya_test_raster',
     }).addTo(map); */
@@ -842,11 +841,7 @@ function uploader() {
         center: [35.435, -106.54],
         minZoom: 6,
         maxZoom: 20,
-<<<<<<< HEAD
         layers: [recent, boundary, mbls, roads]
-=======
-        layers: [recent, boundary, mbls, testTile]
->>>>>>> origin/import-map
     });
 
 ///////////////////////////////////////
