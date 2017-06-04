@@ -494,12 +494,12 @@ function uploader() {
 ////// Overlay Layers //////
 ////////////////////////////
 
-    var testTile = L.tileLayer.wms('http://localhost:8080/geoserver/gwc/demo/', {
+/*    var testTile = L.tileLayer.wms('http://localhost:8080/geoserver/gwc/demo/', {
         format: 'image/png',
         TILED: true,
         gridSet: 'EPSG:900913',
         layers: 'iltf:tamaya_test_raster',
-    }).addTo(map);
+    }).addTo(map); */
 
     var sample_boundary=new L.GeoJSON.AJAX("{% url 'render_geojson' %}", {
         style: { clickable: false,
