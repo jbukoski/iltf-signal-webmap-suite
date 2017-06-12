@@ -862,26 +862,32 @@ function uploader() {
         layers: [recent, boundary, mbls]
     });
 
-///////////////////////////////////////
-////// Add Leaflet-Draw controls //////
-///////////////////////////////////////
+////////////////////////////////////
+//// Build legend functionality ////
+////////////////////////////////////
 
     map.on('click', function(e) {
         var lng = e.latlng.lng;
         var lat = e.latlng.lat;
-        alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
         console.log("I clicked!");
-        updateLatLng(lat, lng);
+        resp = updateLatLng(lat, lng);
+        var resp2 = '{{result}}';
+        console.log(resp2);
+        console.log('made it this far');
     });
 
     function updateLatLng(lat, lng){
         var data = {'lat': lat, 'lng': lng, csrfmiddlewaretoken: '{{ csrf_token }}'};
-        $.post('{% url 'legend' %}', data, function(response) {
-            var csrftoken = getCookie('csrftoken');
-            if(response === 'success') {alert('Yay!');}
-            else{alert('fail')}
-        });
-    }
+        $.post('{% url 'legend' %}', data);
+        var response = '{{ result }}';
+        console.log(response);
+        return response
+    };
+
+///////////////////////////////////////
+////// Add Leaflet-Draw controls //////
+///////////////////////////////////////
+
 
     // Initialize the FeatureGroup to store editable layers
 

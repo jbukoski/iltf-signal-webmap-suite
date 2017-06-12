@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 import json
 import os, os.path
+import psycopg2
 
 from django.template import RequestContext
 from django.urls import reverse
@@ -92,14 +93,22 @@ def legend_view(request):
     lat = request.POST['lat']
     lon = request.POST['lng']
 
+    query = "SELECT ST_Value(raster, ST_TRANSFORM(ST_SetSRID(ST_MakePoint(%s, %s), 4326), 4326)) FROM tamaya_testraster;" % (lon, lat)
+
+    conn = psycopg2.connect("dbname='iltf' user='postgres'")
+    cur = conn.cursor() 
+    cur.execute(query)
+    result = cur.fetchall()[0][0]
+
     print("\n\n++++++++++++\nInside the legend view\n")
-    print("Latitude: ", lat)
-    print("Longitude: ", lon)
+    print("Lat: ", lat, "   Lon: ", lon)
+    print(query)
+    print("Value: ", result)
     print("++++++++++\n\n")
 
-    legend_json = 'hello'
+    context = {'result': result}
 
-    return HttpResponse(legend_json, content_type='json')
+    return HttpResponse(context, content_type='json')
 
 def boundary_view(request):
     boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field="geom")
