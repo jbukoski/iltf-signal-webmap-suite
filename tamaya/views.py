@@ -87,6 +87,20 @@ def render_geojson_view(request, *args, **kwargs):
     
     return HttpResponse(raw_json, content_type='json')
 
+def legend_view(request):
+
+    lat = request.POST['lat']
+    lon = request.POST['lng']
+
+    print("\n\n++++++++++++\nInside the legend view\n")
+    print("Latitude: ", lat)
+    print("Longitude: ", lon)
+    print("++++++++++\n\n")
+
+    legend_json = 'hello'
+
+    return HttpResponse(legend_json, content_type='json')
+
 def boundary_view(request):
     boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field="geom")
     return HttpResponse(boundary_json, content_type='json')

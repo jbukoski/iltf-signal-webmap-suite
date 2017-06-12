@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^list/$', views.list, name='list'),
     url(r'^render_geojson/', views.render_geojson_view, name='render_geojson'),
     url(r'^delete_up/', views.delete_up_view, name='delete_up'),
+    url(r'^legend/', views.legend_view, name='legend'),
 ]

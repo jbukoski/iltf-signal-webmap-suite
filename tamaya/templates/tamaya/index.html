@@ -866,6 +866,23 @@ function uploader() {
 ////// Add Leaflet-Draw controls //////
 ///////////////////////////////////////
 
+    map.on('click', function(e) {
+        var lng = e.latlng.lng;
+        var lat = e.latlng.lat;
+        alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng);
+        console.log("I clicked!");
+        updateLatLng(lat, lng);
+    });
+
+    function updateLatLng(lat, lng){
+        var data = {'lat': lat, 'lng': lng, csrfmiddlewaretoken: '{{ csrf_token }}'};
+        $.post('{% url 'legend' %}', data, function(response) {
+            var csrftoken = getCookie('csrftoken');
+            if(response === 'success') {alert('Yay!');}
+            else{alert('fail')}
+        });
+    }
+
     // Initialize the FeatureGroup to store editable layers
 
     var drawnItems = new L.FeatureGroup();
