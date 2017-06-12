@@ -102,7 +102,7 @@
                                 <div id="soil-layers" class="panel-collapse collapse in">
                                     <div class="panel-body" style="padding: 0px 15px;">
 					<div class="checkbox">
-					    <label>
+				            <label>
                                                 <input type="checkbox" name="overlayLayers" id="bulkDens" z-index="3">
                                                 &nbsp Bulk density
                                             </label>
@@ -111,35 +111,54 @@
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="composting" z-index="3">
                                                 &nbsp Composting, medium and final cover
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="org_matter" z-index="3">
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="org_matter" z-index="3">
                                                 &nbsp Organic matter
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="soil_ph" z-index="3">
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="soil_ph" z-index="3">
                                                 &nbsp Surface pH, weighted average
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="taxonomy" z-index="3">
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="taxonomy" z-index="3">
                                                 &nbsp Taxonomic classification
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="texture" z-index="3">
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="texture" z-index="3">
                                                 &nbsp Texture
-                                        </label>
-                                    </div>
+                                            </label>
+                                        </div>
+            		            </div>
             		        </div>
-            		    </div>
-                        </div>
+                            </div>
+
+			    <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#carbon-layers">
+                                        Carbon Layers
+                                    </a>
+                                </div>
+                                <div id="carbon-layers" class="panel-collapse collapse in">
+                                    <div class="panel-body" style="padding: 0px 15px;">
+					<div class="checkbox">
+					    <label>
+                                                <input type="checkbox" name="overlayLayers" id="TEST_LAYER" z-index="3">
+                                                &nbsp SOIL PLACEHOLDER
+                                            </label>
+                                        </div>
+            		            </div>
+            		        </div>
+                            </div>
+
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -346,6 +365,8 @@
 
 {% block layers %}
 
+<script type="text/javascript" href="http://depot.ign.fr/geoportail/api/develop/tech-docs-js/examples/js/geoportalLeaflet.js"></script>
+
 <script type="text/javascript">
 
 ////////////////////////////
@@ -494,21 +515,18 @@ function uploader() {
 ////// Overlay Layers //////
 ////////////////////////////
 
-/*    var testTile = L.tileLayer.wms('http://localhost:8080/geoserver/gwc/demo/', {
+    var TEST_LAYER = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
         format: 'image/png',
-        gridSet: 'EPSG:900913',
-        layers: 'iltf:tamaya_test_raster',
-    }).addTo(map); */
-
-    var sample_boundary=new L.GeoJSON.AJAX("{% url 'render_geojson' %}", {
-        style: { clickable: false,
-                 weight: 3,
-                 //color: '#000000',
-                 dashArray: 3,
-                 opacity: 1,
-                 fill: false,
-               }
+        layers: 'iltf:tamaya_clipped',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
     });
+
 
     var boundary=new L.GeoJSON.AJAX("{% url 'boundary' %}", {
         style: { clickable: false,
@@ -799,7 +817,7 @@ function uploader() {
 
 ////// User defined layers //////
 
-    var user_points=new L.GeoJSON.AJAX("{% url 'user_points' %}", {
+    var user_points = new L.GeoJSON.AJAX("{% url 'user_points' %}", {
         style: {clickable: true,
         },
         onEachFeature: function(feature, layer) {
@@ -810,7 +828,7 @@ function uploader() {
         },
     });
 
-    var user_lines=new L.GeoJSON.AJAX("{% url 'user_lines' %}", {
+    var user_lines = new L.GeoJSON.AJAX("{% url 'user_lines' %}", {
         style: {clickable: true,
         },
         onEachFeature: function(feature, layer) {
@@ -821,7 +839,7 @@ function uploader() {
         },
     });
 
-    var user_polygons=new L.GeoJSON.AJAX("{% url 'user_polygons' %}", {
+    var user_polygons = new L.GeoJSON.AJAX("{% url 'user_polygons' %}", {
         style: {clickable: true,
         },
         onEachFeature: function(feature, layer) {
@@ -836,12 +854,12 @@ function uploader() {
 ////// Leaflet Map /////////
 ////////////////////////////
 
-    var map=L.map("map", {
+    var map = L.map("map", {
         zoom: 11,
         center: [35.435, -106.54],
         minZoom: 6,
         maxZoom: 20,
-        layers: [recent, boundary, mbls, roads]
+        layers: [recent, boundary, mbls]
     });
 
 ///////////////////////////////////////
@@ -850,7 +868,7 @@ function uploader() {
 
     // Initialize the FeatureGroup to store editable layers
 
-    var drawnItems=new L.FeatureGroup();
+    var drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
 
     L.control.scale().addTo(map);
