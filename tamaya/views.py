@@ -98,17 +98,16 @@ def legend_view(request):
     conn = psycopg2.connect("dbname='iltf' user='postgres'")
     cur = conn.cursor() 
     cur.execute(query)
-    result = cur.fetchall()[0][0]
+    result = "The value is %s" % cur.fetchall()[0][0]
+    result_json = json.dumps(result)
+    test_string = "This is a test string."
 
     print("\n\n++++++++++++\nInside the legend view\n")
     print("Lat: ", lat, "   Lon: ", lon)
-    print(query)
     print("Value: ", result)
-    print("++++++++++\n\n")
+    print("++++++++++++\n\n")
 
-    context = {'result': result}
-
-    return HttpResponse(context, content_type='json')
+    return HttpResponse(result_json, content_type='json')
 
 def boundary_view(request):
     boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field="geom")

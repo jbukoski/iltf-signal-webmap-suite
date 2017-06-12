@@ -871,15 +871,13 @@ function uploader() {
         var lat = e.latlng.lat;
         console.log("I clicked!");
         resp = updateLatLng(lat, lng);
-        var resp2 = '{{result}}';
-        console.log(resp2);
-        console.log('made it this far');
+        console.log('The response is: ', resp);
     });
 
     function updateLatLng(lat, lng){
         var data = {'lat': lat, 'lng': lng, csrfmiddlewaretoken: '{{ csrf_token }}'};
         $.post('{% url 'legend' %}', data);
-        var response = '{{ result }}';
+        var response = '{{result}}';
         console.log(response);
         return response
     };
