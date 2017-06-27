@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.shortcuts import render, render_to_response, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from . import models
 from django.core.serializers import serialize
 from django.contrib.auth.decorators import login_required
@@ -90,24 +90,30 @@ def render_geojson_view(request, *args, **kwargs):
 
 def legend_view(request):
 
-    lat = request.POST['lat']
-    lon = request.POST['lng']
+    if request.method == 'POST':
+        lat = request.POST['lat']
+        lon = request.POST['lng']
 
-    query = "SELECT ST_Value(raster, ST_TRANSFORM(ST_SetSRID(ST_MakePoint(%s, %s), 4326), 4326)) FROM tamaya_testraster;" % (lon, lat)
+        query = "SELECT ST_Value(raster, ST_TRANSFORM(ST_SetSRID(ST_MakePoint(%s, %s), 4326), 4326)) FROM tamaya_testraster;" % (lon, lat)
 
-    conn = psycopg2.connect("dbname='iltf' user='postgres'")
-    cur = conn.cursor() 
-    cur.execute(query)
-    result = "The value is %s" % cur.fetchall()[0][0]
-    result_json = json.dumps(result)
-    test_string = "This is a test string."
+        conn = psycopg2.connect("dbname='iltf' user='postgres'")
+        cur = conn.cursor() 
+        cur.execute(query)
+        result = cur.fetchall()[0][0]
+        result_json = json.dumps(result)
 
-    print("\n\n++++++++++++\nInside the legend view\n")
-    print("Lat: ", lat, "   Lon: ", lon)
-    print("Value: ", result)
-    print("++++++++++++\n\n")
+        print("\n\n++++++++++++\nInside the legend view\n")
+        print("Lat: ", lat, "   Lon: ", lon)
+        print("Value: ", result)
+        print("++++++++++++\n\n")
 
-    return HttpResponse(result_json, content_type='json')
+        return JsonResponse({'result': result})
+
+    else:
+
+        error_msg = 'Not a post request'
+
+        return JsonResponse({'error', error_msg})
 
 def boundary_view(request):
     boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field="geom")

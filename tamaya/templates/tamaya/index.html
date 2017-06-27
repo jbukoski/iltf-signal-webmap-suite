@@ -151,10 +151,22 @@
                                     <div class="panel-body" style="padding: 0px 15px;">
 					<div class="checkbox">
 					    <label>
-                                                <input type="checkbox" name="overlayLayers" id="TEST_LAYER" z-index="3">
-                                                &nbsp SOIL PLACEHOLDER
+                                                <input type="checkbox" name="overlayLayers" id="gssurgoSOC" z-index="3">
+                                                &nbsp Soil organic carbon
                                             </label>
                                         </div>
+                                       <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="ndviDiff" z-index="3">
+                                                &nbsp Difference in NDVI
+                                            </label>
+                                       </div> 
+                                       <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="temp_dat" z-index="3">
+                                                &nbsp Temperature data
+                                            </label>
+                                       </div>
             		            </div>
             		        </div>
                             </div>
@@ -196,7 +208,7 @@
                                 <div class="panel-body" style="padding: 0px 15px;">
                 		    <div class="radio">
                 		        <label>
-                                            <input type="radio" name="basemapLayers" id="recent"checked>
+                                            <input type="radio" name="basemapLayers" id="recent">
                                                 &nbsp Digital Globe imagery, no roads
                                         </label>
                                     </div>
@@ -208,7 +220,7 @@
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="basemapLayers" id="topo">
+                                            <input type="radio" name="basemapLayers" id="topo" checked>
                                                 &nbsp Topography, ESRI
                                         </label>
                                     </div>
@@ -515,12 +527,36 @@ function uploader() {
 ////// Overlay Layers //////
 ////////////////////////////
 
-    var TEST_LAYER = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
+    var temp_dat = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
         service: 'WMS',
         version: '1.1.1',
         request: 'GetMap',
         format: 'image/png',
         layers: 'iltf:tamaya_clipped',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
+
+    var gssurgoSOC = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:soc_clipped',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
+
+    var ndviDiff = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:tamaya_ndviDiff',
         transparent: true,
         tiled: true,
         zIndex: 10,
@@ -859,27 +895,39 @@ function uploader() {
         center: [35.435, -106.54],
         minZoom: 6,
         maxZoom: 20,
-        layers: [recent, boundary, mbls]
+        layers: [topo, boundary, mbls]
     });
 
 ////////////////////////////////////
 //// Build legend functionality ////
 ////////////////////////////////////
 
+    var dat_return;
+    var popup = L.popup();
+
     map.on('click', function(e) {
         var lng = e.latlng.lng;
         var lat = e.latlng.lat;
-        console.log("I clicked!");
-        resp = updateLatLng(lat, lng);
-        console.log('The response is: ', resp);
+        updateLatLng(lat, lng);
     });
 
-    function updateLatLng(lat, lng){
-        var data = {'lat': lat, 'lng': lng, csrfmiddlewaretoken: '{{ csrf_token }}'};
-        $.post('{% url 'legend' %}', data);
-        var response = '{{result}}';
-        console.log(response);
-        return response
+    function updateLatLng(lat, lng) {
+        var data = {'lat': lat, 
+                    'lng': lng, 
+                     csrfmiddlewaretoken: '{{ csrf_token }}'};
+        $.post('{% url 'legend' %}', data, function(resp) {
+            dat_return = resp.result;
+            console.log("The temperature value is: ", dat_return);
+            update_dat(dat_return);
+            popup
+                .setLatLng([lat, lng])
+                .setContent('<p>The value is: ' + resp.result + '</p>')
+                .openOn(map);
+        });
+    };
+ 
+    function update_dat(data) {
+        dat_return = data;
     };
 
 ///////////////////////////////////////
