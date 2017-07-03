@@ -151,19 +151,19 @@
                                     <div class="panel-body" style="padding: 0px 15px;">
 					<div class="checkbox">
 					    <label>
-                                                <input type="checkbox" name="rasterLayers" id="gssurgoSOC" z-index="3">
+                                                <input type="checkbox" name="overlayLayers" id="gssurgoSOC" z-index="3">
                                                 &nbsp Soil organic carbon
                                             </label>
                                         </div>
                                        <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="rasterLayers" id="ndviDiff" z-index="3">
+                                                <input type="checkbox" name="overlayLayers" id="ndviDiff" z-index="3">
                                                 &nbsp Difference in NDVI
                                             </label>
                                        </div> 
                                        <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="rasterLayers" id="temp_dat" z-index="3">
+                                                <input type="checkbox" name="overlayLayers" id="temp_dat" z-index="3">
                                                 &nbsp Temperature data
                                             </label>
                                        </div>
@@ -561,6 +561,7 @@ function uploader() {
         tiled: true,
         zIndex: 10,
         bgcolor: '#FFFFFF'
+    });
 
     var sample_boundary=new L.GeoJSON.AJAX("{% url 'render_geojson' %}", {
         style: { clickable: false,
@@ -911,8 +912,7 @@ function uploader() {
 //// Build legend functionality ////
 ////////////////////////////////////
 
-
-    $("input[type='checkbox'][name='rasterLayers']").change(function () {
+    $("input[type='checkbox'][id='ndviDiff']").change(function () {
         if (this.checked) {
             console.log("checked");
    
