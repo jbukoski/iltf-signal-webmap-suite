@@ -527,6 +527,7 @@ function uploader() {
 ////// Overlay Layers //////
 ////////////////////////////
 
+<<<<<<< HEAD
     var temp_dat = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
         service: 'WMS',
         version: '1.1.1',
@@ -561,6 +562,18 @@ function uploader() {
         tiled: true,
         zIndex: 10,
         bgcolor: '#FFFFFF'
+=======
+    //var testRast = new L.tileLayer('/raster/tiles/1/{z}/{x}/{y}.png');
+
+    var sample_boundary=new L.GeoJSON.AJAX("{% url 'render_geojson' %}", {
+        style: { clickable: false,
+                 weight: 3,
+                 //color: '#000000',
+                 dashArray: 3,
+                 opacity: 1,
+                 fill: false,
+               }
+>>>>>>> origin/master
     });
 
 
@@ -895,7 +908,11 @@ function uploader() {
         center: [35.435, -106.54],
         minZoom: 6,
         maxZoom: 20,
+<<<<<<< HEAD
         layers: [topo, boundary, mbls]
+=======
+        layers: [recent, boundary, mbls]
+>>>>>>> origin/master
     });
 
 ////////////////////////////////////
