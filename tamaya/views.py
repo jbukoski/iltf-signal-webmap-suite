@@ -94,13 +94,13 @@ def legend_view(request):
         lat = request.POST['lat']
         lon = request.POST['lng']
 
-        query = "SELECT ST_Value(raster, ST_TRANSFORM(ST_SetSRID(ST_MakePoint(%s, %s), 4326), 4326)) FROM tamaya_testraster;" % (lon, lat)
+        query = "SELECT ST_Value(raster, ST_TRANSFORM(ST_SetSRID(ST_MakePoint(%s, %s), 4326), 4326)) FROM tamaya_ndvidiff;" % (lon, lat)
 
         conn = psycopg2.connect("dbname='iltf' user='postgres'")
         cur = conn.cursor() 
         cur.execute(query)
         result = cur.fetchall()[0][0]
-        result_json = json.dumps(result)
+        conn.close()
 
         print("\n\n++++++++++++\nInside the legend view\n")
         print("Lat: ", lat, "   Lon: ", lon)
