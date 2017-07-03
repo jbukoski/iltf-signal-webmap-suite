@@ -1,12 +1,13 @@
 from django.conf import settings
 from django.shortcuts import render, render_to_response, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from . import models
 from django.core.serializers import serialize
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 import json
 import os, os.path
+import psycopg2
 
 from django.template import RequestContext
 from django.urls import reverse
@@ -86,6 +87,33 @@ def render_geojson_view(request, *args, **kwargs):
     print("++++++++++\n\n")
     
     return HttpResponse(raw_json, content_type='json')
+
+def legend_view(request):
+
+    if request.method == 'POST':
+        lat = request.POST['lat']
+        lon = request.POST['lng']
+
+        query = "SELECT ST_Value(raster, ST_TRANSFORM(ST_SetSRID(ST_MakePoint(%s, %s), 4326), 4326)) FROM tamaya_ndvidiff;" % (lon, lat)
+
+        conn = psycopg2.connect("dbname='iltf' user='postgres'")
+        cur = conn.cursor() 
+        cur.execute(query)
+        result = cur.fetchall()[0][0]
+        conn.close()
+
+        print("\n\n++++++++++++\nInside the legend view\n")
+        print("Lat: ", lat, "   Lon: ", lon)
+        print("Value: ", result)
+        print("++++++++++++\n\n")
+
+        return JsonResponse({'result': result})
+
+    else:
+
+        error_msg = 'Not a post request'
+
+        return JsonResponse({'error', error_msg})
 
 def boundary_view(request):
     boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field="geom")

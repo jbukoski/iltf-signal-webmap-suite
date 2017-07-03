@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'djgeojson',
     'leaflet',
-    'raster',
     'comanche',
     'lbst',
     'tamaya',
@@ -154,6 +153,3 @@ STATICFILES_FINDERS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# CELERY
-
-RASTER_USE_CELERY = True

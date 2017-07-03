@@ -8,6 +8,10 @@ class testRaster(models.Model):
     name = models.TextField(default='tester')
     raster = models.RasterField()
 
+class ndviDiff(models.Model):
+    raster_id = models.TextField(primary_key=True)
+    name = models.TextField()
+    raster = models.RasterField()
 
 # ADMIN LAYERS
 
