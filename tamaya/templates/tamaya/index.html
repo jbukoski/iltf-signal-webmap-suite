@@ -163,8 +163,8 @@
                                        </div> 
                                        <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="overlayLayers" id="temp_dat" z-index="3">
-                                                &nbsp Temperature data
+                                                <input type="checkbox" name="overlayLayers" id="landfireEVT" z-index="3">
+                                                &nbsp Landfire Existing Vegetation Type
                                             </label>
                                        </div>
             		            </div>
@@ -527,6 +527,8 @@ function uploader() {
 ////// Overlay Layers //////
 ////////////////////////////
 
+////// Raster Layers ///////
+
     var temp_dat = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
         service: 'WMS',
         version: '1.1.1',
@@ -551,6 +553,18 @@ function uploader() {
         bgcolor: '#FFFFFF'
     });
 
+    var landfireEVT = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:tamaya_landfireEVT',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
+
     var ndviDiff = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
         service: 'WMS',
         version: '1.1.1',
@@ -563,6 +577,8 @@ function uploader() {
         bgcolor: '#FFFFFF'
     });
 
+/////// Oliver's Layers ////////
+
     var sample_boundary=new L.GeoJSON.AJAX("{% url 'render_geojson' %}", {
         style: { clickable: false,
                  weight: 3,
@@ -572,7 +588,8 @@ function uploader() {
                  fill: false,
                }
     });
-
+ 
+//////// Vector Layers ////////
 
     var boundary=new L.GeoJSON.AJAX("{% url 'boundary' %}", {
         style: { clickable: false,
@@ -914,38 +931,30 @@ function uploader() {
 
     $("input[type='checkbox'][id='ndviDiff']").change(function () {
         if (this.checked) {
-            console.log("checked");
-   
-            var dat_return;
+
             var popup = L.popup();
-        
+
             map.on('click', function(e) {
                 var lng = e.latlng.lng;
                 var lat = e.latlng.lat;
                 updateLatLng(lat, lng);
             });
-        
+
             function updateLatLng(lat, lng) {
-                var data = {'lat': lat, 
-                            'lng': lng, 
+                var data = {'lat': lat, 'lng': lng, 
                              csrfmiddlewaretoken: '{{ csrf_token }}'};
                 $.post('{% url 'legend' %}', data, function(resp) {
-                    dat_return = resp.result;
-                    update_dat(dat_return);
                     popup
                         .setLatLng([lat, lng])
-                        .setContent('<p>The value is: ' + resp.result + '</p>')
+                        .setContent('<p><strong>Difference in NDVI: </strong>' + resp.ndvidiff + '</p>')
                         .openOn(map);
                 });
             };
- 
-            function update_dat(data) {
-                dat_return = data;
-            };
+        } else if (!this.checked) {
 
-        } else if (!this.checked) { 
-            console.log('unchecked');
-            map.off('click'); 
+            map.closePopup();
+            map.off('click');
+
         };
     }); 
 
