@@ -76,6 +76,10 @@ Need to add the following to **models.py**:
 TO DO:
 
   - Finalize carbon data layers to add
+    - Landfire EVT
+    - gSSURGO SOC layer
+    - aboveground carbon layer?
+    - other carbon layers?
   - Build out legend function for raster layers
   - Build in transparency function
   - Build summary functions using draw function
