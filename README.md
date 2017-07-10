@@ -75,12 +75,17 @@ Need to add the following to **models.py**:
 
 TO DO:
 
-  - ~~Styling and popup content~~
-  - Build Raster models
-  - Vector Slicing for faster display of geojson layers
-   - From GeoDjango framework?
-  - Add in other layers
-  - Set up as deployable app
-  - Build user adjustable layers
-  - Change background map in Admin page
-  - Deploy to SIG server
+  - Finalize carbon data layers to add
+    - Landfire EVT
+    - gSSURGO SOC layer
+    - aboveground carbon layer?
+    - other carbon layers?
+  - Build out legend function for raster layers
+  - Build in transparency function
+  - Build summary functions using draw function
+  - Login functions on home page
+  - Set-up in deployable, generalizable fashion
+  - On import-map
+    - allow user-specified name of layer
+    - resolve blank map on delete (?)
+    - checks for file type and size
