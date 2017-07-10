@@ -94,20 +94,31 @@ def legend_view(request):
         lat = request.POST['lat']
         lon = request.POST['lng']
 
-        query = "SELECT ST_Value(raster, ST_TRANSFORM(ST_SetSRID(ST_MakePoint(%s, %s), 4326), 4326)) FROM tamaya_ndvidiff;" % (lon, lat)
+        query = """WITH mypoint AS (
+                   SELECT ST_SetSRID(ST_MakePoint(%s, %s), 4326) geom
+                   )
+                   SELECT
+                   ST_Value(a.raster, geom) AS value1,
+                   ST_Value(b.raster, geom) AS value2
+                   FROM mypoint p
+                   LEFT JOIN tamaya_testraster a ON (ST_Intersects(p.geom, a.raster))
+                   LEFT JOIN tamaya_ndvidiff b ON (ST_Intersects(p.geom, b.raster));""" % (lon, lat)
 
         conn = psycopg2.connect("dbname='iltf' user='postgres'")
         cur = conn.cursor() 
         cur.execute(query)
-        result = cur.fetchall()[0][0]
+        results = cur.fetchall()
+        testraster = results[0][0]
+        ndvidiff = round(results[0][1], 4)
         conn.close()
 
         print("\n\n++++++++++++\nInside the legend view\n")
         print("Lat: ", lat, "   Lon: ", lon)
-        print("Value: ", result)
+        print("Temp value: ", testraster)
+        print("NDVI difference: ", ndvidiff)
         print("++++++++++++\n\n")
 
-        return JsonResponse({'result': result})
+        return JsonResponse({'testraster': testraster, 'ndvidiff': ndvidiff})
 
     else:
 
