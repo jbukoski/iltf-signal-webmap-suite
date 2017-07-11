@@ -51,6 +51,29 @@ or
     $ ./manage.py runserver
 ```
 
+#### Start / stop / restart PostGreSQL
+
+Potential error can occur if PostGreSQL cannot connect to its server (should be connecting to port 5432). In this case you can try to start, stop, or restart the server.   
+
+*Start*
+
+```
+    $ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
+```
+
+*Stop*
+
+```
+    $ pg_ctl -D /usr/local/var/postgres stop -s -m fast
+```
+
+
+*Restart*
+
+```
+    $ pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log restart
+```
+
 #### File upload
 
 Need to add the following to **settings.py**:
@@ -66,7 +89,7 @@ Need to add the following to **models.py**:
 
 ```
     from django.db import models
-    
+
     class Document(models.Model):
         docfile = models.FileField(upload_to='documents/')
 ```
