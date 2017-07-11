@@ -35,8 +35,8 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#admin-layers">
-                                        Administrative Layers
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#admin-layers">
+                                    Administrative Layers
                                 </a>
                             </div>
                             <div id="admin-layers" class="panel-collapse collapse in">
@@ -65,7 +65,7 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#hydro-layers">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#hydro-layers">
                                         Hydrology Layers
                                 </a>
                             </div>
@@ -95,7 +95,7 @@
 
 			    <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#soil-layers">
+                                    <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#soil-layers">
                                         Soil Layers
                                     </a>
                                 </div>
@@ -143,7 +143,7 @@
 
 			    <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#carbon-layers">
+                                    <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#carbon-layers">
                                         Carbon Layers
                                     </a>
                                 </div>
@@ -160,7 +160,7 @@
                                                 <input type="checkbox" name="overlayLayers" id="ndviDiff" z-index="3">
                                                 &nbsp Difference in NDVI
                                             </label>
-                                       </div> 
+                                       </div>
                                        <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="landfireEVT" z-index="3">
@@ -174,7 +174,7 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#user-layers">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#user-layers">
                                         User-defined Layers
                                 </a>
                             </div>
@@ -185,7 +185,7 @@
                                         {% for document in documents %}
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="uploadLayers" id="{{ document.docfile.name }}" z-index="3" onclick="show_static(' {{ document.docfile.name }}')">
+                                                    <input class="setFileName" type="checkbox" name="uploadLayers" id="{{ document.docfile.name }}" z-index="3" onclick="show_static(' {{ document.docfile.name }}')">
                                                         &nbsp {{ document.docfile.name }}
                                                 </label>
                                             </div>
@@ -200,7 +200,7 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#imagery">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#imagery">
                                         Base Layers
                                 </a>
                             </div>
@@ -391,9 +391,17 @@
 
 var uploaded_layers = $('#downloads_uploads').children();
 var num_layers = uploaded_layers.length;
+var tmp_url = null;
 
-for (var i = 0; i < num_layers; i++) {
-    var tmp_url = uploaded_layers[i].children[1].value;
+for ( var i = 0; i < num_layers; i++ ) {
+
+    try {
+        tmp_url = uploaded_layers[i].children[1].value;
+    } catch ( err ) {
+        debugger;
+        // window.location = "/";
+        tmp_url = null;
+    }
 
     //var tmp_geojson = new L.GeoJSON.AJAX(tmp_url);
     //tmp_geojson.addTo(map);
@@ -407,23 +415,10 @@ function show_static( tmp_idx ) {
     try {
 
         if ( tmp_idx == 0 ) {
-
-            console.log("\n========\nIn show_static()....");
-            console.log("tmp_idx == 0");
-            console.log("=========\n");
-
             var static_geojson = new L.GeoJSON.AJAX("{% url 'render_geojson' %}");
             static_geojson.addTo(map);
-
         } else {
-
-            console.log("\n========\nIn show_static()....");
-            console.log("tmp_idx != 0");
-            console.log("tmp_idx: ", tmp_idx);
-            console.log("=========\n");
-
             var tmp_geojson = new L.GeoJSON.AJAX("{% url 'render_geojson' %}");
-
         }
 
     } catch ( err ) {
@@ -588,7 +583,7 @@ function uploader() {
                  fill: false,
                }
     });
- 
+
 //////// Vector Layers ////////
 
     var boundary=new L.GeoJSON.AJAX("{% url 'boundary' %}", {
@@ -937,7 +932,7 @@ function uploader() {
             });
 
             function updateLatLng(lat, lng) {
-                var data = {'lat': lat, 'lng': lng, 
+                var data = {'lat': lat, 'lng': lng,
                              csrfmiddlewaretoken: '{{ csrf_token }}'};
                 $.post('{% url 'legend' %}', data, function(resp) {
                     popup
@@ -952,7 +947,7 @@ function uploader() {
             map.off('click');
 
         };
-    }); 
+    });
 
 /////////////////////////////////////////////////////////
 //// Add north arrow, scale, and easy print function ////
@@ -997,7 +992,7 @@ function uploader() {
 	map.addControl(drawControl);
 
 	map.on('draw:created', function (e) {
-	var type = e.layerType, 
+	var type = e.layerType,
             layer = e.layer;
 
 	if (type === 'marker') {
@@ -1014,6 +1009,20 @@ function uploader() {
 
     var opacitySlider=new L.Control.opacitySlider();
     map.addControl(opacitySlider);
+
+
+    // Check out file names
+
+    $(window).bind("load", function() {
+
+        debugger;
+
+        var all_files = $(".setFileName");
+
+        debugger;
+    });
+
+    // class="setFileName"
 
 </script>
 

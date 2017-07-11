@@ -85,7 +85,7 @@ def render_geojson_view(request, *args, **kwargs):
     print("args: ", args)
     print("kwargs: ", kwargs)
     print("++++++++++\n\n")
-    
+
     return HttpResponse(raw_json, content_type='json')
 
 def legend_view(request):
@@ -105,7 +105,7 @@ def legend_view(request):
                    LEFT JOIN tamaya_ndvidiff b ON (ST_Intersects(p.geom, b.raster));""" % (lon, lat)
 
         conn = psycopg2.connect("dbname='iltf' user='postgres'")
-        cur = conn.cursor() 
+        cur = conn.cursor()
         cur.execute(query)
         results = cur.fetchall()
         testraster = results[0][0]
