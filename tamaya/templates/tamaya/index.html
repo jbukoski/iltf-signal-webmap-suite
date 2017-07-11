@@ -558,7 +558,7 @@ function uploader() {
         version: '1.1.1',
         request: 'GetMap',
         format: 'image/png',
-        layers: 'iltf:tamaya_landfireEVT',
+        layers: 'iltf:landfireEvtReclassified',
         transparent: true,
         tiled: true,
         zIndex: 10,
@@ -1003,7 +1003,8 @@ function uploader() {
 	if (type === 'marker') {
             layer.bindPopup('A popup!');
 	} else if (type === 'polygon' || type === 'rectangle' || type === 'circle') {
-            console.log(JSON.stringify(layer.toGeoJSON()));
+            var layerGeoJSON = JSON.stringify(layer.toGeoJSON());
+            console.log(layerGeoJSON);
         }
 
 	// Do whatever else you need to. (save to db, add to map etc)
