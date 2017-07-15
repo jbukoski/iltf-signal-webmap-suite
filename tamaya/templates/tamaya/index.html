@@ -961,6 +961,36 @@ function uploader() {
         };
     });
 
+    $("input[type='checkbox'][id='landfireEVT']").change(function () {
+        if (this.checked) {
+
+            var popup = L.popup();
+
+            map.on('click', function(e) {
+                var lng = e.latlng.lng;
+                var lat = e.latlng.lat;
+                updateLatLng(lat, lng);
+            });
+
+            function updateLatLng(lat, lng) {
+                var data = {'lat': lat, 'lng': lng,
+                             csrfmiddlewaretoken: '{{ csrf_token }}'};
+                $.post('{% url 'legend' %}', data, function(resp) {
+                    popup
+                        .setLatLng([lat, lng])
+                        .setContent('<p><strong>LANDFIRE Existing Vegetation Type: </strong>' + resp.evtClass + '</p>')
+                        .openOn(map);
+                });
+            };
+        } else if (!this.checked) {
+
+            map.closePopup();
+            map.off('click');
+
+        };
+    });
+
+
 /////////////////////////////////////////////////////////
 //// Add north arrow, scale, and easy print function ////
 /////////////////////////////////////////////////////////
