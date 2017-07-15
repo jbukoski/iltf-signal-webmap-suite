@@ -102,6 +102,15 @@ soil_data_mapping = {
 
 soil_data_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'tamaya_soil_data.shp'))
 
+# LANDFIRE EVT MAPPINGS AND FILE
+
+landfire_classes_mapping = {
+    'value' : 'value',
+    'label' : 'label',
+}
+
+landfire_legends = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'evt_legend.csv'))
+
 def run(verbose=True):
 
     boundary_lm = LayerMapping(
@@ -146,3 +155,8 @@ def run(verbose=True):
         transform=False, encoding='iso-8859-1',
     )
     soil_data_lm.save(strict=True, verbose=verbose)
+
+    landfire_classes_lm = LayerMapping(
+        models.landfire_classes, landfire_legends, landfire_classes_mapping,
+    }
+    landfire_classes_lm.save(strict=True, verbose=verbose)

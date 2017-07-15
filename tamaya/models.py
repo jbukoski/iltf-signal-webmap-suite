@@ -12,6 +12,12 @@ class ndviDiff(models.Model):
     name = models.TextField()
     raster = models.RasterField()
 
+# LANDFIRE EVT ATTRIBUTES
+
+class landfire_classes(models.Model):
+    value = models.FloatField()
+    label = models.TextField()
+
 # ADMIN LAYERS
 
 class boundary(models.Model):
