@@ -141,6 +141,24 @@
             		        </div>
                             </div>
 
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#vegetation-layers">
+                                        Vegetation Layers
+                                    </a>
+                                </div>
+                                <div id="vegetation-layers" class="panel-collapse collapse">
+                                    <div class="panel-body" style="padding: 0px 15px;">
+                                       <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="landfireEVT" z-index="3">
+                                                &nbsp Landfire Existing Vegetation Type
+                                            </label>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+
 			    <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#carbon-layers">
@@ -159,12 +177,6 @@
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="ndviDiff" z-index="3">
                                                 &nbsp Difference in NDVI
-                                            </label>
-                                       </div>
-                                       <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="overlayLayers" id="landfireEVT" z-index="3">
-                                                &nbsp Landfire Existing Vegetation Type
                                             </label>
                                        </div>
             		            </div>
@@ -208,7 +220,7 @@
                                 <div class="panel-body" style="padding: 0px 15px;">
                 		    <div class="radio">
                 		        <label>
-                                            <input type="radio" name="basemapLayers" id="esriWorld">
+                                            <input type="radio" name="basemapLayers" id="esriWorld" checked>
                                                 &nbsp World Imagery, ESRI
                                         </label>
                                     </div>
@@ -220,7 +232,7 @@
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="basemapLayers" id="osmBaseMap" checked>
+                                            <input type="radio" name="basemapLayers" id="osmBaseMap">
                                                 &nbsp Open Street Map
                                         </label>
                                     </div>

@@ -1,11 +1,10 @@
 from django.contrib.gis.db import models
 
 # RASTER 
-## TESTING FUNCTIONALITY
 
-class testRaster(models.Model):
-    raster_id = models.TextField(primary_key=True, default=23)
-    name = models.TextField(default='tester')
+class landfire_evt(models.Model):
+    raster_id = models.TextField(primary_key=True)
+    name = models.TextField()
     raster = models.RasterField()
 
 class ndviDiff(models.Model):
@@ -150,50 +149,6 @@ class soil_data(models.Model):
 
     def __str__(self):
         return '%s' % (self.poly_id)
-
-# USER-DEFINED LAYERS
-
-class user_pts(models.Model):
-    point_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=30)
-    comment = models.CharField(max_length=100)
-    geom = models.MultiPointField(srid=4326)
-
-    objects = models.GeoManager()
-
-    class Meta:
-        verbose_name_plural = 'User-defined Points'
-
-    def __str__(self):
-        return '%s' % (self.point_id)
-
-class user_lines(models.Model):
-    line_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=30)
-    comment = models.CharField(max_length=100)
-    geom = models.MultiLineStringField(srid=4326)
-
-    objects = models.GeoManager()
-
-    class Meta:
-        verbose_name_plural = 'User-defined Lines'
-
-    def __str__(self):
-        return '%s' % (self.line_id)
-
-class user_polygons(models.Model):
-    polygon_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=30)
-    comment = models.CharField(max_length=100)
-    geom = models.MultiPolygonField(srid=4326)
-
-    objects = models.GeoManager()
-
-    class Meta:
-        verbose_name_plural = 'User-defined Polygons'
-
-    def __str__(self):
-        return '%s' % (self.polygon_id)
 
 ###########################
 ## For file upload
