@@ -1,7 +1,11 @@
 from django.contrib.gis.db import models
 
 # RASTER 
-## TESTING FUNCTIONALITY
+
+class landfire_evt(models.Model):
+    raster_id = models.TextField(primary_key=True)
+    name = models.TextField()
+    raster = models.RasterField()
 
 class ndviDiff(models.Model):
     raster_id = models.TextField(primary_key=True)
