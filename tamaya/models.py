@@ -12,6 +12,16 @@ class ndviDiff(models.Model):
     name = models.TextField()
     raster = models.RasterField()
 
+class forest_agc(models.Model):
+    raster_id = models.TextField(primary_key=True)
+    name = models.TextField()
+    raster = models.RasterField()
+
+class forest_bgc(models.Model):
+    raster_id = models.TextField(primary_key=True)
+    name = models.TextField()
+    raster = models.RasterField()
+
 # LANDFIRE EVT ATTRIBUTES
 
 class landfire_classes(models.Model):
