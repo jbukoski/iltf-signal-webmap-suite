@@ -176,65 +176,88 @@ def user_polygons_view(request):
 # Admin layers
 
 def boundary_dl_view(request):
-    download_file = open(os.path.join(path, 'downloads', 'boundary.zip'), 'rb')
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'boundary.zip'), 'rb')
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="boundary.zip"'
 
     return response
 
 def mbl_dl_view(request):
-    download_file = open(os.path.join(path, 'downloads', 'mbl_int.zip'), 'rb')
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'mbl_int.zip'), 'rb')
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="mbl_int.zip"'
 
     return response
 
 def roads_dl_view(request):
-    download_file = open(os.path.join(path, 'downloads', 'santa_ana_roads.zip'), 'rb')
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'santa_ana_roads.zip'), 'rb')
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="reservation_roads.zip"'
+
+    return response
+
+# Hydrology layers
+
+def watersheds_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'watersheds.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="watersheds.zip"'
+
+    return response
+
+def subwatersheds_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'subwatersheds.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="subwatersheds.zip"'
+
+    return response
+
+def surfacehydrology_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'surfacehydrology.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="surfacehydrology.zip"'
 
     return response
 
 # Soil layers
 
 def bd_dl_view(request):
-    download_file = open(os.path.join(path, 'downloads', 'bulk_density_1_3_bar.zip'), "rb")
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'bulk_density_1_3_bar.zip'), "rb")
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="bulk_density_1_3_bar.zip"'
 
     return response
 
 def compost_dl_view(request):
-    download_file = open(os.path.join(path, 'downloads', 'composting_medium_and_final_cover.zip'), "rb")
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'composting_medium_and_final_cover.zip'), "rb")
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="composting_medium_and_final_cover.zip"'
 
     return response
 
 def om_dl_view(request):
-    download_file = open(os.path.join(path, 'downloads', 'organic_matter.zip'), "rb")
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'organic_matter.zip'), "rb")
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="organic_matter.zip"'
 
     return response
 
 def ph_dl_view(request):
-    download_file = open(os.path.join(path, 'downloads', 'ph_surface_weighted_average.zip'), "rb")
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'ph_surface_weighted_average.zip'), "rb")
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="ph_surface_weighted_average.zip"'
 
     return response
 
 def taxonomy_dl_view(request):
-    download_file = open(os.path.join(path, 'downloads', 'soil_taxonomy.zip'), "rb")
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'soil_taxonomy.zip'), "rb")
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="soil_taxonomy.zip"'
 
     return response
 
 def texture_dl_view(request):
-    download_file = open(os.path.join(path, 'downloads', 'soil_texture_dcp.zip'), "rb")
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'surface_texture_dcp.zip'), "rb")
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="soil_texture_dcp.zip"'
 
