@@ -74,19 +74,19 @@
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="watersheds" z-index="3">
-                                            &nbsp Watersheds
+                                            &nbsp Watersheds &nbsp <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="subwatersheds" z-index="3">
-                                            &nbsp Sub-watersheds
+                                            &nbsp Sub-watersheds &nbsp <a href="{% url 'subwatersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
                                      <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="surfacehydro" z-index="3">
-                                            &nbsp Surface hydrology
+                                            &nbsp Surface hydrology &nbsp <a href="{% url 'surfacehydrology_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
                                 </div>
