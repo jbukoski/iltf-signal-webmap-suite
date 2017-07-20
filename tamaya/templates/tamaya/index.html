@@ -1056,7 +1056,21 @@ function uploader() {
 	} else if (type === 'Polygon') {
             var layerGeoJSON = layer.toGeoJSON();
             var layerGeom = JSON.stringify(layerGeoJSON.geometry)
-            layer.bindPopup('A polygon!');
+
+            data = {'geom': layerGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
+
+            console.log(data); 
+
+            $.post('{% url 'sumstats' %}', data, function(resp) {
+                    console.log(resp.sumstats);
+                    /*var query_popup = L.popup()
+                        .setLatLng([-106.5306, 35.4786])
+                        .setContent('<p><strong>Summary stats: </strong>' + resp.sumstats + '</p>')
+                        .openOn(map);*/
+                });
+
+
+            layer.bindPopup(layerGeom);
         }
     });
 

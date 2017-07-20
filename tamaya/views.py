@@ -129,6 +129,37 @@ def legend_view(request):
 
         return JsonResponse({'error', error_msg})
 
+def sumstats_view(request):
+
+    if request.method == 'POST':
+        geom = request.POST['geom']
+
+        query = """SELECT 
+                       ST_SummaryStats(ST_Clip(ndvidiff.raster, poly::geometry), true) 
+                   FROM
+                       tamaya_ndvidiff as ndvidiff, 
+                       ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS poly;""" % (geom)
+
+        conn = psycopg2.connect("dbname='iltf' user='postgres'")
+        cur = conn.cursor()
+        cur.execute(query)
+        results = cur.fetchall()
+        sumstats = results[0][0]
+        conn.close()
+
+        print("\n\n++++++++++++\nInside the sumstats view\n")
+        print("sumStats: ", sumstats)
+        print("++++++++++++\n\n")
+
+        return JsonResponse({'sumstats': sumstats})
+
+    else:
+
+        error_msg = 'Not a post request'
+
+        return JsonResponse({'error', error_msg})
+
+
 def boundary_view(request):
     boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field="geom")
     return HttpResponse(boundary_json, content_type='json')
