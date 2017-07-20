@@ -157,18 +157,6 @@ def soil_data_view(request):
     soil_data_json = serialize('geojson', models.soil_data.objects.all(), geometry_field="geom", fields=('poly_id','tax_class', 'org_matter', 'composting', 'texture', 'ph_water', 'bulk_densi'))
     return HttpResponse(soil_data_json, content_type='json')
 
-def user_points_view(request):
-    user_pt_json = serialize('geojson', models.user_pts.objects.all(), geometry_field="geom", fields=('name', 'comment'))
-    return HttpResponse(user_pt_json, content_type='json')
-
-def user_lines_view(request):
-    user_lines_json = serialize('geojson', models.user_lines.objects.all(), geometry_field="geom", fields=('name', 'comment'))
-    return HttpResponse(user_lines_json, content_type='json')
-
-def user_polygons_view(request):
-    user_polygons_json = serialize('geojson', models.user_polygons.objects.all(), geometry_field="geom", fields=('name', 'comment'))
-    return HttpResponse(user_polygons_json, content_type='json')
-
 ###############
 ## Downloads ##
 ###############

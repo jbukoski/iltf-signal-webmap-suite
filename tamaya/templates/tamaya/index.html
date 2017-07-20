@@ -152,7 +152,7 @@
                                        <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="landfireEVT" z-index="3">
-                                                &nbsp <a target="_blank" href='https://www.landfire.gov/NationalProductDescriptions21.php'>LANDFIRE Existing Vegetation Type</a>
+                                                &nbsp LANDFIRE Existing Vegetation Type
                                             </label>
                                        </div>
                                     </div>
@@ -422,7 +422,6 @@ for ( var i = 0; i < num_layers; i++ ) {
     try {
         tmp_url = uploaded_layers[i].children[1].value;
     } catch ( err ) {
-        debugger;
         // window.location = "/";
         tmp_url = null;
     }
@@ -905,40 +904,6 @@ function uploader() {
         },
     });
 
-////// User defined layers //////
-
-    var user_points = new L.GeoJSON.AJAX("{% url 'user_points' %}", {
-        style: {clickable: true,
-        },
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(
-                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "<br>" +
-                "<strong>Comment:&nbsp;</strong>" + feature.properties.comment.toString()
-            );
-        },
-    });
-
-    var user_lines = new L.GeoJSON.AJAX("{% url 'user_lines' %}", {
-        style: {clickable: true,
-        },
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(
-                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "<br>" +
-                "<strong>Comment:&nbsp;</strong>" + feature.properties.comment.toString()
-            );
-        },
-    });
-
-    var user_polygons = new L.GeoJSON.AJAX("{% url 'user_polygons' %}", {
-        style: {clickable: true,
-        },
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(
-                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "<br>" +
-                "<strong>Comment:&nbsp;</strong>" + feature.properties.comment.toString()
-            );
-        },
-    });
 
 ////////////////////////////
 ////// Leaflet Map /////////
@@ -1022,10 +987,10 @@ function uploader() {
     L.control.scale().addTo(map);
     L.easyPrint().addTo(map);
 
-    var north=L.control({position: "bottomright"});
-    north.onAdd=function(map) {
-        var div=L.DomUtil.create("div", "info legend");
-        div.innerHTML='<img src="{% static '/img/north_arrow.png' %}" height="40" width="40">';
+    var north = L.control({position: "bottomright"});
+    north.onAdd = function(map) {
+        var div = L.DomUtil.create("div", "info legend");
+        div.innerHTML = '<img src="{% static '/img/north_arrow.png' %}" height="40" width="40">';
         return div;
     }
     north.addTo(map);
@@ -1041,43 +1006,64 @@ function uploader() {
 
     // Specify some custom options for the Drawing tools
 
-    var drawOptions={
-    draw: {
-        polygon: {
-            showArea: true
-          }
-	},
-	edit: {
-		featureGroup: drawnItems
-		}
+    var drawOptionsFull = {
+          draw: {
+            polygon: {showArea: true},
+            polyline: false
+	  },
+	  edit: {
+            featureGroup: drawnItems
+	  }
 	}
 
-	// Initialize the draw control and pass it the FeatureGroup of editable layers
-	var drawControl = new L.Control.Draw(drawOptions);
+    var drawOptionsEditOnly = {
+          edit: {
+            featureGroup: drawnItems
+          },
+          draw: false
+    };
 
-	map.addControl(drawControl);
+    // Initialize the draw control and pass it the FeatureGroup of editable layers
+    var drawControlFull = new L.Control.Draw(drawOptionsFull);
+    var drawControlEditOnly = new L.Control.Draw(drawOptionsEditOnly);
 
-	map.on('draw:created', function (e) {
-	var type = e.layerType,
-            layer = e.layer;
+    map.addControl(drawControlFull);
 
-	if (type === 'marker') {
-            layer.bindPopup('A popup!');
-	} else if (type === 'polygon' || type === 'rectangle' || type === 'circle') {
-            var layerGeoJSON = JSON.stringify(layer.toGeoJSON());
-            console.log(layerGeoJSON);
+    map.on('draw:created', function (e) {
+        var layer = e.layer;
+
+        drawnItems.addLayer(layer);
+
+        drawControlFull.remove(map);
+        drawControlEditOnly.addTo(map);
+
+    });
+
+    map.on('draw:deleted', function(e) {
+        drawControlEditOnly.remove(map);
+        drawControlFull.addTo(map);
+    });
+
+
+    drawnItems.on("click", function(e) {
+        var layer = e.layer,
+            type = layer.toGeoJSON().geometry.type;
+
+        console.log(type);
+
+	if (type === 'Point') {
+            layer.bindPopup('A point!');
+	} else if (type === 'Polygon') {
+            var layerGeoJSON = layer.toGeoJSON();
+            var layerGeom = JSON.stringify(layerGeoJSON.geometry)
+            layer.bindPopup('A polygon!');
         }
+    });
 
-	// Do whatever else you need to. (save to db, add to map etc)
-            drawnItems.addLayer(layer);
-	});
 
-    /* Add opacity controls
-
-    var opacitySlider=new L.Control.opacitySlider();
-    map.addControl(opacitySlider);
-
-    */
+///////////////////////
+//// Oliver's code ////
+///////////////////////
 
     // Check out file names
 
