@@ -14,9 +14,6 @@ urlpatterns = [
     url(r'^subwatersheds/', views.subwatersheds_view, name='subwatersheds'),
     url(r'^surfacehydro/', views.surfacehydro_view, name='surfacehydro'),
     url(r'^soil_data/', views.soil_data_view, name='soil_data'),
-    url(r'^user_pts/', views.user_points_view, name='user_points'),
-    url(r'^user_lines/', views.user_lines_view, name='user_lines'),
-    url(r'^user_polygons/', views.user_polygons_view, name='user_polygons'),
     url(r'^boundary_dl/', views.boundary_dl_view, name='boundary_dl'),
     url(r'^mbl_dl/', views.mbl_dl_view, name='mbl_dl'),
     url(r'^roads_dl/', views.roads_dl_view, name='roads_dl'),
@@ -35,4 +32,5 @@ urlpatterns = [
     url(r'^render_geojson/', views.render_geojson_view, name='render_geojson'),
     url(r'^delete_up/', views.delete_up_view, name='delete_up'),
     url(r'^legend/', views.legend_view, name='legend'),
+    url(r'^sumstats/', views.sumstats_view, name='sumstats'),
 ]

@@ -129,6 +129,56 @@ def legend_view(request):
 
         return JsonResponse({'error', error_msg})
 
+def sumstats_view(request):
+
+    if request.method == 'POST':
+        geom = request.POST['geom']
+        rastLyr = request.POST['rasterLyrs']
+
+        query = """SELECT 
+                       (ST_SummaryStats(ST_Clip(rastlyr.raster, poly::geometry), true)).*
+                   FROM
+                       %s as rastlyr, 
+                       ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS poly;""" % (rastLyr, geom)
+
+        conn = psycopg2.connect("dbname='iltf' user='postgres'")
+        cur = conn.cursor()
+        cur.execute(query)
+        results = cur.fetchall()
+        sumstats = results
+        pixelCount = sumstats[0][0]
+        stats_sum = round(sumstats[0][1], 2)
+        stats_mean = round(sumstats[0][2], 2)
+        stats_sd = round(sumstats[0][3], 2)
+        stats_min = round(sumstats[0][4], 2)
+        stats_max = round(sumstats[0][5], 2)
+        conn.close()
+
+        if rastLyr == 'tamaya_forest_agc': 
+            layer = "Aboveground forest carbon"
+            units = "g C/sq. m"
+        elif rastLyr == 'tamaya_forest_bgc':
+            layer = "Belowground forest carbon"
+            units = "g C/sq. m"
+            
+        print("\n\n++++++++++++\nInside the sumstats view\n")
+        print("sumStats: ", sumstats)
+        print("raster Layer: ", rastLyr)
+        print("++++++++++++\n\n")
+
+        return JsonResponse({'sumstats': sumstats, 'pixelCount': pixelCount, 
+                             'stats_sum': stats_sum, 'stats_mean': stats_mean, 
+                             'stats_sd': stats_sd, 'stats_min': stats_min,
+                             'stats_max': stats_max, 'Lyr': layer,
+                             'pixelUnits': units})
+
+    else:
+
+        error_msg = 'Not a post request'
+
+        return JsonResponse({'error', error_msg})
+
+
 def boundary_view(request):
     boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field="geom")
     return HttpResponse(boundary_json, content_type='json')
@@ -156,18 +206,6 @@ def surfacehydro_view(request):
 def soil_data_view(request):
     soil_data_json = serialize('geojson', models.soil_data.objects.all(), geometry_field="geom", fields=('poly_id','tax_class', 'org_matter', 'composting', 'texture', 'ph_water', 'bulk_densi'))
     return HttpResponse(soil_data_json, content_type='json')
-
-def user_points_view(request):
-    user_pt_json = serialize('geojson', models.user_pts.objects.all(), geometry_field="geom", fields=('name', 'comment'))
-    return HttpResponse(user_pt_json, content_type='json')
-
-def user_lines_view(request):
-    user_lines_json = serialize('geojson', models.user_lines.objects.all(), geometry_field="geom", fields=('name', 'comment'))
-    return HttpResponse(user_lines_json, content_type='json')
-
-def user_polygons_view(request):
-    user_polygons_json = serialize('geojson', models.user_polygons.objects.all(), geometry_field="geom", fields=('name', 'comment'))
-    return HttpResponse(user_polygons_json, content_type='json')
 
 ###############
 ## Downloads ##

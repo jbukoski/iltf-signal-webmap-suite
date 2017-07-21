@@ -96,6 +96,7 @@ label {
         width: 100%;
     }
 }
+
 /* Print Handling */
 @media print {
     .navbar, .toggle, #sidebar {
