@@ -135,23 +135,35 @@ def sumstats_view(request):
         geom = request.POST['geom']
 
         query = """SELECT 
-                       ST_SummaryStats(ST_Clip(ndvidiff.raster, poly::geometry), true) 
+                       (ST_SummaryStats(ST_Clip(rastlyr.raster, poly::geometry), true)).*
                    FROM
-                       tamaya_ndvidiff as ndvidiff, 
+                       tamaya_ndvidiff as rastlyr, 
                        ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS poly;""" % (geom)
 
         conn = psycopg2.connect("dbname='iltf' user='postgres'")
         cur = conn.cursor()
         cur.execute(query)
         results = cur.fetchall()
-        sumstats = results[0][0]
+        sumstats = results
+        pixelCount = sumstats[0][0]
+        stats_sum = round(sumstats[0][1], 2)
+        stats_mean = round(sumstats[0][2], 2)
+        stats_sd = round(sumstats[0][3], 2)
+        stats_min = round(sumstats[0][4], 2)
+        stats_max = round(sumstats[0][5], 2)
         conn.close()
 
         print("\n\n++++++++++++\nInside the sumstats view\n")
         print("sumStats: ", sumstats)
+        print("pixelCount: ", pixelCount)
+        print("sum value: ", stats_sum)
+        print("mean value: ", stats_mean)
         print("++++++++++++\n\n")
 
-        return JsonResponse({'sumstats': sumstats})
+        return JsonResponse({'sumstats': sumstats, 'pixelCount': pixelCount, 
+                             'stats_sum': stats_sum, 'stats_mean': stats_mean, 
+                             'stats_sd': stats_sd, 'stats_min': stats_min,
+                             'stats_max': stats_max})
 
     else:
 

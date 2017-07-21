@@ -1054,23 +1054,27 @@ function uploader() {
 	if (type === 'Point') {
             layer.bindPopup('A point!');
 	} else if (type === 'Polygon') {
+            var centroid = layer.getBounds().getCenter();
             var layerGeoJSON = layer.toGeoJSON();
             var layerGeom = JSON.stringify(layerGeoJSON.geometry)
+            var queryPopup = L.popup()
 
             data = {'geom': layerGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
 
-            console.log(data); 
-
             $.post('{% url 'sumstats' %}', data, function(resp) {
-                    console.log(resp.sumstats);
-                    /*var query_popup = L.popup()
-                        .setLatLng([-106.5306, 35.4786])
-                        .setContent('<p><strong>Summary stats: </strong>' + resp.sumstats + '</p>')
-                        .openOn(map);*/
+                    var dat = resp.sumstats
+                    
+                    queryPopup
+                        .setLatLng(centroid)
+                        .setContent('<p><strong>Summary stats: </strong>' + 
+                                    '</br><i>&nbsp Pixels selected: </i>' + resp.sumstats[0][0] + 
+                                    '</br><i>&nbsp Sum of all pixels: </i>' + resp.stats_sum +
+                                    '</br><i>&nbsp Mean pixel value: </i>' + resp.stats_mean +
+                                    '</br><i>&nbsp Standard deviation of pixels: </i>' + resp.stats_sd +
+                                    '</br><i>&nbsp Minimum value: </i>' + resp.stats_min +
+                                    '</br><i>&nbsp Maximum value: </i>' + resp.stats_max)
+                        .openOn(map);
                 });
-
-
-            layer.bindPopup(layerGeom);
         }
     });
 
