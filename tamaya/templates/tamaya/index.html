@@ -592,7 +592,8 @@ function uploader() {
         transparent: true,
         tiled: true,
         zIndex: 10,
-        bgcolor: '#FFFFFF'
+        bgcolor: '#FFFFFF',
+        clickable: true
     });
 
     var ndviDiff = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
@@ -921,34 +922,6 @@ function uploader() {
 //// Build legend functionality ////
 ////////////////////////////////////
 
-    $("input[type='checkbox'][id='ndviDiff']").change(function () {
-        if (this.checked) {
-
-            var popup = L.popup();
-
-            map.on('click', function(e) {
-                var lng = e.latlng.lng;
-                var lat = e.latlng.lat;
-                updateLatLng(lat, lng);
-            });
-
-            function updateLatLng(lat, lng) {
-                var data = {'lat': lat, 'lng': lng,
-                             csrfmiddlewaretoken: '{{ csrf_token }}'};
-                $.post('{% url 'legend' %}', data, function(resp) {
-                    popup
-                        .setLatLng([lat, lng])
-                        .setContent('<p><strong>Difference in NDVI: </strong>' + resp.ndvidiff + '</p>')
-                        .openOn(map);
-                });
-            };
-        } else if (!this.checked) {
-
-            map.closePopup();
-            map.off('click');
-
-        };
-    });
 
     $("input[type='checkbox'][id='landfireEVT']").change(function () {
         if (this.checked) {
@@ -1009,7 +982,8 @@ function uploader() {
     var drawOptionsFull = {
           draw: {
             polygon: {showArea: true},
-            polyline: false
+            polyline: false,
+            circle: false
 	  },
 	  edit: {
             featureGroup: drawnItems
@@ -1049,30 +1023,45 @@ function uploader() {
         var layer = e.layer,
             type = layer.toGeoJSON().geometry.type;
 
-        console.log(type);
+        if (document.getElementById('agc').checked) {
+            var rasterLyrs = 'tamaya_forest_agc';
+        } else if (document.getElementById('bgc').checked) {
+            var rasterLyrs = 'tamaya_forest_bgc';
+        } else if (document.getElementById('ndviDiff').checked) {
+            var rasterLyrs = 'tamaya_ndvidiff';
+        };
+ 
+        console.log(rasterLyrs);
 
 	if (type === 'Point') {
             layer.bindPopup('A point!');
 	} else if (type === 'Polygon') {
             var centroid = layer.getBounds().getCenter();
             var layerGeoJSON = layer.toGeoJSON();
-            var layerGeom = JSON.stringify(layerGeoJSON.geometry)
-            var queryPopup = L.popup()
+            var layerGeom = JSON.stringify(layerGeoJSON.geometry);
+            var queryPopup = L.popup();
 
-            data = {'geom': layerGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
+            console.log(layerGeom);
+
+            data = {'geom': layerGeom, 'rasterLyrs': rasterLyrs,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'};
+
+            console.log(data);
 
             $.post('{% url 'sumstats' %}', data, function(resp) {
                     var dat = resp.sumstats
                     
                     queryPopup
                         .setLatLng(centroid)
-                        .setContent('<p><strong>Summary stats: </strong>' + 
-                                    '</br><i>&nbsp Pixels selected: </i>' + resp.sumstats[0][0] + 
+                        .setContent('<p><strong>SUMMARY STATISTICS: </strong>' +
+                                    '</br></br><strong>Layer: </strong>' + resp.Lyr + 
+                                    '</br><strong>Pixel units: </strong>' + resp.pixelUnits +
+                                    '</br><i>&nbsp Pixels selected: </i>' + resp.pixelCount + 
                                     '</br><i>&nbsp Sum of all pixels: </i>' + resp.stats_sum +
                                     '</br><i>&nbsp Mean pixel value: </i>' + resp.stats_mean +
                                     '</br><i>&nbsp Standard deviation of pixels: </i>' + resp.stats_sd +
                                     '</br><i>&nbsp Minimum value: </i>' + resp.stats_min +
-                                    '</br><i>&nbsp Maximum value: </i>' + resp.stats_max)
+                                    '</br><i>&nbsp Maximum value: </i>' + resp.stats_max + '</p>')
                         .openOn(map);
                 });
         }

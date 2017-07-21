@@ -133,12 +133,13 @@ def sumstats_view(request):
 
     if request.method == 'POST':
         geom = request.POST['geom']
+        rastLyr = request.POST['rasterLyrs']
 
         query = """SELECT 
                        (ST_SummaryStats(ST_Clip(rastlyr.raster, poly::geometry), true)).*
                    FROM
-                       tamaya_ndvidiff as rastlyr, 
-                       ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS poly;""" % (geom)
+                       %s as rastlyr, 
+                       ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS poly;""" % (rastLyr, geom)
 
         conn = psycopg2.connect("dbname='iltf' user='postgres'")
         cur = conn.cursor()
@@ -153,17 +154,23 @@ def sumstats_view(request):
         stats_max = round(sumstats[0][5], 2)
         conn.close()
 
+        if rastLyr == 'tamaya_forest_agc': 
+            layer = "Aboveground forest carbon"
+            units = "g C/sq. m"
+        elif rastLyr == 'tamaya_forest_bgc':
+            layer = "Belowground forest carbon"
+            units = "g C/sq. m"
+            
         print("\n\n++++++++++++\nInside the sumstats view\n")
         print("sumStats: ", sumstats)
-        print("pixelCount: ", pixelCount)
-        print("sum value: ", stats_sum)
-        print("mean value: ", stats_mean)
+        print("raster Layer: ", rastLyr)
         print("++++++++++++\n\n")
 
         return JsonResponse({'sumstats': sumstats, 'pixelCount': pixelCount, 
                              'stats_sum': stats_sum, 'stats_mean': stats_mean, 
                              'stats_sd': stats_sd, 'stats_min': stats_min,
-                             'stats_max': stats_max})
+                             'stats_max': stats_max, 'Lyr': layer,
+                             'pixelUnits': units})
 
     else:
 
