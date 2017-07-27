@@ -1,3 +1,21 @@
+
+
+/*********************************
+*** Background - Home Page
+*********************************/
+
+.bg {
+    background-image: url("../img/iltf.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/*********************************
+*** Standard Styling
+*********************************/
+
 html, body, #sidebar, #container {
     height: 100%;
     margin: 0px;
@@ -155,7 +173,8 @@ Styling for index.html (home page)
     background-color: rgba(255,255,255,0.7);
     padding: 6rem 2rem 2rem 2rem;
     height: 100%;
-    right: 10rem;
+    /*right: 10rem;*/
+    right: 0rem;
     position: absolute;
 }
 
@@ -186,4 +205,10 @@ Styling for index.html (home page)
 
 #index-home a{
     bottom: 0;
+}
+
+@media (min-width: 768px) {
+    #index-home {
+        right: 10rem;
+    }
 }

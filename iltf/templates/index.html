@@ -18,25 +18,29 @@
         <link rel="stylesheet" type="text/css" href="{% static 'lib/jquery/jquery-ui-1.10.3.custom.min.css' %}">
    </head>
 
-   <body background="{% static 'img/iltf.jpg' %}">
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-header">
-                <p style="color:white; font-size: 32px; padding-top: 1rem; padding-left: 5rem; font-family: 'Oswald'">
-                    <em>"Indian lands in Indian hands"</em>
-                </p>
+   <!--body background="{% static 'img/iltf.jpg' %}"-->
+   <body>
+       <div class="bg">
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-header">
+                    <p style="color:white; font-size: 32px; padding-top: 1rem; padding-left: 5rem; font-family: 'Oswald'">
+                        <em>"Indian lands in Indian hands"</em>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div id="index-home" class="col-sm-4 col-lg-4">
+                    <div>
+                        <h2>Indian Land Tenure Foundation Webmapping Program</h2>
+                        <p>The Indian Land Tenure Foundation Webmapping Program is a joint project between the Indian Land Tenure Foundation (ILTF) and the Spatial Informatics Group - Natural Assets Laboratory (SIG-NAL). The project seeks to facilitate the use of web-based geospatial technologies and data for enhanced land stewardship and informed decision making.</p>
+                    </div>
+                    <div id="logos" align="center">
+                        <a href="https://iltf.org/"><img style="height: 40px;" src="{% static 'img/iltf_logo.png' %}"></a>
+                        &nbsp
+                        <a href="https://sig-nal.org/"><img style="height: 40px;" src="{% static 'img/SIG-NAL_Logo.png' %}"></a>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="index-home" class="col-sm-4 col-lg-4">
-            <div>
-                <h2>Indian Land Tenure Foundation Webmapping Program</h2>
-                <p>The Indian Land Tenure Foundation Webmapping Program is a joint project between the Indian Land Tenure Foundation (ILTF) and the Spatial Informatics Group - Natural Assets Laboratory (SIG-NAL). The project seeks to facilitate the use of web-based geospatial technologies and data for enhanced land stewardship and informed decision making.</p>
-            </div>
-            <div id="logos" align="center">
-                <a href="https://iltf.org/"><img style="height: 40px;" src="{% static 'img/iltf_logo.png' %}"></a>
-                &nbsp
-                <a href="https://sig-nal.org/"><img style="height: 40px;" src="{% static 'img/SIG-NAL_Logo.png' %}"></a>
-            </div>
-        </div>
-    </div>
    </body>
 </html>
