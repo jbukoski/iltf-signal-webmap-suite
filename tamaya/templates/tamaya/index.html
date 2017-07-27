@@ -25,8 +25,8 @@
         <div class="col-sm-3 col-lg-3" id="sidebar" style="padding: 10px; overflow: auto;">
             <ul class="nav nav-tabs" id="myTab">
                 <li class="active"><a href="#layers" data-toggle="tab"><i class="fa fa-check-square-o"></i>&nbsp;Layers</a></li>
-                <li><a href="#download" data-toggle="tab"><i class="fa fa-download"></i>&nbsp;Downloads</a></li>
                 <li><a href="#upload" data-toggle="tab"><i class="fa fa-upload"></i>&nbsp;Import</a></li>
+                <li><a href="#download" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;Documentation</a></li>
             </ul>
 
             <div class="tab-content" style="padding-top: 10px;">
@@ -152,7 +152,7 @@
                                        <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="landfireEVT" z-index="3">
-                                                &nbsp LANDFIRE Existing Vegetation Type
+                                                &nbsp LANDFIRE Vegetation Type &nbsp <a href="{% url 'landfire_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                        </div>
                                     </div>
@@ -1014,8 +1014,10 @@ function uploader() {
     });
 
     map.on('draw:deleted', function(e) {
-        drawControlEditOnly.remove(map);
-        drawControlFull.addTo(map);
+        if (drawnItems.getLayers().length === 0) {
+            drawControlEditOnly.remove(map);
+            drawControlFull.addTo(map);
+        };
     });
 
 
@@ -1055,13 +1057,11 @@ function uploader() {
                         .setLatLng(centroid)
                         .setContent('<p><strong>SUMMARY STATISTICS: </strong>' +
                                     '</br></br><strong>Layer: </strong>' + resp.Lyr + 
-                                    '</br><strong>Pixel units: </strong>' + resp.pixelUnits +
-                                    '</br><i>&nbsp Pixels selected: </i>' + resp.pixelCount + 
-                                    '</br><i>&nbsp Sum of all pixels: </i>' + resp.stats_sum +
-                                    '</br><i>&nbsp Mean pixel value: </i>' + resp.stats_mean +
-                                    '</br><i>&nbsp Standard deviation of pixels: </i>' + resp.stats_sd +
-                                    '</br><i>&nbsp Minimum value: </i>' + resp.stats_min +
-                                    '</br><i>&nbsp Maximum value: </i>' + resp.stats_max + '</p>')
+                                    '</br><strong>Area selected: </strong>' + resp.totalArea + ' ha' +
+                                    '</br><strong>Pixel area selected: </strong>' + '~' + resp.pixelArea + ' ha' +
+                                    '</br><strong>Total carbon: </strong>' + resp.totalCarbon + ' Mg' +
+                                    '</br><strong>Mean carbon: </strong>' + resp.meanCarbon + ' Mg/ha'
+                                   )
                         .openOn(map);
                 });
         }

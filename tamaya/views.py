@@ -136,10 +136,12 @@ def sumstats_view(request):
         rastLyr = request.POST['rasterLyrs']
 
         query = """SELECT 
-                       (ST_SummaryStats(ST_Clip(rastlyr.raster, poly::geometry), true)).*
+                       (ST_SummaryStats(ST_Clip(rastlyr.raster, poly::geometry), true)).*,
+                       ST_Area(polyEqArea)
                    FROM
                        %s as rastlyr, 
-                       ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS poly;""" % (rastLyr, geom)
+                       ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS poly,
+                       ST_Transform(poly, 32113) AS polyEqArea;""" % (rastLyr, geom)
 
         conn = psycopg2.connect("dbname='iltf' user='postgres'")
         cur = conn.cursor()
@@ -152,6 +154,11 @@ def sumstats_view(request):
         stats_sd = round(sumstats[0][3], 2)
         stats_min = round(sumstats[0][4], 2)
         stats_max = round(sumstats[0][5], 2)
+        area = round(sumstats[0][6]/10000, 2)
+        totalArea = "{:,}".format(area, 2)
+        totalCarbon = "{:,}".format(round((stats_sum / 100 * 6.25), 2))
+        meanCarbon = "{:,}".format(round(stats_mean / 100, 2))
+        pixelArea = "{:,}".format(round(pixelCount * 6.25, 2))
         conn.close()
 
         if rastLyr == 'tamaya_forest_agc': 
@@ -164,13 +171,17 @@ def sumstats_view(request):
         print("\n\n++++++++++++\nInside the sumstats view\n")
         print("sumStats: ", sumstats)
         print("raster Layer: ", rastLyr)
+        print("equal area: ", sumstats[0][6])
+        print("total Carbon: ", totalCarbon)
         print("++++++++++++\n\n")
 
         return JsonResponse({'sumstats': sumstats, 'pixelCount': pixelCount, 
                              'stats_sum': stats_sum, 'stats_mean': stats_mean, 
                              'stats_sd': stats_sd, 'stats_min': stats_min,
                              'stats_max': stats_max, 'Lyr': layer,
-                             'pixelUnits': units})
+                             'pixelUnits': units, 'totalArea': totalArea,
+                             'totalCarbon': totalCarbon, 'meanCarbon': meanCarbon,
+                             'pixelArea': pixelArea})
 
     else:
 
@@ -298,6 +309,13 @@ def texture_dl_view(request):
     download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'surface_texture_dcp.zip'), "rb")
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="soil_texture_dcp.zip"'
+
+    return response
+
+def landfire_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'landfireEVT.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="tamaya_landfire_evt.tif"'
 
     return response
 
