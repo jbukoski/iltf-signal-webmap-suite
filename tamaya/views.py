@@ -17,11 +17,7 @@ from django.core.files.storage import FileSystemStorage
 
 # Specify downloads path
 path = os.path.dirname(os.path.abspath(__file__))
-
 raw_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), 'r+').read()
-#load_json = json.load(raw_json)
-#load_json = json.dumps(raw_json)
-#raw_json.close()
 
 @login_required(login_url='/login/')
 def index(request):
@@ -38,10 +34,6 @@ def index(request):
             up_file_path = os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/', up_file)
             raw_doc_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/', up_file)).read()
             upload_list.append(raw_doc_json)
-
-            #print("\n=============\nWithin index upload_files")
-            #print("upload_list: ", upload_list)
-            #print("\n=========\n\n")
 
     doc_counter = 1
 
@@ -82,9 +74,19 @@ def list(request):
 def render_geojson_view(request, *args, **kwargs):
 
     print("\n\n++++++++++++\nWithin render_geojson_view")
+    print("reqest: ", request)
     print("args: ", args)
     print("kwargs: ", kwargs)
     print("++++++++++\n\n")
+
+    if request.method == "GET":
+
+        print("\nGET event within render_geojson_view")
+
+        ls_inpts = request.GET.getlist('inputs')
+
+        print("\nls_inpts within render_geojson_view: ", ls_inpts)
+        print("***************************\n\n")
 
     return HttpResponse(raw_json, content_type='json')
 
@@ -135,11 +137,11 @@ def sumstats_view(request):
         geom = request.POST['geom']
         rastLyr = request.POST['rasterLyrs']
 
-        query = """SELECT 
+        query = """SELECT
                        (ST_SummaryStats(ST_Clip(rastlyr.raster, poly::geometry), true)).*,
                        ST_Area(polyEqArea)
                    FROM
-                       %s as rastlyr, 
+                       %s as rastlyr,
                        ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS poly,
                        ST_Transform(poly, 32113) AS polyEqArea;""" % (rastLyr, geom)
 
@@ -161,13 +163,13 @@ def sumstats_view(request):
         pixelArea = "{:,}".format(round(pixelCount * 6.25, 2))
         conn.close()
 
-        if rastLyr == 'tamaya_forest_agc': 
+        if rastLyr == 'tamaya_forest_agc':
             layer = "Aboveground forest carbon"
             units = "g C/sq. m"
         elif rastLyr == 'tamaya_forest_bgc':
             layer = "Belowground forest carbon"
             units = "g C/sq. m"
-            
+
         print("\n\n++++++++++++\nInside the sumstats view\n")
         print("sumStats: ", sumstats)
         print("raster Layer: ", rastLyr)
@@ -175,8 +177,8 @@ def sumstats_view(request):
         print("total Carbon: ", totalCarbon)
         print("++++++++++++\n\n")
 
-        return JsonResponse({'sumstats': sumstats, 'pixelCount': pixelCount, 
-                             'stats_sum': stats_sum, 'stats_mean': stats_mean, 
+        return JsonResponse({'sumstats': sumstats, 'pixelCount': pixelCount,
+                             'stats_sum': stats_sum, 'stats_mean': stats_mean,
                              'stats_sd': stats_sd, 'stats_min': stats_min,
                              'stats_max': stats_max, 'Lyr': layer,
                              'pixelUnits': units, 'totalArea': totalArea,
