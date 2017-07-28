@@ -26,7 +26,7 @@
             <ul class="nav nav-tabs" id="myTab">
                 <li class="active"><a href="#layers" data-toggle="tab"><i class="fa fa-check-square-o"></i>&nbsp;Layers</a></li>
                 <li><a href="#upload" data-toggle="tab"><i class="fa fa-upload"></i>&nbsp;Import</a></li>
-                <li><a href="#download" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;Documentation</a></li>
+                <li><a href="#documentation" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;Documentation</a></li>
             </ul>
 
             <div class="tab-content" style="padding-top: 10px;">
@@ -185,12 +185,6 @@
                                                 &nbsp Soil organic carbon
                                             </label>
                                         </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="overlayLayers" id="ndviDiff" z-index="3">
-                                                &nbsp Difference in NDVI
-                                            </label>
-                                       </div>
             		            </div>
             		        </div>
                             </div>
@@ -256,31 +250,16 @@
                     </div>  <!--Closes 'panel group'-->
                 </div> <!--Closes 'user-defined layers' panel-->
 
-                <div class="tab-pane" id="download">
-                    <h3>Download Data Layers:</h3>
-	                <p> The data layers displayed on this webmap can be downloaded for use in desktop GIS software here.</p>
-    			    <br>
-                            <h4><strong>Admin layers</strong></h4>
-                                <ul>
-                                    <li><a href="{% url 'boundary_dl' %}">Reservation boundary (.shp)</a></li>
-                                    <li><a href="{% url 'mbl_dl' %}">Master business leases (.shp)</a></li>
-                                    <li><a href="{% url 'roads_dl' %}">Reservation roads (.shp)</a></li>
-                                </ul>
-    			    <h4><strong>Soil layers</strong></h4>
-			        <ul>
-            		            <li><a href="{% url 'bulk_dens_dl' %}">Soil bulk density (.shp)</a></li>
-    				    <li><a href="{% url 'compost_dl' %}">Composting medium and final cover (.shp)</a></li>
-    				    <li><a href="{% url 'om_dl' %}">Percent organic matter (.shp)</a></li>
-    				    <li><a href="{% url 'ph_dl' %}">Soil pH (.shp)</a></li>
-    				    <li><a href="{% url 'tax_cl_dl' %}">Soil taxonomic class (.shp)</a></li>
-    				    <li><a href="{% url 'texture_dl' %}">Soil texture (.shp)</a></li>
-    				</ul>
-                            <h4><strong>Uploaded layers</strong></h4>
+                <div class="tab-pane" id="documentation">
+                    <h4><strong>Overview:</strong></h4>
+                        </br>
+                        <p>This webmap is a collaboration between the Santa Ana Pueblo of New Mexico and the Spatial Informatics Group - Natural Assets Laboratory (SIG-NAL).</p>
+                        <p>This documentation tab provides reference for the data layers that are employed, explanation of the functions built into it, and suggestions for the use of the two.</p>
+                            <!--<h4><strong>Uploaded layers</strong></h4>
                                 <ul id="downloads_uploads">
-                                    <!-- List of uploaded documents -->
                                     {% if documents %}
                                         {% for document in documents %}
-                                        <!--li><a href="{% url 'sample_dl' %}">{{ document.docfile.name }}</a></li-->
+                                        <li><a href="{% url 'sample_dl' %}">{{ document.docfile.name }}</a></li>
                                         <form method="POST" enctype="multi-part" action="{% url 'sample_dl' %}">
                                             {% csrf_token %}
                                             <input type="hidden" name="file_name" value="{{ document.docfile.name }}"></input>
@@ -291,7 +270,7 @@
                                         <br>
                                         <p><i>No uploaded documents.</i></p>
                                     {% endif %}
-                                </ul>
+                                </ul>-->
     			    <br>
     			    <br>
                 </div> <!--Closes tab-pane="download"-->
@@ -503,43 +482,6 @@ function uploader() {
     }
 }
 
-// Pulled the below code from main.js, originally written for 'overlayLayers' class in checkboxes...
-// I think what makes sense is to adjust this code for the 'uploadLayers' to toggle/untoggle them
-// the same way that the overlayLayers are being toggled.
-
-    $("input:checkbox[name='uploadLayers']").change(function () {
-        var layers = [];
-        function sortByKey(array, key) {
-            return array.sort(function (a, b) {
-                var x = a[key];
-                var y = b[key];
-                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-            });
-        }
-        if ($("#" + $(this).attr("id")).is(":checked")) {
-            $("input:checkbox[name='uploadLayers']").each(function () {
-                // Remove all overlay layers
-                map.removeLayer(window[$(this).attr("id")]);
-                if ($("#" + $(this).attr("id")).is(":checked")) {
-                    // Add checked layers to array for sorting
-                    layers.push({
-                        "z-index": $(this).attr("z-index"),
-                        "layer": $(this)
-                    });
-                }
-            });
-            // Sort layers array by z-index
-            var orderedLayers = sortByKey(layers, "z-index");
-            // Loop through ordered layers array and add to map in correct order
-            $.each(orderedLayers, function () {
-                map.addLayer(window[$(this)[0].layer[0].id]);
-            });
-        } else {
-            // Simply remove unchecked layers
-            map.removeLayer(window[$(this).attr("id")]);
-        }
-    });
-
 
 ////////////////////////////
 ////// Overlay Layers //////
@@ -576,7 +518,7 @@ function uploader() {
         version: '1.1.1',
         request: 'GetMap',
         format: 'image/png',
-        layers: 'iltf:soc_clipped',
+        layers: 'iltf:tamaya_soc_gssurgo',
         transparent: true,
         tiled: true,
         zIndex: 10,
@@ -594,18 +536,6 @@ function uploader() {
         zIndex: 10,
         bgcolor: '#FFFFFF',
         clickable: true
-    });
-
-    var ndviDiff = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
-        service: 'WMS',
-        version: '1.1.1',
-        request: 'GetMap',
-        format: 'image/png',
-        layers: 'iltf:tamaya_ndviDiff',
-        transparent: true,
-        tiled: true,
-        zIndex: 10,
-        bgcolor: '#FFFFFF'
     });
 
 /////// Oliver's Layers ////////
