@@ -18,7 +18,7 @@ from django.core.files.storage import FileSystemStorage
 # Specify downloads path
 path = os.path.dirname(os.path.abspath(__file__))
 
-raw_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), 'r+').read()
+#raw_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), 'r+').read()
 #load_json = json.load(raw_json)
 #load_json = json.dumps(raw_json)
 #raw_json.close()
