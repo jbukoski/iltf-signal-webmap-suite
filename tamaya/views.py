@@ -79,14 +79,25 @@ def list(request):
     context = {'documents' : documents, 'form' : form}
     return render(request, 'tamaya/list.html', context)
 
-def render_geojson_view(request, *args, **kwargs):
+def render_geojson_view(request):
 
-    print("\n\n++++++++++++\nWithin render_geojson_view")
-    print("args: ", args)
-    print("kwargs: ", kwargs)
-    print("++++++++++\n\n")
+    if request.method == 'POST':
+        lyr = request.POST['layer']
 
-    return HttpResponse(raw_json, content_type='json')
+        lyr_json = open(os.path.join(os.path.dirname(path), 'media', lyr), 'r+').read()
+
+        print("\n\n++++++++++++\nWithin render_geojson_view")
+        print("lyr: ", lyr)
+        print("lyr_json: ", lyr_json)
+        print("++++++++++\n\n")
+
+        return JsonResponse({'layer': lyr, 'layer_json': lyr_json})
+
+    else:
+
+        error_msg = 'Not a post request'
+
+        return JsonResponse(error_msg, safe = False)
 
 def legend_view(request):
 
@@ -316,6 +327,27 @@ def landfire_dl_view(request):
     download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'landfireEVT.tif'), "rb")
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="tamaya_landfire_evt.tif"'
+
+    return response
+
+def agc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_forest_agc.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="tamaya_forest_agc.tif"'
+
+    return response
+
+def bgc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_forest_bgc.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="tamaya_forest_bgc.tif"'
+
+    return response
+
+def soc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_gssurgo_soc.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="tamaya_gssurgo_soc.tif"'
 
     return response
 

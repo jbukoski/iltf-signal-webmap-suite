@@ -170,19 +170,19 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="agc" z-index="3">
-                                                &nbsp Forest aboveground carbon
+                                                &nbsp Forest aboveground carbon &nbsp <a href="{% url 'agc_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="bgc" z-index="3">
-                                                &nbsp Forest belowground carbon
+                                                &nbsp Forest belowground carbon &nbsp <a href="{% url 'bgc_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
 					    <label>
                                                 <input type="checkbox" name="overlayLayers" id="gssurgoSOC" z-index="3">
-                                                &nbsp Soil organic carbon
+                                                &nbsp Soil organic carbon &nbsp <a href="{% url 'soc_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                             </label>
                                         </div>
             		            </div>
@@ -203,7 +203,7 @@
                                         {% for document in documents %}
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="uploadLayers" id="{{ document.docfile.name }}" z-index="3" onclick="show_static(' {{ document.docfile.name }}')"><p class="setFileName2">
+                                                    <input type="checkbox" name="uploadLayers" id="{{ document.docfile.name }}" z-index="3" onclick="show_static('{{ document.docfile.name }}')"><p class="setFileName2">
                                                         &nbsp {{ document.docfile.name }}</p>
                                                 </label>
                                             </div>
@@ -278,80 +278,28 @@
                 <div class="tab-pane" id="upload">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3>Upload Data Layers:</h3>
-                            <p> New data layers (GeoJSON, <b>.geojson</b>, or SHP, <b>.shp</b>. files) can be uploaded to this webmap and used along with existing data for interactivity and visualizations.</p>
-                            <div style="height: 30px;"></div>
+                            <h3><strong>Upload Data Layers:</strong></h3>
+                            <p> New data layers in GeoJSON format (<b>.geojson</b>) can be uploaded to this webmap and used along with existing data for interactivity and visualizations.</p>
+                            <div style="height: 20px;"></div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <h4>Render Static GeoJSON:</h4>
-                            <p>Render file <b>media/tamaya/uploaded/boundary.geojson</b> located in the web app.</p>
-                            <br>
-                            <button class="btn btn-danger" onclick="show_static(0)">Render boundary.geojson</button>
-                            <div style="height: 30px;"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>Example local <i>.geojson</i> file:</h4>
-                            <ul>
-                                <!--li><a name="foo_name" value="foo_value" href="{% url 'sample_dl' %}">Download sample GeoJSON</a></li-->
-                                <form method="POST" enctype="multi-part" action="{% url 'sample_dl' %}">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="file_name" value="boundary.geojson"></input>
-                                    <button id="sample_geojson" class="btn btn-info" value="'false'">Download sample GeoJSON</button>
-                                </form>
-                            </ul>
-                            <div style="height: 15px;"></div>
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>Upload local <i>.geojson or .shp</i> file:</h4>
+                            <h4>Upload local <i>.geojson</i> file:</h4>
                             <form role="form" method="POST" action="{% url 'sample_up' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <input type="file" name="docfile" onchange="uploader()" id="upload_file">
-                                <!--button type="submit">Upload File</button-->
                                 <div style="height: 15px;"></div>
                                 <div id="show_upload" style="padding-bottom: 15px;"></div>
                                 <button id="send_upload" class="btn btn-danger" style="display: none" type="submit">Upload File</button>
                             </form>
-                            <div style="height: 30px;"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>Files uploaded to web app:</h4>
-                            <!-- Show location of this file -->
-                            {% if uploaded_file_url %}
-                                <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-                            {% endif %}
-                            <!-- List of uploaded documents -->
-
-                            {% if documents %}
-                                <ul>
-                                    {% for document in documents %}
-                                        <!--li id="{{ document.docfile.name }}"><a href="{% url 'sample_dl' %}">{{ document.docfile.name }}</a></li-->
-                                        <form method="POST" enctype="multi-part" action="{% url 'sample_dl' %}" name="{{ document.docfile.name }}">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="file_name" value="{{ document.docfile.name }}"></input>
-                                            <li><button class="upload-btn" id="{{ document.docfile.name }}" value="'false'" onclick="show_static(' {{ document.docfile.name }}')"><p class="setFileName">{{ document.docfile.name }}</p></button></li>
-                                        </form>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <br>
-                                <p id="need_docs" style="display: block;">No documents.</p>
-                            {% endif %}
-                            <div style="height: 30px;"></div>
+                            <div style="height: 20px;"></div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <h4>Delete Uploaded GeoJSON:</h4>
-                            <p>Clear out previously uploaded GeoJSON files from the server.</p>
+                            <p>Delete <strong>all</strong> previously uploaded GeoJSON files from the server. <i>Please note that this action cannot be undone</i></p>
                             <!--button class="btn btn-info" onclick=""><a href="{% url 'delete_up' %}">Delete files</a></button-->
                             <form role="form" method="POST" action="{% url 'delete_up' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
@@ -410,23 +358,25 @@ for ( var i = 0; i < num_layers; i++ ) {
 }
 
 function show_static( tmp_idx ) {
-    /*
-        Show static geojson file on user button click.
-    */
+    var usr_lyr = new L.GeoJSON();
+    var data = {'layer': tmp_idx, csrfmiddlewaretoken: '{{csrf_token }}'};
 
-    try {
+    $.post('{% url 'render_geojson' %}', data, function(resp) {
+        var geojson_lyr = JSON.parse(resp.layer_json);
+        usr_lyr.addData(geojson_lyr);
+    });
 
-        if ( tmp_idx == 0 ) {
-            var static_geojson = new L.GeoJSON.AJAX("{% url 'render_geojson' %}");
-            static_geojson.addTo(map);
-        } else {
-            var tmp_geojson = new L.GeoJSON.AJAX("{% url 'render_geojson' %}");
-        }
-
-    } catch ( err ) {
-
-        alert("Error on rendering static geoJson : 'media/tamaya/uploaded/boundary.geojson'");
-
+    if ( tmp_idx == 0 ) {
+        console.log('tmp_idxi_0: ', tmp_idx);
+    } else {
+        $("input[type='checkbox'][id='" + tmp_idx + "']").change(function () {
+            if (this.checked) {
+                map.addLayer(usr_lyr);
+            } else if (!this.checked) {
+                map.removeLayer(usr_lyr);
+                usr_lyr.clearLayers();
+            };
+        });
     }
 }
 
@@ -474,8 +424,6 @@ function uploader() {
     if ( checkerr ) {
         document.getElementById("send_upload").style.display = "block";
         //document.getElementById("need_docs").style.display = "none";
-        //OLIVES! I think what might make sense is to build a layer object here using the file id... then
-        //we can use the id in the function down below to render the file via the checkbox interaction for 'uploadLayers'
     } else {
         document.getElementById("send_upload").style.display = "none";
         //document.getElementById("need_docs").style.display = "block";
@@ -852,7 +800,6 @@ function uploader() {
 //// Build legend functionality ////
 ////////////////////////////////////
 
-
     $("input[type='checkbox'][id='landfireEVT']").change(function () {
         if (this.checked) {
 
@@ -881,7 +828,6 @@ function uploader() {
 
         };
     });
-
 
 /////////////////////////////////////////////////////////
 //// Add north arrow, scale, and easy print function ////
@@ -912,8 +858,9 @@ function uploader() {
     var drawOptionsFull = {
           draw: {
             polygon: {showArea: true},
-            polyline: false,
-            circle: false
+            circle: false,
+            marker: false,
+            polyline: false
 	  },
 	  edit: {
             featureGroup: drawnItems
