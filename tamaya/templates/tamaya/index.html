@@ -836,6 +836,10 @@ function uploader() {
 //// Build legend functionality ////
 ////////////////////////////////////
 
+
+if ($("div#carbon-layers input[type='checkbox']").is(":checked")) {
+    console.log('c layer is checked');
+    } else {
     $("div#vegetation-layers input[type='checkbox']").change(function () {
 
         if ($("div#vegetation-layers input[type='checkbox']").is(':checked')) {
@@ -865,7 +869,6 @@ function uploader() {
                     };
                     var arr_string = arr.join('');
 
-                    console.log(arr_string);
                     popup
                         .setLatLng([lat, lng])
                         .setContent("<p><b>VEGETATION LAYERS LEGENDS: </b></br></br>" + arr_string + "</p>")
@@ -879,7 +882,7 @@ function uploader() {
 
         };
     });
-
+};
 /////////////////////////////////////////////////////////
 //// Add north arrow, scale, and easy print function ////
 /////////////////////////////////////////////////////////
@@ -953,40 +956,36 @@ function uploader() {
         var layer = e.layer,
             type = layer.toGeoJSON().geometry.type;
 
-        if (document.getElementById('agc').checked) {
-            var rasterLyrs = 'tamaya_forest_agc';
-        } else if (document.getElementById('bgc').checked) {
-            var rasterLyrs = 'tamaya_forest_bgc';
-        };
- 
-        console.log(rasterLyrs);
-
 	if (type === 'Point') {
             layer.bindPopup('A point!');
 	} else if (type === 'Polygon') {
             var centroid = layer.getBounds().getCenter();
             var layerGeoJSON = layer.toGeoJSON();
             var layerGeom = JSON.stringify(layerGeoJSON.geometry);
-            var queryPopup = L.popup();
+            var queryPopup = L.popup(); 
+            var c_lyrs = $("div#carbon-layers input[type='checkbox']:checked").map(function() {return this.id;});
+            var c_arr = $.map(c_lyrs, function(value, index) {
+                return [value];
+            });
 
-            console.log(layerGeom);
-
-            data = {'geom': layerGeom, 'rasterLyrs': rasterLyrs,
-                    csrfmiddlewaretoken: '{{ csrf_token }}'};
-
-            console.log(data);
+            data = {'geom': layerGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
 
             $.post('{% url 'sumstats' %}', data, function(resp) {
-                    var dat = resp.sumstats
-                    
+                    var sumstats = resp.text
+                    var arr = [];
+                    for(var key in c_arr) {
+                        arr.push(sumstats[c_arr[key]]);
+                    };
+                    var arr_string = arr.join('');
+
+                    console.log(arr_string);
+ 
                     queryPopup
                         .setLatLng(centroid)
-                        .setContent('<p><strong>SUMMARY STATISTICS: </strong>' +
-                                    '</br><strong>Area selected: </strong>' + resp.totalArea + ' ha' +
-                                    '</br><strong>Pixel area selected: </strong>' + '~' + resp.forestArea + ' ha' +
-                                    '</br><strong>Total carbon: </strong>' + resp.agcTotal + ' Mg' +
-                                    '</br><strong>Mean carbon: </strong>' + resp.agcMean + ' Mg/ha'
-                                   )
+                        .setContent('<p><b>SUMMARY STATISTICS: </b>' +
+                                    '</br><b>&nbsp&nbspArea selected: </b>' + resp.totalArea + ' ha' +
+                                    '</br><b>&nbsp&nbspForest area selected: </b>' + '~' + resp.forestArea + ' ha</br>' +
+                                    arr_string + "</p>")
                         .openOn(map);
                 });
         }

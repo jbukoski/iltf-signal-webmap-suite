@@ -122,13 +122,6 @@ def legend_view(request):
         ndvi2015 = round(results[0][4], 4)
         conn.close()
 
-        print("\n\n++++++++++++\nInside the legend view\n")
-        print("Lat: ", lat, "   Lon: ", lon)
-        print("Landfire EVT: ", landfireEVT)
-        print("evtClass: ", evtClass)
-        print("ndvi values: ", ndvi2005, ndvi2010, ndvi2015)
-        print("++++++++++++\n\n")
-
         legText = {"landfireEVT": "&nbsp&nbsp<b>LANDFIRE Existing Vegetation Type: </b>" + str(evtClass) + "</br>",
                     "ndvi2005": "&nbsp&nbsp<b>Mean Annual NDVI, 2005: </b>" + str(ndvi2005) + "</br>",
                     "ndvi2010": "&nbsp&nbsp<b>Mean Annual NDVI, 2010: </b>" + str(ndvi2010) + "</br>",
@@ -148,7 +141,6 @@ def sumstats_view(request):
 
     if request.method == 'POST':
         geom = request.POST['geom']
-        rastLyr = request.POST['rasterLyrs']
 
         query = """SELECT 
                        (ST_SummaryStats(ST_Clip(agc.raster, poly::geometry), true)).*,
@@ -166,32 +158,42 @@ def sumstats_view(request):
         results = cur.fetchall()
         sumstats = results
         forestPixels = sumstats[0][0]
-        area = round(sumstats[0][6]/10000, 2)
+        area = round(sumstats[0][18]/10000, 2)
         agc_sum = round(sumstats[0][1], 2)
         agc_mean = round(sumstats[0][2], 2)
-        bgc_sum = round(sumstats[0][8], 2)
-        bgc_mean = round(sumstats[0][9], 2)
-        soc_sum = round(sumstats[0][15], 2)
-        soc_mean = round(sumstats[0][16], 2)
+        bgc_sum = round(sumstats[0][7], 2)
+        bgc_mean = round(sumstats[0][8], 2)
+        soc_sum = round(sumstats[0][13], 2)
+        soc_mean = round(sumstats[0][14], 2)
         totalArea = "{:,}".format(area, 2)
         agcTotal = "{:,}".format(round((agc_sum / 100 * 6.25), 2))
         agcMean = "{:,}".format(round(agc_mean / 100, 2))
         bgcTotal = "{:,}".format(round((bgc_sum / 100 * 6.25), 2))
         bgcMean = "{:,}".format(round(bgc_mean / 100, 2))
-        socTotal = "{:,}".format(round((soc_sum / 100 * 6.25), 2))
+        socTotal = "{:,}".format(round((soc_sum / 100 * 0.01), 2))
         socMean = "{:,}".format(round(soc_mean / 100, 2))
         forestArea = "{:,}".format(round(forestPixels * 6.25, 2))
         conn.close()
             
-        print("\n\n++++++++++++\nInside the sumstats view\n")
-        print("sumStats: ", sumstats)
-        print("equal area: ", sumstats[0][6])
-        print("++++++++++++\n\n")
+        print("\n\n=======In Sumstats View=======")
+        print(sumstats)
+        print("SOC Total: ", socTotal)
+        print("SOC Sum: ", soc_sum)
+        print("SOC mean: ", soc_mean)
+        print("SOC Mean: ", socMean)
+        print("=======================\n\n")
 
-        return JsonResponse({'forestPixels': forestPixels, 
-                             'agcTotal': agcTotal, 'agcMean': agcMean,
-                             'bgcTotal': bgcTotal, 'bgcMean': bgcMean,
-                             'socTotal': socTotal, 'socMean': socMean,
+        text = {'agc': "</br>&nbsp&nbsp<b>Carbon pool: </b> Aboveground Forest Carbon </br>" + 
+                       "&nbsp&nbsp<b>Total carbon: </b>" + str(agcTotal) + " Mg C</br>" + 
+                       "&nbsp&nbsp<b>Mean carbon: </b>" + str(agcMean) + " Mg C/ha</br>",
+                'bgc': "</br>&nbsp&nbsp<b>Carbon pool: </b> Belowground Forest Carbon </br>" +
+                       "&nbsp&nbsp<b>Total carbon: </b>" + str(bgcTotal) + " Mg C</br>" +
+                       "&nbsp&nbsp<b>Mean carbon: </b>" + str(bgcMean) + " Mg C/ha</br>",
+                'gssurgoSOC': "</br>&nbsp&nbsp<b>Carbon pool: </b> Soil Organic Carbon </br>" +
+                       "&nbsp&nbsp<b>Total carbon: </b>" + str(socTotal) + " Mg C</br>" +
+                       "&nbsp&nbsp<b>Mean carbon: </b>" + str(socMean) + " Mg C/ha</br>"}
+
+        return JsonResponse({'forestPixels': forestPixels, 'text': text, 
                              'totalArea': totalArea, 'forestArea': forestArea})
 
     else:
