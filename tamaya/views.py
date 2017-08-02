@@ -18,11 +18,6 @@ from django.core.files.storage import FileSystemStorage
 # Specify downloads path
 path = os.path.dirname(os.path.abspath(__file__))
 
-#raw_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), 'r+').read()
-#load_json = json.load(raw_json)
-#load_json = json.dumps(raw_json)
-#raw_json.close()
-
 @login_required(login_url='/login/')
 def index(request):
 
@@ -38,10 +33,6 @@ def index(request):
             up_file_path = os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/', up_file)
             raw_doc_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/', up_file)).read()
             upload_list.append(raw_doc_json)
-
-            #print("\n=============\nWithin index upload_files")
-            #print("upload_list: ", upload_list)
-            #print("\n=========\n\n")
 
     doc_counter = 1
 
@@ -154,52 +145,48 @@ def sumstats_view(request):
         rastLyr = request.POST['rasterLyrs']
 
         query = """SELECT 
-                       (ST_SummaryStats(ST_Clip(rastlyr.raster, poly::geometry), true)).*,
+                       (ST_SummaryStats(ST_Clip(agc.raster, poly::geometry), true)).*,
+                       (ST_SummaryStats(ST_Clip(bgc.raster, poly::geometry), true)).*,
+                       (ST_SummaryStats(ST_Clip(soc.raster, poly::geometry), true)).*,
                        ST_Area(polyEqArea)
                    FROM
-                       %s as rastlyr, 
+                       tamaya_forest_agc AS agc, tamaya_forest_bgc AS bgc, tamaya_gssurgo_soc AS soc,
                        ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS poly,
-                       ST_Transform(poly, 32113) AS polyEqArea;""" % (rastLyr, geom)
+                       ST_Transform(poly, 32113) AS polyEqArea;""" % (geom)
 
         conn = psycopg2.connect("dbname='iltf' user='postgres'")
         cur = conn.cursor()
         cur.execute(query)
         results = cur.fetchall()
         sumstats = results
-        pixelCount = sumstats[0][0]
-        stats_sum = round(sumstats[0][1], 2)
-        stats_mean = round(sumstats[0][2], 2)
-        stats_sd = round(sumstats[0][3], 2)
-        stats_min = round(sumstats[0][4], 2)
-        stats_max = round(sumstats[0][5], 2)
+        forestPixels = sumstats[0][0]
         area = round(sumstats[0][6]/10000, 2)
+        agc_sum = round(sumstats[0][1], 2)
+        agc_mean = round(sumstats[0][2], 2)
+        bgc_sum = round(sumstats[0][8], 2)
+        bgc_mean = round(sumstats[0][9], 2)
+        soc_sum = round(sumstats[0][15], 2)
+        soc_mean = round(sumstats[0][16], 2)
         totalArea = "{:,}".format(area, 2)
-        totalCarbon = "{:,}".format(round((stats_sum / 100 * 6.25), 2))
-        meanCarbon = "{:,}".format(round(stats_mean / 100, 2))
-        pixelArea = "{:,}".format(round(pixelCount * 6.25, 2))
+        agcTotal = "{:,}".format(round((agc_sum / 100 * 6.25), 2))
+        agcMean = "{:,}".format(round(agc_mean / 100, 2))
+        bgcTotal = "{:,}".format(round((bgc_sum / 100 * 6.25), 2))
+        bgcMean = "{:,}".format(round(bgc_mean / 100, 2))
+        socTotal = "{:,}".format(round((soc_sum / 100 * 6.25), 2))
+        socMean = "{:,}".format(round(soc_mean / 100, 2))
+        forestArea = "{:,}".format(round(forestPixels * 6.25, 2))
         conn.close()
-
-        if rastLyr == 'tamaya_forest_agc': 
-            layer = "Aboveground forest carbon"
-            units = "g C/sq. m"
-        elif rastLyr == 'tamaya_forest_bgc':
-            layer = "Belowground forest carbon"
-            units = "g C/sq. m"
             
         print("\n\n++++++++++++\nInside the sumstats view\n")
         print("sumStats: ", sumstats)
-        print("raster Layer: ", rastLyr)
         print("equal area: ", sumstats[0][6])
-        print("total Carbon: ", totalCarbon)
         print("++++++++++++\n\n")
 
-        return JsonResponse({'sumstats': sumstats, 'pixelCount': pixelCount, 
-                             'stats_sum': stats_sum, 'stats_mean': stats_mean, 
-                             'stats_sd': stats_sd, 'stats_min': stats_min,
-                             'stats_max': stats_max, 'Lyr': layer,
-                             'pixelUnits': units, 'totalArea': totalArea,
-                             'totalCarbon': totalCarbon, 'meanCarbon': meanCarbon,
-                             'pixelArea': pixelArea})
+        return JsonResponse({'forestPixels': forestPixels, 
+                             'agcTotal': agcTotal, 'agcMean': agcMean,
+                             'bgcTotal': bgcTotal, 'bgcMean': bgcMean,
+                             'socTotal': socTotal, 'socMean': socMean,
+                             'totalArea': totalArea, 'forestArea': forestArea})
 
     else:
 

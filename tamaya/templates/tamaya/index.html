@@ -281,7 +281,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h3><strong>Upload Data Layers:</strong></h3>
-                            <p> New data layers in GeoJSON format (<b>.geojson</b>) can be uploaded to this webmap and used along with existing data for interactivity and visualizations.</p>
+                            <p> New data layers in GeoJSON format (<b>.geojson</b>) and in a <b>EPSG:4326</b> projection may be uploaded to this webmap and used along with existing data for interactivity and visualizations.</p>
                             <div style="height: 20px;"></div>
                         </div>
                     </div>
@@ -301,7 +301,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4>Delete Uploaded GeoJSON:</h4>
-                            <p>Delete <strong>all</strong> previously uploaded GeoJSON files from the server. <i>Please note that this action cannot be undone</i></p>
+                            <p>Delete <strong>all</strong> previously uploaded GeoJSON files from the server. <i>Please note that this action cannot be undone.</i></p>
                             <!--button class="btn btn-info" onclick=""><a href="{% url 'delete_up' %}">Delete files</a></button-->
                             <form role="form" method="POST" action="{% url 'delete_up' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
@@ -850,6 +850,8 @@ function uploader() {
             function updateLatLng(lat, lng) {
                 var data = {'lat': lat, 'lng': lng,
                              csrfmiddlewaretoken: '{{ csrf_token }}'};
+                var checkedBoxes = document.querySelectorAll('input[name=overlayLayers]:checked');
+                console.log(checkedBoxes);
                 $.post('{% url 'legend' %}', data, function(resp) {
                     popup
                         .setLatLng([lat, lng])
@@ -969,11 +971,10 @@ function uploader() {
                     queryPopup
                         .setLatLng(centroid)
                         .setContent('<p><strong>SUMMARY STATISTICS: </strong>' +
-                                    '</br></br><strong>Layer: </strong>' + resp.Lyr + 
                                     '</br><strong>Area selected: </strong>' + resp.totalArea + ' ha' +
-                                    '</br><strong>Pixel area selected: </strong>' + '~' + resp.pixelArea + ' ha' +
-                                    '</br><strong>Total carbon: </strong>' + resp.totalCarbon + ' Mg' +
-                                    '</br><strong>Mean carbon: </strong>' + resp.meanCarbon + ' Mg/ha'
+                                    '</br><strong>Pixel area selected: </strong>' + '~' + resp.forestArea + ' ha' +
+                                    '</br><strong>Total carbon: </strong>' + resp.agcTotal + ' Mg' +
+                                    '</br><strong>Mean carbon: </strong>' + resp.agcMean + ' Mg/ha'
                                    )
                         .openOn(map);
                 });
