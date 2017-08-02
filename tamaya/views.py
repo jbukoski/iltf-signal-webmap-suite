@@ -129,8 +129,14 @@ def legend_view(request):
         print("ndvi values: ", ndvi2005, ndvi2010, ndvi2015)
         print("++++++++++++\n\n")
 
+        legText = {"landfireEVT": "&nbsp&nbsp<b>LANDFIRE Existing Vegetation Type: </b>" + str(evtClass) + "</br>",
+                    "ndvi2005": "&nbsp&nbsp<b>Mean Annual NDVI, 2005: </b>" + str(ndvi2005) + "</br>",
+                    "ndvi2010": "&nbsp&nbsp<b>Mean Annual NDVI, 2010: </b>" + str(ndvi2010) + "</br>",
+                    "ndvi2015": "&nbsp&nbsp<b>Mean Annual NDVI, 2015: </b>" + str(ndvi2015) + "</br>"}
+
         return JsonResponse({'evtClass': evtClass, 'ndvi2005': ndvi2005,
-                             'ndvi2010': ndvi2010, 'ndvi2015': ndvi2015})
+                             'ndvi2010': ndvi2010, 'ndvi2015': ndvi2015,
+                             'legText': legText})
 
     else:
 

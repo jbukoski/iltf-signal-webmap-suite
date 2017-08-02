@@ -836,30 +836,43 @@ function uploader() {
 //// Build legend functionality ////
 ////////////////////////////////////
 
-    $("input[type='checkbox'][id='landfireEVT']").change(function () {
-        if (this.checked) {
+    $("div#vegetation-layers input[type='checkbox']").change(function () {
+
+        if ($("div#vegetation-layers input[type='checkbox']").is(':checked')) {
 
             var popup = L.popup();
 
             map.on('click', function(e) {
                 var lng = e.latlng.lng;
                 var lat = e.latlng.lat;
-                updateLatLng(lat, lng);
+                var veg_lyrs = $("div#vegetation-layers input[type='checkbox']:checked").map(function() {return this.id;});
+                var veg_arr = $.map(veg_lyrs, function(value, index) {
+                    return [value];
+                });
+                
+                updateLatLng(lat, lng, veg_arr);
             });
 
-            function updateLatLng(lat, lng) {
+            function updateLatLng(lat, lng, veg_arr) {
                 var data = {'lat': lat, 'lng': lng,
                              csrfmiddlewaretoken: '{{ csrf_token }}'};
-                var checkedBoxes = document.querySelectorAll('input[name=overlayLayers]:checked');
-                console.log(checkedBoxes);
+
                 $.post('{% url 'legend' %}', data, function(resp) {
+                    var text = resp.legText
+                    var arr = [];
+                    for(var key in veg_arr) {
+                        arr.push(text[veg_arr[key]]);
+                    };
+                    var arr_string = arr.join('');
+
+                    console.log(arr_string);
                     popup
                         .setLatLng([lat, lng])
-                        .setContent('<p><strong>LANDFIRE Existing Vegetation Type: </strong>' + resp.evtClass + '</p>')
+                        .setContent("<p><b>VEGETATION LAYERS LEGENDS: </b></br></br>" + arr_string + "</p>")
                         .openOn(map);
                 });
             };
-        } else if (!this.checked) {
+        } else {
 
             map.closePopup();
             map.off('click');
@@ -944,8 +957,6 @@ function uploader() {
             var rasterLyrs = 'tamaya_forest_agc';
         } else if (document.getElementById('bgc').checked) {
             var rasterLyrs = 'tamaya_forest_bgc';
-        } else if (document.getElementById('ndviDiff').checked) {
-            var rasterLyrs = 'tamaya_ndvidiff';
         };
  
         console.log(rasterLyrs);

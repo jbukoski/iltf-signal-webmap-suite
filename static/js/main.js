@@ -42,7 +42,7 @@
         });
     });
 
-    $("input:checkbox[name='overlayLayers']").change(function () {
+    $("input:checkbox[name='overlayLayers']" || "input:checkbox[name='vegLayers']").change(function () {
         var layers = [];
         function sortByKey(array, key) {
             return array.sort(function (a, b) {
@@ -52,7 +52,7 @@
             });
         }
         if ($("#" + $(this).attr("id")).is(":checked")) {
-            $("input:checkbox[name='overlayLayers']").each(function () {
+            $("input:checkbox[name='overlayLayers']" || "input:checkbox[name='vegLayers']").each(function () {
                 // Remove all overlay layers
                 map.removeLayer(window[$(this).attr("id")]);
                 if ($("#" + $(this).attr("id")).is(":checked")) {
