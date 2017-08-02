@@ -155,6 +155,24 @@
                                                 &nbsp LANDFIRE Vegetation Type &nbsp <a href="{% url 'landfire_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                        </div>
+                                       <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="ndvi2005" z-index="3">
+                                                &nbsp Mean Annual NDVI - 2005 &nbsp <!--<a href="{% url 'landfire_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>-->
+                                            </label>
+                                       </div>
+                                       <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="ndvi2010" z-index="3">
+                                                &nbsp Mean Annual NDVI - 2010 &nbsp <!--<a href="{% url 'landfire_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>-->
+                                            </label>
+                                       </div>
+                                       <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="ndvi2015" z-index="3">
+                                                &nbsp Mean Annual NDVI - 2015 &nbsp <!--<a href="{% url 'landfire_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>-->
+                                            </label>
+                                       </div>
                                     </div>
                                 </div>
                             </div>
@@ -255,24 +273,8 @@
                         </br>
                         <p>This webmap is a collaboration between the Santa Ana Pueblo of New Mexico and the Spatial Informatics Group - Natural Assets Laboratory (SIG-NAL).</p>
                         <p>This documentation tab provides reference for the data layers that are employed, explanation of the functions built into it, and suggestions for the use of the two.</p>
-                            <!--<h4><strong>Uploaded layers</strong></h4>
-                                <ul id="downloads_uploads">
-                                    {% if documents %}
-                                        {% for document in documents %}
-                                        <li><a href="{% url 'sample_dl' %}">{{ document.docfile.name }}</a></li>
-                                        <form method="POST" enctype="multi-part" action="{% url 'sample_dl' %}">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="file_name" value="{{ document.docfile.name }}"></input>
-                                            <li><button class="upload-btn" id="{{ document.docfile.name }}" value="'false'" onclick="show_static(' {{ document.docfile.name }}')">{{ document.docfile.name }}</button></li>
-                                        </form>
-                                        {% endfor %}
-                                    {% else %}
-                                        <br>
-                                        <p><i>No uploaded documents.</i></p>
-                                    {% endif %}
-                                </ul>-->
-    			    <br>
-    			    <br>
+    			<br>
+    			<br>
                 </div> <!--Closes tab-pane="download"-->
 
                 <div class="tab-pane" id="upload">
@@ -312,15 +314,8 @@
                 </div> <!--Closes tab-pane="upload"-->
             </div> <!--Closes 'tab-content'-->
         </div> <!--Closes ID="sidebar"-->
-        <div class="col-sm-9 col-lg-9" id="map">
-           <!-- <div id="loading" style="display: block;">
-                    <div class="loading-indicator">
-                        <div class="progress progress-striped active">
-                            <div class="progress-bar progress-bar-info" style="width: 100%"></div>
-                        </div>
-                    </div>
-                </div>-->
-        </div>
+
+        <div class="col-sm-9 col-lg-9" id="map"></div>
 
         </div> <!--Closes ID="container"-->
 
@@ -437,54 +432,95 @@ function uploader() {
 
 ////// Raster Layers ///////
 
-    var agc = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
+    var agc = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
         service: 'WMS',
         version: '1.1.1',
         request: 'GetMap',
         format: 'image/png',
-        layers: 'iltf:tamaya_forest_agc',
+        layers: 'iltf:tamaya_agc',
         transparent: true,
         tiled: true,
         zIndex: 10,
         bgcolor: '#FFFFFF'
     });
 
-    var bgc = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
+    var bgc = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
         service: 'WMS',
         version: '1.1.1',
         request: 'GetMap',
         format: 'image/png',
-        layers: 'iltf:tamaya_forest_bgc',
+        layers: 'iltf:tamaya_bgc',
         transparent: true,
         tiled: true,
         zIndex: 10,
         bgcolor: '#FFFFFF'
     });
 
-    var gssurgoSOC = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
+    var gssurgoSOC = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
         service: 'WMS',
         version: '1.1.1',
         request: 'GetMap',
         format: 'image/png',
-        layers: 'iltf:tamaya_soc_gssurgo',
+        layers: 'iltf:tamaya_gssurgo_soc',
         transparent: true,
         tiled: true,
         zIndex: 10,
         bgcolor: '#FFFFFF'
     });
 
-    var landfireEVT = new L.tileLayer.wms('http://localhost:8080/geoserver/iltf/wms?', {
+    var landfireEVT = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
         service: 'WMS',
         version: '1.1.1',
         request: 'GetMap',
         format: 'image/png',
-        layers: 'iltf:landfireEvtReclassified',
+        layers: 'iltf:tamaya_evt',
         transparent: true,
         tiled: true,
         zIndex: 10,
         bgcolor: '#FFFFFF',
         clickable: true
     });
+
+    var ndvi2005 = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:tamaya_ndvi_2005',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF',
+        clickable: true
+    });
+
+    var ndvi2010 = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:tamaya_ndvi_2010',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF',
+        clickable: true
+    });
+
+    var ndvi2015 = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:tamaya_ndvi_2015',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF',
+        clickable: true
+    });
+
+
 
 /////// Oliver's Layers ////////
 
