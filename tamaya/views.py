@@ -108,11 +108,15 @@ def legend_view(request):
         query = """WITH mypoint AS (SELECT ST_SetSRID(ST_MakePoint(%s, %s), 4326) geom),
                         values  AS (SELECT
                                       ST_Value(evt.raster, geom) AS evt_value,
-                                      ST_Value(ndviDiff.raster, geom) AS diff_value
+                                      ST_Value(ndvi_2005.raster, geom) AS ndvi_2005_value,
+                                      ST_Value(ndvi_2010.raster, geom) AS ndvi_2010_value,
+                                      ST_Value(ndvi_2015.raster, geom) AS ndvi_2015_value
                                     FROM mypoint p
                                     LEFT JOIN tamaya_landfire_evt evt ON (ST_Intersects(p.geom, evt.raster))
-                                    LEFT JOIN tamaya_ndvidiff ndviDiff ON (ST_Intersects(p.geom, ndviDiff.raster)))
-                   SELECT values.evt_value, values.diff_value, classes.label
+                                    LEFT JOIN tamaya_ndvi_2005 ndvi_2005 ON (ST_Intersects(p.geom, evt.raster))
+                                    LEFT JOIN tamaya_ndvi_2010 ndvi_2010 ON (ST_Intersects(p.geom, evt.raster))
+                                    LEFT JOIN tamaya_ndvi_2015 ndvi_2015 ON (ST_Intersects(p.geom, evt.raster)))
+                   SELECT values.evt_value, classes.label, values.ndvi_2005_value, values.ndvi_2010_value, values.ndvi_2015_value
                    FROM tamaya_landfire_classes classes, values
                    WHERE classes.value = values.evt_value;""" % (lon, lat)
 
@@ -121,18 +125,21 @@ def legend_view(request):
         cur.execute(query)
         results = cur.fetchall()
         landfireEVT = int(results[0][0])
-        ndvidiff = round(results[0][1], 4)
-        evtClass = results[0][2]
+        evtClass = results[0][1]
+        ndvi2005 = round(results[0][2], 4)
+        ndvi2010 = round(results[0][3], 4)
+        ndvi2015 = round(results[0][4], 4)
         conn.close()
 
         print("\n\n++++++++++++\nInside the legend view\n")
         print("Lat: ", lat, "   Lon: ", lon)
         print("Landfire EVT: ", landfireEVT)
-        print("NDVI difference: ", ndvidiff)
         print("evtClass: ", evtClass)
+        print("ndvi values: ", ndvi2005, ndvi2010, ndvi2015)
         print("++++++++++++\n\n")
 
-        return JsonResponse({'ndvidiff': ndvidiff, 'evtClass': evtClass})
+        return JsonResponse({'evtClass': evtClass, 'ndvi2005': ndvi2005,
+                             'ndvi2010': ndvi2010, 'ndvi2015': ndvi2015})
 
     else:
 
@@ -323,12 +330,37 @@ def texture_dl_view(request):
 
     return response
 
+## Vegetation layers
+
 def landfire_dl_view(request):
     download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'landfireEVT.tif'), "rb")
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="tamaya_landfire_evt.tif"'
 
     return response
+
+def ndvi_2005_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_ndvi_2005.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="tamaya_ndvi_2005.tif"'
+
+    return response
+
+def ndvi_2010_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_ndvi_2010.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="tamaya_ndvi_2010.tif"'
+
+    return response
+
+def ndvi_2015_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_ndvi_2015.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="tamaya_ndvi_2015.tif"'
+
+    return response
+
+## Carbon layers
 
 def agc_dl_view(request):
     download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_forest_agc.tif'), "rb")

@@ -1,34 +1,6 @@
 from django.contrib.gis.db import models
 
-# RASTER 
-
-class landfire_evt(models.Model):
-    raster_id = models.TextField(primary_key=True)
-    name = models.TextField()
-    raster = models.RasterField()
-
-class ndviDiff(models.Model):
-    raster_id = models.TextField(primary_key=True)
-    name = models.TextField()
-    raster = models.RasterField()
-
-class forest_agc(models.Model):
-    raster_id = models.TextField(primary_key=True)
-    name = models.TextField()
-    raster = models.RasterField()
-
-class forest_bgc(models.Model):
-    raster_id = models.TextField(primary_key=True)
-    name = models.TextField()
-    raster = models.RasterField()
-
-# LANDFIRE EVT ATTRIBUTES
-
-class landfire_classes(models.Model):
-    value = models.FloatField()
-    label = models.TextField()
-
-# ADMIN LAYERS
+# Admin Layers
 
 class boundary(models.Model):
     boundary_id = models.AutoField(primary_key=True)
@@ -67,8 +39,6 @@ class mbls(models.Model):
     def __str__(self):
         return '%s' % (self.comment)
 
-# ROAD LAYERS
-
 class roads(models.Model):
     roads_id = models.AutoField(primary_key=True)
     distance = models.FloatField()
@@ -96,7 +66,7 @@ class roads(models.Model):
     def __str__(self):
         return '%s' % (self.roads_id)
 
-# HYDROLOGY LAYERS
+# Hydrology Layers
 
 class watersheds(models.Model):
     watershed_id = models.AutoField(primary_key=True)
@@ -141,7 +111,7 @@ class surfacehydro(models.Model):
     def __str__(self):
         return '%s' % (self.surfacehydro_id)
 
-# SOIL LAYERS
+# Soil Layers
 
 class soil_data(models.Model):
     poly_id = models.BigIntegerField()
@@ -165,6 +135,49 @@ class soil_data(models.Model):
 
     def __str__(self):
         return '%s' % (self.poly_id)
+
+# Vegetation Layers
+
+class landfire_evt(models.Model):
+    raster_id = models.TextField(primary_key=True)
+    name = models.TextField()
+    raster = models.RasterField()
+
+class landfire_classes(models.Model):
+    value = models.FloatField()
+    label = models.TextField()
+
+class ndvi_2005(models.Model):
+    raster_id = models.TextField(primary_key=True)
+    name = models.TextField()
+    raster = models.RasterField()
+
+class ndvi_2010(models.Model):
+    raster_id = models.TextField(primary_key=True)
+    name = models.TextField()
+    raster = models.RasterField()
+
+class ndvi_2015(models.Model):
+    raster_id = models.TextField(primary_key=True)
+    name = models.TextField()
+    raster = models.RasterField()
+
+# Carbon layers
+
+class forest_agc(models.Model):
+    raster_id = models.TextField(primary_key=True)
+    name = models.TextField()
+    raster = models.RasterField()
+
+class forest_bgc(models.Model):
+    raster_id = models.TextField(primary_key=True)
+    name = models.TextField()
+    raster = models.RasterField()
+
+class gssurgo_soc(models.Model):
+    raster_id = models.TextField(primary_key=True)
+    name = models.TextField()
+    raster = models.RasterField()
 
 ###########################
 ## For file upload
