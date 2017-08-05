@@ -302,7 +302,6 @@
                         <div class="col-md-12">
                             <h4>Delete Uploaded GeoJSON:</h4>
                             <p>Delete <strong>all</strong> previously uploaded GeoJSON files from the server. <i>Please note that this action cannot be undone.</i></p>
-                            <!--button class="btn btn-info" onclick=""><a href="{% url 'delete_up' %}">Delete files</a></button-->
                             <form role="form" method="POST" action="{% url 'delete_up' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <input name="del_files" type="file" id="del_files" value="{{ request.path }}" style="display: none;">
@@ -331,10 +330,6 @@
 ////// Upload Layers //////
 ////////////////////////////
 
-/*$('#downloads_uploads').each(function(i) {
-   // $(this).attr('rel'); // This is your rel value
-})*/
-
 var uploaded_layers = $('#downloads_uploads').children();
 var num_layers = uploaded_layers.length;
 var tmp_url = null;
@@ -344,12 +339,9 @@ for ( var i = 0; i < num_layers; i++ ) {
     try {
         tmp_url = uploaded_layers[i].children[1].value;
     } catch ( err ) {
-        // window.location = "/";
         tmp_url = null;
     }
 
-    //var tmp_geojson = new L.GeoJSON.AJAX(tmp_url);
-    //tmp_geojson.addTo(map);
 }
 
 function show_static( tmp_idx ) {
@@ -376,10 +368,6 @@ function show_static( tmp_idx ) {
 }
 
 function uploader() {
-    /*
-        Update on SHP file upload from user.
-        HTML is updated to reflect file name and size (meta data).
-    */
 
     var x = document.getElementById( "upload_file" );
     var txt = " ";
@@ -418,10 +406,8 @@ function uploader() {
 
     if ( checkerr ) {
         document.getElementById("send_upload").style.display = "block";
-        //document.getElementById("need_docs").style.display = "none";
     } else {
         document.getElementById("send_upload").style.display = "none";
-        //document.getElementById("need_docs").style.display = "block";
     }
 }
 
@@ -931,12 +917,12 @@ if ($("div#carbon-layers input[type='checkbox']").is(":checked")) {
     // Initialize the draw control and pass it the FeatureGroup of editable layers
     var drawControlFull = new L.Control.Draw(drawOptionsFull);
     var drawControlEditOnly = new L.Control.Draw(drawOptionsEditOnly);
+    var layerGeom = {};
 
     map.addControl(drawControlFull);
 
     map.on('draw:created', function (e) {
         var layer = e.layer;
-
         drawnItems.addLayer(layer);
 
         drawControlFull.remove(map);
@@ -953,20 +939,18 @@ if ($("div#carbon-layers input[type='checkbox']").is(":checked")) {
 
 
     drawnItems.on("click", function(e) {
-        var layer = e.layer,
-            type = layer.toGeoJSON().geometry.type;
+        var layer = e.layer;
+        var centroid = layer.getBounds().getCenter();
+        var layerGeoJSON = layer.toGeoJSON();
+        var layerGeom = JSON.stringify(layerGeoJSON.geometry);
+        var type = layer.toGeoJSON().geometry.type;
 
 	if (type === 'Point') {
             layer.bindPopup('A point!');
 	} else if (type === 'Polygon') {
-            var centroid = layer.getBounds().getCenter();
-            var layerGeoJSON = layer.toGeoJSON();
-            var layerGeom = JSON.stringify(layerGeoJSON.geometry);
             var queryPopup = L.popup(); 
             var c_lyrs = $("div#carbon-layers input[type='checkbox']:checked").map(function() {return this.id;});
-            var c_arr = $.map(c_lyrs, function(value, index) {
-                return [value];
-            });
+            var c_arr = $.map(c_lyrs, function(value, index) { return [value]; });
 
             data = {'geom': layerGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
 
