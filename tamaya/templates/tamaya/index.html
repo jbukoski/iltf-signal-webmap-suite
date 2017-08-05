@@ -323,7 +323,6 @@
 {% block layers %}
 
 <script type="text/javascript" href="http://depot.ign.fr/geoportail/api/develop/tech-docs-js/examples/js/geoportalLeaflet.js"></script>
-
 <script type="text/javascript">
 
 ////////////////////////////
@@ -628,6 +627,8 @@ function uploader() {
                },
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
+                "<b>Watershed:&nbsp;</b>" + feature.properties.watershed.toString() +
+                "</br><b>Subwatershed ID: &nbsp; </b>" + feature.properties.subwatshed.toString()
             );
         },
     });
@@ -637,7 +638,6 @@ function uploader() {
                 weight: 2,
                 dashArray: 1,
                 opacity: 0.7,
-                clickable: false,
                },
     });
 
@@ -823,11 +823,7 @@ function uploader() {
 ////////////////////////////////////
 
 
-if ($("div#carbon-layers input[type='checkbox']").is(":checked")) {
-    console.log('c layer is checked');
-    } else {
     $("div#vegetation-layers input[type='checkbox']").change(function () {
-
         if ($("div#vegetation-layers input[type='checkbox']").is(':checked')) {
 
             var popup = L.popup();
@@ -835,24 +831,20 @@ if ($("div#carbon-layers input[type='checkbox']").is(":checked")) {
             map.on('click', function(e) {
                 var lng = e.latlng.lng;
                 var lat = e.latlng.lat;
+                var carbonLyrLength = document.querySelectorAll("div#carbon-layers input[type='checkbox']:checked").length;
                 var veg_lyrs = $("div#vegetation-layers input[type='checkbox']:checked").map(function() {return this.id;});
-                var veg_arr = $.map(veg_lyrs, function(value, index) {
-                    return [value];
-                });
+                var veg_arr = $.map(veg_lyrs, function(value, index) { return [value]; });
                 
-                updateLatLng(lat, lng, veg_arr);
+                if(carbonLyrLength === 0) { updateLatLng(lat, lng, veg_arr); };
             });
 
             function updateLatLng(lat, lng, veg_arr) {
-                var data = {'lat': lat, 'lng': lng,
-                             csrfmiddlewaretoken: '{{ csrf_token }}'};
+                var data = {'lat': lat, 'lng': lng, csrfmiddlewaretoken: '{{ csrf_token }}'};
 
                 $.post('{% url 'legend' %}', data, function(resp) {
                     var text = resp.legText
                     var arr = [];
-                    for(var key in veg_arr) {
-                        arr.push(text[veg_arr[key]]);
-                    };
+                    for(var key in veg_arr) { arr.push(text[veg_arr[key]]); };
                     var arr_string = arr.join('');
 
                     popup
@@ -862,13 +854,11 @@ if ($("div#carbon-layers input[type='checkbox']").is(":checked")) {
                 });
             };
         } else {
-
             map.closePopup();
             map.off('click');
-
         };
     });
-};
+
 /////////////////////////////////////////////////////////
 //// Add north arrow, scale, and easy print function ////
 /////////////////////////////////////////////////////////
@@ -924,7 +914,6 @@ if ($("div#carbon-layers input[type='checkbox']").is(":checked")) {
     map.on('draw:created', function (e) {
         var layer = e.layer;
         drawnItems.addLayer(layer);
-
         drawControlFull.remove(map);
         drawControlEditOnly.addTo(map);
 
@@ -940,14 +929,12 @@ if ($("div#carbon-layers input[type='checkbox']").is(":checked")) {
 
     drawnItems.on("click", function(e) {
         var layer = e.layer;
-        var centroid = layer.getBounds().getCenter();
-        var layerGeoJSON = layer.toGeoJSON();
-        var layerGeom = JSON.stringify(layerGeoJSON.geometry);
         var type = layer.toGeoJSON().geometry.type;
 
-	if (type === 'Point') {
-            layer.bindPopup('A point!');
-	} else if (type === 'Polygon') {
+	if (type === 'Polygon') {
+            var centroid = layer.getBounds().getCenter();
+            var layerGeoJSON = layer.toGeoJSON();
+            var layerGeom = JSON.stringify(layerGeoJSON.geometry);
             var queryPopup = L.popup(); 
             var c_lyrs = $("div#carbon-layers input[type='checkbox']:checked").map(function() {return this.id;});
             var c_arr = $.map(c_lyrs, function(value, index) { return [value]; });
@@ -957,13 +944,9 @@ if ($("div#carbon-layers input[type='checkbox']").is(":checked")) {
             $.post('{% url 'sumstats' %}', data, function(resp) {
                     var sumstats = resp.text
                     var arr = [];
-                    for(var key in c_arr) {
-                        arr.push(sumstats[c_arr[key]]);
-                    };
+                    for(var key in c_arr) { arr.push(sumstats[c_arr[key]]); };
                     var arr_string = arr.join('');
 
-                    console.log(arr_string);
- 
                     queryPopup
                         .setLatLng(centroid)
                         .setContent('<p><b>SUMMARY STATISTICS: </b>' +
@@ -971,8 +954,8 @@ if ($("div#carbon-layers input[type='checkbox']").is(":checked")) {
                                     '</br><b>&nbsp&nbspForest area selected: </b>' + '~' + resp.forestArea + ' ha</br>' +
                                     arr_string + "</p>")
                         .openOn(map);
-                });
-        }
+            });
+        };
     });
 
 
