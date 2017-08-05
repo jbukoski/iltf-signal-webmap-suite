@@ -929,9 +929,6 @@ function uploader() {
 
     drawnItems.on("click", function(e) {
         var layer = e.layer;
-        var centroid = layer.getBounds().getCenter();
-        var layerGeoJSON = layer.toGeoJSON();
-        var layerGeom = JSON.stringify(layerGeoJSON.geometry);
         var type = layer.toGeoJSON().geometry.type;
 
 	if (type === 'Polygon') {
