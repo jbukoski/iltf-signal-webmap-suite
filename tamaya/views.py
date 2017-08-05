@@ -8,6 +8,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 import json
 import os, os.path
 import psycopg2
+import time
 
 from django.template import RequestContext
 from django.urls import reverse
@@ -140,9 +141,30 @@ def legend_view(request):
 def sumstats_view(request):
 
     if request.method == 'POST':
+        t0 = time.time()
         geom = request.POST['geom']
 
-        query = """SELECT 
+        query = """WITH poly AS (SELECT ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS geom),
+                       poly_eq_area AS (SELECT ST_Transform(geom, 32113) AS geom_eq_area FROM poly),
+                       agc_clip AS (SELECT ST_Union(ST_Clip(agc.raster, poly.geom)) AS raster
+                           FROM tamaya_forest_agc AS agc
+                           CROSS JOIN poly),
+                       bgc_clip AS (SELECT ST_Union(ST_Clip(bgc.raster, poly.geom)) AS raster
+                           FROM tamaya_forest_bgc AS bgc
+                           CROSS JOIN poly),
+                       soc_clip AS (SELECT ST_Union(ST_Clip(soc.raster, poly.geom)) AS raster
+                           FROM tamaya_gssurgo_soc AS soc
+                           CROSS JOIN poly)
+                   SELECT (ST_SummaryStats(agc_clip.raster, true)).*,
+                          (ST_SummaryStats(bgc_clip.raster, true)).*,
+                          (ST_SummaryStats(soc_clip.raster, true)).*,
+                           ST_Area(geom_eq_area) AS area
+                   FROM agc_clip
+                       CROSS JOIN bgc_clip
+                       CROSS JOIN soc_clip
+                       CROSS JOIN poly_eq_area;""" % (geom)
+
+        query2 = """SELECT 
                        (ST_SummaryStats(ST_Clip(agc.raster, poly::geometry), true)).*,
                        (ST_SummaryStats(ST_Clip(bgc.raster, poly::geometry), true)).*,
                        (ST_SummaryStats(ST_Clip(soc.raster, poly::geometry), true)).*,
@@ -154,8 +176,13 @@ def sumstats_view(request):
 
         conn = psycopg2.connect("dbname='iltf' user='postgres'")
         cur = conn.cursor()
+        t1 = time.time()
         cur.execute(query)
+
         results = cur.fetchall()
+
+        t2 = time.time()
+     
         sumstats = results
         forestPixels = sumstats[0][0]
         area = round(sumstats[0][18]/10000, 2)
@@ -181,6 +208,7 @@ def sumstats_view(request):
         print("SOC Sum: ", soc_sum)
         print("SOC mean: ", soc_mean)
         print("SOC Mean: ", socMean)
+        print("Geom: ", geom)
         print("=======================\n\n")
 
         text = {'agc': "</br>&nbsp&nbsp<b>Carbon pool: </b> Aboveground Forest Carbon </br>" + 
@@ -193,8 +221,22 @@ def sumstats_view(request):
                        "&nbsp&nbsp<b>Total carbon: </b>" + str(socTotal) + " Mg C</br>" +
                        "&nbsp&nbsp<b>Mean carbon: </b>" + str(socMean) + " Mg C/ha</br>"}
 
+
+        t3 = time.time()
+
+        first = t1-t0
+        second = t2-t1
+        third = t3-t2
+        print("\n\n===============")
+        print("first: ", first)
+        print("second: ", second)
+        print("third: ", third)
+        print("================\n\n")
+
+
         return JsonResponse({'forestPixels': forestPixels, 'text': text, 
                              'totalArea': totalArea, 'forestArea': forestArea})
+
 
     else:
 
