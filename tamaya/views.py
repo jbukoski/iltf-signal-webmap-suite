@@ -98,19 +98,23 @@ def legend_view(request):
         lon = request.POST['lng']
 
         query = """WITH mypoint AS (SELECT ST_SetSRID(ST_MakePoint(%s, %s), 4326) geom),
-                        values  AS (SELECT
-                                      ST_Value(evt.raster, geom) AS evt_value,
-                                      ST_Value(ndvi_2005.raster, geom) AS ndvi_2005_value,
-                                      ST_Value(ndvi_2010.raster, geom) AS ndvi_2010_value,
-                                      ST_Value(ndvi_2015.raster, geom) AS ndvi_2015_value
-                                    FROM mypoint p
-                                    LEFT JOIN tamaya_landfire_evt evt ON (ST_Intersects(p.geom, evt.raster))
-                                    LEFT JOIN tamaya_ndvi_2005 ndvi_2005 ON (ST_Intersects(p.geom, evt.raster))
-                                    LEFT JOIN tamaya_ndvi_2010 ndvi_2010 ON (ST_Intersects(p.geom, evt.raster))
-                                    LEFT JOIN tamaya_ndvi_2015 ndvi_2015 ON (ST_Intersects(p.geom, evt.raster)))
-                   SELECT values.evt_value, classes.label, values.ndvi_2005_value, values.ndvi_2010_value, values.ndvi_2015_value
-                   FROM tamaya_landfire_classes classes, values
-                   WHERE classes.value = values.evt_value;""" % (lon, lat)
+                        evt_point AS (SELECT ST_Value(evt.raster, geom) AS value
+                                      FROM mypoint p, tamaya_landfire_evt evt
+                                      WHERE ST_Intersects(p.geom, evt.raster)),
+                        evt_class AS (SELECT classes.label
+                                      FROM tamaya_landfire_classes AS classes, evt_point
+                                      WHERE classes.value = evt_point.value),
+                        ndvi2005 AS (SELECT ST_Value(ndvi2005.raster, geom) AS value
+                                      FROM mypoint AS p, tamaya_ndvi_2005 AS ndvi2005
+                                      WHERE ST_Intersects(p.geom, ndvi2005.raster)),
+                        ndvi2010 AS (SELECT ST_Value(ndvi2010.raster, geom) AS value
+                                      FROM mypoint AS p, tamaya_ndvi_2010 AS ndvi2010
+                                      WHERE ST_Intersects(p.geom, ndvi2010.raster)),
+                        ndvi2015 AS (SELECT ST_Value(ndvi2015.raster, geom) AS value
+                                      FROM mypoint AS p, tamaya_ndvi_2015 AS ndvi2015
+                                      WHERE ST_Intersects(p.geom, ndvi2015.raster))
+                        SELECT *
+                        FROM evt_point, evt_class, ndvi2005, ndvi2010, ndvi2015; """ % (lon, lat)
 
         conn = psycopg2.connect("dbname='iltf' user='postgres'")
         cur = conn.cursor()
