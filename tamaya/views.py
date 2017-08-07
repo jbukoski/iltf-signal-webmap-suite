@@ -152,13 +152,16 @@ def sumstats_view(request):
                        poly_eq_area AS (SELECT ST_Transform(geom, 32113) AS geom_eq_area FROM poly),
                        agc_clip AS (SELECT ST_Union(ST_Clip(agc.rast, poly.geom)) AS raster
                            FROM tamaya_forest_agc AS agc
-                           CROSS JOIN poly),
+                             CROSS JOIN poly
+                             WHERE (ST_Intersects(poly.geom, agc.rast))),
                        bgc_clip AS (SELECT ST_Union(ST_Clip(bgc.rast, poly.geom)) AS raster
                            FROM tamaya_forest_bgc AS bgc
-                           CROSS JOIN poly),
+                             CROSS JOIN poly
+                             WHERE (ST_Intersects(poly.geom, bgc.rast))),
                        soc_clip AS (SELECT ST_Union(ST_Clip(soc.rast, poly.geom)) AS raster
                            FROM tamaya_gssurgo_soc AS soc
-                           CROSS JOIN poly)
+                             CROSS JOIN poly
+                             WHERE (ST_Intersects(poly.geom, soc.rast)))
                    SELECT (ST_SummaryStats(agc_clip.raster, true)).*,
                           (ST_SummaryStats(bgc_clip.raster, true)).*,
                           (ST_SummaryStats(soc_clip.raster, true)).*,
