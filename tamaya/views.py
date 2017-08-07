@@ -98,21 +98,26 @@ def legend_view(request):
         lon = request.POST['lng']
 
         query = """WITH mypoint AS (SELECT ST_SetSRID(ST_MakePoint(%s, %s), 4326) geom),
-                        evt_point AS (SELECT ST_Value(evt.raster, geom) AS value
-                                      FROM mypoint p, tamaya_landfire_evt evt
-                                      WHERE ST_Intersects(p.geom, evt.raster)),
+                        evt_point AS (SELECT ST_Value(evt.rast, geom) AS value
+                                      FROM mypoint AS p 
+                                      CROSS JOIN tamaya_landfire_evt AS evt
+                                      WHERE ST_Intersects(p.geom, evt.rast)),
                         evt_class AS (SELECT classes.label
-                                      FROM tamaya_landfire_classes AS classes, evt_point
+                                      FROM tamaya_landfire_classes AS classes
+                                      CROSS JOIN evt_point
                                       WHERE classes.value = evt_point.value),
-                        ndvi2005 AS (SELECT ST_Value(ndvi2005.raster, geom) AS value
-                                      FROM mypoint AS p, tamaya_ndvi_2005 AS ndvi2005
-                                      WHERE ST_Intersects(p.geom, ndvi2005.raster)),
-                        ndvi2010 AS (SELECT ST_Value(ndvi2010.raster, geom) AS value
-                                      FROM mypoint AS p, tamaya_ndvi_2010 AS ndvi2010
-                                      WHERE ST_Intersects(p.geom, ndvi2010.raster)),
-                        ndvi2015 AS (SELECT ST_Value(ndvi2015.raster, geom) AS value
-                                      FROM mypoint AS p, tamaya_ndvi_2015 AS ndvi2015
-                                      WHERE ST_Intersects(p.geom, ndvi2015.raster))
+                        ndvi2005 AS (SELECT ST_Value(ndvi2005.rast, geom) AS value
+                                      FROM mypoint AS p
+                                      CROSS JOIN tamaya_ndvi_2005 AS ndvi2005
+                                      WHERE ST_Intersects(p.geom, ndvi2005.rast)),
+                        ndvi2010 AS (SELECT ST_Value(ndvi2010.rast, geom) AS value
+                                      FROM mypoint AS p
+                                      CROSS JOIN tamaya_ndvi_2010 AS ndvi2010
+                                      WHERE ST_Intersects(p.geom, ndvi2010.rast)),
+                        ndvi2015 AS (SELECT ST_Value(ndvi2015.rast, geom) AS value
+                                      FROM mypoint AS p
+                                      CROSS JOIN tamaya_ndvi_2015 AS ndvi2015
+                                      WHERE ST_Intersects(p.geom, ndvi2015.rast))
                         SELECT *
                         FROM evt_point, evt_class, ndvi2005, ndvi2010, ndvi2015; """ % (lon, lat)
 

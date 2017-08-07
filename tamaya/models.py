@@ -139,44 +139,30 @@ class soil_data(models.Model):
 # Vegetation Layers
 
 class landfire_evt(models.Model):
-    raster_id = models.TextField(primary_key=True)
-    name = models.TextField()
-    raster = models.RasterField()
+    rast = models.RasterField()
 
 class landfire_classes(models.Model):
     value = models.FloatField()
     label = models.TextField()
 
 class ndvi_2005(models.Model):
-    raster_id = models.TextField(primary_key=True)
-    name = models.TextField()
-    raster = models.RasterField()
+    rast = models.RasterField()
 
 class ndvi_2010(models.Model):
-    raster_id = models.TextField(primary_key=True)
-    name = models.TextField()
-    raster = models.RasterField()
+    rast = models.RasterField()
 
 class ndvi_2015(models.Model):
-    raster_id = models.TextField(primary_key=True)
-    name = models.TextField()
-    raster = models.RasterField()
+    rast = models.RasterField()
 
 # Carbon layers
 
 class forest_agc(models.Model):
-    #agc_id = models.TextField(primary_key=True, default='rast')
-    #name = models.TextField(default='agc')
     rast = models.RasterField()
 
 class forest_bgc(models.Model):
-    #raster_id = models.TextField(primary_key=True)
-    #name = models.TextField()
     rast = models.RasterField()
 
 class gssurgo_soc(models.Model):
-    #raster_id = models.TextField(primary_key=True)
-    #name = models.TextField()
     rast = models.RasterField()
 
 ###########################
