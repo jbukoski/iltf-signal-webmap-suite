@@ -227,8 +227,7 @@
                                             </div>
                                         {% endfor %}
                                     {% else %}
-                                        <br>
-                                        <p>No documents.</p>
+                                        <p style="padding: 15px 0px 0px 0px;"><i>No documents uploaded.</i></p>
                                     {% endif %}
                                 </div>
                             </div>
@@ -268,19 +267,11 @@
                     </div>  <!--Closes 'panel group'-->
                 </div> <!--Closes 'user-defined layers' panel-->
 
-                <div class="tab-pane" id="documentation">
-                    <h4><strong>Overview:</strong></h4>
-                        </br>
-                        <p>This webmap is a collaboration between the Santa Ana Pueblo of New Mexico and the Spatial Informatics Group - Natural Assets Laboratory (SIG-NAL).</p>
-                        <p>This documentation tab provides reference for the data layers that are employed, explanation of the functions built into it, and suggestions for the use of the two.</p>
-    			<br>
-    			<br>
-                </div> <!--Closes tab-pane="download"-->
-
                 <div class="tab-pane" id="upload">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3><strong>Upload Data Layers:</strong></h3>
+                            <h4><b>Upload Data Layers:</b></h4>
+                            </br>
                             <p> New data layers in GeoJSON format (<b>.geojson</b>) and in a <b>EPSG:4326</b> projection may be uploaded to this webmap and used along with existing data for interactivity and visualizations.</p>
                             <div style="height: 20px;"></div>
                         </div>
@@ -311,6 +302,224 @@
                         </div>
                     </div>
                 </div> <!--Closes tab-pane="upload"-->
+
+                <div class="tab-pane" id="documentation">
+                    <div class="panel-group">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#overview">
+                                    Overview
+                                </a>
+                            </div>
+                            <div id="overview" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> This webmap is a collaborative product between the <b>Santa Ana Pueblo of New Mexico</b> and the <b>Spatial Informatics Group Natural Assets Laboratory (SIG-NAL)</b>. </p>
+                                        <p> The webmap compiles Santa Ana Pueblo data layers with publically available environmental raster layers and several functions designed to facilitate environmental decision-making within the Pueblo's jurisdiction.</p>
+                                        <p> For more information on the various data layers and webmap functions provided, expand the tabs below.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-overview">
+                                    Data Layers Overview
+                                </a>
+                            </div>
+                            <div id="data-layers-overview" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The data layers hosted on this webmap are a combination of layers provided by the Pueblo and publically accessible environmental data layers. Additional information on the layers metadata and sources are provided in the Data Layers tabs below. </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-admin" style="padding: 0px 0px 0px 15px;">
+                                    <i>Data Layers: Administrative</i>
+                                </a>
+                            </div>
+                            <div id="data-layers-admin" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The <b>administrative layers</b> hosted on the webmap consist of:
+                                              <ul>
+                                                 <li> <i>Reservation boundary</i> </li>
+                                                 <li> <i>Master business leases</i> </li>
+                                                 <li> <i>Reservation roads</i> </li>
+                                              </ul>
+                                              <p>The administrative layers are provided by the Pueblo. The layers provide the approximate reservation boundary, polygons representing five master business leases within the boundary, and a database of roads. The master business leases and roads layers can be queried for additional information.</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-hydro" style="padding: 0px 0px 0px 15px;">
+                                    <i>Data Layers: Hydrology</i>
+                                </a>
+                            </div>
+                            <div id="data-layers-hydro" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The <b>hydrology layers</b> hosted on the webmap consist of:
+                                              <ul>
+                                                 <li> <i>Watersheds</i> </li>
+                                                 <li> <i>Subwatersheds</i> </li>
+                                                 <li> <i>Surface hydrology</i> </li>
+                                              </ul>
+                                              <p>The hydrology layers are provided by the Pueblo and represent the geographic boundaries of watersheds, subwatersheds, and surface hydrology for the region. The watershed and subwatershed layers can be queried for additional information.</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-soil" style="padding: 0px 0px 0px 15px;">
+                                    <i>Data Layers: Soil Characteristics</i>
+                                </a>
+                            </div>
+                            <div id="data-layers-soil" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The <b>soil characteristics layers</b> hosted on the webmap consist of:
+                                              <ul>
+                                                 <li> <i>Soil bulk density</i> </li>
+                                                 <li> <i>Composting cover</i> </li>
+                                                 <li> <i>Organic matter</i> </li>
+                                                 <li> <i>Surface pH, weighted average</i> </li>
+                                                 <li> <i>Taxonomic classification</i> </li>
+                                                 <li> <i>Texture</i> </li>
+                                              </ul>
+                                              <p>The soil characteristics layers provide key soil characteristics data for managing landscapes. The soil characteristics data are provided for distinct sampling units that as identified by the National Cooperative Soil Survey. The data is provided by the Soil Survey Geographic database (SSURGO). More information on the soil characteristics layers can be found <a href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/soils/survey/?cid=nrcs142p2_053627">here</a>.</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-vegetation" style="padding: 0px 0px 0px 15px;">
+                                    <i>Data Layers: Vegetation</i>
+                                </a>
+                            </div>
+                            <div id="data-layers-vegetation" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The <b>vegetation layers</b> hosted on the webmap consist of:
+                                              <ul>
+                                                 <li> <i>LANDFIRE Existing Vegetation Type</i> </li>
+                                                 <li> <i>Mean Annual NDVI for three different years</i> </li>
+                                              </ul>
+                                              <p>The <b>LANDFIRE Existing Vegetation Type</b> is a product of the United States Geological Survey that provides the existing vegetation type on the landscape for 2014. More information on LANDFIRE EVT can be found <a href="https://www.landfire.gov/NationalProductDescriptions21.php">here</a>.</p>
+                                              <p>The <b>mean annual Normalized Difference Vegetation Index</b> (NDVI) layers provide the mean annual NDVI for 2005, 2010, and 2015 (i.e., the average NDVI value for each pixel in the landscape for the year of interest). NDVI is an indicator of "greenness" in a landscape, and provides a proxy for presence of healthy, green vegetation. More information on NDVI can be found <a href="https://en.wikipedia.org/wiki/Normalized_Difference_Vegetation_Index" target="_blank">here</a>.</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-carbon" style="padding: 0px 0px 0px 15px;">
+                                    <i>Data Layers: Carbon</i>
+                                </a>
+                            </div>
+                            <div id="data-layers-carbon" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The <b>carbon layers</b> hosted on the webmap consist of:
+                                              <ul>
+                                                 <li> <i>Aboveground forest carbon</i> </li>
+                                                 <li> <i>Belowground forest carbon</i> </li>
+                                                 <li> <i>Soil organic carbon</i> </li>
+                                              </ul>
+                                              <p>All of the carbon layers are taken from the United States Department of Agriculture's <a href="www.carbonscapes.org" target="_blank">CarbonScapes</a> Initiative, which seeks to providely publically accessible data on geospatial patterns of terrestrial carbon within the United States.</p>
+				              <p>The <b>aboveground forest carbon</b> data layer provides estimates of aboveground biomass carbon (g/cm<sup>3</sup>) gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=93">here</a>.</p>
+                                              <p>The <b>belowground forest carbon</b> data layer provides estimates of belowground biomass carbon (g/cm<sup>3</sup> gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=94">here</a>.</p>
+                                              <p>The <b>soil organic carbon</b> provides data on organic carbon (g/cm<sup>3</sup>) from 0 - 100 cm, gridded to a 10 x 10 m resolution. The data is provided by the gridded Soil Survey Geographic Database (gSSURGO), and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=80">here</a>.</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#functions-overview">
+                                    Functions Overview
+                                </a>
+                            </div>
+                            <div id="functions-overview" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The data layers hosted on this webmap are a combination of layers provided by the Pueblo and publically accessible environmental data layers.</p>
+                                        <p> The <i> Admin Layers </i> and the <i> Hydrology Layers </i> were provided by the Pueblo. </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#import-doc" style="padding: 0px 0px 0px 15px;">
+                                    <i>Functions: Layer Import</i>
+                                </a>
+                            </div>
+                            <div id="import-doc" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> Some text </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#legend" style="padding: 0px 0px 0px 15px;">
+                                    <i>Functions: Legend</i>
+                                </a>
+                            </div>
+                            <div id="legend" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> Some text </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#sum-stats" style="padding: 0px 0px 0px 15px;">
+                                    <i>Functions: Summary Statistics</i>
+                                </a>
+                            </div>
+                            <div id="sum-stats" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> Some text </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> <!-- closes 'panel-group' -->
+                </div> <!--Closes tab-pane="documentation"-->
+
             </div> <!--Closes 'tab-content'-->
         </div> <!--Closes ID="sidebar"-->
 
