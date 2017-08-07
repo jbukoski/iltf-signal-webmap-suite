@@ -150,13 +150,13 @@ def sumstats_view(request):
 
         query = """WITH poly AS (SELECT ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS geom),
                        poly_eq_area AS (SELECT ST_Transform(geom, 32113) AS geom_eq_area FROM poly),
-                       agc_clip AS (SELECT ST_Union(ST_Clip(agc.raster, poly.geom)) AS raster
+                       agc_clip AS (SELECT ST_Union(ST_Clip(agc.rast, poly.geom)) AS raster
                            FROM tamaya_forest_agc AS agc
                            CROSS JOIN poly),
-                       bgc_clip AS (SELECT ST_Union(ST_Clip(bgc.raster, poly.geom)) AS raster
+                       bgc_clip AS (SELECT ST_Union(ST_Clip(bgc.rast, poly.geom)) AS raster
                            FROM tamaya_forest_bgc AS bgc
                            CROSS JOIN poly),
-                       soc_clip AS (SELECT ST_Union(ST_Clip(soc.raster, poly.geom)) AS raster
+                       soc_clip AS (SELECT ST_Union(ST_Clip(soc.rast, poly.geom)) AS raster
                            FROM tamaya_gssurgo_soc AS soc
                            CROSS JOIN poly)
                    SELECT (ST_SummaryStats(agc_clip.raster, true)).*,
@@ -167,16 +167,6 @@ def sumstats_view(request):
                        CROSS JOIN bgc_clip
                        CROSS JOIN soc_clip
                        CROSS JOIN poly_eq_area;""" % (geom)
-
-        query2 = """SELECT 
-                       (ST_SummaryStats(ST_Clip(agc.raster, poly::geometry), true)).*,
-                       (ST_SummaryStats(ST_Clip(bgc.raster, poly::geometry), true)).*,
-                       (ST_SummaryStats(ST_Clip(soc.raster, poly::geometry), true)).*,
-                       ST_Area(polyEqArea)
-                   FROM
-                       tamaya_forest_agc AS agc, tamaya_forest_bgc AS bgc, tamaya_gssurgo_soc AS soc,
-                       ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS poly,
-                       ST_Transform(poly, 32113) AS polyEqArea;""" % (geom)
 
         conn = psycopg2.connect("dbname='iltf' user='postgres'")
         cur = conn.cursor()
@@ -208,10 +198,6 @@ def sumstats_view(request):
             
         print("\n\n=======In Sumstats View=======")
         print(sumstats)
-        print("SOC Total: ", socTotal)
-        print("SOC Sum: ", soc_sum)
-        print("SOC mean: ", soc_mean)
-        print("SOC Mean: ", socMean)
         print("Geom: ", geom)
         print("=======================\n\n")
 

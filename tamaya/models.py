@@ -165,19 +165,19 @@ class ndvi_2015(models.Model):
 # Carbon layers
 
 class forest_agc(models.Model):
-    raster_id = models.TextField(primary_key=True)
-    name = models.TextField()
-    raster = models.RasterField()
+    #agc_id = models.TextField(primary_key=True, default='rast')
+    #name = models.TextField(default='agc')
+    rast = models.RasterField()
 
 class forest_bgc(models.Model):
-    raster_id = models.TextField(primary_key=True)
-    name = models.TextField()
-    raster = models.RasterField()
+    #raster_id = models.TextField(primary_key=True)
+    #name = models.TextField()
+    rast = models.RasterField()
 
 class gssurgo_soc(models.Model):
-    raster_id = models.TextField(primary_key=True)
-    name = models.TextField()
-    raster = models.RasterField()
+    #raster_id = models.TextField(primary_key=True)
+    #name = models.TextField()
+    rast = models.RasterField()
 
 ###########################
 ## For file upload
