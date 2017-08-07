@@ -465,7 +465,28 @@
                             <div id="functions-overview" class="panel-collapse collapse">
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div style="padding: 15px 5px;">
-                                        <p> Some text. </p>
+                                        <p> The webmap's functions are designed to empower its users in environmental decision-making. The primary functions comprise of:</p>
+                                        <ul>
+                                            <li><i>Layer query</i></li>
+                                            <li><i>Layer import</i></li>
+                                            <li><i>Raster summary statistics</i></li>
+                                        </ul>
+                                        <p> The functions are described in greater detail below.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#legend" style="padding: 0px 0px 0px 15px;">
+                                    <i>Functions: Layer Query</i>
+                                </a>
+                            </div>
+                            <div id="legend" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The various vector layers hold attribute data that can be accessed by clicking on the polygon or line. In addition, the raster data of the <b>vegetation layers</b> can be queried by turning on each of the layers and clicking on the map. A popup will be returned that displays the information of interest.</p>
                                     </div>
                                 </div>
                             </div>
@@ -480,22 +501,13 @@
                             <div id="import-doc" class="panel-collapse collapse">
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div style="padding: 15px 5px;">
-                                        <p> Some text </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#legend" style="padding: 0px 0px 0px 15px;">
-                                    <i>Functions: Legend</i>
-                                </a>
-                            </div>
-                            <div id="legend" class="panel-collapse collapse">
-                                <div class="panel-body" style="padding: 0px 15px;">
-                                    <div style="padding: 15px 5px;">
-                                        <p> Some text </p>
+                                        <p> The <b>layer import</b> function can be accessed through the <b><i>Import</i></b> tab. To import a vector layer to the webmap, there are two key criteria: </p>
+                                        <ol>
+                                            <li>The layer must be in <b>.geojson</b> format.</li>
+                                            <li>The layer must be in <b>EPSG:4326</b> projection. </li>
+                                        </ol>
+                                        <p> GeoJSON is a native format for webmapping, as is the EPSG:4326 projection. If files are uploaded, but cannot be displayed on the webmap, it is likely that one of these two criteria is not met. ESRI Shapefiles can be converted to GeoJSON format and EPSG:4326 projection through basic, free and open source GIS software such as <a href="http://www.qgis.org/en/site/" target="_blank">QGIS</a>.</p>
+                                        <p> To import a layer, simply select the <b><i>Import</i></b> tab and click on the <b><i>Choose file</i></b> button. Navigate to the GeoJSON file you'd like to upload, and select it. After doing so, basic information about the file will be displayed. Select the red <b><i>Upload file</i></b> button to upload the file. The layer should not be available within the <b><i>User-defined Layers</i></b> section under the <b><i>Layers</i></b> tab.</p>
                                     </div>
                                 </div>
                             </div>
@@ -510,11 +522,14 @@
                             <div id="sum-stats" class="panel-collapse collapse">
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div style="padding: 15px 5px;">
-                                        <p> Some text </p>
+                                        <p> The <b>summary statistics</b> function provides a means of estimating pools of carbon over select geographic areas within the landscape. In short, the function allows the user to summarize any of the carbon layers within a polygon of interest.</p>
+                                        <p> To run the <b>summary statistics</b> function, simply turn on any or all of the <b>carbon layers</b>. Then, use the one of the <b>draw</b> tools (the square and pentagon buttons directly below the image of the printer) to draw a polygon on the map. After the polygon is drawn, click on it and a pop-up will display showing the summary statistics of the selected layer. Note that for large polygons, the summary function may take several seconds to run. </p>
+					<p> To select a different polygon, you must either <b>edit</b>, or <b>delete</b> the existing polygon. Click on the pencil icon to <b>edit</b>, or the trashcan icon to <b>delete</b> the polygon (select the trashcan, click the polygon, and then select "save"). You will then be able to <b>draw</b> a new polygon. </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        </br>
 
                     </div> <!-- closes 'panel-group' -->
                 </div> <!--Closes tab-pane="documentation"-->
