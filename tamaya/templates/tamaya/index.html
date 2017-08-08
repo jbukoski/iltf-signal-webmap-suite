@@ -604,7 +604,7 @@ function show_static( tmp_idx ) {
                         var arr_string = arr.join('');
 
                         if(resp.totalArea < 62.5) {
-                            var areaFlag = '</br><b>&nbsp&nbspNote:</b> The queried polygon area is small relative to the resolution of the forest carbon pixels. The biomass forest carbon estimates cannot be provided. The soil organic carbon results may still be valid. </br>';
+                            var areaFlag = '</br><b>&nbsp&nbspNote:</b> The queried polygon area is small relative to the resolution of the forest carbon pixels. Valid biomass forest carbon estimates cannot be provided. The soil organic carbon results may still be valid. </br>';
                             if($.inArray('gssurgoSOC', c_arr) > -1) {
                                 if(Object.keys(c_arr).length > 1) {
                                     var arr_string = areaFlag.concat(statsText['gssurgoSOC']);
