@@ -368,7 +368,7 @@ def texture_dl_view(request):
 ## Vegetation layers
 
 def landfire_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'landfireEVT.tif'), "rb")
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_landfire_evt.tif'), "rb")
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="tamaya_landfire_evt.tif"'
 
