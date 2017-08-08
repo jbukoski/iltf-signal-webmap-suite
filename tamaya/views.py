@@ -79,8 +79,8 @@ def render_geojson_view(request):
         lyr_json = open(os.path.join(os.path.dirname(path), 'media', lyr), 'r+').read()
 
         print("\n\n++++++++++++\nWithin render_geojson_view")
-        print("lyr: ", lyr)
-        print("lyr_json: ", lyr_json)
+#        print("lyr: ", lyr)
+#        print("lyr_json: ", lyr_json)
         print("++++++++++\n\n")
 
         return JsonResponse({'layer': lyr, 'layer_json': lyr_json})
@@ -150,7 +150,6 @@ def legend_view(request):
 def sumstats_view(request):
 
     if request.method == 'POST':
-        t0 = time.time()
         geom = request.POST['geom']
 
         query = """WITH poly AS (SELECT ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS geom),
@@ -167,41 +166,45 @@ def sumstats_view(request):
                            FROM tamaya_gssurgo_soc AS soc
                              CROSS JOIN poly
                              WHERE (ST_Intersects(poly.geom, soc.rast)))
-                   SELECT (ST_SummaryStats(agc_clip.raster, true)).*,
-                          (ST_SummaryStats(bgc_clip.raster, true)).*,
-                          (ST_SummaryStats(soc_clip.raster, true)).*,
-                           ST_Area(geom_eq_area) AS area
-                   FROM agc_clip
+                   SELECT ST_Area(geom_eq_area) AS area,
+                         (ST_SummaryStats(agc_clip.raster, true)).*,
+                         (ST_SummaryStats(bgc_clip.raster, true)).*,
+                         (ST_SummaryStats(soc_clip.raster, true)).*
+                   FROM poly_eq_area
+                       CROSS JOIN agc_clip
                        CROSS JOIN bgc_clip
-                       CROSS JOIN soc_clip
-                       CROSS JOIN poly_eq_area;""" % (geom)
+                       CROSS JOIN soc_clip;""" % (geom)
 
         conn = psycopg2.connect("dbname='iltf' user='postgres'")
         cur = conn.cursor()
-        t1 = time.time()
         cur.execute(query)
 
         results = cur.fetchall()
 
-        t2 = time.time()
-     
-        sumstats = results
-        forestPixels = sumstats[0][0]
-        area = round(sumstats[0][18]/10000, 2)
-        agc_sum = round(sumstats[0][1], 2)
-        agc_mean = round(sumstats[0][2], 2)
-        bgc_sum = round(sumstats[0][7], 2)
-        bgc_mean = round(sumstats[0][8], 2)
-        soc_sum = round(sumstats[0][13], 2)
-        soc_mean = round(sumstats[0][14], 2)
-        totalArea = "{:,}".format(area, 2)
+        sumstats = [i for i in results[0]]
+
+        for i in range(len(sumstats)):
+            if(sumstats[i] is None):
+                sumstats[i] = 0
+            else: 
+                sumstats[i] = round(sumstats[i], 2)
+
+        forestPixels = sumstats[1]
+        area = sumstats[0]/10000
+        totalArea = "{:,}".format(round(area, 2))
+        forestArea = "{:,}".format(round(forestPixels * 6.25, 2))
+        agc_sum = sumstats[2]
+        agc_mean = sumstats[3]
+        bgc_sum = sumstats[8]
+        bgc_mean = sumstats[9]
+        soc_sum = sumstats[14]
+        soc_mean = sumstats[15]
         agcTotal = "{:,}".format(round((agc_sum / 100 * 6.25), 2))
         agcMean = "{:,}".format(round(agc_mean / 100, 2))
         bgcTotal = "{:,}".format(round((bgc_sum / 100 * 6.25), 2))
         bgcMean = "{:,}".format(round(bgc_mean / 100, 2))
         socTotal = "{:,}".format(round((soc_sum / 100 * 0.01), 2))
         socMean = "{:,}".format(round(soc_mean / 100, 2))
-        forestArea = "{:,}".format(round(forestPixels * 6.25, 2))
         conn.close()
             
         print("\n\n=======In Sumstats View=======")
@@ -219,22 +222,8 @@ def sumstats_view(request):
                        "&nbsp&nbsp<b>Total carbon: </b>" + str(socTotal) + " Mg C</br>" +
                        "&nbsp&nbsp<b>Mean carbon: </b>" + str(socMean) + " Mg C/ha</br>"}
 
-
-        t3 = time.time()
-
-        first = t1-t0
-        second = t2-t1
-        third = t3-t2
-        print("\n\n===============")
-        print("first: ", first)
-        print("second: ", second)
-        print("third: ", third)
-        print("================\n\n")
-
-
         return JsonResponse({'forestPixels': forestPixels, 'text': text, 
                              'totalArea': totalArea, 'forestArea': forestArea})
-
 
     else:
 

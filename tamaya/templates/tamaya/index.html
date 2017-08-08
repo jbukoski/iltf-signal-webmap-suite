@@ -581,6 +581,53 @@ function show_static( tmp_idx ) {
         $("input[type='checkbox'][id='" + tmp_idx + "']").change(function () {
             if (this.checked) {
                 map.addLayer(usr_lyr);
+                
+                usr_lyr.on('click', function(e) { 
+                    var usr_lyr = e.layer;
+                    var centroid = usr_lyr.getBounds().getCenter();
+                    var lyrGeoJSON = usr_lyr.toGeoJSON();
+                    var lyrGeom = JSON.stringify(lyrGeoJSON.geometry);
+                    var c_lyrs = $("div#carbon-layers input[type='checkbox']:checked").map(function() {return this.id;});
+                    var c_arr = $.map(c_lyrs, function(value, index) { return [value]; });
+
+                    var usrPopup = L.popup();
+                    
+                    data = {'geom': lyrGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
+
+                    $.post('{% url 'sumstats' %}', data, function(resp) {
+
+                        var statsText = resp.text;
+                        var arr = [];
+                        for(var key in c_arr) { 
+                            arr.push(statsText[c_arr[key]]); 
+                        };
+                        var arr_string = arr.join('');
+
+                        if(resp.totalArea < 62.5) {
+                            var areaFlag = '</br><b>&nbsp&nbspNote:</b> The queried polygon area is small relative to the resolution of the forest carbon pixels. The biomass forest carbon estimates cannot be provided. The soil organic carbon results may still be valid. </br>';
+                            if($.inArray('gssurgoSOC', c_arr) > -1) {
+                                if(Object.keys(c_arr).length > 1) {
+                                    var arr_string = areaFlag.concat(statsText['gssurgoSOC']);
+                                } else {
+                                    var arr_string = statsText['gssurgoSOC'];
+                                };
+                            } else {
+                                var arr_string = areaFlag;
+                            };
+                        };
+
+                        usrPopup
+                            .setLatLng(centroid)
+                            .setContent('<p><b>SUMMARY STATISTICS: </b>' +
+                                        '</br><b>&nbsp&nbspArea selected: </b>' + resp.totalArea + ' ha' +
+                                        '</br><b>&nbsp&nbspForest area selected: </b>' + resp.forestArea + ' ha</br>' + 
+                                        arr_string + "</p>")
+                        if(Object.keys(c_arr).length > 0) {    
+                            usrPopup .openOn(map);
+                        };
+                    });
+                });
+
             } else if (!this.checked) {
                 map.removeLayer(usr_lyr);
                 usr_lyr.clearLayers();
