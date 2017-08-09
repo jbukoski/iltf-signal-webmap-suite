@@ -598,7 +598,9 @@ function show_static( tmp_idx ) {
 
                         var statsText = resp.text;
                         var arr = [];
-                        for(var key in c_arr) { 
+                        for(var key in c_arr) {
+                            var forestArea = '<b>&nbsp&nbspForest area selected: </b>' + resp.forestArea + ' ha</br>';
+                            arr.push(forestArea); 
                             arr.push(statsText[c_arr[key]]); 
                         };
                         var arr_string = arr.join('');
@@ -619,9 +621,9 @@ function show_static( tmp_idx ) {
                         usrPopup
                             .setLatLng(centroid)
                             .setContent('<p><b>SUMMARY STATISTICS: </b>' +
-                                        '</br><b>&nbsp&nbspArea selected: </b>' + resp.totalArea + ' ha' +
-                                        '</br><b>&nbsp&nbspForest area selected: </b>' + resp.forestArea + ' ha</br>' + 
+                                        '</br><b>&nbsp&nbspArea selected: </b>' + resp.totalArea + ' ha</br>' +
                                         arr_string + "</p>")
+
                         if(Object.keys(c_arr).length > 0) {    
                             usrPopup .openOn(map);
                         };
@@ -1212,18 +1214,37 @@ function uploader() {
             data = {'geom': layerGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
 
             $.post('{% url 'sumstats' %}', data, function(resp) {
-                    var sumstats = resp.text
+                    var statsText = resp.text
                     var arr = [];
-                    for(var key in c_arr) { arr.push(sumstats[c_arr[key]]); };
+                    for(var key in c_arr) { 
+                        var forestArea = '<b>&nbsp&nbspForest area selected: </b>' + '~' + resp.forestArea + ' ha</br>';
+                        arr.push(forestArea); 
+                        arr.push(statsText[c_arr[key]]); 
+                    };
                     var arr_string = arr.join('');
+
+                    if(resp.totalArea < 62.5) {
+                        var areaFlag = '</br><b>&nbsp&nbspNote:</b> The queried polygon area is small relative to the resolution of the forest carbon pixels. Valid biomass forest carbon estimates cannot be provided. The soil organic carbon results may still be valid. </br>';
+                        if($.inArray('gssurgoSOC', c_arr) > -1) {
+                            if(Object.keys(c_arr).length > 1) {
+                                var arr_string = areaFlag.concat(statsText['gssurgoSOC']);
+                            } else {
+                                var arr_string = statsText['gssurgoSOC'];
+                            };
+                        } else {
+                            var arr_string = areaFlag;
+                        };
+                    };
+
 
                     queryPopup
                         .setLatLng(centroid)
                         .setContent('<p><b>SUMMARY STATISTICS: </b>' +
-                                    '</br><b>&nbsp&nbspArea selected: </b>' + resp.totalArea + ' ha' +
-                                    '</br><b>&nbsp&nbspForest area selected: </b>' + '~' + resp.forestArea + ' ha</br>' +
+                                    '</br><b>&nbsp&nbspArea selected: </b>' + resp.totalArea + ' ha</br>' +
                                     arr_string + "</p>")
-                        .openOn(map);
+                    if(Object.keys(c_arr).length > 0) {    
+                        queryPopup.openOn(map);
+                    };
             });
         };
     });
