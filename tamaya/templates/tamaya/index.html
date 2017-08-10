@@ -221,8 +221,10 @@
                                         {% for document in documents %}
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="uploadLayers" id="{{ document.docfile.name }}" z-index="3" onclick="show_static('{{ document.docfile.name }}')"><p class="setFileName2">
-                                                        &nbsp {{ document.docfile.name }}</p>
+                                                    <input type="checkbox" name="uploadLayers" id="{{ document.docfile.name }}" z-index="3" onclick="show_static('{{ document.docfile.name }}')">
+                                                        <p class="setFileName2">
+                                                            &nbsp {{ document.docfile.name }}
+                                                        </p>
                                                 </label>
                                             </div>
                                         {% endfor %}
@@ -637,6 +639,10 @@ function show_static( tmp_idx ) {
         });
     }
 }
+
+function delete_lyr() {
+    console.log("Function to delete the layer")
+    };
 
 function uploader() {
 

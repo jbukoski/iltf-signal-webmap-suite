@@ -79,8 +79,6 @@ def render_geojson_view(request):
         lyr_json = open(os.path.join(os.path.dirname(path), 'media', lyr), 'r+').read()
 
         print("\n\n++++++++++++\nWithin render_geojson_view")
-#        print("lyr: ", lyr)
-#        print("lyr_json: ", lyr_json)
         print("++++++++++\n\n")
 
         return JsonResponse({'layer': lyr, 'layer_json': lyr_json})
@@ -125,6 +123,7 @@ def legend_view(request):
         cur = conn.cursor()
         cur.execute(query)
         results = cur.fetchall()
+
         landfireEVT = int(results[0][0])
         evtClass = results[0][1]
         ndvi2005 = round(results[0][2], 4)
