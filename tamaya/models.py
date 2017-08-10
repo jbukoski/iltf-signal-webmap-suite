@@ -20,6 +20,14 @@ class boundary(models.Model):
     def __str__(self):
         return '%s' % (self.id)
 
+class buffered_bndry(models.Model):
+    dn = models.BigIntegerField()
+    geom = models.MultiPolygonField(srid=4326)
+
+    def __str__(self):
+        return '%s' % (self.dn)
+
+
 class mbls(models.Model):
     mbls_id = models.AutoField(primary_key=True)
     area = models.FloatField()

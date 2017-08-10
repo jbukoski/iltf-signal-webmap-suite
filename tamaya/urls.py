@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^login/$', auth_views.login, {'template_name': 'registration/login.html'}),
     url(r'^boundary/', views.boundary_view, name='boundary'),
+    url(r'^buff_bndry/', views.buff_boundary_view, name='buff_bndry'),
     url(r'^mbls/', views.mbls_view, name='mbls'),
     url(r'^roads/', views.roads_view, name='roads'),
     url(r'^watersheds/', views.watersheds_view, name='watersheds'),

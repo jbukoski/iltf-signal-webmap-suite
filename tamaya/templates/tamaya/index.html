@@ -783,20 +783,6 @@ function uploader() {
         clickable: true
     });
 
-
-
-/////// Oliver's Layers ////////
-
-    var sample_boundary=new L.GeoJSON.AJAX("{% url 'render_geojson' %}", {
-        style: { clickable: false,
-                 weight: 3,
-                 //color: '#000000',
-                 dashArray: 3,
-                 opacity: 1,
-                 fill: false,
-               }
-    });
-
 //////// Vector Layers ////////
 
     var boundary=new L.GeoJSON.AJAX("{% url 'boundary' %}", {
@@ -806,6 +792,15 @@ function uploader() {
                  dashArray: 3,
                  opacity: 1,
                  fill: false,
+               }
+    });
+
+    var buff_bndry = new L.GeoJSON.AJAX("{% url 'buff_bndry' %}", {
+        style: {clickable: true,
+                opacity: 0,
+                fill: true,
+                fillOpacity: 0,
+                zIndex: -100,
                }
     });
 
@@ -1106,6 +1101,8 @@ function uploader() {
 
             var popup = L.popup();
 
+            buff_bndry.addTo(map);
+
             map.on('click', function(e) {
                 var lng = e.latlng.lng;
                 var lat = e.latlng.lat;
@@ -1133,6 +1130,7 @@ function uploader() {
             };
         } else {
             map.closePopup();
+            buff_bndry.remove();
             map.off('click');
         };
     });

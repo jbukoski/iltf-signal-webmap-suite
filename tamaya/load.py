@@ -15,6 +15,13 @@ boundary_mapping = {
 
 boundary_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'boundary.shp'))
 
+buffered_bndry_mapping = {
+    'dn' : 'DN',
+    'geom' : 'MULTIPOLYGON',
+}
+
+buffered_bndry_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'tamaya', 'boundary_buffered.shp'))
+
 mbls_mapping = {
     'area' : 'AREA',
     'perimeter' : 'PERIMETER',
@@ -119,6 +126,12 @@ def run(verbose=True):
     )
     boundary_lm.save(strict=True, verbose=verbose)
 
+    buffered_bndry_lm = LayerMapping(
+        models.buffered_bndry, buffered_bndry_shp, buffered_bndry_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    buffered_bndry_lm.save(strict=True, verbose=verbose)
+
     mbls_lm = LayerMapping(
         models.mbls, mbls_shp, mbls_mapping,
         transform=False, encoding='iso-8859-1',
@@ -158,5 +171,5 @@ def run(verbose=True):
 
     landfire_classes_lm = LayerMapping(
         models.landfire_classes, landfire_legends, landfire_classes_mapping,
-    }
+    )
     landfire_classes_lm.save(strict=True, verbose=verbose)

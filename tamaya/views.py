@@ -235,6 +235,10 @@ def boundary_view(request):
     boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field="geom")
     return HttpResponse(boundary_json, content_type='json')
 
+def buff_boundary_view(request):
+    buff_boundary_json = serialize('geojson', models.buffered_bndry.objects.all(), geometry_field="geom")
+    return HttpResponse(buff_boundary_json, content_type='json')
+
 def mbls_view(request):
     mbls_json = serialize('geojson', models.mbls.objects.all(), geometry_field="geom", fields=('area', 'acres', 'comment', 'perimeter', 'mbl_field'))
     return HttpResponse(mbls_json, content_type='json')
