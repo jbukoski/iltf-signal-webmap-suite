@@ -9,6 +9,5 @@ import os
 
 def index(request):
     return render(request, 'index.html', {
-        'title': 'Lower Brule Sioux Tribe',
     })
 

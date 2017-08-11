@@ -171,9 +171,8 @@ Styling for index.html (home page)
 
 #index-home {
     background-color: rgba(255,255,255,0.7);
-    padding: 6rem 2rem 2rem 2rem;
+    padding: 2rem 2rem 2rem 2rem;
     height: 100%;
-    /*right: 10rem;*/
     right: 0rem;
     position: absolute;
 }
@@ -182,9 +181,9 @@ Styling for index.html (home page)
     text-align: center;
     font-family: 'Oswald', Sans-Serif;
     text-transform: uppercase;
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    font-size: 32px;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    font-size: 28px;
     font-weight: 500;
 }
 
@@ -192,7 +191,8 @@ Styling for index.html (home page)
     text-align: center;
     font-family: "Arial", Sans-Serif;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 15px;
+    padding-bottom: 1rem;
 }
 
 #index-home #logos{
@@ -204,7 +204,6 @@ Styling for index.html (home page)
 }
 
 #index-home a{
-    bottom: 0;
 }
 
 @media (min-width: 768px) {
@@ -212,3 +211,32 @@ Styling for index.html (home page)
         right: 10rem;
     }
 }
+
+#index-home #login {
+    padding-top: 2rem;
+    padding-bottom: 2rem; 
+}
+
+
+#login .logBut {
+    width: 32rem;
+    color: white;
+    text-align: center;
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    border: blue;
+    border-radius: 4px;
+    background: #722421;
+}
+
+#login p input {
+    width: 25rem;
+}
+
+
+
+#index-home #login-boxes #login-button{
+    width: 23rem;
+}
+
