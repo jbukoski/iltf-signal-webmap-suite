@@ -14,12 +14,13 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^$', views.index, name='iltf_index'),
+    url(r'^accounts/login/', views.custLogin, name='custLogin'),
     url(r'^admin/', admin.site.urls),
-    url(r'^comanche/', include('comanche.urls')),
+    url(r'^comanche/', include('comanche.urls'), name='comanche'),
     url(r'^comanche/admin', include(comanche_admin.urls)),
     url(r'^lbst/', include('lbst.urls')),
     url(r'^lbst/admin', include(lbst_admin.urls)),
-    url(r'^tamaya/', include('tamaya.urls')),
+    url(r'^tamaya/', include('tamaya.urls'), name='tamaya'),
     url(r'^tamaya/admin/', include(tamaya_admin.urls)),
 ]
 

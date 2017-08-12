@@ -22,6 +22,9 @@ path = os.path.dirname(os.path.abspath(__file__))
 
 @login_required(login_url='/login/')
 def index(request):
+     
+    if not request.user.username == 'tamaya_user':
+        return HttpResponseRedirect(reverse('iltf_index'))
 
     bndry = models.boundary.objects.all()
     documents = models.Document.objects.all()

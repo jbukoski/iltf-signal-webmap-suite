@@ -1,9 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.serializers import serialize
+from django.urls import reverse
 from . import models
 
 def index(request):
+    if not request.user.username == 'comanche_user':
+        return HttpResponseRedirect(reverse('iltf_index'))
+
     return render(request, 'comanche/index.html', {
         'title': 'Comanche',
     })

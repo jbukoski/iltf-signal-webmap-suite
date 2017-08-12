@@ -14,6 +14,9 @@
             <ul class="nav navbar-nav pull-left">
                 <a class="navbar-brand" href="#" style="font-size: 0.75m; color: gray;">Land & Natural Assets Map</a>
             </ul>
+            <ul class="nav navbar-nav pull-right">
+                <a class="navbar-brand" href="{% url 'signout' %}" style="font-size: 18px; color: grey;">Log Out</a>
+            </ul>
         </div>
     </div>
 
@@ -112,20 +115,20 @@
                                     <div class="panel-body" style="padding: 0px 15px;">
 					<div class="radio">
 					    <label>
-                                                <input type="radio" name="basemapLayers" id="recent"checked>
-                                                &nbsp Digital Globe imagery, no roads		
+                                                <input type="radio" name="basemapLayers" id="esriWorld"checked>
+                                                &nbsp World Imagery, ESRI		
                                             </label>
                                         </div>
                                         <div class="radio">
 					    <label>
-                                                <input type="radio" name="basemapLayers" id="hybrid">
-                                                &nbsp Digital Globe imagery, with roads		
+                                                <input type="radio" name="basemapLayers" id="topo">
+                                                &nbsp Topography, ESRI		
                                             </label>
                                         </div>
 					<div class="radio">    
 					    <label>
-                                                <input type="radio" name="basemapLayers" id="topo">
-                                                &nbsp Topography, ESRI
+                                                <input type="radio" name="basemapLayers" id="osmBaseMap">
+                                                &nbsp Open Street Map
                                             </label>
                                         </div>                                     
 				    </div> 
@@ -302,7 +305,7 @@
         center: [34.79, -98.45], 
         minZoom: 6,
         maxZoom: 20,
-        layers: [recent, counties, boundaries]
+        layers: [esriWorld, counties, boundaries]
     });
 
 ///////////////////////////////////////

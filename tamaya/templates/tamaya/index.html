@@ -1184,6 +1184,8 @@ function uploader() {
     var drawControlFull = new L.Control.Draw(drawOptionsFull);
     var drawControlEditOnly = new L.Control.Draw(drawOptionsEditOnly);
     var layerGeom = {};
+    var queryPopup = L.popup();
+    var centroid = [];
 
     map.addControl(drawControlFull);
 
@@ -1203,6 +1205,8 @@ function uploader() {
     });
 
 
+
+
     drawnItems.on("click", function(e) {
         var layer = e.layer;
         var type = layer.toGeoJSON().geometry.type;
@@ -1211,7 +1215,7 @@ function uploader() {
             var centroid = layer.getBounds().getCenter();
             var layerGeoJSON = layer.toGeoJSON();
             var layerGeom = JSON.stringify(layerGeoJSON.geometry);
-            var queryPopup = L.popup(); 
+            //var queryPopup = L.popup(); 
             var c_lyrs = $("div#carbon-layers input[type='checkbox']:checked").map(function() {return this.id;});
             var c_arr = $.map(c_lyrs, function(value, index) { return [value]; });
 
