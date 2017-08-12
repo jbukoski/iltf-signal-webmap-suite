@@ -3,6 +3,7 @@ from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from . import models
 from django.core.serializers import serialize
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 import json
@@ -518,3 +519,9 @@ def delete_up_view(request):
 
 
     return HttpResponseRedirect(reverse('index'))
+
+# Logout
+
+def signout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('iltf_index'))

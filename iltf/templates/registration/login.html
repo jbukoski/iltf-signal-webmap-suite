@@ -46,9 +46,22 @@
                         <p><i>Participating tribes may log in below to access their webmap.</i></p>
                     </div>
                     <div id="login">
-                        <form id="login-boxes" class="login" method="POST" action="/login/">
+                        <form id="login-boxes" class="login" method="POST" action="{% url 'login' %}">
                             {% csrf_token %}
-                            {{form.as_p}}
+                            <!--{{form.as_p}}-->
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ form.username.label_tag }}</td>
+                                        <td>{{ form.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ form.password.label_tag }}</td>
+                                        <td>{{ form.password }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </br>
                         <input type="submit" class="logBut" value="Log In"/>
                         <input type="hidden" name="next" value="/tamaya/" />
                         </form>

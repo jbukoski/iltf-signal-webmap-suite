@@ -13,7 +13,7 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^', include('django.contrib.auth.urls')),
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.index, name='iltf_index'),
     url(r'^admin/', admin.site.urls),
     url(r'^comanche/', include('comanche.urls')),
     url(r'^comanche/admin', include(comanche_admin.urls)),

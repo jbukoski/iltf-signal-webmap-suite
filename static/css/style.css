@@ -230,11 +230,28 @@ Styling for index.html (home page)
     background: #722421;
 }
 
-#login p input {
-    width: 25rem;
+#login table {
+    padding-bottom: 4rem;
+    position: relative;
+    margin: 0 auto;
 }
 
+#login table tbody {
+    position: relative;
+    margin: 0 auto;
+}
 
+#login table tr td {
+    text-align: center
+}
+
+#login table #id_password {
+    width: 30rem;
+}
+
+#login table #id_username {
+    width: 30rem;
+}
 
 #index-home #login-boxes #login-button{
     width: 23rem;

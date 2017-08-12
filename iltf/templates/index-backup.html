@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title> Santa Ana Webmap Login </title>
-
+   <head>
+        <title>ILTF Webmapping Program</title>
         <meta charset="utf-8">
         <meta content="THe ILTF Webmapping Program is developed by the Spatial Informatics Group" name="description">
         <meta content="ILTF webmapping carbon land acquisition tamaya comanche" name="keywords">
@@ -17,19 +16,10 @@
         <link rel="stylesheet" type="text/css" href="{% static 'dist/leaflet.draw.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'lib/opacity/Control.Opacity.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'lib/jquery/jquery-ui-1.10.3.custom.min.css' %}">
+   </head>
 
-
-    <style>
-    #container {
-        margin: 10% auto;
-        width: 28em;
-        text-align: center;
-    }
-    </style>
-
-    </head>
-
-    <body>
+   <!--body background="{% static 'img/iltf.jpg' %}"-->
+   <body>
        <div class="bg">
             <div class="navbar navbar-inverse navbar-fixed-top">
                 <div class="navbar-header">
@@ -41,38 +31,16 @@
             <div class="row">
                 <div id="index-home" class="col-sm-4 col-lg-4">
                     <div>
-                        <h2><b>Indian Land Tenure Foundation Webmapping Program</b></h2>
+                        <h2>Indian Land Tenure Foundation Webmapping Program</h2>
                         <p>The Indian Land Tenure Foundation Webmapping Program is a joint project between the Indian Land Tenure Foundation (ILTF) and the Spatial Informatics Group - Natural Assets Laboratory (SIG-NAL). The project seeks to facilitate the use of web-based geospatial technologies and data for enhanced land stewardship and informed decision making.</p>
-                        <p><i>Participating tribes may log in below to access their webmap.</i></p>
                     </div>
-                    <div id="login">
-                        <form id="login-boxes" class="login" method="POST" action="{% url 'login' %}">
-                            {% csrf_token %}
-                            <!--{{form.as_p}}-->
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>{{ form.username.label_tag }}</td>
-                                        <td>{{ form.username }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>{{ form.password.label_tag }}</td>
-                                        <td>{{ form.password }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            </br>
-                        <input type="submit" class="logBut" value="Log In"/>
-                        <input type="hidden" name="next" value="/tamaya/" />
-                        </form>
-                    </div>
-                    <div id="logos" align=center>
+                    <div id="logos" align="center">
                         <a href="https://iltf.org/"><img style="height: 40px;" src="{% static 'img/iltf_logo.png' %}"></a>
                         &nbsp
                         <a href="https://sig-nal.org/"><img style="height: 40px;" src="{% static 'img/SIG-NAL_Logo.png' %}"></a>
                     </div>
                 </div>
             </div>
-       </div>
-    </body>
+        </div>
+   </body>
 </html>

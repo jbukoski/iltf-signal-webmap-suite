@@ -41,4 +41,5 @@ urlpatterns = [
     url(r'^delete_up/', views.delete_up_view, name='delete_up'),
     url(r'^legend/', views.legend_view, name='legend'),
     url(r'^sumstats/', views.sumstats_view, name='sumstats'),
+    url(r'^admin/logout/$', views.signout_view, name='signout'),
 ]
