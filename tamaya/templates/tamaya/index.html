@@ -222,10 +222,25 @@
                                             <div class="checkbox">
                                                 <label>
                                                     <input type="checkbox" name="uploadLayers" id="{{ document.docfile.name }}" z-index="3" onclick="show_static('{{ document.docfile.name }}')">
-                                                        <p class="setFileName2">
-                                                            &nbsp {{ document.docfile.name }}
-                                                        </p>
+                                                        <div style="display: inline-block;">
+                                                            {{ document.name }}
+                                                        </div>
+                                                    </input>
                                                 </label>
+                                                <div style="display: inline-block; float:right;">
+                                                <form role="form" method="POST" action="{% url 'delete_single' %}" enctype="multipart/form-data" style="display: inline-block;">
+                                                    {% csrf_token %}
+                                                    <input name="dat" value={{ document.docfile }} style="display: none;">
+                                                        <button class="fa fa-trash-o" type="submit" style="color: red; border: none; background: none;"></button>
+                                                    </input>
+                                                </form>
+                                                <form role="form" method="POST" action="{% url 'download_single' %}" enctype="multipart/form-data" style="display: inline-block;">
+                                                    {% csrf_token %}
+                                                    <input name="dl_file" value={{ document.docfile }} style="display: none;">
+                                                        <button class="fa fa-download" type="submit" style="color: #428BCA; border: none; background: none;"></button>
+                                                    </input>
+                                                </form>
+                                                </div>
                                             </div>
                                         {% endfor %}
                                     {% else %}
@@ -1263,44 +1278,6 @@ function uploader() {
             });    
         };
     });
-
-
-///////////////////////
-//// Oliver's code ////
-///////////////////////
-
-    // Check out file names
-
-    $(window).bind("load", function() {
-
-        var all_files = $(".setFileName");
-        var num_files = all_files.length;
-        var start_char = 16;
-        var filee, num_char;
-
-        var all_files2 = $(".setFileName2");
-        var num_files2 = all_files2.length;
-        var start_char2 = 22;
-        var filee2, num_char2;
-
-        for ( var i = 0; i < num_files; i++ ) {
-
-            var num_char = all_files[i].innerText.length;
-            var new_txt = all_files[i].innerText.slice(start_char, num_char);
-            $(".setFileName")[i].innerText = new_txt;
-        }
-
-        for ( var j = 0; j < num_files2; j++ ) {
-
-            var num_char2 = all_files2[j].innerText.length;
-            start_char2 = all_files2[0].innerText.search("uploaded") + 9;
-            var new_txt2 = all_files2[j].innerText.slice(start_char2, num_char2);
-            $(".setFileName2")[j].innerText = new_txt2;
-        }
-
-    });
-
-    // class="setFileName"
 
 </script>
 

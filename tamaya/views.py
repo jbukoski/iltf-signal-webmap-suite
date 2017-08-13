@@ -6,10 +6,7 @@ from django.core.serializers import serialize
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-import json
-import os, os.path
-import psycopg2
-import time
+import json, os, os.path, psycopg2, re, time
 
 from django.template import RequestContext
 from django.urls import reverse
@@ -53,42 +50,48 @@ def index(request):
 def home(request):
     return HttpResponseRedirect(urlresolvers.reverse('admin:app_list', args=("tamaya/",)))
 
-def list(request):
-    # Handles file upload
-
-    if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            newdoc = models.Document(docfile = request.FILES['docfile'])
-            newdoc.save()
-
-            # Redirect to the document list after POST
-            return HttpResponseRedirect(reverse('tamaya.views.list'))
-    else:
-        form = DocumentForm()       # Empty
-
-    # Load documents from the list page
-    documents = models.Document.objects.all()
-
-    # Render list page with all documents
-    context = {'documents' : documents, 'form' : form}
-    return render(request, 'tamaya/list.html', context)
+#def list(request):
+#    # Handles file upload
+#
+#    if request.method == 'POST':
+#        form = DocumentForm(request.POST, request.FILES)
+#
+#        print("\n\n==================")
+#        print("In list view:")
+#        print("Docfile.name: ", request.FILES['docfile.name'])
+#        print("Docfile: ", request.FILES['docfile'])
+#        print("===================\n\n")
+#
+#        if form.is_valid():
+#            newdoc = models.Document(docfile = request.FILES['docfile'])
+#            newdoc.save()
+#
+#            # Redirect to the document list after POST
+#            return HttpResponseRedirect(reverse('tamaya_list'))
+#    else:
+#        form = DocumentForm()       # Empty
+#
+#    # Load documents from the list page
+#    documents = models.Document.objects.all()
+#
+#    print("\n\n====================")
+#    print("In list view: ")
+#    print(documents)
+#    print("======================\n\n")
+#
+#    # Render list page with all documents
+#    context = {'documents' : documents, 'form' : form}
+#    return render(request, 'tamaya_list', context)
 
 def render_geojson_view(request):
 
     if request.method == 'POST':
         lyr = request.POST['layer']
-
         lyr_json = open(os.path.join(os.path.dirname(path), 'media', lyr), 'r+').read()
-
-        print("\n\n++++++++++++\nWithin render_geojson_view")
-        print("++++++++++\n\n")
 
         return JsonResponse({'layer': lyr, 'layer_json': lyr_json})
 
     else:
-
         error_msg = 'Not a post request'
 
         return JsonResponse(error_msg, safe = False)
@@ -484,26 +487,53 @@ def sample_up_view(request):
                 file_sys = FileSystemStorage()
 
                 file_path = os.path.join('tamaya/uploaded/', this_file.name)
-                #file_name = file_sys.save(this_file.name, this_file)
-                #file_name = file_sys.save(file_path, this_file)
-                #this_file_url = file_sys.url(file_name)
 
-                #filenamee = request.FILES['docfile']
-                newdoc = models.Document(docfile = request.FILES['docfile'])
+                filename = re.sub('\.geojson$', '', this_file.name)
+
+                newdoc = models.Document(docfile = request.FILES['docfile'], name=filename)
                 newdoc.save()
 
-                #return HttpResponseRedirect(reverse(newdoc))
+                documents = models.Document.objects.all()
+
                 return HttpResponseRedirect(reverse('tamaya_index'))
+
         return render(request, 'tamaya_index')
 
     else:
         form = DocumentForm()       # Empty
 
     # Load documents from the list page
-    documents = models.Document.objects.all()
+
     context = {'documents' : documents, 'form' : form}
 
     return render(request, 'tamaya_index', context)
+
+def download_single_view(request):
+
+    if request.method == "POST":
+
+        file2download = request.POST['dl_file']
+
+        download_file = open(os.path.join(os.path.dirname(path), 'media', file2download), "rb")
+        response = HttpResponse(download_file, content_type='application/force-download')
+        response['Content-Disposition'] = 'attachment; filename="user_download.geojson"'
+
+        return response
+
+def delete_single_view(request):
+
+    if request.method == "POST":
+
+        file2delete = request.POST['dat']
+
+        os.remove(os.path.join(settings.MEDIA_ROOT, file2delete))
+
+        documents = models.Document.objects.all()
+        doc2delete = documents.filter(docfile=file2delete)
+        doc2delete.delete()
+
+        return HttpResponseRedirect(reverse('tamaya_index'))
+
 
 def delete_up_view(request):
 
@@ -513,13 +543,8 @@ def delete_up_view(request):
 
         i += 1
 
-        print("\n\n============\nDocument: ", document)
-        print("os.path.join(settings.MEDIA_ROOT, document.docfile.name): ", os.path.join(settings.MEDIA_ROOT, document.docfile.name))
-        print("\n===========\n\n")
-
-        os.remove(os.path.join(settings.MEDIA_ROOT, document.docfile.name))
+        os.remove(os.path.join(settings.MEDIA_ROOT, 'media', document.docfile.name))
         document.delete()
-
 
     return HttpResponseRedirect(reverse('tamaya_index'))
 
