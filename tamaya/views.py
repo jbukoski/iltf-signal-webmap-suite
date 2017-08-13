@@ -493,8 +493,8 @@ def sample_up_view(request):
                 newdoc.save()
 
                 #return HttpResponseRedirect(reverse(newdoc))
-                return HttpResponseRedirect(reverse('index'))
-        return render(request, 'index.html')
+                return HttpResponseRedirect(reverse('tamaya_index'))
+        return render(request, 'tamaya_index')
 
     else:
         form = DocumentForm()       # Empty
@@ -503,7 +503,7 @@ def sample_up_view(request):
     documents = models.Document.objects.all()
     context = {'documents' : documents, 'form' : form}
 
-    return render(request, 'tamaya/index.html', context)
+    return render(request, 'tamaya_index', context)
 
 def delete_up_view(request):
 
@@ -521,7 +521,7 @@ def delete_up_view(request):
         document.delete()
 
 
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('tamaya_index'))
 
 # Logout
 

@@ -375,43 +375,6 @@
         });
 
 
-
-
-////// User defined layers //////
-
-    var user_points = new L.GeoJSON.AJAX("{% url 'user_points' %}", {
-        style: {clickable: true,
-        },
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(
-                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "</br>" +
-                "<strong>Comment:&nbsp;</strong>" + feature.properties.comment.toString()
-            );
-        },
-    });
-
-    var user_lines = new L.GeoJSON.AJAX("{% url 'user_lines' %}", {
-        style: {clickable: true,
-        },
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(
-                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "</br>" +
-                "<strong>Comment:&nbsp;</strong>" + feature.properties.comment.toString()
-            );
-        },
-    });
-
-    var user_polygons = new L.GeoJSON.AJAX("{% url 'user_polygons' %}", {
-        style: {clickable: true,
-        },
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(
-                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "</br>" +
-                "<strong>Comment:&nbsp;</strong>" + feature.properties.comment.toString()
-            );
-        },
-    });
-
 ////////////////////////////
 ////// Leaflet Map /////////
 ////////////////////////////
