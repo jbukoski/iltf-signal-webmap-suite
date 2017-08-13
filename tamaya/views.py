@@ -89,6 +89,10 @@ def render_geojson_view(request):
         lyr = request.POST['layer']
         lyr_json = open(os.path.join(os.path.dirname(path), 'media', lyr), 'r+').read()
 
+        print("\n\n=================")
+        print(lyr)
+        print("===================\n\n")
+
         return JsonResponse({'layer': lyr, 'layer_json': lyr_json})
 
     else:

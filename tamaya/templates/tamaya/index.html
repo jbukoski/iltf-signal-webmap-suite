@@ -221,7 +221,7 @@
                                         {% for document in documents %}
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="uploadLayers" id="{{ document.docfile.name }}" z-index="3" onclick="show_static('{{ document.docfile.name }}')">
+                                                    <input type="checkbox" name="uploadLayers" id="{{ document.docfile.name }}" z-index="3" value="{{ document.docfile.name }}" onclick="show_static('{{ document.docfile.name }}')">
                                                         <div style="display: inline-block;">
                                                             {{ document.name }}
                                                         </div>
@@ -584,77 +584,79 @@ for ( var i = 0; i < num_layers; i++ ) {
 }
 
 function show_static( tmp_idx ) {
-    var usr_lyr = new L.GeoJSON();
-    var data = {'layer': tmp_idx, csrfmiddlewaretoken: '{{csrf_token }}'};
 
-    $.post('{% url 'render_geojson' %}', data, function(resp) {
-        var geojson_lyr = JSON.parse(resp.layer_json);
-        usr_lyr.addData(geojson_lyr);
-    });
+    var lyr = document.getElementById( tmp_idx ).value;
+    var usr_lyr = new L.geoJSON();
+    var data = {'layer': lyr, csrfmiddlewaretoken: '{{csrf_token }}'};
 
-    if ( tmp_idx == 0 ) {
-        console.log('tmp_idxi_0: ', tmp_idx);
-    } else {
-        $("input[type='checkbox'][id='" + tmp_idx + "']").change(function () {
-            if (this.checked) {
-                map.addLayer(usr_lyr);
+    $("input[type='checkbox'][id='" + lyr + "']").change(function () {
+
+        if (this.checked) {
+
+            var updateUsrLyr = $.post('{% url 'render_geojson' %}', data, function(resp) {
+                var geojson_lyr = JSON.parse(resp.layer_json);
+                usr_lyr.addData(geojson_lyr);
+            });
+
+            $.when(updateUsrLyr).then(function() { map.addLayer(usr_lyr);} );
+           
+            usr_lyr.on('click', function(e) { 
+                var usr_lyr = e.layer;
+                var centroid = usr_lyr.getBounds().getCenter();
+                var lyrGeoJSON = usr_lyr.toGeoJSON();
+                var lyrGeom = JSON.stringify(lyrGeoJSON.geometry);
+                var c_lyrs = $("div#carbon-layers input[type='checkbox']:checked").map(function() {return this.id;});
+                var c_arr = $.map(c_lyrs, function(value, index) { return [value]; });
+                var usrPopup = L.popup();
+                var usrResp;
                 
-                usr_lyr.on('click', function(e) { 
-                    var usr_lyr = e.layer;
-                    var centroid = usr_lyr.getBounds().getCenter();
-                    var lyrGeoJSON = usr_lyr.toGeoJSON();
-                    var lyrGeom = JSON.stringify(lyrGeoJSON.geometry);
-                    var c_lyrs = $("div#carbon-layers input[type='checkbox']:checked").map(function() {return this.id;});
-                    var c_arr = $.map(c_lyrs, function(value, index) { return [value]; });
-                    var usrPopup = L.popup();
-                    var usrResp;
-                    
-                    data = {'geom': lyrGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
+                data = {'geom': lyrGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
 
-                    var usrPost = $.post('{% url 'sumstats' %}', data, function(resp) { usrResp = resp; });
+                var usrPost = $.post('{% url 'sumstats' %}', data, function(resp) { usrResp = resp; });
 
-                    $.when(usrPost).then(function(args) {
-                        var arr = [];
-                        for(var key in c_arr) {
-                            var forestArea = '<b>&nbsp&nbspForest area selected: </b>' + usrResp.forestArea + ' ha</br>';
-                            arr.push(forestArea); 
-                            arr.push(usrResp.text[c_arr[key]]); 
-                        };
-                        var arr_string = arr.join('');
+                $.when(usrPost).then(function(args) {
+                    var arr = [];
+                    for(var key in c_arr) {
+                        var forestArea = '<b>&nbsp&nbspForest area selected: </b>' + usrResp.forestArea + ' ha</br>';
+                        arr.push(forestArea); 
+                        arr.push(usrResp.text[c_arr[key]]); 
+                    };
+                    var arr_string = arr.join('');
 
-                        if(usrResp.totalArea < 62.5) {
-                            var areaFlag = '</br><b>&nbsp&nbspNote:</b> The queried polygon area is small relative to the resolution of the forest carbon pixels. Valid biomass forest carbon estimates cannot be provided. The soil organic carbon results may still be valid. </br>';
-                            if($.inArray('gssurgoSOC', c_arr) > -1) {
-                                if(Object.keys(c_arr).length > 1) {
-                                    var arr_string = areaFlag.concat(usrResp.text['gssurgoSOC']);
-                                } else {
-                                    var arr_string = usrResp.text['gssurgoSOC'];
-                                };
+                    if(usrResp.totalArea < 62.5) {
+                        var areaFlag = '</br><b>&nbsp&nbspNote:</b> The queried polygon area is small relative to the resolution of the forest carbon pixels. Valid biomass forest carbon estimates cannot be provided. The soil organic carbon results may still be valid. </br>';
+                        if($.inArray('gssurgoSOC', c_arr) > -1) {
+                            if(Object.keys(c_arr).length > 1) {
+                                var arr_string = areaFlag.concat(usrResp.text['gssurgoSOC']);
                             } else {
-                                var arr_string = areaFlag;
+                                var arr_string = usrResp.text['gssurgoSOC'];
                             };
+                        } else {
+                            var arr_string = areaFlag;
                         };
+                    };
 
-                        usrPopup
-                            .setLatLng(centroid)
-                            .setContent('<p><b>SUMMARY STATISTICS: </b>' +
-                                        '</br><b>&nbsp&nbspArea selected: </b>' + usrResp.totalArea + ' ha</br>' +
-                                        arr_string + "</p>")
+                    usrPopup
+                        .setLatLng(centroid)
+                        .setContent('<p><b>SUMMARY STATISTICS: </b>' +
+                                    '</br><b>&nbsp&nbspArea selected: </b>' + usrResp.totalArea + ' ha</br>' +
+                                    arr_string + "</p>")
 
-                        setTimeout(function() {
-                            if(Object.keys(c_arr).length > 0) {    
-                                usrPopup .openOn(map);
-                            }
-                        }, 250);
-                    });
+                    setTimeout(function() {
+                        if(Object.keys(c_arr).length > 0) {    
+                            usrPopup .openOn(map);
+                        }
+                    }, 250);
                 });
+            });
 
-            } else if (!this.checked) {
-                map.removeLayer(usr_lyr);
-                usr_lyr.clearLayers();
-            };
-        });
-    }
+        } else if ($("input[type='checkbox'][id='" + lyr + "']").prop("checked") != true) {
+            console.log("Not checked");
+            map.removeLayer(usr_lyr);
+            usr_lyr = L.geoJSON();
+            $("input[type='checkbox'][id='" + lyr + "']").unbind('change');
+        };
+    });
 }
 
 function delete_lyr() {
