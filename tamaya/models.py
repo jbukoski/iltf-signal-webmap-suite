@@ -49,7 +49,6 @@ class mbls(models.Model):
 
 class roads(models.Model):
     roads_id = models.AutoField(primary_key=True)
-    distance = models.FloatField()
     length = models.FloatField()
     id_field = models.BigIntegerField()
     access = models.CharField(max_length=254)

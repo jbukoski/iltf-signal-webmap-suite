@@ -35,7 +35,6 @@ mbls_mapping = {
 mbls_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'mbl_int.shp'))
 
 roads_mapping = {
-    'distance' : 'distance',
     'length' : 'LENGTH',
     'id_field' : 'ID__',
     'access' : 'ACCESS',
@@ -55,7 +54,7 @@ roads_mapping = {
     'geom' : 'MULTILINESTRING',
 }
 
-roads_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'tamaya', 'psa_roads_4326.shp'))
+roads_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'tamaya', 'reservation_roads.shp'))
 
 # HYDROLOGY LAYERS
 
