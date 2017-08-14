@@ -547,7 +547,7 @@ def delete_up_view(request):
 
         i += 1
 
-        os.remove(os.path.join(settings.MEDIA_ROOT, 'media', document.docfile.name))
+        os.remove(os.path.join(settings.MEDIA_ROOT, document.docfile.name))
         document.delete()
 
     return HttpResponseRedirect(reverse('tamaya_index'))
