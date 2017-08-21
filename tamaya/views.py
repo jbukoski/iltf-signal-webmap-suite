@@ -13,6 +13,7 @@ from django.urls import reverse
 from .forms import DocumentForm
 
 from django.core.files.storage import FileSystemStorage
+from django.core.exceptions import ValidationError
 
 # Specify downloads path
 path = os.path.dirname(os.path.abspath(__file__))
@@ -50,48 +51,11 @@ def index(request):
 def home(request):
     return HttpResponseRedirect(urlresolvers.reverse('admin:app_list', args=("tamaya/",)))
 
-#def list(request):
-#    # Handles file upload
-#
-#    if request.method == 'POST':
-#        form = DocumentForm(request.POST, request.FILES)
-#
-#        print("\n\n==================")
-#        print("In list view:")
-#        print("Docfile.name: ", request.FILES['docfile.name'])
-#        print("Docfile: ", request.FILES['docfile'])
-#        print("===================\n\n")
-#
-#        if form.is_valid():
-#            newdoc = models.Document(docfile = request.FILES['docfile'])
-#            newdoc.save()
-#
-#            # Redirect to the document list after POST
-#            return HttpResponseRedirect(reverse('tamaya_list'))
-#    else:
-#        form = DocumentForm()       # Empty
-#
-#    # Load documents from the list page
-#    documents = models.Document.objects.all()
-#
-#    print("\n\n====================")
-#    print("In list view: ")
-#    print(documents)
-#    print("======================\n\n")
-#
-#    # Render list page with all documents
-#    context = {'documents' : documents, 'form' : form}
-#    return render(request, 'tamaya_list', context)
-
 def render_geojson_view(request):
 
     if request.method == 'POST':
         lyr = request.POST['layer']
         lyr_json = open(os.path.join(os.path.dirname(path), 'media', lyr), 'r+').read()
-
-        print("\n\n=================")
-        print(lyr)
-        print("===================\n\n")
 
         return JsonResponse({'layer': lyr, 'layer_json': lyr_json})
 
