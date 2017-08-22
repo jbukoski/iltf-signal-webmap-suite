@@ -49,14 +49,26 @@
                                     </div>
 				    <div class="checkbox">
 				        <label>
-                                            <input type="checkbox" name="overlayLayers" id="mbls" z-index="2" checked>
-                                            &nbsp Master business leases &nbsp <a href="{% url 'mbl_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            <input type="checkbox" name="overlayLayers" id="roads" z-index="3">
+                                            &nbsp Reservation roads &nbsp <a href="{% url 'roads_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="ag" z-index="3">
+                                            &nbsp Agriculture parcels &nbsp; <a href="{% url 'ag_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="vineyards" z-index="3">
+                                            &nbsp Vineyard parcels &nbsp; <a href="{% url 'vineyards_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
                                     </div>
 				    <div class="checkbox">
 				        <label>
-                                            <input type="checkbox" name="overlayLayers" id="roads" z-index="3">
-                                            &nbsp Reservation roads &nbsp <a href="{% url 'roads_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            <input type="checkbox" name="overlayLayers" id="mbls" z-index="3">
+                                            &nbsp Master business leases &nbsp <a href="{% url 'mbl_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
                                     </div>
 				</div>
@@ -221,7 +233,7 @@
                                         {% for document in documents %}
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" name="uploadLayers" id="{{ document.docfile.name }}" z-index="3" value="{{ document.docfile.name }}" onclick="show_static('{{ document.docfile.name }}')">
+                                                    <input type="checkbox" name="uploadLayers" id="{{ document.docfile.name }}" z-index="5" value="{{ document.docfile.name }}" onclick="show_static('{{ document.docfile.name }}')">
                                                         <div style="display: inline-block;">
                                                             {{ document.name }}
                                                         </div>
@@ -760,7 +772,7 @@
 ////// Vector Layers //////
 ///////////////////////////
 
-    var boundary=new L.GeoJSON.AJAX("{% url 'boundary' %}", {
+    var boundary = new L.GeoJSON.AJAX("{% url 'boundary' %}", {
         style: { clickable: false,
                  weight: 3,
                  color: '#000000',
@@ -779,64 +791,7 @@
                }
     });
 
-    var mbls=new L.GeoJSON.AJAX("{% url 'mbls' %}", {
-        style: function (feature) {
-                    if (feature.properties.comment === "Hyatt Tamaya") {
-                        return {
-                            clickable: true,
-                            weight: 2,
-                            color: '#4FE11E',
-                            fill: true,
-                            fillOpacity: 0.5,
-                        };
-                    };
-                    if (feature.properties.comment === "Prairie Star") {
-                        return {
-                            clickable: true,
-                            weight: 2,
-                            color: '#e8f73e',
-                            fill: true,
-                            fillOpacity: 0.5,
-                        };
-                    };
-                    if (feature.properties.comment === "Santa Ana Golf / Star Casino") {
-                        return {
-                            clickable: true,
-                            weight: 2,
-                            color: '#A73BC8',
-                            fill: true,
-                            fillOpacity: 0.5,
-                        };
-                    };
-		    if (feature.properties.comment === "Southern Sandoval Investments") {
-                        return {
-                            clickable: true,
-                            weight: 2,
-                            color: '#FF7F00',
-                            fill: true,
-                            fillOpacity: 0.5,
-                        };
-                    };
-		    if (feature.properties.comment === "Twin Warriors") {
-                        return {
-                            clickable: true,
-                            weight: 2,
-                            color: '#DB5373',
-                            fill: true,
-                            fillOpacity: 0.5,
-                        };
-                    };
-                },
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(
-                "<strong>Name:&nbsp;</strong>" + feature.properties.comment.toString() + "<br>" +
-                "<strong>Area:&nbsp;</strong>" + feature.properties.area.toString() + "<br>" +
-                "<strong>Perimeter:&nbsp;</strong>" + feature.properties.perimeter.toString()
-            );
-        }
-    });
-
-    var roads=new L.GeoJSON.AJAX("{% url 'roads' %}", {
+    var roads = new L.GeoJSON.AJAX("{% url 'roads' %}", {
         style: {color: '#ffffff',
                 weight: 2,
                 dashArray: 1,
@@ -851,6 +806,168 @@
             );
         },
     });
+
+    var ag = new L.GeoJSON.AJAX("{% url 'ag' %}", {
+        style: function (feature) { 
+                   if (feature.properties.community === "Community Area 1") {
+                       return {
+                           clickable: true,
+                           weight: 2,
+                           fillOpacity: 0.3,
+                           color: '#32CD32',
+                       };
+                   };
+                   if (feature.properties.community === "Community Area 2") {
+                       return {
+                           clickable: true,
+                           weight: 2,
+                           fillOpacity: 0.3,
+                           color: '#32FAA2',
+                       };
+                   };
+                   if (feature.properties.community === "Community Area 3") {
+                       return {
+                           clickable: true,
+                           weight: 2,
+                           fillOpacity: 0.3,
+                           color: '#32C890',
+                       };
+                   };
+                   if (feature.properties.community === "Community Area 4") {
+                       return {
+                           clickable: true,
+                           weight: 2,
+                           fillOpacity: 0.3,
+                           color: '#008000',
+                       };
+                   };
+                   if (feature.properties.community === "Private") {
+                       return {
+                           clickable: true,
+                           weight: 2,
+                           fillOpacity: 0.3,
+                           color: '#FF337D',
+                       };
+                   };
+               },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<b>Community:&nbsp;</b>" + feature.properties.community.toString() + "&nbsp;&nbsp;&nbsp;&nbsp;<br>" +
+                "<b>Tract number:&nbsp;</b>" + feature.properties.tract_numb.toString() + "<br>" +
+                "<b>Status:&nbsp;</b>" + feature.properties.status.toString() + "<br>" +
+                "<b>Area:&nbsp;</b>" + (feature.properties.acres.toString()*0.404686).toFixed(2) + "&nbsp;ha<br>" +
+                "<b>Total soil organic carbon:&nbsp;~</b>" + feature.properties.soctotal.toString() + "&nbsp;Mg<br>" +
+                "<b>Mean soil organic carbon:&nbsp;~</b>" + feature.properties.socmean.toString() + "&nbsp;Mg/ha<br>"
+            );
+        }
+    });
+
+    var vineyards = new L.GeoJSON.AJAX("{% url 'vineyards' %}", {
+        style: function (feature) { 
+                   if (feature.properties.section === "Section 1-West") {
+                       return {
+                           clickable: true,
+                           weight: 2,
+                           fillOpacity: 0.3,
+                           color: '#800000',
+                       };
+                   };
+                   if (feature.properties.section === "Section 1-East") {
+                       return {
+                           clickable: true,
+                           weight: 2,
+                           fillOpacity: 0.3,
+                           color: '#A20F2E',
+                       };
+                   };
+                   if (feature.properties.section === "Section 2") {
+                       return {
+                           clickable: true,
+                           weight: 2,
+                           fillOpacity: 0.3,
+                           color: '#97505F',
+                       };
+                   };
+                   if (feature.properties.section === "Section 3") {
+                       return {
+                           clickable: true,
+                           weight: 2,
+                           fillOpacity: 0.3,
+                           color: '#F20739',
+                       };
+                   };
+               },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<b>VIneyard:&nbsp;</b>" + feature.properties.section.toString() + "<br>" +
+                "<b>Area:&nbsp;</b>" + parseFloat(feature.properties.acres.toString()*0.404686).toFixed(2) + "&nbsp;ha<br>" +
+                "<b>Total soil organic carbon:&nbsp;~</b>" + feature.properties.soctotal.toString() + "&nbsp;Mg<br>" +
+                "<b>Mean soil organic carbon:&nbsp;~</b>" + feature.properties.socmean.toString() + "&nbsp;Mg/ha<br>"
+            );
+        }
+    });
+
+
+
+    var mbls=new L.GeoJSON.AJAX("{% url 'mbls' %}", {
+        style: function (feature) {
+                    if (feature.properties.entity === "Hyatt Tamaya") {
+                        return {
+                            clickable: true,
+                            weight: 2,
+                            color: '#4FE11E',
+                            fill: true,
+                            fillOpacity: 0.5,
+                        };
+                    };
+                    if (feature.properties.entity === "Prairie Star") {
+                        return {
+                            clickable: true,
+                            weight: 2,
+                            color: '#e8f73e',
+                            fill: true,
+                            fillOpacity: 0.5,
+                        };
+                    };
+                    if (feature.properties.entity === "Santa Ana Golf Club") {
+                        return {
+                            clickable: true,
+                            weight: 2,
+                            color: '#A73BC8',
+                            fill: true,
+                            fillOpacity: 0.5,
+                        };
+                    };
+		    if (feature.properties.entity === "Southern Sandoval Investments") {
+                        return {
+                            clickable: true,
+                            weight: 2,
+                            color: '#FF7F00',
+                            fill: true,
+                            fillOpacity: 0.5,
+                        };
+                    };
+		    if (feature.properties.entity === "Twin Warriors") {
+                        return {
+                            clickable: true,
+                            weight: 2,
+                            color: '#DB5373',
+                            fill: true,
+                            fillOpacity: 0.5,
+                        };
+                    };
+                },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Name:&nbsp;</strong>" + feature.properties.entity.toString() + "<br>" +
+                "<strong>Area:&nbsp;</strong>" + (feature.properties.acres.toString()*0.404686).toFixed(2) + "&nbsp;ha<br>" +
+                "<b>Total soil organic carbon:&nbsp;~</b>" + feature.properties.soctotal.toString() + "&nbsp;Mg<br>" +
+                "<b>Mean soil organic carbon:&nbsp;~</b>" + feature.properties.socmean.toString() + "&nbsp;Mg/ha<br>"
+
+            );
+        }
+    });
+
 
     var watersheds = new L.GeoJSON.AJAX("{% url 'watersheds' %}", {
         style: {color: '#99BADD',
@@ -1165,7 +1282,7 @@
         center: [35.435, -106.58],
         minZoom: 6,
         maxZoom: 20,
-        layers: [esriWorld, boundary, mbls]
+        layers: [esriWorld, boundary]
     });
 
 /////////////////////////////////////////////////////////

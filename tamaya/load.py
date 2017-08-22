@@ -22,17 +22,75 @@ buffered_bndry_mapping = {
 
 buffered_bndry_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'tamaya', 'boundary_buffered.shp'))
 
+ag_mapping = {
+    'area' : 'AREA',
+    'perimeter' : 'PERIMETER',
+    'acres' : 'ACRES',
+    'use' : 'USE',
+    'service' : 'SERVICE',
+    'ag_id' : 'ID',
+    'status' : 'STATUS',
+    'group' : 'GROUP',
+    'owner' : 'Owner',
+    'dissolve' : 'dissolve',
+    'tract_numb' : 'Tract_Numb',
+    'ownership' : 'Ownership',
+    'community' : 'Community',
+    'soc_count' : 'soc_count',
+    'soc_sum' : 'soc_sum',
+    'soc_mean' : 'soc_mean',
+    'soctotal' : 'socTotal',
+    'socmean' : 'socMean',
+    'geom' : 'MULTIPOLYGON',
+}
+
+ag_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'tamaya', 'agriculture', 'ag_lands.shp'))
+
+vineyards_mapping = {
+    'vineyard_id' : 'Id',
+    'acres' : 'Acres',
+    'section' : 'Section',
+    'soc_count' : 'soc_count',
+    'soc_sum' : 'soc_sum',
+    'soc_mean' : 'soc_mean',
+    'soc_min' : 'soc_min',
+    'soc_max' : 'soc_max',
+    'soctotal' : 'socTotal',
+    'socmean' : 'socMean',
+    'geom' : 'MULTIPOLYGON',
+}
+
+vineyards_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'tamaya', 'vineyards', 'vineyards.shp'))
+
 mbls_mapping = {
     'area' : 'AREA',
     'perimeter' : 'PERIMETER',
     'mbl_field' : 'MBL_',
     'mbl_id' : 'MBL_ID',
     'acres' : 'ACRES',
+    'entity' : 'Entity',
+    'outboundsp' : 'OUTBOUNDSP',
+    'outbound_1' : 'OUTBOUND_1',
     'comment' : 'COMMENT',
+    'boundary_m' : 'BOUNDARY_M',
+    'boundary_1' : 'BOUNDARY_1',
+    'lotid' : 'LotID',
+    'santa_ana' : 'Santa_Ana',
+    'owner' : 'Owner',
+    'acres_txt' : 'Acres_txt',
+    'dissolve' : 'dissolve',
+    'entity2' : 'Entity2',
+    'soc_count' : 'soc_count',
+    'soc_sum' : 'soc_sum',
+    'soc_mean' : 'soc_mean',
+    'soc_min' : 'soc_min',
+    'soc_max' : 'soc_max',
+    'soctotal' : 'socTotal',
+    'socmean' : 'socMean',
     'geom' : 'POLYGON',
 }
 
-mbls_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'mbl_int.shp'))
+mbls_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'tamaya', 'mbl_int', 'mbl_int.shp'))
 
 roads_mapping = {
     'length' : 'LENGTH',
@@ -116,6 +174,27 @@ landfire_classes_mapping = {
 }
 
 landfire_legends = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data', 'evt_legend.csv'))
+
+def ag(verbose=True):
+    ag_lm = LayerMapping(
+        models.ag, ag_shp, ag_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    ag_lm.save(strict=True, verbose=verbose)
+
+def vineyards(verbose=True):
+    vn_lm = LayerMapping(
+        models.vineyards, vineyards_shp, vineyards_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    vn_lm.save(strict=True, verbose=verbose)
+
+def mbls(verbose=True):
+    mbls_lm = LayerMapping(
+        models.mbls, mbls_shp, mbls_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    mbls_lm.save(strict=True, verbose=verbose)
 
 def run(verbose=True):
 

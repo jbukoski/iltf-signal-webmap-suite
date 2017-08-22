@@ -214,8 +214,16 @@ def buff_boundary_view(request):
     buff_boundary_json = serialize('geojson', models.buffered_bndry.objects.all(), geometry_field="geom")
     return HttpResponse(buff_boundary_json, content_type='json')
 
+def ag_view(request):
+    ag_json = serialize('geojson', models.ag.objects.all(), geometry_field="geom", fields=('id', 'acres', 'status', 'tract_numb', 'community', 'soctotal', 'socmean'))
+    return HttpResponse(ag_json, content_type='json')
+
+def vineyards_view(request):
+    vineyards_json = serialize('geojson', models.vineyards.objects.all(), geometry_field="geom", fields=('section', 'acres', 'soctotal', 'socmean'))
+    return HttpResponse(vineyards_json, content_type='json')
+
 def mbls_view(request):
-    mbls_json = serialize('geojson', models.mbls.objects.all(), geometry_field="geom", fields=('area', 'acres', 'comment', 'perimeter', 'mbl_field'))
+    mbls_json = serialize('geojson', models.mbls.objects.all(), geometry_field="geom", fields=('entity', 'area', 'acres', 'comment', 'perimeter', 'mbl_field', 'soctotal', 'socmean'))
     return HttpResponse(mbls_json, content_type='json')
 
 def roads_view(request):
@@ -248,6 +256,20 @@ def boundary_dl_view(request):
     download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'boundary.zip'), 'rb')
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="boundary.zip"'
+
+    return response
+
+def ag_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'agriculture.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="agriculture.zip"'
+
+    return response
+
+def vineyards_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'vineyards.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="vineyards.zip"'
 
     return response
 

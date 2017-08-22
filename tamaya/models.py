@@ -27,15 +27,77 @@ class buffered_bndry(models.Model):
     def __str__(self):
         return '%s' % (self.dn)
 
-
-class mbls(models.Model):
-    mbls_id = models.AutoField(primary_key=True)
+class ag(models.Model):
     area = models.FloatField()
     perimeter = models.FloatField()
-    mbl_field = models.IntegerField()
-    mbl_id = models.IntegerField()
     acres = models.FloatField()
-    comment = models.CharField(max_length=80)
+    use = models.CharField(max_length=254)
+    service = models.CharField(max_length=254)
+    ag_id = models.FloatField()
+    status = models.CharField(max_length=254)
+    group = models.CharField(max_length=254)
+    owner = models.CharField(max_length=254)
+    dissolve = models.BigIntegerField()
+    tract_numb = models.CharField(max_length=254)
+    ownership = models.CharField(max_length=254)
+    community = models.CharField(max_length=254)
+    soc_count = models.FloatField()
+    soc_sum = models.FloatField()
+    soc_mean = models.FloatField()
+    soctotal = models.FloatField()
+    socmean = models.FloatField()
+
+    geom = models.MultiPolygonField(srid=4326)
+
+    objects = models.GeoManager()
+
+    def __str__(self):
+        return '%s' % (self.ag_id)
+
+class vineyards(models.Model):
+    vineyard_id = models.BigIntegerField()
+    acres = models.FloatField()
+    section = models.CharField(max_length=254)
+    soc_count = models.FloatField()
+    soc_sum = models.FloatField()
+    soc_mean = models.FloatField()
+    soc_min = models.FloatField()
+    soc_max = models.FloatField()
+    soctotal = models.FloatField()
+    socmean = models.FloatField()
+
+    geom = models.MultiPolygonField(srid=4326)
+
+    objects = models.GeoManager()
+
+    def __str__(self):
+        return '%s' % (self.vineyard_id)
+
+class mbls(models.Model):
+    area = models.FloatField()
+    perimeter = models.FloatField()
+    mbl_field = models.BigIntegerField()
+    mbl_id = models.BigIntegerField()
+    acres = models.FloatField()
+    entity = models.CharField(max_length=254)
+    outboundsp = models.FloatField()
+    outbound_1 = models.FloatField()
+    comment = models.CharField(max_length=254)
+    boundary_m = models.BigIntegerField()
+    boundary_1 = models.BigIntegerField()
+    lotid = models.CharField(max_length=254)
+    santa_ana = models.CharField(max_length=254)
+    owner = models.CharField(max_length=254)
+    acres_txt = models.CharField(max_length=254)
+    dissolve = models.BigIntegerField()
+    entity2 = models.CharField(max_length=254)
+    soc_count = models.FloatField()
+    soc_sum = models.FloatField()
+    soc_mean = models.FloatField()
+    soc_min = models.FloatField()
+    soc_max = models.FloatField()
+    soctotal = models.FloatField()
+    socmean = models.FloatField()
 
     geom = models.PolygonField(srid=4326)
 
