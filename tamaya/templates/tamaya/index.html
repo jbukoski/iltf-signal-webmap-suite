@@ -722,48 +722,40 @@
 
 var lyrs;
 var legPopup = L.popup();
-//var lyrs_arr = [];
+var lyrs_arr = [];
 
     $("div#vegetation-layers input[type='checkbox'], div#carbon-layers input[type='checkbox']").change(function () {
         lyrs = $("div#vegetation-layers input:checkbox:checked, div#carbon-layers input:checkbox:checked").map(function() {return this.id});
-        console.log('in change function: ', lyrs);
         legendFunction(lyrs);
     });
 
-    function legendFunction( lyrs) {
-        map.on('click', function(e) {
-            console.log('in legendFunction: ', lyrs);
-        });
-    };
-
-    /*function legendFunction( lyrs ) {        
+    function legendFunction( lyrs ) {
         if ($("div#vegetation-layers input[type='checkbox'], div#carbon-layers input[type='checkbox']").is(':checked')) {
 
-                //var legPopup = L.popup();
-                var lyrs_arr = [];
+                var legPopup = L.popup();
+                lyrs_arr = [];
                 for(i = 0; i < lyrs.length; i++) {
                     lyrs_arr[i] = lyrs[i];
                 };
 
-                console.log('in func:', lyrs)
-                console.log('in func:', lyrs_arr)
-
                 buff_bndry.addTo(map);
 
+                map.off('click');
+
                 map.on('click', function(e) {
-                    var lng = e.latlng.lng;
-                    var lat = e.latlng.lat;
+                        var lng = e.latlng.lng;
+                        var lat = e.latlng.lat;
 
-                    updateLatLng(lat, lng, lyrs_arr);
-                    console.log('in click: ', lyrs)
-                    console.log('in click:', lyrs_arr);
-                });
+                        updateLatLng(lat, lng, lyrs_arr);
+                    });
 
-            } else {
+        } else {
+            if(map) {
                 map.closePopup();
                 buff_bndry.remove();
                 map.off('click');
             };
+        };
 
     };
 
@@ -787,7 +779,7 @@ var legPopup = L.popup();
                 legPopup.openOn(map);
             }, 250);
         });
-    };*/
+    };
 
 ///////////////////////////
 ////// Vector Layers //////
@@ -1356,6 +1348,7 @@ var legPopup = L.popup();
     var drawControlFull = new L.Control.Draw(drawOptionsFull);
     var drawControlEditOnly = new L.Control.Draw(drawOptionsEditOnly);
     var layerGeom = {};
+    var legCheck = true;
 
     map.addControl(drawControlFull);
 
@@ -1364,6 +1357,7 @@ var legPopup = L.popup();
         drawnItems.addLayer(layer);
         drawControlFull.remove(map);
         drawControlEditOnly.addTo(map);
+        legCheck = false;
 
     });
 
@@ -1371,6 +1365,7 @@ var legPopup = L.popup();
         if (drawnItems.getLayers().length === 0) {
             drawControlEditOnly.remove(map);
             drawControlFull.addTo(map);
+            legCheck = true;
         };
     });
 
