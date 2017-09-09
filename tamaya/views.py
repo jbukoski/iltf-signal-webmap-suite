@@ -90,9 +90,21 @@ def legend_view(request):
                         ndvi2015 AS (SELECT ST_Value(ndvi2015.rast, geom) AS value
                                       FROM mypoint AS p
                                       CROSS JOIN tamaya_ndvi_2015 AS ndvi2015
-                                      WHERE ST_Intersects(p.geom, ndvi2015.rast))
+                                      WHERE ST_Intersects(p.geom, ndvi2015.rast)),
+                        agc AS (SELECT ST_Value(agc.rast, geom) AS value
+                                      FROM mypoint AS p
+                                      CROSS JOIN tamaya_forest_agc AS agc
+                                      WHERE ST_Intersects(p.geom, agc.rast)),
+                        bgc AS (SELECT ST_Value(bgc.rast, geom) AS value
+                                      FROM mypoint AS p
+                                      CROSS JOIN tamaya_forest_bgc AS bgc
+                                      WHERE ST_Intersects(p.geom, bgc.rast)),
+                        soc AS (SELECT ST_Value(soc.rast, geom) AS value
+                                      FROM mypoint AS p
+                                      CROSS JOIN tamaya_gssurgo_soc AS soc
+                                      WHERE ST_Intersects(p.geom, soc.rast))
                         SELECT *
-                        FROM evt_point, evt_class, ndvi2005, ndvi2010, ndvi2015; """ % (lon, lat)
+                        FROM evt_point, evt_class, ndvi2005, ndvi2010, ndvi2015, agc, bgc, soc; """ % (lon, lat)
 
         conn = psycopg2.connect("dbname='iltf' user='postgres'")
         cur = conn.cursor()
@@ -104,12 +116,24 @@ def legend_view(request):
         ndvi2005 = round(results[0][2], 4)
         ndvi2010 = round(results[0][3], 4)
         ndvi2015 = round(results[0][4], 4)
+        if results[0][5] is None:
+            agc = 'No forest present'
+            bgc = 'No forest present'
+        else:
+                agc = str(round(results[0][5] / 100, 4)) + " Mg/ha"
+                bgc = str(round(results[0][6] / 100, 4)) + " Mg/ha"
+        soc = round(results[0][7] / 100, 4)
         conn.close()
 
         legText = {"landfireEVT": "&nbsp&nbsp<b>LANDFIRE EVT: </b>" + str(evtClass) + "</br>",
                     "ndvi2005": "&nbsp&nbsp<b>Mean Annual NDVI, 2005: </b>" + str(ndvi2005) + "</br>",
                     "ndvi2010": "&nbsp&nbsp<b>Mean Annual NDVI, 2010: </b>" + str(ndvi2010) + "</br>",
-                    "ndvi2015": "&nbsp&nbsp<b>Mean Annual NDVI, 2015: </b>" + str(ndvi2015) + "</br>"}
+                    "ndvi2015": "&nbsp&nbsp<b>Mean Annual NDVI, 2015: </b>" + str(ndvi2015) + "</br>",
+                    "agc": "&nbsp&nbsp<b>Aboveground forest carbon: </b>" + str(agc) + "</br>",
+                    "bgc": "&nbsp&nbsp<b>Belowground forest carbon: </b>" + str(bgc) + "</br>",
+                    "gssurgoSOC": "&nbsp&nbsp<b>Soil organic carbon: </b>" + str(soc) + "&nbsp;Mg/ha</br>"}
+
+        print("/n/n", legText, "/n/n")
 
         return JsonResponse({'evtClass': evtClass, 'ndvi2005': ndvi2005,
                              'ndvi2010': ndvi2010, 'ndvi2015': ndvi2015,

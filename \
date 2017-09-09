@@ -721,29 +721,28 @@
 ////////////////////////////////////
 
 var lyrs;
-var legPopup = L.popup();
-//var lyrs_arr = [];
+var lyrs_arr = [];
 
     $("div#vegetation-layers input[type='checkbox'], div#carbon-layers input[type='checkbox']").change(function () {
         lyrs = $("div#vegetation-layers input:checkbox:checked, div#carbon-layers input:checkbox:checked").map(function() {return this.id});
-        console.log('in change function: ', lyrs);
-        legendFunction(lyrs);
+        lyrs_arr = [];
+        for(i = 0; i < lyrs.length; i++) {
+            lyrs_arr[i] = lyrs[i];
+        };
+        console.log("NEW CLICK");
+        console.log('lyrs: ', lyrs);
+        console.log('lyrs_arr: ', lyrs_arr);
+        legendFunction(lyrs, lyrs_arr);
     });
 
-    function legendFunction( lyrs) {
-        map.on('click', function(e) {
-            console.log('in legendFunction: ', lyrs);
-        });
+    function legendFunction (lyrs) {
+        console.log(lyrs);
     };
 
-    /*function legendFunction( lyrs ) {        
+    /*function legendFunction( lyrs, lyrs_arr ) {        
         if ($("div#vegetation-layers input[type='checkbox'], div#carbon-layers input[type='checkbox']").is(':checked')) {
 
-                //var legPopup = L.popup();
-                var lyrs_arr = [];
-                for(i = 0; i < lyrs.length; i++) {
-                    lyrs_arr[i] = lyrs[i];
-                };
+                var legPopup = L.popup();
 
                 console.log('in func:', lyrs)
                 console.log('in func:', lyrs_arr)
@@ -759,35 +758,36 @@ var legPopup = L.popup();
                     console.log('in click:', lyrs_arr);
                 });
 
+                function updateLatLng(lat, lng, lyrs_arr) {
+                    var legendResp;
+                    var data = {'lat': lat, 'lng': lng, csrfmiddlewaretoken: '{{ csrf_token }}'};
+
+                    var legendPost = $.post('{% url 'legend' %}', data, function(resp) { legendResp = resp });
+
+                    $.when(legendPost).then(function(args) {
+                        var text = legendResp.legText
+                        var arr = [];
+                        for(var key in lyrs_arr) { arr.push(text[lyrs_arr[key]]); };
+                        var arr_string = arr.join('');
+
+                        legPopup
+                            .setLatLng([lat, lng])
+                            .setContent("<p><b>VEGETATION LAYERS LEGENDS: </b></br></br>" + arr_string + "</p>")
+
+                        setTimeout(function() {
+                            legPopup.openOn(map);
+                        }, 250);
+                    });
+                };
             } else {
                 map.closePopup();
                 buff_bndry.remove();
                 map.off('click');
             };
 
-    };
-
-    function updateLatLng(lat, lng, leg_lyrs) {
-        var legendResp;
-        var data = {'lat': lat, 'lng': lng, csrfmiddlewaretoken: '{{ csrf_token }}'};
-
-        var legendPost = $.post('{% url 'legend' %}', data, function(resp) { legendResp = resp });
-
-        $.when(legendPost).then(function() {
-            var text = legendResp.legText
-            var arr = [];
-            for(var key in leg_lyrs) { arr.push(text[leg_lyrs[key]]); };
-            var arr_string = arr.join('');
-
-            legPopup
-                .setLatLng([lat, lng])
-                .setContent("<p><b>VEGETATION LAYERS LEGENDS: </b></br></br>" + arr_string + "</p>")
-
-            setTimeout(function() {
-                legPopup.openOn(map);
-            }, 250);
-        });
     };*/
+
+
 
 ///////////////////////////
 ////// Vector Layers //////
