@@ -732,22 +732,23 @@ var lyrs_arr = [];
     function legendFunction( lyrs ) {
         if ($("div#vegetation-layers input[type='checkbox'], div#carbon-layers input[type='checkbox']").is(':checked')) {
 
-                var legPopup = L.popup();
-                lyrs_arr = [];
-                for(i = 0; i < lyrs.length; i++) {
-                    lyrs_arr[i] = lyrs[i];
+            var legPopup = L.popup();
+            lyrs_arr = [];
+            for(i = 0; i < lyrs.length; i++) {
+                lyrs_arr[i] = lyrs[i];
+            };
+
+            buff_bndry.addTo(map);
+
+            map.off('click');
+
+            map.on('click', function(e) {
+                if(legCheck) {
+                    var lng = e.latlng.lng;
+                    var lat = e.latlng.lat;
+                    updateLatLng(lat, lng, lyrs_arr);
                 };
-
-                buff_bndry.addTo(map);
-
-                map.off('click');
-
-                map.on('click', function(e) {
-                        var lng = e.latlng.lng;
-                        var lat = e.latlng.lat;
-
-                        updateLatLng(lat, lng, lyrs_arr);
-                    });
+            });
 
         } else {
             if(map) {
