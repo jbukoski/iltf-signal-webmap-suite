@@ -200,20 +200,20 @@
                                     <div class="panel-body" style="padding: 0px 15px;">
 					<div class="radio">
 					    <label>
-                                                <input type="radio" name="basemapLayers" id="recent"checked>
-                                                &nbsp Digital Globe imagery, no roads				
+                                                <input type="radio" name="basemapLayers" id="esriWorld" checked>
+                                                &nbsp ESRI Imagery				
                                             </label>
                                         </div>
                                         <div class="radio">
 					    <label>
-                                                <input type="radio" name="basemapLayers" id="hybrid">
-                                                &nbsp Digital Globe imagery, with roads				
+                                                <input type="radio" name="basemapLayers" id="topo">
+                                                &nbsp ESRI Topography				
                                             </label>
                                         </div>
 					<div class="radio">    
 					    <label>
-                                                <input type="radio" name="basemapLayers" id="topo">
-                                                &nbsp Topography, ESRI
+                                                <input type="radio" name="basemapLayers" id="osmBaseMap">
+                                                &nbsp Open Street Maps
                                             </label>
                                         </div>                                     
 				    </div> 
@@ -384,7 +384,7 @@
         center: [44.1291, -99.8], 
         minZoom: 6,
         maxZoom: 20,
-        layers: [recent, boundary, parcels]
+        layers: [esriWorld]
     });
 
 ///////////////////////////////////////
@@ -410,15 +410,15 @@
     // Specify some custom options for the Drawing tools
 
     var drawOptions = {
-    draw: {
-        polygon: {
-            showArea: true
-          }
+        draw: {
+            polygon: {
+                showArea: true
+            }
 	},
 	edit: {
-		featureGroup: drawnItems
-		}
-	}
+	    featureGroup: drawnItems
+	    }
+	};
 
 	// Initialize the draw control and pass it the FeatureGroup of editable layers
 	var drawControl = new L.Control.Draw(drawOptions);
