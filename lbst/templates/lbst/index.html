@@ -15,9 +15,9 @@
             <ul class="nav navbar-nav pull-left">
                 <a class="navbar-brand" href="#" style="font-size: 0.75m; color: gray;">Land & Natural Assets Map</a>
             </ul>
-            <!--<ul class="nav navbar-nav pull-right">
-                <a class="navbar-brand" href="/tamaya/admin/logout/" style="font-size: 18px; color: grey;">Log Out</a>
-            </ul>-->
+            <ul class="nav navbar-nav pull-right">
+                <a class="navbar-brand" href="{% url 'signout' %}" style="font-size: 18px; color: grey;">Log Out</a>A
+            </ul>
         </div>
     </div>
 
@@ -43,20 +43,14 @@
                                     <div class="panel-body" style="padding: 0px 15px;">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="overlayLayers" id="boundary" z-index="2" checked>
+                                                <input type="checkbox" name="overlayLayers" id="boundary" z-index="2">
                                                 &nbsp Boundary
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="overlayLayers" id="parcels" z-index="2" checked>
+                                                <input type="checkbox" name="overlayLayers" id="parcels" z-index="2">
                                                 &nbsp Parcels
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="overlayLayers" id="new_parcels" z-index="2">
-                                                &nbsp Newly Acquired Parcels
                                             </label>
                                         </div>
                                     </div>
@@ -147,28 +141,6 @@
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#veg-layers">
                                         User-defined Layers
                                     </a>
-                                </div>
-                                <div id="veg-layers" class="panel-collapse collapse in">
-                                    <div class="panel-body" style="padding: 0px 15px;">
-                                        <div class="checkbox">    
-                                            <label>
-                                                <input type="checkbox" name="overlayLayers" id="user_points" z-index="3">
-                                                &nbsp User points                                        
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="overlayLayers" id="user_lines" z-index="3">
-                                                &nbsp User lines
-                                            </label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="overlayLayers" id="user_polygons" z-index="3">
-                                                &nbsp User polygons
-                                            </label>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
@@ -271,106 +243,11 @@
 
 // Admin layers
 
-    var boundary = new L.GeoJSON.AJAX("{% url 'lbst_boundary' %}", {
+    var boundary = new L.GeoJSON.AJAX("{% url 'boundary' %}", {
         style: { clickable: true,
                  color: '#000000',
                  fill: false,
                  dashArray: 3,
-               }
-        });
-
-
-// STYLE THESE BY OWNERSHIP TYPE LATER
-
-    var parcels = new L.GeoJSON.AJAX("{% url 'lbst_parcels' %}", {
-        style: { clickable: true,
-                 weight: 0.5,
-                 color: '#040289',
-                 fill: true,
-               }
-        });
-
-    var new_parcels = new L.GeoJSON.AJAX("{% url 'lbst_new_parcels' %}", {
-        style: { clickable: true,
-                 weight: 0.5,
-                 color: '#ff6347',
-                 fill: true,
-               }
-        });
-
-
-// Wildlife Habitat Layers
-
-
-    var food_plots = new L.GeoJSON.AJAX("{% url 'food_plots' %}", {
-        style: { clickable: true,
-                 weight: 3,
-                 color: '#e31a1c',
-                 fill: true,
-                 fillColor: '#e31a1c',
-                 fillOpacity: 0.5,
-               }
-        });
-
-
-    var grasslands = new L.GeoJSON.AJAX("{% url 'grasslands' %}", {
-        style: { clickable: true,
-                 weight: 3,
-                 color: '#4bbb00',
-                 fill: true,
-                 fillColor: '#4bbb00',
-                 fillOpacity: 0.5,
-               }
-        });
-
-
-    var habitat_leases = new L.GeoJSON.AJAX("{% url 'habitat_leases' %}", {
-        style: { clickable: true,
-                 weight: 3,
-                 color: '#ff7f00',
-                 fill: true,
-                 fillOpacity: 0.5,
-               }
-        });
-
-
-    var shelterbelts = new L.GeoJSON.AJAX("{% url 'shelterbelts' %}", {
-        style: { clickable: true,
-                 weight: 3,
-                 color: '#010789',
-                 fill: true,
-                 fillOpacity: 0.5,
-               }
-        });
-
-
-    var trees_shrubs = new L.GeoJSON.AJAX("{% url 'trees_shrubs' %}", {
-        style: { clickable: true,
-                 weight: 3,
-                 color: '#006cle',
-                 fill: true,
-                 fillOpacity: 0.5,
-               }
-        });
-
-
-    var wetlands = new L.GeoJSON.AJAX("{% url 'wetlands' %}", {
-        style: { clickable: true,
-                 weight: 3,
-                 color: '#0808ff',
-                 fill: true,
-                 fillOpacity: 0.5,
-               }
-        });
-
-////// Carbon layers
-
-    var avoided_c = new L.GeoJSON.AJAX("{% url 'avoided_c' %}", {
-        style: { clickable: true,
-                 weight: 3,
-                 color: '#0808ff',
-                 fill: true,
-                 fillOpacity: 0.5,
                }
         });
 
@@ -387,14 +264,9 @@
         layers: [esriWorld]
     });
 
-///////////////////////////////////////
-////// Add Leaflet-Draw controls //////
-///////////////////////////////////////
-
-    // Initialize the FeatureGroup to store editable layers
-
-    var drawnItems = new L.FeatureGroup();
-    map.addLayer(drawnItems);
+////////////////////////////////////////////////////
+//// Add N arrow, scale and easy print function ////
+////////////////////////////////////////////////////
 
     L.control.scale().addTo(map);
     L.easyPrint().addTo(map);
@@ -407,13 +279,23 @@
     }
     north.addTo(map);
 
+///////////////////////////////////
+//// Add Leaflet-Draw controls ////
+///////////////////////////////////
+
+    // Initialize the FeatureGroup to store editable layers
+
+    var drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
     // Specify some custom options for the Drawing tools
 
     var drawOptions = {
         draw: {
-            polygon: {
-                showArea: true
-            }
+            polygon: { showArea: true },
+            circle: false,
+            marker: false,
+            polyline: false
 	},
 	edit: {
 	    featureGroup: drawnItems
@@ -445,7 +327,6 @@
     //opacitySlider.setOpacityLayer(landfire)
 
 </script>
-
 
 {% endblock layers %}
 

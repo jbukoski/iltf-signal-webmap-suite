@@ -235,6 +235,13 @@ class avoided_c(models.Model):
     def __str__(self):
         return '%s' % (self.avoided_c_id)
 
+#####################
+## For file upload ##
+#####################
+
+class document(models.Model):
+    name = models.CharField(max_length=40)
+    docfile = models.FileField(upload_to='lbst/uploaded')
 
 
 

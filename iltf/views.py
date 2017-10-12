@@ -5,8 +5,7 @@ from django.core.serializers import serialize
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse
-import json
-import os
+import json, os
 
 def index(request):
     return render(request, 'index.html', {
@@ -22,6 +21,8 @@ def custLogin(request):
         return HttpResponseRedirect(reverse('tamaya_index'))
     elif request.user.username == 'comanche_user':
         return HttpResponseRedirect(reverse('comanche_index'))
+    elif request.user.username == 'lbst_user':
+        return HttpResponseRedirect(reverse('lbst_index'))
     else:
         return redirect('iltf_index')
 

@@ -7,7 +7,6 @@ from comanche.admin import comanche_admin
 from lbst.admin import lbst_admin
 from tamaya.admin import tamaya_admin
 from . import views
-import tamaya
 
 admin.autodiscover()
 
