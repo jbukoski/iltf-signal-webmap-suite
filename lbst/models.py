@@ -2,7 +2,7 @@ from django.contrib.gis.db import models
 
 # Admin Layers
 
-class lbst_boundary(models.Model):
+class boundary(models.Model):
     boundary_id = models.AutoField(primary_key = True)
     objectid = models.BigIntegerField()
     own_type = models.CharField(max_length=254)
@@ -42,7 +42,7 @@ class lbst_boundary(models.Model):
     def __str__(self):
         return '%s' % (self.boundary_id)
 
-class lbst_parcels(models.Model):
+class parcels(models.Model):
     parcel_id = models.AutoField(primary_key=True)
     area = models.FloatField()
     perimeter = models.FloatField()
@@ -76,7 +76,7 @@ class lbst_parcels(models.Model):
     def __str__(self):
         return '%s' % (self.parcel_id)
 
-class lbst_new_parcels(models.Model):
+class new_parcels(models.Model):
     new_parcel_id = models.AutoField(primary_key=True)
     objectid = models.BigIntegerField()
     area = models.FloatField()

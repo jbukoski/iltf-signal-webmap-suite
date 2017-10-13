@@ -1,6 +1,5 @@
 import os
 from django.contrib.gis.utils import LayerMapping
-from .models import lbst_boundary, lbst_parcels, lbst_new_parcels, food_plots, grasslands, habitat_leases, shelterbelts, trees_shrubs, wetlands
 from . import models
 
 # Admin Layers
@@ -198,6 +197,13 @@ avoided_c_mapping = {
 }
 
 avoided_c_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'avoided_c.shp'))
+
+def load_bndry(verbose=True):
+    boundary_lm = LayerMapping(
+        models.boundary, boundary_shp, boundary_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    boundary_lm.save(strict=True, verbose=verbose)
 
 
 def run(verbose=True):

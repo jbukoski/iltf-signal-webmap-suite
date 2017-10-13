@@ -30,7 +30,7 @@ def index(request):
 
 def boundary_view(request):
     boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field="geom")
-    return HttpResponse(buff_boundary_json, content_type='json')
+    return HttpResponse(boundary_json, content_type='json')
 
 def signout_view(request):
     logout(request)

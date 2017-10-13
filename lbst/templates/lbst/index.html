@@ -43,7 +43,7 @@
                                     <div class="panel-body" style="padding: 0px 15px;">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="overlayLayers" id="boundary" z-index="2">
+                                                <input type="checkbox" name="overlayLayers" id="boundary" z-index="2" checked>
                                                 &nbsp Boundary
                                             </label>
                                         </div>
@@ -59,11 +59,11 @@
 
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#admin-layers">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#habitat-layers">
                                         Wildlife Habitat Layers
                                     </a>
                                 </div>
-                                <div id="admin-layers" class="panel-collapse collapse in">
+                                <div id="habitat-layers" class="panel-collapse collapse">
                                     <div class="panel-body" style="padding: 0px 15px;">
                                         <div class="checkbox">
                                             <label>
@@ -105,25 +105,6 @@
 				</div>
                             </div> <!--Closes 'panel panel-default'-->
 
-                           <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#carbon-layers">
-                                        Carbon Layers
-                                    </a>
-                                </div>
-                                <div id="carbon-layers" class="panel-collapse collapse in">
-                                    <div class="panel-body" style="padding: 0px 15px;">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="overlayLayers" id="avoided_c" z-index="1">
-                                                &nbsp Avoided Carbon Conversion
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
 			    <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#soil-layers">
@@ -141,6 +122,36 @@
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#veg-layers">
                                         User-defined Layers
                                     </a>
+                                </div>
+                            </div>
+
+                           <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#carbon-layers">
+                                        Carbon Layers
+                                    </a>
+                                </div>
+                                <div id="carbon-layers" class="panel-collapse collapse in">
+                                    <div class="panel-body" style="padding: 0px 15px;">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="agc" z-index="1">
+                                                &nbsp Aboveground Forest Carbon
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="bgc" z-index="1">
+                                                &nbsp Belowground Forest Carbon
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="soc" z-index="1">
+                                                &nbsp Soil Organic Carbon
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -243,13 +254,39 @@
 
 // Admin layers
 
-    var boundary = new L.GeoJSON.AJAX("{% url 'boundary' %}", {
+    var boundary = new L.GeoJSON.AJAX("{% url 'lbst_boundary' %}", {
         style: { clickable: true,
                  color: '#000000',
                  fill: false,
                  dashArray: 3,
                }
         });
+
+// Carbon layers
+
+    var agc = new L.tileLayer.wms('http://127.0.0.1:8080/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:lbst_agc',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
+    
+    var soc = new L.tileLayer.wms('http://127.0.0.1:8080/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:lbst_soc',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
 
 
 ////////////////////////////
@@ -258,10 +295,10 @@
 
     var map = L.map("map", {
         zoom: 10,
-        center: [44.1291, -99.8], 
+        center: [44.10, -99.75], 
         minZoom: 6,
         maxZoom: 20,
-        layers: [esriWorld]
+        layers: [esriWorld, boundary]
     });
 
 ////////////////////////////////////////////////////

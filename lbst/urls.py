@@ -7,7 +7,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     url(r'^$', views.index, name='lbst_index'),
     url(r'^login/$', auth_views.login, {'template_name': 'registration/login.html'}),
-    url(r'^boundary/', views.boundary_view, name='boundary'),
+    url(r'^boundary/', views.boundary_view, name='lbst_boundary'),
     #url(r'^lbst_parcels/', views.lbst_parcels_view, name='lbst_parcels'),
     #url(r'^lbst_new_parcels/', views.lbst_new_parcels_view, name='lbst_new_parcels'),
     #url(r'^food_plots/', views.food_plots_view, name='food_plots'),
