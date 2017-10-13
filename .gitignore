@@ -4,7 +4,7 @@
 /iltf/settings.py
 /iltf/urls.py
 .DS_Store
-/data
+/data/*/
 __pycache__/
 */__pycache__/
 */*/__pycache__/
