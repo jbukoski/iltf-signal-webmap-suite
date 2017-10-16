@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from .models import document
+from . import models
 
 #class DocumentForm(forms.Form):
 class DocumentForm(forms.ModelForm):
@@ -13,5 +13,5 @@ class DocumentForm(forms.ModelForm):
     """
 
     class Meta:
-        model = document
+        model = models.Document
         fields = ('docfile', )

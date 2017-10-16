@@ -17,6 +17,9 @@ urlpatterns = [
     #url(r'^trees_shrubs/', views.trees_shrubs_view, name='trees_shrubs'),
     #url(r'^wetlands/', views.wetlands_view, name='wetlands'),
     #url(r'^avoided_c/', views.avoided_c_view, name='avoided_c'),
+    url(r'^sample_up/', views.sample_up_view, name='lbst_sample_up'),
+    url(r'^delete_single/', views.delete_single_view, name="lbst_delete_single"),
+    url(r'^delete_up/', views.delete_up_view, name='lbst_delete_up'),
     url(r'^admin/logout/$', views.signout_view, name='signout'),
 ]
 

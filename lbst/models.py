@@ -239,7 +239,7 @@ class avoided_c(models.Model):
 ## For file upload ##
 #####################
 
-class document(models.Model):
+class Document(models.Model):
     name = models.CharField(max_length=40)
     docfile = models.FileField(upload_to='lbst/uploaded')
 
