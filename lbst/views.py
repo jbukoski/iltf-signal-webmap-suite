@@ -28,9 +28,25 @@ def index(request):
         'title': 'Lower Brule Sioux Tribe',
     })
 
+############
+## Layers ##
+############
+
 def boundary_view(request):
     boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field="geom")
     return HttpResponse(boundary_json, content_type='json')
+
+def counties_view(request):
+    counties_json = serialize('geojson', models.counties.objects.all(), geometry_field="geom")
+    return HttpResponse(counties_json, content_type='json')
+
+def parcels_view(request):
+    parcels_json = serialize('geojson', models.parcels.objects.all(), geometry_field="geom")
+    return HttpResponse(parcels_json, content_type='json')
+
+def new_purchases_view(request):
+    new_purchases_json = serialize('geojson', models.new_purchases.objects.all(), geometry_field="geom")
+    return HttpResponse(new_purchases_json, content_type='json')
 
 ######################
 ## Import Utilities ##

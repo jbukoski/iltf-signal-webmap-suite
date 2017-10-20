@@ -39,6 +39,42 @@ boundary_mapping = {
 
 boundary_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'reservation_boundary.shp'))
 
+counties_mapping = {
+    'statefp10' : 'STATEFP10',
+    'countyfp10' : 'COUNTYFP10',
+    'countyns10' : 'COUNTYNS10',
+    'geoid10' : 'GEOID10',
+    'name10' : 'NAME10',
+    'namelsad10' : 'NAMELSAD10',
+    'lsad10' : 'LSAD10',
+    'classfp10' : 'CLASSFP10',
+    'mtfcc10' : 'MTFCC10',
+    'csafp10' : 'CSAFP10',
+    'cbsafp10' : 'CBSAFP10',
+    'metdivfp10' : 'METDIVFP10',
+    'funcstat10' : 'FUNCSTAT10',
+    'aland10' : 'ALAND10',
+    'awater10' : 'AWATER10',
+    'intptlat10' : 'INTPTLAT10',
+    'intptlon10' : 'INTPTLON10',
+    'intptlat' : 'INTPTLAT',
+    'intptlon' : 'INTPTLON',
+    'cnty_id' : 'ID',
+    'id2' : 'ID2',
+    'geo' : 'GEO',
+    'target_geo' : 'TARGET_GEO',
+    'target_g_1' : 'TARGET_G_1',
+    'pop_total' : 'POP_TOTAL',
+    'pop_hu' : 'POP_HU',
+    'pop_occ_hu' : 'POP_OCC_HU',
+    'pop_vac_hu' : 'POP_VAC_HU',
+    'shape_area' : 'Shape_area',
+    'shape_len' : 'Shape_len',
+    'geom' : 'POLYGON',
+}
+
+counties_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'counties.shp'))
+
 
 parcels_mapping = {
     'area' : 'AREA',
@@ -69,7 +105,7 @@ parcels_mapping = {
 
 parcels_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'parcels.shp'))
 
-lbst_new_parcels_mapping = {
+new_purchases_mapping = {
     'objectid' : 'OBJECTID',
     'area' : 'AREA',
     'perimeter' : 'PERIMETER',
@@ -90,7 +126,7 @@ lbst_new_parcels_mapping = {
     'geom' : 'MULTIPOLYGON',
 }
 
-new_parcels_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'new_parcels.shp'))
+new_purchases_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'new_purchases.shp'))
 
 
 # Wildlife Habitat Layers
@@ -186,33 +222,54 @@ wetlands_mapping = {
 
 wetlands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'wetlands.shp'))
 
-# C layers
+# Carbon layers
 
-avoided_c_mapping = {
-    'feat_id' : 'Id',
+c_avoided_conversion_mapping = {
+    'id' : 'Id',
     'mgmt_unit' : 'Mgmt_Unit',
     'yr_establi' : 'Yr_Establi',
     'acres' : 'Acres',
-    'geom' : 'MULTIPOLYGON',
+    'fid_1' : 'FID_1',
+    'id_1' : 'Id_1',
+    'mgmt_uni_1' : 'Mgmt_Uni_1',
+    'yr_estab_1' : 'Yr_Estab_1',
+    'sixteen_yr' : 'Sixteen_Yr',
+    'land_type' : 'Land_Type',
+    'threat' : 'Threat',
+    'acres_1' : 'Acres_1',
+    'nrcs_pract' : 'NRCS_Pract',
+    'peracreco2' : 'PerAcreCO2',
+    'peryrtonsc' : 'perYrTonsC',
+    'tons_co2e_field' : 'Tons_CO2e_',
+    'geom' : 'POLYGON',
 }
 
-avoided_c_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'avoided_c.shp'))
+c_avoided_conversion_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'carbon_avoided_conversion.shp'))
 
-def load_bndry(verbose=True):
-    boundary_lm = LayerMapping(
-        models.boundary, boundary_shp, boundary_mapping,
+def load_lyr(verbose=True):
+
+    new_purchases_lm = LayerMapping(
+        models.new_purchases, new_purchases_shp, new_purchases_mapping,
         transform=False, encoding='iso-8859-1'
     )
-    boundary_lm.save(strict=True, verbose=verbose)
-
+    new_purchases_lm.save(strict=True, verbose=verbose)
 
 def run(verbose=True):
+
+    # Admin layers
 
     boundary_lm  = LayerMapping(
         lbst_boundary, boundary_shp, boundary_mapping,
         transform=False, encoding='iso-8859-1'
     )
     boundary_lm.save(strict=True, verbose=verbose)
+
+
+    counties_lm  = LayerMapping(
+        models.counties, counties_shp, counties_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    counties_lm.save(strict=True, verbose=verbose)
 
 
     parcels_lm = LayerMapping(
@@ -222,11 +279,11 @@ def run(verbose=True):
     parcels_lm.save(strict=True, verbose=verbose)
 
 
-    new_parcels_lm = LayerMapping(
-        lbst_new_parcels, new_parcels_shp, lbst_new_parcels_mapping,
+    new_purchases_lm = LayerMapping(
+        models.new_purchases, new_purchases_shp, new_purchases_mapping,
         transform=False, encoding='iso-8859-1'
     )
-    new_parcels_lm.save(strict=True, verbose=verbose)
+    new_purchases_lm.save(strict=True, verbose=verbose)
 
 
     food_plots_lm = LayerMapping(
@@ -269,8 +326,8 @@ def run(verbose=True):
     )
     wetlands_lm.save(strict=True, verbose=verbose)
 
-    avoided_c_lm = LayerMapping(
-        models.avoided_c, avoided_c_shp, avoided_c_mapping,
+    c_avoided_conversion_lm = LayerMapping(
+        models.c_avoided_conversion, c_avoided_conversion_shp, c_avoided_conversion_mapping,
         transform=False, encoding='iso-8859-1',
     )
-    avoided_c_lm.save(strict=True, verbose=verbose)
+    c_avoided_conversion_lm.save(strict=True, verbose=verbose)

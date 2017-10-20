@@ -49,8 +49,20 @@
                                         </div>
                                         <div class="checkbox">
                                             <label>
+                                                <input type="checkbox" name="overlayLayers" id="counties" z-index="2">
+                                                &nbsp Counties
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
                                                 <input type="checkbox" name="overlayLayers" id="parcels" z-index="2">
                                                 &nbsp Parcels
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="overlayLayers" id="purchases" z-index="2">
+                                                &nbsp New purchases
                                             </label>
                                         </div>
                                     </div>
@@ -691,6 +703,27 @@
                  color: '#000000',
                  fill: false,
                  dashArray: 3,
+               }
+        });
+
+    var counties = new L.GeoJSON.AJAX("{% url 'lbst_counties' %}", {
+        style: { clickable: true,
+                 color: '#000000',
+                 dashArray: 1,
+               }
+        });
+
+    var parcels = new L.GeoJSON.AJAX("{% url 'lbst_parcels' %}", {
+        style: { clickable: true,
+                 color: '#000000',
+                 dashArray: 1,
+               }
+        });
+
+    var purchases = new L.GeoJSON.AJAX("{% url 'lbst_new_purchases' %}", {
+        style: { clickable: true,
+                 color: '#000000',
+                 dashArray: 1,
                }
         });
 

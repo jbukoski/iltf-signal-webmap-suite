@@ -42,8 +42,44 @@ class boundary(models.Model):
     def __str__(self):
         return '%s' % (self.boundary_id)
 
+class counties(models.Model):
+    statefp10 = models.CharField(max_length=2)
+    countyfp10 = models.CharField(max_length=3)
+    countyns10 = models.CharField(max_length=8)
+    geoid10 = models.CharField(max_length=5)
+    name10 = models.CharField(max_length=100)
+    namelsad10 = models.CharField(max_length=100)
+    lsad10 = models.CharField(max_length=2)
+    classfp10 = models.CharField(max_length=2)
+    mtfcc10 = models.CharField(max_length=5)
+    csafp10 = models.CharField(max_length=3)
+    cbsafp10 = models.CharField(max_length=5)
+    metdivfp10 = models.CharField(max_length=5)
+    funcstat10 = models.CharField(max_length=1)
+    aland10 = models.FloatField()
+    awater10 = models.FloatField()
+    intptlat10 = models.CharField(max_length=11)
+    intptlon10 = models.CharField(max_length=12)
+    intptlat = models.FloatField()
+    intptlon = models.FloatField()
+    cnty_id = models.CharField(max_length=254)
+    id2 = models.CharField(max_length=254)
+    geo = models.CharField(max_length=254)
+    target_geo = models.CharField(max_length=254)
+    target_g_1 = models.CharField(max_length=254)
+    pop_total = models.BigIntegerField()
+    pop_hu = models.BigIntegerField()
+    pop_occ_hu = models.BigIntegerField()
+    pop_vac_hu = models.BigIntegerField()
+    shape_area = models.FloatField()
+    shape_len = models.FloatField()
+    geom = models.PolygonField(srid=4326)
+
+    def __str__(self):
+        return '%s' % (self.cnty_id)
+
 class parcels(models.Model):
-    parcel_id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key = True)
     area = models.FloatField()
     perimeter = models.FloatField()
     biglst_field = models.FloatField()
@@ -67,17 +103,13 @@ class parcels(models.Model):
     owner = models.FloatField()
     own = models.FloatField()
     num = models.FloatField()
-
     geom = models.MultiPolygonField(srid=4326)
 
-    class Meta:
-        verbose_name_plural = 'Reservation Boundary'
-
     def __str__(self):
-        return '%s' % (self.parcel_id)
+        return '%s' % (self.id)
 
-class new_parcels(models.Model):
-    new_parcel_id = models.AutoField(primary_key=True)
+class new_purchases(models.Model):
+    id = models.AutoField(primary_key=True)
     objectid = models.BigIntegerField()
     area = models.FloatField()
     perimeter = models.FloatField()
@@ -95,14 +127,10 @@ class new_parcels(models.Model):
     sect_t_r = models.CharField(max_length=50)
     legal_desc = models.CharField(max_length=250)
     acres_field = models.BigIntegerField()
-
     geom = models.MultiPolygonField(srid=4326)
 
-    class Meta:
-        verbose_name_plural = 'Newly Acquired Parcels'
-
     def __str__(self):
-        return '%s' % (self.new_parcel_id)
+        return '%s' % (self.id)
 
 # Wildlife Habitat Layers
 
@@ -224,13 +252,24 @@ class wetlands(models.Model):
 
 # Carbon layers
 
-class avoided_c(models.Model):
-    avoided_c_id = models.AutoField(primary_key = True)
-    feat_id = models.IntegerField()
+class c_avoided_conversion(models.Model):
+    avoided_c_id = models.BigIntegerField()
     mgmt_unit = models.CharField(max_length=25)
-    yr_establi = models.IntegerField()
+    yr_establi = models.BigIntegerField()
     acres = models.FloatField()
-    geom = models.MultiPolygonField(srid=4326)
+    fid_1 = models.BigIntegerField()
+    id_1 = models.BigIntegerField()
+    mgmt_uni_1 = models.CharField(max_length=254)
+    yr_estab_1 = models.CharField(max_length=254)
+    sixteen_yr = models.BigIntegerField()
+    land_type = models.CharField(max_length=254)
+    threat = models.CharField(max_length=254)
+    acres_1 = models.FloatField()
+    nrcs_pract = models.CharField(max_length=254)
+    peracreco2 = models.FloatField()
+    peryrtonsc = models.FloatField()
+    tons_co2e_field = models.FloatField()
+    geom = models.PolygonField(srid=4326)
 
     def __str__(self):
         return '%s' % (self.avoided_c_id)
