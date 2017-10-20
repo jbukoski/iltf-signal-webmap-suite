@@ -75,7 +75,6 @@ counties_mapping = {
 
 counties_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'counties.shp'))
 
-
 parcels_mapping = {
     'area' : 'AREA',
     'perimeter' : 'PERIMETER',
@@ -128,7 +127,6 @@ new_purchases_mapping = {
 
 new_purchases_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'new_purchases.shp'))
 
-
 # Wildlife Habitat Layers
 
 food_plots_mapping = {
@@ -143,10 +141,10 @@ food_plots_mapping = {
     'geom' : 'MULTIPOLYGON',
 }
 
-food_plots_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'food_plots.shp'))
+food_plots_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'foodplots.shp'))
 
 
-grasslands_mapping = {
+grasslands_export_mapping = {
     'operator' : 'OPERATOR',
     'program' : 'PROGRAM',
     'location' : 'LOCATION',
@@ -157,7 +155,7 @@ grasslands_mapping = {
     'geom' : 'MULTIPOLYGON',
 }
 
-grasslands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'grasslands_export.shp'))
+grasslands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'grasslandsexport.shp'))
 
 
 habitat_leases_mapping = {
@@ -172,8 +170,7 @@ habitat_leases_mapping = {
     'geom' : 'MULTIPOLYGON',
 }
 
-habitat_leases_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'HabitatLeases.shp'))
-
+habitat_leases_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'habitatleases.shp'))
 
 shelterbelts_mapping = {
     'objectid' : 'OBJECTID',
@@ -189,7 +186,7 @@ shelterbelts_mapping = {
     'geom' : 'MULTIPOINT',
 }
 
-shelterbelts_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'homesite_shelterbelts.shp'))
+shelterbelts_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'homesiteshelterbelts.shp'))
 
 
 trees_shrubs_mapping = {
@@ -248,15 +245,21 @@ c_avoided_conversion_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.
 
 def load_lyr(verbose=True):
 
-    new_purchases_lm = LayerMapping(
-        models.new_purchases, new_purchases_shp, new_purchases_mapping,
-        transform=False, encoding='iso-8859-1'
+    trees_shrubs_lm = LayerMapping(
+        models.trees_shrubs, trees_shrubs_shp, trees_shrubs_mapping,
+        transform=False, encoding='iso-8859-1',
     )
-    new_purchases_lm.save(strict=True, verbose=verbose)
+    trees_shrubs_lm.save(strict=True, verbose=verbose)
+
+    wetlands_lm = LayerMapping(
+        models.wetlands, wetlands_shp, wetlands_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    wetlands_lm.save(strict=True, verbose=verbose)
 
 def run(verbose=True):
 
-    # Admin layers
+    # Admin Layers
 
     boundary_lm  = LayerMapping(
         lbst_boundary, boundary_shp, boundary_mapping,
@@ -264,13 +267,11 @@ def run(verbose=True):
     )
     boundary_lm.save(strict=True, verbose=verbose)
 
-
     counties_lm  = LayerMapping(
         models.counties, counties_shp, counties_mapping,
         transform=False, encoding='iso-8859-1'
     )
     counties_lm.save(strict=True, verbose=verbose)
-
 
     parcels_lm = LayerMapping(
         lbst_parcels, parcels_shp, parcels_mapping,
@@ -278,50 +279,47 @@ def run(verbose=True):
     )
     parcels_lm.save(strict=True, verbose=verbose)
 
-
     new_purchases_lm = LayerMapping(
         models.new_purchases, new_purchases_shp, new_purchases_mapping,
         transform=False, encoding='iso-8859-1'
     )
     new_purchases_lm.save(strict=True, verbose=verbose)
 
+    # Habitat Layers
 
     food_plots_lm = LayerMapping(
-        food_plots, food_plots_shp, food_plots_mapping,
+        models.food_plots, food_plots_shp, food_plots_mapping,
         transform=False, encoding='iso-8859-1'
     )
     food_plots_lm.save(strict=True, verbose=verbose)
 
-
     grasslands_lm = LayerMapping(
-        grasslands, grasslands_shp, grasslands_mapping,
+        models.grasslands_export, grasslands_shp, grasslands_export_mapping,
         transform=False, encoding='iso-8859-1'
     )
     grasslands_lm.save(strict=True, verbose=verbose)
 
-
     habitat_leases_lm = LayerMapping(
-        habitat_leases, habitat_leases_shp, habitat_leases_mapping,
+        models.habitat_leases, habitat_leases_shp, habitat_leases_mapping,
         transform=False, encoding='iso-8859-1',
     )
     habitat_leases_lm.save(strict=True, verbose=verbose)
 
-
     shelterbelts_lm = LayerMapping(
-        shelterbelts, shelterbelts_shp, shelterbelts_mapping,
+        models.shelterbelts, shelterbelts_shp, shelterbelts_mapping,
         transform=False, encoding='iso-8859-1',
     )
     shelterbelts_lm.save(strict=True, verbose=verbose)
 
 
     trees_shrubs_lm = LayerMapping(
-        trees_shrubs, trees_shrubs_shp, trees_shrubs_mapping,
+        models.trees_shrubs, trees_shrubs_shp, trees_shrubs_mapping,
         transform=False, encoding='iso-8859-1',
     )
     trees_shrubs_lm.save(strict=True, verbose=verbose)
 
     wetlands_lm = LayerMapping(
-        wetlands, wetlands_shp, wetlands_mapping,
+        models.wetlands, wetlands_shp, wetlands_mapping,
         transform=False, encoding='iso-8859-1',
     )
     wetlands_lm.save(strict=True, verbose=verbose)

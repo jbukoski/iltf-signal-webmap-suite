@@ -44,25 +44,25 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="boundary" z-index="2" checked>
-                                                &nbsp Boundary
+                                                &nbsp Boundary &nbsp; <a href="{% url 'lbst_boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="counties" z-index="2">
-                                                &nbsp Counties
+                                                &nbsp Counties &nbsp; <a href="{% url 'lbst_counties_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
-                                        <div class="checkbox">
+                                        <div class="checkbox"> 
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="parcels" z-index="2">
-                                                &nbsp Parcels
+                                                &nbsp Parcels &nbsp; <a href="{% url 'lbst_parcels_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="purchases" z-index="2">
-                                                &nbsp New purchases
+                                                &nbsp New purchases &nbsp; <a href="{% url 'lbst_new_purchases_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                     </div>
@@ -80,37 +80,37 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="food_plots" z-index="1">
-                                                &nbsp Food Plots
+                                                &nbsp Food Plots &nbsp; <a href="{% url 'lbst_food_plots_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
 					<div class="checkbox">    
 					    <label>
                                                 <input type="checkbox" name="overlayLayers" id="grasslands" z-index="2">
-                                                &nbsp Grasslands
+                                                &nbsp Grasslands &nbsp; <a href="{% url 'lbst_grasslands_export_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="habitat_leases" z-index="2">
-                                                &nbsp Habitat Leases
+                                                &nbsp Habitat Leases &nbsp; <a href="{% url 'lbst_habitat_leases_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="shelterbelts" z-index="2">
-                                                &nbsp Homesite Shelterbelts
+                                                &nbsp Homesite Shelterbelts &nbsp; <a href="{% url 'lbst_shelterbelts_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="trees_shrubs" z-index="2">
-                                                &nbsp Trees and Shrubs
+                                                &nbsp Trees and Shrubs &nbsp; <a href="{% url 'lbst_trees_shrubs_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="wetlands" z-index="2">
-                                                &nbsp Wetlands
+                                                &nbsp Wetlands &nbsp; <a href="{% url 'lbst_wetlands_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
 				    </div>
@@ -721,6 +721,50 @@
         });
 
     var purchases = new L.GeoJSON.AJAX("{% url 'lbst_new_purchases' %}", {
+        style: { clickable: true,
+                 color: '#000000',
+                 dashArray: 1,
+               }
+        });
+
+// Habitat layers
+
+    var food_plots = new L.GeoJSON.AJAX("{% url 'lbst_food_plots' %}", {
+        style: { clickable: true,
+                 color: '#000000',
+                 dashArray: 1,
+               }
+        });
+
+    var grasslands = new L.GeoJSON.AJAX("{% url 'lbst_grasslands_export' %}", {
+        style: { clickable: true,
+                 color: '#000000',
+                 dashArray: 1,
+               }
+        });
+
+    var habitat_leases = new L.GeoJSON.AJAX("{% url 'lbst_habitat_leases' %}", {
+        style: { clickable: true,
+                 color: '#000000',
+                 dashArray: 1,
+               }
+        });
+
+    var shelterbelts = new L.GeoJSON.AJAX("{% url 'lbst_shelterbelts' %}", {
+        style: { clickable: true,
+                 color: '#000000',
+                 dashArray: 1,
+               }
+        });
+
+    var trees_shrubs = new L.GeoJSON.AJAX("{% url 'lbst_trees_shrubs' %}", {
+        style: { clickable: true,
+                 color: '#000000',
+                 dashArray: 1,
+               }
+        });
+
+    var wetlands = new L.GeoJSON.AJAX("{% url 'lbst_wetlands' %}", {
         style: { clickable: true,
                  color: '#000000',
                  dashArray: 1,

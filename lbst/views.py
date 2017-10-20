@@ -32,6 +32,8 @@ def index(request):
 ## Layers ##
 ############
 
+## Admin
+
 def boundary_view(request):
     boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field="geom")
     return HttpResponse(boundary_json, content_type='json')
@@ -47,6 +49,106 @@ def parcels_view(request):
 def new_purchases_view(request):
     new_purchases_json = serialize('geojson', models.new_purchases.objects.all(), geometry_field="geom")
     return HttpResponse(new_purchases_json, content_type='json')
+
+## Habitats
+
+def food_plots_view(request):
+    food_plots_json = serialize('geojson', models.food_plots.objects.all(), geometry_field="geom")
+    return HttpResponse(food_plots_json, content_type='json')
+
+def grasslands_export_view(request):
+    grasslands_export_json = serialize('geojson', models.grasslands_export.objects.all(), geometry_field="geom")
+    return HttpResponse(grasslands_export_json, content_type='json')
+
+def habitat_leases_view(request):
+    habitat_leases_json = serialize('geojson', models.habitat_leases.objects.all(), geometry_field="geom")
+    return HttpResponse(habitat_leases_json, content_type='json')
+
+def shelterbelts_view(request):
+    shelterbelts_json = serialize('geojson', models.shelterbelts.objects.all(), geometry_field="geom")
+    return HttpResponse(shelterbelts_json, content_type='json')
+
+def trees_shrubs_view(request):
+    trees_shrubs_json = serialize('geojson', models.trees_shrubs.objects.all(), geometry_field="geom")
+    return HttpResponse(trees_shrubs_json, content_type='json')
+
+def wetlands_view(request):
+    wetlands_json = serialize('geojson', models.wetlands.objects.all(), geometry_field="geom")
+    return HttpResponse(wetlands_json, content_type='json')
+
+#########################
+## Layer Download View ##
+#########################
+
+def boundary_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'boundary.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="boundary.zip"'
+
+    return response
+
+def counties_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'counties.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="counties.zip"'
+
+    return response
+
+def parcels_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'parcels.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="parcels.zip"'
+
+    return response
+
+def new_purchases_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'new_purchases.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="new_purchases.zip"'
+
+    return response
+
+def food_plots_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'foodplots.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="food_plots.zip"'
+
+    return response
+
+def grasslands_export_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'grasslandsexport.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="grasslands_export.zip"'
+
+    return response
+
+def habitat_leases_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'habitatleases.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="habitat_leases.zip"'
+
+    return response
+
+def shelterbelts_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'homesiteshelterbelts.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="shelterbelts.zip"'
+
+    return response
+
+def trees_shrubs_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'trees_and_shrubs.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="trees_and_shrubs.zip"'
+
+    return response
+
+def wetlands_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'wetlands.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="wetlands.zip"'
+
+    return response
 
 ######################
 ## Import Utilities ##

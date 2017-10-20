@@ -33,11 +33,7 @@ class boundary(models.Model):
     res_status = models.CharField(max_length=254)
     shape_le_1 = models.FloatField()
     shape_area = models.FloatField()
-
     geom = models.MultiPolygonField(srid=4326)
-
-    class Meta:
-        verbose_name_plural = 'Reservation Boundary'
 
     def __str__(self):
         return '%s' % (self.boundary_id)
@@ -135,7 +131,7 @@ class new_purchases(models.Model):
 # Wildlife Habitat Layers
 
 class food_plots(models.Model):
-    food_plot_id = models.AutoField(primary_key = True)
+    id = models.AutoField(primary_key = True)
     objectid = models.IntegerField()
     shape_leng = models.FloatField()
     shape_area = models.FloatField()
@@ -144,17 +140,13 @@ class food_plots(models.Model):
     acres = models.FloatField()
     crop_2014 = models.CharField(max_length=50)
     crop_2015 = models.CharField(max_length=50)
-
     geom = models.MultiPolygonField(srid=4326)
 
-    class Meta:
-        verbose_name_plural = 'Food Plots'
-
     def __str__(self):
-        return '%s' % (self.food_plot_id)
+        return '%s' % (self.id)
 
-class grasslands(models.Model):
-    grasslands_id = models.AutoField(primary_key = True)
+class grasslands_export(models.Model):
+    id = models.AutoField(primary_key = True)
     operator = models.CharField(max_length=50)
     program = models.CharField(max_length=50)
     location = models.CharField(max_length=50)
@@ -162,18 +154,13 @@ class grasslands(models.Model):
     year_done = models.IntegerField()
     acres = models.FloatField()
     cost = models.IntegerField()
-
     geom = models.MultiPolygonField(srid=4326)
 
-    class Meta:
-        verbose_name_plural = 'Grassland Exports'
-
     def __str__(self):
-        return '%s' % (self.grasslands_id)
-
+        return '%s' % (self.id)
 
 class habitat_leases(models.Model):
-    lease_id = models.AutoField(primary_key = True)
+    id = models.AutoField(primary_key = True)
     name = models.CharField(max_length=50)
     lease_or_p = models.CharField(max_length=50)
     start_date = models.DateField()
@@ -182,17 +169,13 @@ class habitat_leases(models.Model):
     total_acre = models.IntegerField()
     payment_du = models.CharField(max_length=50)
     contract_l = models.IntegerField()
-
     geom = models.MultiPolygonField(srid=4326)
 
-    class Meta:
-        verbose_name_plural = 'Habitat Leases'
-
     def __str__(self):
-        return '%s' % (self.name)
+        return '%s' % (self.id)
 
 class shelterbelts(models.Model):
-    shelterbelts_id = models.AutoField(primary_key = True)
+    id = models.AutoField(primary_key = True)
     objectid = models.IntegerField()
     operator = models.CharField(max_length=50)
     program = models.CharField(max_length=50)
@@ -203,17 +186,13 @@ class shelterbelts(models.Model):
     year_done = models.IntegerField()
     fabric_ft = models.IntegerField()
     irrigated_field = models.FloatField()
-
     geom = models.MultiPointField(srid=4326)
 
-    class Meta:
-        verbose_name_plural = 'Homesite Shelterbelts'
-
     def __str__(self):
-        return '%s' % (self.shelterbelts_id)
+        return '%s' % (self.id)
 
 class trees_shrubs(models.Model):
-    trees_shrubs_id = models.AutoField(primary_key = True)
+    id = models.AutoField(primary_key = True)
     operator = models.CharField(max_length=24)
     program = models.CharField(max_length=16)
     practice = models.CharField(max_length=20)
@@ -224,17 +203,13 @@ class trees_shrubs(models.Model):
     year_done = models.BigIntegerField()
     fabric_ft = models.BigIntegerField()
     irrigated = models.CharField(max_length=10)
-
     geom = models.MultiPolygonField(srid=4326)
 
-    class Meta:
-        verbose_name_plural = 'Trees and Shrubs'
-
     def __str__(self):
-        return '%s' % (self.trees_shrubs_id)
+        return '%s' % (self.id)
 
 class wetlands(models.Model):
-    wetlands_id = models.AutoField(primary_key = True)
+    id = models.AutoField(primary_key = True)
     operator = models.CharField(max_length=20)
     program = models.CharField(max_length=16)
     practice = models.CharField(max_length=20)
@@ -244,11 +219,8 @@ class wetlands(models.Model):
     year_done = models.IntegerField()
     geom = models.MultiPolygonField(srid=4326)
 
-    class Meta:
-        verbose_name_plural = 'Wetlands'
-
     def __str__(self):
-        return '%s' % (self.wetlands_id)
+        return '%s' % (self.id)
 
 # Carbon layers
 
