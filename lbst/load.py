@@ -39,6 +39,12 @@ boundary_mapping = {
 
 boundary_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'reservation_boundary.shp'))
 
+buffered_bndry_mapping = {
+    'geom' : 'MULTIPOLYGON'
+}
+
+buffered_bndry_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'cnties_bndry.shp'))
+
 counties_mapping = {
     'statefp10' : 'STATEFP10',
     'countyfp10' : 'COUNTYFP10',
@@ -379,11 +385,11 @@ c_wetlands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__
 
 def load_lyr(verbose=True):
 
-    c_wetlands_lm = LayerMapping(
-        models.c_wetlands, c_wetlands_shp, c_wetlands_mapping,
+    buffered_bndry_lm = LayerMapping(
+        models.buffered_bndry, buffered_bndry_shp, buffered_bndry_mapping,
         transform=False, encoding='iso-8859-1',
     )
-    c_wetlands_lm.save(strict=True, verbose=verbose)
+    buffered_bndry_lm.save(strict=True, verbose=verbose)
 
 def run(verbose=True):
 

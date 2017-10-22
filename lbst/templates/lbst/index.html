@@ -173,34 +173,34 @@
 
                            <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#veg-layers">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#vegetation-layers">
                                         Vegetation Layers
                                     </a>
                                 </div>
-                                <div id="veg-layers" class="panel-collapse collapse">
+                                <div id="vegetation-layers" class="panel-collapse collapse">
                                     <div class="panel-body" style="padding: 0px 15px;">
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="evt" z-index="1">
-                                                &nbsp Landfire Existing Vegetation
+                                                &nbsp Landfire Existing Vegetation &nbsp; <a href="{% url 'lbst_evt_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="ndvi2005" z-index="1">
-                                                &nbsp Mean Annual NDVI - 2005
+                                                &nbsp Mean Annual NDVI - 2005 &nbsp; <a href="{% url 'lbst_2005_ndvi_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="ndvi2010" z-index="1">
-                                                &nbsp Mean Annual NDVI - 2010
+                                                &nbsp Mean Annual NDVI - 2010 &nbsp; <a href="{% url 'lbst_2010_ndvi_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="ndvi2015" z-index="1">
-                                                &nbsp Mean Annual NDVI - 2015
+                                                &nbsp Mean Annual NDVI - 2015 &nbsp; <a href="{% url 'lbst_2015_ndvi_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                     </div>
@@ -218,19 +218,19 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="agc" z-index="1">
-                                                &nbsp Aboveground Forest Carbon
+                                                &nbsp Aboveground Forest Carbon &nbsp; <a href="{% url 'lbst_agc_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="bgc" z-index="1">
-                                                &nbsp Belowground Forest Carbon
+                                                &nbsp Belowground Forest Carbon &nbsp; <a href="{% url 'lbst_bgc_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="overlayLayers" id="soc" z-index="1">
-                                                &nbsp Soil Organic Carbon
+                                                <input type="checkbox" name="overlayLayers" id="gssurgoSOC" z-index="1">
+                                                &nbsp Soil Organic Carbon &nbsp; <a href="{% url 'lbst_soc_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                     </div>
@@ -257,13 +257,13 @@
                                                         </input>
                                                     </label>
                                                     <div style="display: inline-block; float:right;">
-                                                    <form role="form" method="POST" action="{% url 'delete_single' %}" enctype="multipart/form-data" style="display: inline-block;">
+                                                    <form role="form" method="POST" action="{% url 'lbst_delete_single' %}" enctype="multipart/form-data" style="display: inline-block;">
                                                         {% csrf_token %}
                                                         <input name="dat" value={{ document.docfile }} style="display: none;">
                                                             <button class="fa fa-trash-o" type="submit" style="color: red; border: none; background: none;"></button>
                                                         </input>
                                                     </form>
-                                                    <form role="form" method="POST" action="{% url 'download_single' %}" enctype="multipart/form-data" style="display: inline-block;">
+                                                    <form role="form" method="POST" action="{% url 'lbst_download_single' %}" enctype="multipart/form-data" style="display: inline-block;">
                                                         {% csrf_token %}
                                                         <input name="dl_file" value={{ document.docfile }} style="display: none;">
                                                             <button class="fa fa-download" type="submit" style="color: #428BCA; border: none; background: none;"></button>
@@ -733,6 +733,73 @@
     };
 
 
+////////////////////////////////////
+//// Build legend functionality ////
+////////////////////////////////////
+
+var lyrs;
+var legPopup = L.popup();
+var lyrs_arr = [];
+
+    $("div#vegetation-layers input[type='checkbox'], div#carbon-layers input[type='checkbox']").change(function () {
+        lyrs = $("div#vegetation-layers input:checkbox:checked, div#carbon-layers input:checkbox:checked").map(function() {return this.id});
+        legendFunction(lyrs);
+    });
+
+    function legendFunction( lyrs ) {
+        if ($("div#vegetation-layers input[type='checkbox'], div#carbon-layers input[type='checkbox']").is(':checked')) {
+
+            var legPopup = L.popup();
+            lyrs_arr = [];
+            for(i = 0; i < lyrs.length; i++) {
+                lyrs_arr[i] = lyrs[i];
+            };
+
+            buff_bndry.addTo(map);
+
+            map.off('click');
+
+            map.on('click', function(e) {
+                if(legCheck) {
+                    var lng = e.latlng.lng;
+                    var lat = e.latlng.lat;
+                    updateLatLng(lat, lng, lyrs_arr);
+                };
+            });
+
+        } else {
+            if(map) {
+                map.closePopup();
+                buff_bndry.remove();
+                map.off('click');
+            };
+        };
+
+    };
+
+    function updateLatLng(lat, lng, leg_lyrs) {
+        var legendResp;
+        var data = {'lat': lat, 'lng': lng, csrfmiddlewaretoken: '{{ csrf_token }}'};
+
+        var legendPost = $.post('{% url 'lbst_legend' %}', data, function(resp) { legendResp = resp });
+
+        $.when(legendPost).then(function() {
+            var text = legendResp.legText
+            var arr = [];
+            for(var key in leg_lyrs) { arr.push(text[leg_lyrs[key]]); };
+            var arr_string = arr.join('');
+
+            legPopup
+                .setLatLng([lat, lng])
+                .setContent("<p><b>VEGETATION LAYERS LEGENDS: </b></br></br>" + arr_string + "</p>")
+
+            setTimeout(function() {
+                legPopup.openOn(map);
+            }, 250);
+        });
+    };
+
+
 
 ////////////////////////////
 ////// Overlay Layers //////
@@ -745,6 +812,15 @@
                  color: '#000000',
                  fill: false,
                  dashArray: 3,
+               }
+        });
+
+    var buff_bndry = new L.GeoJSON.AJAX("{% url 'lbst_buff_bndry' %}", {
+        style: { clickable: true,
+                 opacity: 0,
+                 fill: true,
+                 fillOpacity: 0,
+                 zIndex: -100,
                }
         });
 
@@ -866,6 +942,18 @@
 
 // Vegetation layers
 
+    var evt = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:lbst_evt',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
+
     var ndvi2005 = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
         service: 'WMS',
         version: '1.1.1',
@@ -928,7 +1016,7 @@
         bgcolor: '#FFFFFF'
     });
 
-    var soc = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
+    var gssurgoSOC = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
         service: 'WMS',
         version: '1.1.1',
         request: 'GetMap',
@@ -979,7 +1067,7 @@
 
     // Specify some custom options for the Drawing tools
 
-    var drawOptions = {
+    var drawOptionsFull = {
         draw: {
             polygon: { showArea: true },
             circle: false,
@@ -991,29 +1079,97 @@
 	    }
 	};
 
-	// Initialize the draw control and pass it the FeatureGroup of editable layers
-	var drawControl = new L.Control.Draw(drawOptions);
-	
-	map.addControl(drawControl);
 
-	map.on('draw:created', function (e) {
-	var type = e.layerType,
-		layer = e.layer;
+    var drawOptionsEditOnly = {
+          edit: {
+            featureGroup: drawnItems
+          },
+          draw: false
+    };
 
-	if (type === 'marker') {
-		layer.bindPopup('A popup!');
-	}
 
-	// Do whatever else you need to. (save to db, add to map etc)
-	drawnItems.addLayer(layer);
-	});
+    // Initialize the draw control and pass it the FeatureGroup of editable layers
+    var drawControlFull = new L.Control.Draw(drawOptionsFull);
+    var drawControlEditOnly = new L.Control.Draw(drawOptionsEditOnly);
+    var layerGeom = {};
+    var legCheck = true;
 
-    // Add opacity controls
+    map.addControl(drawControlFull);
 
-    /*var opacitySlider = new L.Control.opacitySlider();
-    map.addControl(opacitySlider);*/
+    map.on('draw:created', function (e) {
+        var layer = e.layer;
+        drawnItems.addLayer(layer);
+        drawControlFull.remove(map);
+        drawControlEditOnly.addTo(map);
+        legCheck = false;
 
-    //opacitySlider.setOpacityLayer(landfire)
+    });
+
+    map.on('draw:deleted', function(e) {
+        if (drawnItems.getLayers().length === 0) {
+            drawControlEditOnly.remove(map);
+            drawControlFull.addTo(map);
+            legCheck = true;
+        };
+    });
+
+////////////////////////////////////
+////// Summary Stats Function //////
+////////////////////////////////////
+
+    drawnItems.on("click", function(e) {
+        var layer = e.layer;
+        var type = layer.toGeoJSON().geometry.type;
+    
+        if (type === 'Polygon') {
+            var centroid = layer.getBounds().getCenter();
+            var layerGeoJSON = layer.toGeoJSON();
+            var layerGeom = JSON.stringify(layerGeoJSON.geometry);
+            var queryPopup = L.popup(); 
+            var c_lyrs = $("div#carbon-layers input[type='checkbox']:checked").map(function() {return this.id;});
+            var c_arr = $.map(c_lyrs, function(value, index) { return [value]; });
+            var post_resp;
+    
+            data = {'geom': layerGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
+    
+            var sumstatsPost = $.post('{% url 'lbst_sumstats' %}', data, function(resp) { post_resp = resp; });
+    
+            $.when(sumstatsPost).then(function(args) {
+                var arr = [];
+                for(var key in c_arr) { 
+                    var forestArea = '<b>&nbsp&nbspForest area selected: </b>' + '~' + post_resp.forestArea + ' ha</br>';
+                    arr.push(forestArea); 
+                    arr.push(post_resp.text[c_arr[key]]); 
+                };
+                var arr_string = arr.join('');
+    
+                if(post_resp.totalArea < 62.5) {
+                    var areaFlag = '</br><b>&nbsp&nbspNote:</b> The queried polygon area is small relative to the resolution of the forest carbon pixels. Valid biomass forest carbon estimates cannot be provided. The soil organic carbon results may still be valid. </br>';
+                    if($.inArray('gssurgoSOC', c_arr) > -1) {
+                        if(Object.keys(c_arr).length > 1) {
+                            var arr_string = areaFlag.concat(statsText['gssurgoSOC']);
+                        } else {
+                            var arr_string = statsText['gssurgoSOC'];
+                        };
+                    } else {
+                        var arr_string = areaFlag;
+                    };
+                };
+    
+                queryPopup
+                    .setLatLng(centroid)
+                    .setContent('<p><b>SUMMARY STATISTICS: </b>' +
+                                '</br><b>&nbsp&nbspArea selected: </b>' + post_resp.totalArea + ' ha</br>' +
+                                arr_string + "</p>")
+    
+                setTimeout(function() {
+                    if(Object.keys(c_arr).length > 0) {    
+                        queryPopup.openOn(map);
+                    };
+                }, 250);
+            });    
+        };
+    });
 
 </script>
 
