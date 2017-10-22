@@ -222,7 +222,7 @@ wetlands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__fi
 # Carbon layers
 
 c_avoided_conversion_mapping = {
-    'id' : 'Id',
+    'avoided_id' : 'Id',
     'mgmt_unit' : 'Mgmt_Unit',
     'yr_establi' : 'Yr_Establi',
     'acres' : 'Acres',
@@ -238,24 +238,152 @@ c_avoided_conversion_mapping = {
     'peracreco2' : 'PerAcreCO2',
     'peryrtonsc' : 'perYrTonsC',
     'tons_co2e_field' : 'Tons_CO2e_',
-    'geom' : 'POLYGON',
+    'geom' : 'MULTIPOLYGON',
 }
 
 c_avoided_conversion_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'carbon_avoided_conversion.shp'))
 
+c_food_plots_mapping = {
+    'food_plot_id' : 'Id',
+    'mgmt_unit' : 'Mgmt_Unit',
+    'yr_establi' : 'Yr_Establi',
+    'acres' : 'Acres',
+    'fid_1' : 'FID_1',
+    'id_1' : 'Id_1',
+    'mgmt_uni_1' : 'Mgmt_Uni_1',
+    'yr_estab_1' : 'Yr_Estab_1',
+    'land_type' : 'Land_Type',
+    'duration' : 'Duration',
+    'sixteen_ye' : 'Sixteen_ye',
+    'acres_1' : 'Acres_1',
+    'nrcs_pract' : 'NRCS_Pract',
+    'per_acre_c' : 'Per_Acre_C',
+    'per_year_t' : 'per_Year_T',
+    'tons_co2e_field' : 'Tons_CO2e_',
+    'sixteen_1' : 'Sixteen__1',
+    'geom' : 'MULTIPOLYGON',
+}
+
+c_food_plots_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'carbon_food_plots.shp'))
+
+c_native_grasslands_mapping = {
+    'native_grass_id' : 'Id',
+    'mgmt_unit' : 'Mgmt_Unit',
+    'yr_establi' : 'Yr_Establi',
+    'acres' : 'Acres',
+    'fid_1' : 'FID_1',
+    'id_1' : 'Id_1',
+    'mgmt_uni_1' : 'Mgmt_Uni_1',
+    'land_type' : 'Land_Type',
+    'yr_estab_1' : 'Yr_Estab_1',
+    'acres_1' : 'Acres_1',
+    'nrcs_pract' : 'NRCS_Pract',
+    'peracreco2' : 'PerAcreCO2',
+    'peryrtonsc' : 'perYrTonsC',
+    'assumed_si' : 'Assumed_si',
+    'geom' : 'MULTIPOLYGON',
+}
+
+c_native_grasslands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'carbon_native_grasslands.shp'))
+
+c_new_grasslands_mapping = {
+    'new_grass_id' : 'Id',
+    'mgmt_unit' : 'Mgmt_Unit',
+    'yr_establi' : 'Yr_Establi',
+    'acres' : 'Acres',
+    'fid_1' : 'FID_1',
+    'id_1' : 'Id_1',
+    'mgmt_uni_1' : 'Mgmt_Uni_1',
+    'land_type' : 'Land_Type',
+    'yr_estab_1' : 'Yr_Estab_1',
+    'duration' : 'Duration',
+    'sixteen_ye' : 'Sixteen_ye',
+    'acres_1' : 'Acres_1',
+    'nrcs_pract' : 'NRCS_Pract',
+    'peracreco2' : 'PerAcreCO2',
+    'peryrtonsc' : 'perYrTonsC',
+    'tonssincec' : 'TonsSinceC',
+    'sixteen_1' : 'Sixteen__1',
+    'geom' : 'MULTIPOLYGON',
+}
+
+c_new_grasslands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'carbon_new_grasslands.shp'))
+
+c_new_treebelt_mapping = {
+    'new_tree_id' : 'Id',
+    'mgmt_unit' : 'Mgmt_Unit',
+    'yr_establi' : 'Yr_Establi',
+    'acres' : 'Acres',
+    'fid_1' : 'FID_1',
+    'id_1' : 'Id_1',
+    'mgmt_uni_1' : 'Mgmt_Uni_1',
+    'yr_estab_1' : 'Yr_Estab_1',
+    'duration' : 'Duration',
+    'sixteen_ye' : 'Sixteen_ye',
+    'acres_1' : 'Acres_1',
+    'nrcs_pract' : 'NRCS_Pract',
+    'per_acre_c' : 'Per_Acre_C',
+    'per_yr_ton' : 'per_Yr_Ton',
+    'tons_since' : 'Tons_Since',
+    'sixteen_1' : 'Sixteen__1',
+    'field13' : 'Field13',
+    'geom' : 'MULTIPOLYGON',
+}
+
+c_new_treebelt_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'carbon_new_treebelt.shp'))
+
+c_old_treebelts_mapping = {
+    'old_tree_id' : 'Id',
+    'mgmt_unit' : 'Mgmt_Unit',
+    'yr_establi' : 'Yr_Establi',
+    'acres' : 'Acres',
+    'fid_1' : 'FID_1',
+    'id_1' : 'Id_1',
+    'mgmt_uni_1' : 'Mgmt_Uni_1',
+    'yr_estab_1' : 'Yr_Estab_1',
+    'duration' : 'Duration',
+    'sixteen_ye' : 'Sixteen_ye',
+    'acres_1' : 'Acres_1',
+    'nrcs_pract' : 'NRCS_Pract',
+    'per_acre_c' : 'Per_Acre_C',
+    'per_yr_ton' : 'per_Yr_Ton',
+    'tons_since' : 'Tons_Since',
+    'sixteen_1' : 'Sixteen__1',
+    'field13' : 'Field13',
+    'geom' : 'MULTIPOLYGON',
+}
+
+c_old_treebelts_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'carbon_old_treebelts.shp'))
+
+c_wetlands_mapping = {
+    'wetlands_id' : 'Id',
+    'mgmt_unit' : 'Mgmt_Unit',
+    'yr_establi' : 'Yr_Establi',
+    'acres' : 'Acres',
+    'fid_1' : 'FID_1',
+    'id_1' : 'Id_1',
+    'mgmt_uni_1' : 'Mgmt_Uni_1',
+    'yr_estab_1' : 'Yr_Estab_1',
+    'duration' : 'Duration',
+    'sixteen_ye' : 'Sixteen_ye',
+    'acres_1' : 'Acres_1',
+    'nrcs_pract' : 'NRCS_Pract',
+    'per_acre_c' : 'Per_Acre_C',
+    'per_yr_ton' : 'per_Yr_Ton',
+    'tons_since' : 'Tons_Since',
+    'sixteen_1' : 'Sixteen__1',
+    'geom' : 'MULTIPOLYGON',
+}
+
+c_wetlands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'carbon_wetlands.shp'))
+
 def load_lyr(verbose=True):
 
-    trees_shrubs_lm = LayerMapping(
-        models.trees_shrubs, trees_shrubs_shp, trees_shrubs_mapping,
+    c_wetlands_lm = LayerMapping(
+        models.c_wetlands, c_wetlands_shp, c_wetlands_mapping,
         transform=False, encoding='iso-8859-1',
     )
-    trees_shrubs_lm.save(strict=True, verbose=verbose)
-
-    wetlands_lm = LayerMapping(
-        models.wetlands, wetlands_shp, wetlands_mapping,
-        transform=False, encoding='iso-8859-1',
-    )
-    wetlands_lm.save(strict=True, verbose=verbose)
+    c_wetlands_lm.save(strict=True, verbose=verbose)
 
 def run(verbose=True):
 
@@ -324,8 +452,46 @@ def run(verbose=True):
     )
     wetlands_lm.save(strict=True, verbose=verbose)
 
+    # Carbon layers
+
     c_avoided_conversion_lm = LayerMapping(
         models.c_avoided_conversion, c_avoided_conversion_shp, c_avoided_conversion_mapping,
         transform=False, encoding='iso-8859-1',
     )
     c_avoided_conversion_lm.save(strict=True, verbose=verbose)
+
+    c_food_plots_lm = LayerMapping(
+        models.c_food_plots, c_food_plots_shp, c_food_plots_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    c_food_plots_lm.save(strict=True, verbose=verbose)
+
+    c_native_grasslands_lm = LayerMapping(
+        models.c_native_grasslands, c_native_grasslands_shp, c_native_grasslands_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    c_native_grasslands_lm.save(strict=True, verbose=verbose)
+
+    c_new_grasslands_lm = LayerMapping(
+        models.c_new_grasslands, c_new_grasslands_shp, c_new_grasslands_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    c_new_grasslands_lm.save(strict=True, verbose=verbose)
+
+    c_new_treebelt_lm = LayerMapping(
+        models.c_new_treebelt, c_new_treebelt_shp, c_new_treebelt_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    c_new_treebelt_lm.save(strict=True, verbose=verbose)
+
+    c_old_treebelts_lm = LayerMapping(
+        models.c_old_treebelts, c_old_treebelts_shp, c_old_treebelts_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    c_old_treebelts_lm.save(strict=True, verbose=verbose)
+
+    c_wetlands_lm = LayerMapping(
+        models.c_wetlands, c_wetlands_shp, c_wetlands_mapping,
+        transform=False, encoding='iso-8859-1',
+    )
+    c_wetlands_lm.save(strict=True, verbose=verbose)

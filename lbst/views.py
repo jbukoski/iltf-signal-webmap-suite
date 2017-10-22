@@ -76,6 +76,36 @@ def wetlands_view(request):
     wetlands_json = serialize('geojson', models.wetlands.objects.all(), geometry_field="geom")
     return HttpResponse(wetlands_json, content_type='json')
 
+# Carbon layers
+
+def c_avoided_view(request):
+    c_avoided_json = serialize('geojson', models.c_avoided_conversion.objects.all(), geometry_field="geom")
+    return HttpResponse(c_avoided_json, content_type='json')
+
+def c_food_plots_view(request):
+    c_food_plots_json = serialize('geojson', models.c_food_plots.objects.all(), geometry_field="geom")
+    return HttpResponse(c_food_plots_json, content_type='json')
+
+def c_native_grasslands_view(request):
+    c_native_grasslands_json = serialize('geojson', models.c_native_grasslands.objects.all(), geometry_field="geom")
+    return HttpResponse(c_native_grasslands_json, content_type='json')
+
+def c_new_grasslands_view(request):
+    c_new_grasslands_json = serialize('geojson', models.c_new_grasslands.objects.all(), geometry_field="geom")
+    return HttpResponse(c_new_grasslands_json, content_type='json')
+
+def c_new_treebelt_view(request):
+    c_new_treebelt_json = serialize('geojson', models.c_new_treebelt.objects.all(), geometry_field="geom")
+    return HttpResponse(c_new_treebelt_json, content_type='json')
+
+def c_old_treebelts_view(request):
+    c_old_treebelts_json = serialize('geojson', models.c_old_treebelts.objects.all(), geometry_field="geom")
+    return HttpResponse(c_old_treebelts_json, content_type='json')
+
+def c_wetlands_view(request):
+    c_wetlands_json = serialize('geojson', models.c_wetlands.objects.all(), geometry_field="geom")
+    return HttpResponse(c_wetlands_json, content_type='json')
+
 #########################
 ## Layer Download View ##
 #########################
@@ -147,6 +177,57 @@ def wetlands_dl_view(request):
     download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'wetlands.zip'), 'rb')
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="wetlands.zip"'
+
+    return response
+
+# Carbon download layers
+
+def c_avoided_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'carbon_avoided_conversion.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="carbon_avoided_conversion.zip"'
+
+    return response
+
+def c_food_plots_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'carbon_food_plots.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="carbon_food_plots.zip"'
+
+    return response
+
+def c_native_grasslands_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'carbon_native_grasslands.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="carbon_native_grasslands.zip"'
+
+    return response
+
+def c_new_grasslands_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'carbon_new_grasslands.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="carbon_new_grasslands.zip"'
+
+    return response
+
+def c_new_treebelt_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'carbon_new_treebelt.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="carbon_new_treebelt.zip"'
+
+    return response
+
+def c_old_treebelts_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'carbon_old_treebelts.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="carbon_old_treebelts.zip"'
+
+    return response
+
+def c_wetlands_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'lbst', 'carbon_wetlands.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="carbon_wetlands.zip"'
 
     return response
 

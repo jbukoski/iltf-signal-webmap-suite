@@ -225,7 +225,8 @@ class wetlands(models.Model):
 # Carbon layers
 
 class c_avoided_conversion(models.Model):
-    avoided_c_id = models.BigIntegerField()
+    id = models.AutoField(primary_key = True)
+    avoided_id = models.BigIntegerField()
     mgmt_unit = models.CharField(max_length=25)
     yr_establi = models.BigIntegerField()
     acres = models.FloatField()
@@ -241,10 +242,150 @@ class c_avoided_conversion(models.Model):
     peracreco2 = models.FloatField()
     peryrtonsc = models.FloatField()
     tons_co2e_field = models.FloatField()
-    geom = models.PolygonField(srid=4326)
+    geom = models.MultiPolygonField(srid=4326)
 
     def __str__(self):
-        return '%s' % (self.avoided_c_id)
+        return '%s' % (self.id)
+
+class c_food_plots(models.Model):
+    id = models.AutoField(primary_key = True)
+    food_plot_id = models.BigIntegerField()
+    mgmt_unit = models.CharField(max_length=25)
+    yr_establi = models.BigIntegerField()
+    acres = models.FloatField()
+    fid_1 = models.BigIntegerField()
+    id_1 = models.BigIntegerField()
+    mgmt_uni_1 = models.CharField(max_length=254)
+    yr_estab_1 = models.BigIntegerField()
+    land_type = models.CharField(max_length=254)
+    duration = models.BigIntegerField()
+    sixteen_ye = models.BigIntegerField()
+    acres_1 = models.FloatField()
+    nrcs_pract = models.CharField(max_length=254)
+    per_acre_c = models.FloatField()
+    per_year_t = models.FloatField()
+    tons_co2e_field = models.FloatField()
+    sixteen_1 = models.FloatField()
+    geom = models.MultiPolygonField(srid=4326)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+class c_native_grasslands(models.Model):
+    id = models.AutoField(primary_key = True)
+    native_grass_id = models.BigIntegerField()
+    mgmt_unit = models.CharField(max_length=25)
+    yr_establi = models.BigIntegerField()
+    acres = models.FloatField()
+    fid_1 = models.BigIntegerField()
+    id_1 = models.BigIntegerField()
+    mgmt_uni_1 = models.CharField(max_length=254)
+    land_type = models.CharField(max_length=254)
+    yr_estab_1 = models.BigIntegerField()
+    acres_1 = models.FloatField()
+    nrcs_pract = models.CharField(max_length=254)
+    peracreco2 = models.FloatField()
+    peryrtonsc = models.FloatField()
+    assumed_si = models.FloatField()
+    geom = models.MultiPolygonField(srid=4326)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+class c_new_grasslands(models.Model):
+    id = models.AutoField(primary_key = True)
+    new_grass_id = models.BigIntegerField()
+    mgmt_unit = models.CharField(max_length=25)
+    yr_establi = models.BigIntegerField()
+    acres = models.FloatField()
+    fid_1 = models.BigIntegerField()
+    id_1 = models.BigIntegerField()
+    mgmt_uni_1 = models.CharField(max_length=254)
+    land_type = models.CharField(max_length=254)
+    yr_estab_1 = models.BigIntegerField()
+    duration = models.BigIntegerField()
+    sixteen_ye = models.BigIntegerField()
+    acres_1 = models.FloatField()
+    nrcs_pract = models.CharField(max_length=254)
+    peracreco2 = models.FloatField()
+    peryrtonsc = models.FloatField()
+    tonssincec = models.FloatField()
+    sixteen_1 = models.FloatField()
+    geom = models.MultiPolygonField(srid=4326)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+class c_new_treebelt(models.Model):
+    id = models.AutoField(primary_key = True)
+    new_tree_id = models.BigIntegerField()
+    mgmt_unit = models.CharField(max_length=25)
+    yr_establi = models.BigIntegerField()
+    acres = models.FloatField()
+    fid_1 = models.BigIntegerField()
+    id_1 = models.BigIntegerField()
+    mgmt_uni_1 = models.CharField(max_length=254)
+    yr_estab_1 = models.BigIntegerField()
+    duration = models.BigIntegerField()
+    sixteen_ye = models.BigIntegerField()
+    acres_1 = models.FloatField()
+    nrcs_pract = models.CharField(max_length=254)
+    per_acre_c = models.FloatField()
+    per_yr_ton = models.FloatField()
+    tons_since = models.CharField(max_length=254)
+    sixteen_1 = models.CharField(max_length=254)
+    field13 = models.CharField(max_length=254)
+    geom = models.MultiPolygonField(srid=4326)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+class c_old_treebelts(models.Model):
+    id = models.AutoField(primary_key = True)
+    old_tree_id = models.BigIntegerField()
+    mgmt_unit = models.CharField(max_length=25)
+    yr_establi = models.BigIntegerField()
+    acres = models.FloatField()
+    fid_1 = models.BigIntegerField()
+    id_1 = models.BigIntegerField()
+    mgmt_uni_1 = models.CharField(max_length=254)
+    yr_estab_1 = models.BigIntegerField()
+    duration = models.BigIntegerField()
+    sixteen_ye = models.BigIntegerField()
+    acres_1 = models.FloatField()
+    nrcs_pract = models.CharField(max_length=254)
+    per_acre_c = models.FloatField()
+    per_yr_ton = models.FloatField()
+    tons_since = models.CharField(max_length=254)
+    sixteen_1 = models.CharField(max_length=254)
+    field13 = models.CharField(max_length=254)
+    geom = models.MultiPolygonField(srid=4326)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+class c_wetlands(models.Model):
+    id = models.AutoField(primary_key = True)
+    wetlands_id = models.BigIntegerField()
+    mgmt_unit = models.CharField(max_length=25)
+    yr_establi = models.BigIntegerField()
+    acres = models.FloatField()
+    fid_1 = models.BigIntegerField()
+    id_1 = models.BigIntegerField()
+    mgmt_uni_1 = models.CharField(max_length=254)
+    yr_estab_1 = models.BigIntegerField()
+    duration = models.BigIntegerField()
+    sixteen_ye = models.BigIntegerField()
+    acres_1 = models.FloatField()
+    nrcs_pract = models.CharField(max_length=254)
+    per_acre_c = models.FloatField()
+    per_yr_ton = models.FloatField()
+    tons_since = models.FloatField()
+    sixteen_1 = models.FloatField()
+    geom = models.MultiPolygonField(srid=4326)
+
+    def __str__(self):
+        return '%s' % (self.id)
 
 #####################
 ## For file upload ##
