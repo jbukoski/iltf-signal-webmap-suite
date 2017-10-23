@@ -98,8 +98,6 @@ def legend_view(request):
         cur.execute(query)
         results = cur.fetchall()
 
-        print("\n\nquery:", query, "\n\n")
-
         landfireEVT = int(results[0][0])
         evtClass = results[0][1]
         ndvi2005 = round(results[0][2], 4)
