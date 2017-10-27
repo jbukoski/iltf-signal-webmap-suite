@@ -181,7 +181,7 @@
                                     <div class="panel-body" style="padding: 0px 15px;">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="overlayLayers" id="evt" z-index="1">
+                                                <input type="checkbox" name="overlayLayers" id="landfireEVT" z-index="1">
                                                 &nbsp Landfire Existing Vegetation &nbsp; <a href="{% url 'lbst_evt_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
@@ -942,7 +942,7 @@ var lyrs_arr = [];
 
 // Vegetation layers
 
-    var evt = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
+    var landfireEVT = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
         service: 'WMS',
         version: '1.1.1',
         request: 'GetMap',
