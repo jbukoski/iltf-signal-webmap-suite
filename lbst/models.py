@@ -224,7 +224,7 @@ class wetlands(models.Model):
     cost_field = models.BigIntegerField()
     size_ac_field = models.FloatField()
     year_done = models.IntegerField()
-    geom = models.MultiPolygonField(srid=4326)
+    geom = models.MultiPointField(srid=4326)
 
     def __str__(self):
         return '%s' % (self.id)

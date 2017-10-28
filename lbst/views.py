@@ -230,41 +230,41 @@ def buff_boundary_view(request):
     return HttpResponse(buff_boundary_json, content_type='json')
 
 def counties_view(request):
-    counties_json = serialize('geojson', models.counties.objects.all(), geometry_field="geom")
+    counties_json = serialize('geojson', models.counties.objects.all(), geometry_field="geom", fields=('namelsad10',))
     return HttpResponse(counties_json, content_type='json')
 
 def parcels_view(request):
-    parcels_json = serialize('geojson', models.parcels.objects.all(), geometry_field="geom")
+    parcels_json = serialize('geojson', models.parcels.objects.all(), geometry_field="geom", fields=('owntype', 'owner', 'acres'))
     return HttpResponse(parcels_json, content_type='json')
 
 def new_purchases_view(request):
-    new_purchases_json = serialize('geojson', models.new_purchases.objects.all(), geometry_field="geom")
+    new_purchases_json = serialize('geojson', models.new_purchases.objects.all(), geometry_field="geom", fields=('purch_name', 'purch_date', 'remarks', 'acres_field'))
     return HttpResponse(new_purchases_json, content_type='json')
 
 ## Habitats
 
 def food_plots_view(request):
-    food_plots_json = serialize('geojson', models.food_plots.objects.all(), geometry_field="geom")
+    food_plots_json = serialize('geojson', models.food_plots.objects.all(), geometry_field="geom", fields=('area', 'acres', 'crop_2014', 'crop_2015'))
     return HttpResponse(food_plots_json, content_type='json')
 
 def grasslands_export_view(request):
-    grasslands_export_json = serialize('geojson', models.grasslands_export.objects.all(), geometry_field="geom")
+    grasslands_export_json = serialize('geojson', models.grasslands_export.objects.all(), geometry_field="geom", fields=('operator', 'program', 'year_done', 'acres'))
     return HttpResponse(grasslands_export_json, content_type='json')
 
 def habitat_leases_view(request):
-    habitat_leases_json = serialize('geojson', models.habitat_leases.objects.all(), geometry_field="geom")
+    habitat_leases_json = serialize('geojson', models.habitat_leases.objects.all(), geometry_field="geom", fields=('name', 'start_date', 'end_date', 'total_acre'))
     return HttpResponse(habitat_leases_json, content_type='json')
 
 def shelterbelts_view(request):
-    shelterbelts_json = serialize('geojson', models.shelterbelts.objects.all(), geometry_field="geom")
+    shelterbelts_json = serialize('geojson', models.shelterbelts.objects.all(), geometry_field="geom", fields=('operator', 'program', 'year_done'))
     return HttpResponse(shelterbelts_json, content_type='json')
 
 def trees_shrubs_view(request):
-    trees_shrubs_json = serialize('geojson', models.trees_shrubs.objects.all(), geometry_field="geom")
+    trees_shrubs_json = serialize('geojson', models.trees_shrubs.objects.all(), geometry_field="geom", fields=('operator', 'program', 'practice', 'year_done'))
     return HttpResponse(trees_shrubs_json, content_type='json')
 
 def wetlands_view(request):
-    wetlands_json = serialize('geojson', models.wetlands.objects.all(), geometry_field="geom")
+    wetlands_json = serialize('geojson', models.wetlands.objects.all(), geometry_field="geom", fields=('operator', 'program', 'practice', 'year_done'))
     return HttpResponse(wetlands_json, content_type='json')
 
 # Carbon layers

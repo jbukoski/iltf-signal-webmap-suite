@@ -223,7 +223,7 @@ wetlands_mapping = {
     'geom' : 'MULTIPOLYGON',
 }
 
-wetlands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'wetlands.shp'))
+wetlands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'wetlands_pts.shp'))
 
 # Carbon layers
 
@@ -385,11 +385,12 @@ c_wetlands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__
 
 def load_lyr(verbose=True):
 
-    buffered_bndry_lm = LayerMapping(
-        models.buffered_bndry, buffered_bndry_shp, buffered_bndry_mapping,
+    wetlands_lm = LayerMapping(
+        models.wetlands, wetlands_shp, wetlands_mapping,
         transform=False, encoding='iso-8859-1',
     )
-    buffered_bndry_lm.save(strict=True, verbose=verbose)
+    wetlands_lm.save(strict=True, verbose=verbose)
+
 
 def run(verbose=True):
 

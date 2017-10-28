@@ -812,8 +812,8 @@ var lyrs_arr = [];
                  color: '#000000',
                  fill: false,
                  dashArray: 3,
-               }
-        });
+               },
+    });
 
     var buff_bndry = new L.GeoJSON.AJAX("{% url 'lbst_buff_bndry' %}", {
         style: { clickable: true,
@@ -821,38 +821,180 @@ var lyrs_arr = [];
                  fill: true,
                  fillOpacity: 0,
                  zIndex: -100,
-               }
-        });
+               },
+    });
 
     var counties = new L.GeoJSON.AJAX("{% url 'lbst_counties' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               }
-        });
+        style: function(feature) {
+            if (feature.properties.namelsad10 === "Stanley County") {
+                return {
+                    clickable: true,
+                     color: '#32CD32',
+                     dashArray: 1,
+                     weight: 0.5,
+                };
+            };
+            if (feature.properties.namelsad10 === "Brule County") {
+                return {
+                    clickable: true,
+                     color: '#CB6C11',
+                     dashArray: 1,
+                     weight: 0.5,
+                };
+            };
+            if (feature.properties.namelsad10 === "Hughes County") {
+                return {
+                    clickable: true,
+                     color: '#32C890',
+                     dashArray: 1,
+                     weight: 0.5,
+                };
+            };
+            if (feature.properties.namelsad10 === "Lyman County") {
+                return {
+                    clickable: true,
+                     color: '#3C0778',
+                     dashArray: 1,
+                     weight: 0.5,
+                };
+            };
+            if (feature.properties.namelsad10 === "Hyde County") {
+                return {
+                    clickable: true,
+                     color: '#FF337D',
+                     dashArray: 1,
+                     weight: 0.5,
+                };
+            };
+            if (feature.properties.namelsad10 === "Buffalo County") {
+                return {
+                    clickable: true,
+                     color: '#5FA1C4',
+                     dashArray: 1,
+                     weight: 0.5,
+                };
+            };
+        },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+               "<strong>Name:&nbsp;</strong>" + feature.properties.namelsad10.toString() + "&nbsp;&nbsp;&nbsp;<br>"
+            );
+        },
+    });
 
     var parcels = new L.GeoJSON.AJAX("{% url 'lbst_parcels' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               }
-        });
+        style: function(feature) {
+            if (feature.properties.owntype === 0) {
+                return {
+                    clickable: true,
+                    fillColor: '#67BA30',
+                    weight: 0.5,
+                    color: '#000000',
+                };
+            };
+            if (feature.properties.owntype === 1) {
+                return {
+                    clickable: true,
+                    fillColor: '#E5C07A',
+                    weight: 0.5,
+                    color: '#000000',
+                };
+            };
+            if (feature.properties.owntype === 3) {
+                return {
+                    clickable: true,
+                    fillColor: '#8F90EB',
+                    weight: 0.5,
+                    color: '#000000',
+                };
+            };
+            if (feature.properties.owntype === 4) {
+                return {
+                    clickable: true,
+                    fillColor: '#A13DD7',
+                    weight: 0.5,
+                    color: '#000000',
+                };
+            };
+            if (feature.properties.owntype === 5) {
+                return {
+                    clickable: true,
+                    fillColor: '#1F98CB',
+                    weight: 0.5,
+                    color: '#000000',
+                };
+            };
+            if (feature.properties.owntype === 6) {
+                return {
+                    clickable: true,
+                    fillColor: '#73B783',
+                    weight: 0.5,
+                    color: '#000000',
+                };
+            };
+            if (feature.properties.owntype === 7) {
+                return {
+                    clickable: true,
+                    fillColor: '#D74AAB',
+                    weight: 0.5,
+                    color: '#000000',
+                };
+            };
+            if (feature.properties.owntype === 8) {
+                return {
+                    clickable: true,
+                    fillColor: '#B6E93D',
+                    weight: 0.5,
+                    color: '#000000',
+                };
+            };
+        },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+               "<strong>Owner:&nbsp;</strong>" + feature.properties.owner.toString() + "<br>" +
+               "<strong>Owner type:&nbsp;</strong>" + feature.properties.owntype.toString() + "&nbsp;&nbsp;<br>" +
+               "<strong>Acres:&nbsp;</strong>" + feature.properties.acres.toString() + "<br>"
+            );
+        },
+    });
 
     var purchases = new L.GeoJSON.AJAX("{% url 'lbst_new_purchases' %}", {
         style: { clickable: true,
                  color: '#000000',
                  dashArray: 1,
-               }
-        });
+               },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+               "<strong>Purchase name:&nbsp;</strong>" + feature.properties.purch_name.toString() + "<br>" +
+               "<strong>Purchase date:&nbsp;</strong>" + feature.properties.purch_date.toString() + "<br>" +
+               "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_field.toString() + "<br>" +
+               "<strong>Remarks:&nbsp;</strong>" + feature.properties.remarks.toString() + "<br>"
+            );
+        },
+    });
 
 // Habitat layers
 
     var food_plots = new L.GeoJSON.AJAX("{% url 'lbst_food_plots' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               }
-        });
+        style: function(feature) {
+            switch(true) {
+                case(feature.properties.crop_2015 === "BRASSICA"):
+                    return {color: "#000000", fillColor: "#70B5F9", fill: true};
+                case(feature.properties.crop_2015 === "CORN"):
+                    return {color: "#000000", fillColor: "#84012e", fill: true};
+                case(feature.properties.crop_2015 === "MILO"):
+                    return {color: "#000000", fillColor: "#1921F5", fill:true};
+            }
+        },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+               "<strong>Name:&nbsp;</strong>" + feature.properties.area.toString() + "<br>" +
+               "<strong>Acres:&nbsp;</strong>" + feature.properties.acres.toString() + "<br>" +
+               "<strong>2014 Crop:&nbsp;</strong>" + feature.properties.crop_2014.toString() + "<br>" +
+               "<strong>2015 Crop:&nbsp;</strong>" + feature.properties.crop_2015.toString() + "<br>"
+            );
+        },
+    });
 
     var grasslands = new L.GeoJSON.AJAX("{% url 'lbst_grasslands_export' %}", {
         style: { clickable: true,
