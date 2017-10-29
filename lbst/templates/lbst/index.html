@@ -672,6 +672,8 @@
     
             if (this.checked) {
     
+                legCheck = false;
+
                 var updateUsrLyr = $.post('{% url 'render_geojson' %}', data, function(resp) {
                     var geojson_lyr = JSON.parse(resp.layer_json);
                     usr_lyr.addData(geojson_lyr);
@@ -730,6 +732,7 @@
                 });
     
             } else if ($("input[type='checkbox'][id='" + lyr + "']").prop("checked") != true) {
+                legCheck = true;
                 map.removeLayer(usr_lyr);
                 usr_lyr = L.geoJSON();
                 $("input[type='checkbox'][id='" + lyr + "']").unbind('change');
