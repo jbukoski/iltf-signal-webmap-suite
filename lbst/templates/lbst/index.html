@@ -691,7 +691,7 @@
                     
                     data = {'geom': lyrGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
     
-                    var usrPost = $.post('{% url 'sumstats' %}', data, function(resp) { usrResp = resp; });
+                    var usrPost = $.post('{% url 'lbst_sumstats' %}', data, function(resp) { usrResp = resp; });
     
                     $.when(usrPost).then(function() {
                         var arr = [];
