@@ -270,31 +270,31 @@ def wetlands_view(request):
 # Carbon layers
 
 def c_avoided_view(request):
-    c_avoided_json = serialize('geojson', models.c_avoided_conversion.objects.all(), geometry_field="geom")
+    c_avoided_json = serialize('geojson', models.c_avoided_conversion.objects.all(), geometry_field="geom", fields=('mgmt_uni_1', 'acres_1', 'yr_estab_1', 'land_type', 'threat', 'nrcs_pract', 'peracreco2', 'peryrtonsc', 'tons_co2e_field'))
     return HttpResponse(c_avoided_json, content_type='json')
 
 def c_food_plots_view(request):
-    c_food_plots_json = serialize('geojson', models.c_food_plots.objects.all(), geometry_field="geom")
+    c_food_plots_json = serialize('geojson', models.c_food_plots.objects.all(), geometry_field="geom", fields=('mgmt_uni_1', 'yr_estab_1', 'land_type', 'duration', 'sixteen_ye', 'acres_1', 'nrcs_pract', 'per_acre_c', 'per_year_t', 'tons_co2e_field', 'sixteen_1'))
     return HttpResponse(c_food_plots_json, content_type='json')
 
 def c_native_grasslands_view(request):
-    c_native_grasslands_json = serialize('geojson', models.c_native_grasslands.objects.all(), geometry_field="geom")
+    c_native_grasslands_json = serialize('geojson', models.c_native_grasslands.objects.all(), geometry_field="geom", fields=('mgmt_uni_1', 'land_type', 'yr_estab_1', 'acres_1', 'nrcs_pract', 'peracreco2', 'peryrtonsc', 'assumed_si'))
     return HttpResponse(c_native_grasslands_json, content_type='json')
 
 def c_new_grasslands_view(request):
-    c_new_grasslands_json = serialize('geojson', models.c_new_grasslands.objects.all(), geometry_field="geom")
+    c_new_grasslands_json = serialize('geojson', models.c_new_grasslands.objects.all(), geometry_field="geom", fields=('mgmt_uni_1', 'land_type', 'yr_estab_1', 'duration', 'sixteen_ye', 'acres_1', 'nrcs_pract', 'peracreco2', 'peryrtonsc', 'tonssincec', 'sisteen_1'))
     return HttpResponse(c_new_grasslands_json, content_type='json')
 
 def c_new_treebelt_view(request):
-    c_new_treebelt_json = serialize('geojson', models.c_new_treebelt.objects.all(), geometry_field="geom")
+    c_new_treebelt_json = serialize('geojson', models.c_new_treebelt.objects.all(), geometry_field="geom", fields=('mgmt_uni_1', 'yr_estab_1', 'duration', 'sixteen_ye', 'acres_1', 'nrcs_pract', 'per_acre_c', 'per_yr_ton', 'tons_since', 'sixteen_1'))
     return HttpResponse(c_new_treebelt_json, content_type='json')
 
 def c_old_treebelts_view(request):
-    c_old_treebelts_json = serialize('geojson', models.c_old_treebelts.objects.all(), geometry_field="geom")
+    c_old_treebelts_json = serialize('geojson', models.c_old_treebelts.objects.all(), geometry_field="geom", fields=('mgmt_uni_1', 'yr_estab_1', 'duration', 'sixteen_ye', 'acres_1', 'nrcs_pract', 'per_yr_ton', 'tons_since', 'sixteen_1'))
     return HttpResponse(c_old_treebelts_json, content_type='json')
 
 def c_wetlands_view(request):
-    c_wetlands_json = serialize('geojson', models.c_wetlands.objects.all(), geometry_field="geom")
+    c_wetlands_json = serialize('geojson', models.c_wetlands.objects.all(), geometry_field="geom", fields=('mgmt_uni_1', 'yr_estab_1', 'duration', 'sixteen_ye', 'acres_1', 'nrcs_pract', 'per_acre_c', 'per_yr_ton', 'tons_since', 'sixteen_1'))
     return HttpResponse(c_wetlands_json, content_type='json')
 
 #########################

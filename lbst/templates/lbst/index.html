@@ -50,7 +50,7 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="counties" z-index="2">
-                                                &nbsp Counties &nbsp; <a href="{% url 'lbst_counties_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                                &nbsp Adjacent counties &nbsp; <a href="{% url 'lbst_counties_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox"> 
@@ -158,7 +158,7 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="c_old_treebelts" z-index="2">
-                                                &nbsp Old treebelts carbon &nbsp; <a href="{% url 'lbst_c_old_treebelts_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                                &nbsp Old treebelt carbon &nbsp; <a href="{% url 'lbst_c_old_treebelts_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
@@ -182,7 +182,7 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="landfireEVT" z-index="1">
-                                                &nbsp Landfire Existing Vegetation &nbsp; <a href="{% url 'lbst_evt_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                                &nbsp Landfire Existing Vegetation - 2014 &nbsp; <a href="{% url 'lbst_evt_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
@@ -218,19 +218,19 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="agc" z-index="1">
-                                                &nbsp Aboveground Forest Carbon &nbsp; <a href="{% url 'lbst_agc_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                                &nbsp Aboveground Forest Carbon - 2014 &nbsp; <a href="{% url 'lbst_agc_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="bgc" z-index="1">
-                                                &nbsp Belowground Forest Carbon &nbsp; <a href="{% url 'lbst_bgc_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                                &nbsp Belowground Forest Carbon - 2014 &nbsp; <a href="{% url 'lbst_bgc_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="overlayLayers" id="gssurgoSOC" z-index="1">
-                                                &nbsp Soil Organic Carbon &nbsp; <a href="{% url 'lbst_soc_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                                &nbsp Soil Organic Carbon - 2014 &nbsp; <a href="{% url 'lbst_soc_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                             </label>
                                         </div>
                                     </div>
@@ -361,8 +361,8 @@
                                 <div id="overview" class="panel-collapse collapse in">
                                     <div class="panel-body" style="padding: 0px 15px;">
                                         <div style="padding: 15px 5px;">
-                                            <p> This webmap is a collaborative product between the <a href="http://www.santaana-nsn.gov/" target="_blank">Santa Ana Pueblo of New Mexico</a>, the <a href="https://iltf.org/" target="_blank">Indian Land Tenure Foundation</a> and the <a href="http://sig-nal.org/" target="_blank">Spatial Informatics Group Natural Assets Laboratory (SIG-NAL)</a>. </p>
-                                            <p> The webmap compiles Santa Ana Pueblo data layers with publically available environmental raster layers and several functions designed to facilitate environmental decision-making within the Pueblo's jurisdiction.</p>
+                                            <p> This webmap is a collaborative product between the <a href="https://www.lowerbrulesiouxtribe.com/" target="_blank">Lower Brule Sioux Tribe of South Dakota</a>, the <a href="https://iltf.org/" target="_blank">Indian Land Tenure Foundation</a> and the <a href="http://sig-nal.org/" target="_blank">Spatial Informatics Group Natural Assets Laboratory (SIG-NAL)</a>. </p>
+                                            <p> The webmap compiles Lower Brule Sioux data layers with publically available environmental raster layers and several functions designed to facilitate environmental decision-making within the Tribe's jurisdiction.</p>
                                             <p> For more information on the various data layers and webmap functions provided, expand the tabs below.</p>
                                         </div>
                                     </div>
@@ -378,7 +378,7 @@
                                 <div id="data-layers-overview" class="panel-collapse collapse">
                                     <div class="panel-body" style="padding: 0px 15px;">
                                         <div style="padding: 15px 5px;">
-                                            <p> The data layers hosted on this webmap are a combination of layers provided by the Pueblo and publically accessible environmental data layers. Additional information on the layers metadata and sources are provided in the Data Layers tabs below. </p>
+                                            <p> The data layers hosted on this webmap are a combination of layers provided by the Tribe and publically accessible environmental data layers. Additional information on the layers metadata and sources are provided in the Data Layers tabs below. </p>
                                         </div>
                                     </div>
                                 </div>
@@ -396,10 +396,11 @@
                                             <p> The <b>administrative layers</b> hosted on the webmap consist of:
                                                   <ul>
                                                      <li> <i>Reservation boundary</i> </li>
-                                                     <li> <i>Master business leases</i> </li>
-                                                     <li> <i>Reservation roads</i> </li>
+                                                     <li> <i>Adjacent counties</i> </li>
+                                                     <li> <i>Parcels</i> </li>
+                                                     <li> <i>New purchases</i> </li>
                                                   </ul>
-                                                  <p>The administrative layers are provided by the Pueblo. The layers provide the approximate reservation boundary, polygons representing five master business leases within the boundary, and a database of roads. The master business leases and roads layers can be queried for additional information.</p>
+                                                  <p>The administrative layers are provided by the Tribe, with the exception of the counties layer which is public data. The layers can be queried for additional information by clicking on the polygons on the map.</p>
                                             </p>
                                         </div>
                                     </div>
@@ -408,20 +409,23 @@
 
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-hydro" style="padding: 0px 0px 0px 15px;">
-                                        <i>Data Layers: Hydrology</i>
+                                    <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-wildlife" style="padding: 0px 0px 0px 15px;">
+                                        <i>Data Layers: Wildlife Habitat Layers</i>
                                     </a>
                                 </div>
-                                <div id="data-layers-hydro" class="panel-collapse collapse">
+                                <div id="data-layers-wildlife" class="panel-collapse collapse">
                                     <div class="panel-body" style="padding: 0px 15px;">
                                         <div style="padding: 15px 5px;">
-                                            <p> The <b>hydrology layers</b> hosted on the webmap consist of:
+                                            <p> The <b>Wildlife Habitat Layers</b> hosted on the webmap consist of:
                                                   <ul>
-                                                     <li> <i>Watersheds</i> </li>
-                                                     <li> <i>Subwatersheds</i> </li>
-                                                     <li> <i>Surface hydrology</i> </li>
+                                                     <li> <i>Food plots</i> </li>
+                                                     <li> <i>Grasslands</i> </li>
+                                                     <li> <i>Habitat leases</i> </li>
+                                                     <li> <i>Homesite shelterbelts</i> </li>
+                                                     <li> <i>Trees and shrubs</i> </li>
+                                                     <li> <i>Wetlands</i> </li>
                                                   </ul>
-                                                  <p>The hydrology layers are provided by the Pueblo and represent the geographic boundaries of watersheds, subwatersheds, and surface hydrology for the region. The watershed and subwatershed layers can be queried for additional information.</p>
+                                                  <p>The Wildlife Habitat Layers are provided by the Tribe and may be queried for additional information.</p>
                                             </p>
                                         </div>
                                     </div>
@@ -431,23 +435,24 @@
 
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-soil" style="padding: 0px 0px 0px 15px;">
-                                        <i>Data Layers: Soil Characteristics</i>
+                                    <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-tribe-carbon" style="padding: 0px 0px 0px 15px;">
+                                        <i>Data Layers: Tribe Carbon Layers</i>
                                     </a>
                                 </div>
-                                <div id="data-layers-soil" class="panel-collapse collapse">
+                                <div id="data-layers-tribe-carbon" class="panel-collapse collapse">
                                     <div class="panel-body" style="padding: 0px 15px;">
                                         <div style="padding: 15px 5px;">
-                                            <p> The <b>soil characteristics layers</b> hosted on the webmap consist of:
+                                            <p> The <b>Tribe Carbon Layers</b> hosted on the webmap consist of:
                                                   <ul>
-                                                     <li> <i>Soil bulk density</i> </li>
-                                                     <li> <i>Composting cover</i> </li>
-                                                     <li> <i>Organic matter</i> </li>
-                                                     <li> <i>Surface pH, weighted average</i> </li>
-                                                     <li> <i>Taxonomic classification</i> </li>
-                                                     <li> <i>Texture</i> </li>
+                                                     <li> <i>Avoided conversion carbon</i> </li>
+                                                     <li> <i>Food plots carbon</i> </li>
+                                                     <li> <i>Native grasslands carbon</i> </li>
+                                                     <li> <i>New grasslands carbon</i> </li>
+                                                     <li> <i>New treebelt carbon</i> </li>
+                                                     <li> <i>Old treebelt carbon</i> </li>
+                                                     <li> <i>Wetlands carbon</i> </li>
                                                   </ul>
-                                                  <p>The soil characteristics layers provide key soil characteristics data for managing landscapes. The soil characteristics data are provided for distinct sampling units that as identified by the National Cooperative Soil Survey. The data is provided by the Soil Survey Geographic database (SSURGO). More information on the soil characteristics layers can be found <a href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/soils/survey/?cid=nrcs142p2_053627">here</a>.</p>
+                                                  <p>The Tribe Carbon Layers are provided by the Tribe and may be queired for additional information. Carbon sequestration estimates for the various parcels have been calculated and appended to the data. This information may be queried by clicking on the polygon.</p>
                                             </p>
                                         </div>
                                     </div>
@@ -826,54 +831,20 @@ var lyrs_arr = [];
 
     var counties = new L.GeoJSON.AJAX("{% url 'lbst_counties' %}", {
         style: function(feature) {
-            if (feature.properties.namelsad10 === "Stanley County") {
-                return {
-                    clickable: true,
-                     color: '#32CD32',
-                     dashArray: 1,
-                     weight: 0.5,
-                };
-            };
-            if (feature.properties.namelsad10 === "Brule County") {
-                return {
-                    clickable: true,
-                     color: '#CB6C11',
-                     dashArray: 1,
-                     weight: 0.5,
-                };
-            };
-            if (feature.properties.namelsad10 === "Hughes County") {
-                return {
-                    clickable: true,
-                     color: '#32C890',
-                     dashArray: 1,
-                     weight: 0.5,
-                };
-            };
-            if (feature.properties.namelsad10 === "Lyman County") {
-                return {
-                    clickable: true,
-                     color: '#3C0778',
-                     dashArray: 1,
-                     weight: 0.5,
-                };
-            };
-            if (feature.properties.namelsad10 === "Hyde County") {
-                return {
-                    clickable: true,
-                     color: '#FF337D',
-                     dashArray: 1,
-                     weight: 0.5,
-                };
-            };
-            if (feature.properties.namelsad10 === "Buffalo County") {
-                return {
-                    clickable: true,
-                     color: '#5FA1C4',
-                     dashArray: 1,
-                     weight: 0.5,
-                };
-            };
+            switch(true) {
+                case(feature.properties.namelsad10 === "Stanley County"):
+                    return { color: '#32CD32' };
+                case(feature.properties.namelsad10 === "Brule County"):
+                    return { color: '#CB6C11' };
+                case(feature.properties.namelsad10 === "Hughes County"):
+                    return { color: '#32C890' };
+                case(feature.properties.namelsad10 === "Lyman County"):
+                    return { color: '#3C0778' };
+                case(feature.properties.namelsad10 === "Hyde County"):
+                    return { color: '#FF337D' };
+                case(feature.properties.namelsad10 === "Buffalo County"):
+                    return { color: '#5FA1C4' };
+            }
         },
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
@@ -884,70 +855,24 @@ var lyrs_arr = [];
 
     var parcels = new L.GeoJSON.AJAX("{% url 'lbst_parcels' %}", {
         style: function(feature) {
-            if (feature.properties.owntype === 0) {
-                return {
-                    clickable: true,
-                    fillColor: '#67BA30',
-                    weight: 0.5,
-                    color: '#000000',
-                };
-            };
-            if (feature.properties.owntype === 1) {
-                return {
-                    clickable: true,
-                    fillColor: '#E5C07A',
-                    weight: 0.5,
-                    color: '#000000',
-                };
-            };
-            if (feature.properties.owntype === 3) {
-                return {
-                    clickable: true,
-                    fillColor: '#8F90EB',
-                    weight: 0.5,
-                    color: '#000000',
-                };
-            };
-            if (feature.properties.owntype === 4) {
-                return {
-                    clickable: true,
-                    fillColor: '#A13DD7',
-                    weight: 0.5,
-                    color: '#000000',
-                };
-            };
-            if (feature.properties.owntype === 5) {
-                return {
-                    clickable: true,
-                    fillColor: '#1F98CB',
-                    weight: 0.5,
-                    color: '#000000',
-                };
-            };
-            if (feature.properties.owntype === 6) {
-                return {
-                    clickable: true,
-                    fillColor: '#73B783',
-                    weight: 0.5,
-                    color: '#000000',
-                };
-            };
-            if (feature.properties.owntype === 7) {
-                return {
-                    clickable: true,
-                    fillColor: '#D74AAB',
-                    weight: 0.5,
-                    color: '#000000',
-                };
-            };
-            if (feature.properties.owntype === 8) {
-                return {
-                    clickable: true,
-                    fillColor: '#B6E93D',
-                    weight: 0.5,
-                    color: '#000000',
-                };
-            };
+            switch(true) {
+                case(feature.properties.owntype === 0):
+                    return { color: '#67BA30', weight: 0.6 };
+                case(feature.properties.owntype === 1):
+                    return { color: '#E5C07A', weight: 0.6 };
+                case(feature.properties.owntype === 3):
+                    return { color: '#8F90EB', weight: 0.6 };
+                case(feature.properties.owntype === 4):
+                    return { color: '#A13DD7', weight: 0.6 };
+                case(feature.properties.owntype === 5):
+                    return { color: '#1F98CB', weight: 0.6 };
+                case(feature.properties.owntype === 6):
+                    return { color: '#73B783', weight: 0.6 };
+                case(feature.properties.owntype === 7):
+                    return { color: '#D74AAB', weight: 0.6 };
+                case(feature.properties.owntype === 8):
+                    return { color: '#B6E93D', weight: 0.6 };
+            }
         },
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
@@ -959,13 +884,10 @@ var lyrs_arr = [];
     });
 
     var purchases = new L.GeoJSON.AJAX("{% url 'lbst_new_purchases' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               },
+        style: { color: '#040289' },
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
-               "<strong>Purchase name:&nbsp;</strong>" + feature.properties.purch_name.toString() + "<br>" +
+               "<strong>Purchase name:&nbsp;</strong>" + feature.properties.purch_name.toString() + "&nbsp;&nbsp;<br>" +
                "<strong>Purchase date:&nbsp;</strong>" + feature.properties.purch_date.toString() + "<br>" +
                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_field.toString() + "<br>" +
                "<strong>Remarks:&nbsp;</strong>" + feature.properties.remarks.toString() + "<br>"
@@ -976,111 +898,191 @@ var lyrs_arr = [];
 // Habitat layers
 
     var food_plots = new L.GeoJSON.AJAX("{% url 'lbst_food_plots' %}", {
-        style: function(feature) {
-            switch(true) {
-                case(feature.properties.crop_2015 === "BRASSICA"):
-                    return {color: "#000000", fillColor: "#70B5F9", fill: true};
-                case(feature.properties.crop_2015 === "CORN"):
-                    return {color: "#000000", fillColor: "#84012e", fill: true};
-                case(feature.properties.crop_2015 === "MILO"):
-                    return {color: "#000000", fillColor: "#1921F5", fill:true};
-            }
+        style: {
+            color: "#e31a1c", 
+            fill: true, 
+            opacity: 0.8
         },
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
                "<strong>Name:&nbsp;</strong>" + feature.properties.area.toString() + "<br>" +
                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres.toString() + "<br>" +
-               "<strong>2014 Crop:&nbsp;</strong>" + feature.properties.crop_2014.toString() + "<br>" +
+               "<strong>2014 Crop:&nbsp;</strong>" + feature.properties.crop_2014.toString() + "&nbsp;&nbsp;<br>" +
                "<strong>2015 Crop:&nbsp;</strong>" + feature.properties.crop_2015.toString() + "<br>"
             );
         },
     });
 
     var grasslands = new L.GeoJSON.AJAX("{% url 'lbst_grasslands_export' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               }
-        });
+        style: { color: "#4bb000", fill: true, opacity: 0.8 },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+               "<strong>Operator:&nbsp;</strong>" + feature.properties.operator.toString() + "<br>" +
+               "<strong>Program:&nbsp;</strong>" + feature.properties.program.toString() + "<br>" +
+               "<strong>Year completed:&nbsp;</strong>" + feature.properties.year_done.toString() + "<br>" +
+               "<strong>Acres:&nbsp;</strong>" + feature.properties.acres.toString() + "<br>"
+            );
+        },
+    });
 
     var habitat_leases = new L.GeoJSON.AJAX("{% url 'lbst_habitat_leases' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               }
-        });
+        style: { color: '#ff7f00', fill: true, opacity: 0.8 },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+               "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "<br>" +
+               "<strong>Start date:&nbsp;</strong>" + feature.properties.start_date.toString() + "<br>" +
+               "<strong>End date:&nbsp;</strong>" + feature.properties.end_date.toString() + "<br>" +
+               "<strong>Acres:&nbsp;</strong>" + feature.properties.total_acre.toString() + "<br>"
+            );
+        },
+    });
 
     var shelterbelts = new L.GeoJSON.AJAX("{% url 'lbst_shelterbelts' %}", {
         style: { clickable: true,
                  color: '#000000',
                  dashArray: 1,
-               }
-        });
+               },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+               "<strong>Operator:&nbsp;</strong>" + feature.properties.operator.toString() + "&nbsp;&nbsp;<br>" +
+               "<strong>Program:&nbsp;</strong>" + feature.properties.program.toString() + "<br>" +
+               "<strong>Year completed:&nbsp;</strong>" + feature.properties.year_done.toString() + "<br>"
+            );
+        },
+    });
 
     var trees_shrubs = new L.GeoJSON.AJAX("{% url 'lbst_trees_shrubs' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               }
-        });
+        style: { color: '#006400', opacity: 0.8 },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+               "<strong>Operator:&nbsp;</strong>" + feature.properties.operator.toString() + "&nbsp;&nbsp;<br>" +
+               "<strong>Program:&nbsp;</strong>" + feature.properties.program.toString() + "<br>" +
+               "<strong>Practice:&nbsp;</strong>" + feature.properties.practice.toString() + "<br>" +
+               "<strong>Year completed:&nbsp;</strong>" + feature.properties.year_done.toString() + "<br>"
+            );
+        },
+    });
 
     var wetlands = new L.GeoJSON.AJAX("{% url 'lbst_wetlands' %}", {
         style: { clickable: true,
                  color: '#000000',
                  dashArray: 1,
-               }
-        });
+               },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+               "<strong>Operator:&nbsp;</strong>" + feature.properties.operator.toString() + "&nbsp;&nbsp;<br>" +
+               "<strong>Program:&nbsp;</strong>" + feature.properties.program.toString() + "<br>" +
+               "<strong>Practice:&nbsp;</strong>" + feature.properties.practice.toString() + "<br>" +
+               "<strong>Year completed:&nbsp;</strong>" + feature.properties.year_done.toString() + "<br>"
+            );
+        },
+    });
 
 // Tribe carbon layers
 
     var c_avoided_conversion = new L.GeoJSON.AJAX("{% url 'lbst_c_avoided' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               }
-        });
+        style: { color: '#800000', fillOpacity: 0.5 },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
+                "<strong>Land type:&nbsp;</strong>" + feature.properties.land_type.toString() + "<br>" +
+                "<strong>Threat:&nbsp;</strong>" + feature.properties.threat.toString() + "<br>" +
+                "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
+                "<strong>Per acre CO2:&nbsp;</strong>" + feature.properties.peracreco2.toString() + "<br>" +
+                "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.peryrtonsc.toString() + "<br>" +
+                "<strong>Tons CO2-equivalent:&nbsp;</strong>" + feature.properties.tons_co2e_field.toString() + "<br>"
+            );
+        },
+    });
 
     var c_food_plots = new L.GeoJSON.AJAX("{% url 'lbst_c_food_plots' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               }
-        });
+        style: { color: '#e31a1c', fillColor: '#ffffff', fillOpacity: 0.5 },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
+                "<strong>Land type:&nbsp;</strong>" + feature.properties.land_type.toString() + "<br>" +
+                "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
+                "<strong>Per acre CO2:&nbsp;</strong>" + feature.properties.per_acre_c.toString() + "<br>" +
+                "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.per_year_t.toString() + "<br>" +
+                "<strong>Tons CO2-equivalent:&nbsp;</strong>" + feature.properties.tons_co2e_field.toString() + "<br>"
+            );
+        },
+    });
 
     var c_native_grasslands = new L.GeoJSON.AJAX("{% url 'lbst_c_native_grasslands' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               }
-        });
+        style: { color: '#008000', fillColor: '#ffffff', fillOpacity: 0.5 },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
+                "<strong>Land type:&nbsp;</strong>" + feature.properties.land_type.toString() + "<br>" +
+                "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
+                "<strong>Per acre CO2:&nbsp;</strong>" + feature.properties.peracreco2.toString() + "<br>" +
+                "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.peryrtonsc.toString() + "<br>"
+            );
+        },
+    });
 
     var c_new_grasslands = new L.GeoJSON.AJAX("{% url 'lbst_c_new_grasslands' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               }
-        });
+        style: { color: '#adff2f', fillColor: '#ffffff', fillOpacity: 0.5 },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
+                "<strong>Land type:&nbsp;</strong>" + feature.properties.land_type.toString() + "<br>" +
+                "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
+                "<strong>Per acre CO2:&nbsp;</strong>" + feature.properties.peracreco2.toString() + "<br>" +
+                "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.peryrtonsc.toString() + "<br>"
+            );
+        },
+    });
 
     var c_new_treebelt = new L.GeoJSON.AJAX("{% url 'lbst_c_new_treebelt' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               }
-        });
+        style: { color: '#ffd700', fillColor: '#ffffff', fillOpacity: 0.5 },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
+                "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
+                "<strong>Per acre CO2:&nbsp;</strong>" + feature.properties.per_acre_c.toString() + "<br>" +
+                "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.per_yr_ton.toString() + "<br>"
+            );
+        },
+    });
 
     var c_old_treebelts = new L.GeoJSON.AJAX("{% url 'lbst_c_old_treebelts' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               }
-        });
+        style: { color: '#ff8c00', fillColor: '#ffffff', fillOpacity: 0.5 },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
+                "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
+                "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.per_yr_ton.toString() + "<br>"
+            );
+        },
+    });
 
     var c_wetlands = new L.GeoJSON.AJAX("{% url 'lbst_c_wetlands' %}", {
-        style: { clickable: true,
-                 color: '#000000',
-                 dashArray: 1,
-               }
-        });
+        style: { color: '#4682B4', fillColor: '#ffffff', fillOpacity: 0.5 },
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(
+                "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
+                "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
+                "<strong>Per acre CO2:&nbsp;</strong>" + feature.properties.per_acre_c.toString() + "<br>" +
+                "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.per_yr_ton.toString() + "<br>"
+            );
+        },
+    });
 
 // Vegetation layers
 
