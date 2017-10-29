@@ -223,7 +223,7 @@ wetlands_mapping = {
     'geom' : 'MULTIPOLYGON',
 }
 
-wetlands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'wetlands_pts.shp'))
+wetlands_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'lbst', 'wetlands.shp'))
 
 # Carbon layers
 
