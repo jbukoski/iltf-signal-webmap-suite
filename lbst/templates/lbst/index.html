@@ -497,7 +497,7 @@
                                                      <li> <i>Belowground forest carbon</i> </li>
                                                      <li> <i>Soil organic carbon</i> </li>
                                                   </ul>
-                                                  <p>All of the carbon layers are taken from the United States Department of Agriculture's <a href="www.carbonscapes.org" target="_blank">CarbonScapes</a> Initiative, which seeks to providely publically accessible data on geospatial patterns of terrestrial carbon within the United States.</p>
+                                                  <p>All of the carbon layers are taken from the United States Department of Agriculture's <a href="http://carbonscapes.org" target="_blank">CarbonScapes</a> Initiative, which seeks to providely publically accessible data on geospatial patterns of terrestrial carbon within the United States.</p>
 		    		              <p>The <b>aboveground forest carbon</b> data layer provides estimates of aboveground biomass carbon (g/cm<sup>3</sup>) gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=93">here</a>.</p>
                                                   <p>The <b>belowground forest carbon</b> data layer provides estimates of belowground biomass carbon (g/cm<sup>3</sup> gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=94">here</a>.</p>
                                                   <p>The <b>soil organic carbon</b> provides data on organic carbon (g/cm<sup>3</sup>) from 0 - 100 cm, gridded to a 10 x 10 m resolution. The data is provided by the gridded Soil Survey Geographic Database (gSSURGO), and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=80">here</a>.</p>
@@ -558,7 +558,7 @@
                                                 <li>The layer must be in <b>EPSG:4326</b> projection. </li>
                                             </ol>
                                             <p> GeoJSON is a native format for webmapping, as is the EPSG:4326 projection. If files are uploaded, but cannot be displayed on the webmap, it is likely that one of these two criteria is not met. ESRI Shapefiles can be converted to GeoJSON format and EPSG:4326 projection through basic, free and open source GIS software such as <a href="http://www.qgis.org/en/site/" target="_blank">QGIS</a>.</p>
-                                            <p> To import a layer, simply select the <b><i>Import</i></b> tab and click on the <b><i>Choose file</i></b> button. Navigate to the GeoJSON file you'd like to upload, and select it. After doing so, basic information about the file will be displayed. Select the red <b><i>Upload file</i></b> button to upload the file. The layer should not be available within the <b><i>User-defined Layers</i></b> section under the <b><i>Layers</i></b> tab.</p>
+                                            <p> To import a layer, simply select the <b><i>Import</i></b> tab and click on the <b><i>Choose file</i></b> button. Navigate to the GeoJSON file you'd like to upload, and select it. After doing so, basic information about the file will be displayed. Select the red <b><i>Upload file</i></b> button to upload the file. The layer should now be available within the <b><i>User-defined Layers</i></b> section under the <b><i>Layers</i></b> tab.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -881,7 +881,7 @@ var lyrs_arr = [];
             layer.bindPopup(
                "<strong>Owner:&nbsp;</strong>" + feature.properties.owner.toString() + "<br>" +
                "<strong>Owner type:&nbsp;</strong>" + feature.properties.owntype.toString() + "&nbsp;&nbsp;<br>" +
-               "<strong>Acres:&nbsp;</strong>" + feature.properties.acres.toString() + "<br>"
+               "<strong>Acres:&nbsp;</strong>" + feature.properties.acres.toFixed(2).toString() + "<br>"
             );
         },
     });
@@ -892,7 +892,7 @@ var lyrs_arr = [];
             layer.bindPopup(
                "<strong>Purchase name:&nbsp;</strong>" + feature.properties.purch_name.toString() + "&nbsp;&nbsp;<br>" +
                "<strong>Purchase date:&nbsp;</strong>" + feature.properties.purch_date.toString() + "<br>" +
-               "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_field.toString() + "<br>" +
+               "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_field.toFixed(2).toString() + "<br>" +
                "<strong>Remarks:&nbsp;</strong>" + feature.properties.remarks.toString() + "<br>"
             );
         },
@@ -909,7 +909,7 @@ var lyrs_arr = [];
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
                "<strong>Name:&nbsp;</strong>" + feature.properties.area.toString() + "<br>" +
-               "<strong>Acres:&nbsp;</strong>" + feature.properties.acres.toString() + "<br>" +
+               "<strong>Acres:&nbsp;</strong>" + feature.properties.acres.toFixed(2).toString() + "<br>" +
                "<strong>2014 Crop:&nbsp;</strong>" + feature.properties.crop_2014.toString() + "&nbsp;&nbsp;<br>" +
                "<strong>2015 Crop:&nbsp;</strong>" + feature.properties.crop_2015.toString() + "<br>"
             );
@@ -923,7 +923,7 @@ var lyrs_arr = [];
                "<strong>Operator:&nbsp;</strong>" + feature.properties.operator.toString() + "<br>" +
                "<strong>Program:&nbsp;</strong>" + feature.properties.program.toString() + "<br>" +
                "<strong>Year completed:&nbsp;</strong>" + feature.properties.year_done.toString() + "<br>" +
-               "<strong>Acres:&nbsp;</strong>" + feature.properties.acres.toString() + "<br>"
+               "<strong>Acres:&nbsp;</strong>" + feature.properties.acres.toFixed(2).toString() + "<br>"
             );
         },
     });
@@ -935,7 +935,7 @@ var lyrs_arr = [];
                "<strong>Name:&nbsp;</strong>" + feature.properties.name.toString() + "<br>" +
                "<strong>Start date:&nbsp;</strong>" + feature.properties.start_date.toString() + "<br>" +
                "<strong>End date:&nbsp;</strong>" + feature.properties.end_date.toString() + "<br>" +
-               "<strong>Acres:&nbsp;</strong>" + feature.properties.total_acre.toString() + "<br>"
+               "<strong>Acres:&nbsp;</strong>" + feature.properties.total_acre.toFixed(2).toString() + "<br>"
             );
         },
     });
@@ -986,14 +986,14 @@ var lyrs_arr = [];
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
                 "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
-                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toFixed(2).toString() + "<br>" +
                 "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
                 "<strong>Land type:&nbsp;</strong>" + feature.properties.land_type.toString() + "<br>" +
                 "<strong>Threat:&nbsp;</strong>" + feature.properties.threat.toString() + "<br>" +
                 "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
-                "<strong>Per acre CO2:&nbsp;</strong>" + feature.properties.peracreco2.toString() + "<br>" +
+                "<strong>Per acre CO2-eq:&nbsp;</strong>" + feature.properties.peracreco2.toString() + "<br>" +
                 "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.peryrtonsc.toString() + "<br>" +
-                "<strong>Tons CO2-equivalent:&nbsp;</strong>" + feature.properties.tons_co2e_field.toString() + "<br>"
+                "<strong>Tons CO2-eq accumulated 2000-2016:&nbsp;</strong>" + feature.properties.tons_co2e_field.toString() + "<br>"
             );
         },
     });
@@ -1003,13 +1003,13 @@ var lyrs_arr = [];
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
                 "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
-                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toFixed(2).toString() + "<br>" +
                 "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
                 "<strong>Land type:&nbsp;</strong>" + feature.properties.land_type.toString() + "<br>" +
                 "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
-                "<strong>Per acre CO2:&nbsp;</strong>" + feature.properties.per_acre_c.toString() + "<br>" +
+                "<strong>Per acre CO2-eq:&nbsp;</strong>" + feature.properties.per_acre_c.toString() + "<br>" +
                 "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.per_year_t.toString() + "<br>" +
-                "<strong>Tons CO2-equivalent:&nbsp;</strong>" + feature.properties.tons_co2e_field.toString() + "<br>"
+                "<strong>Tons CO2-eq accumulated 2000-2016:&nbsp;</strong>" + feature.properties.tons_co2e_field.toString() + "<br>"
             );
         },
     });
@@ -1019,11 +1019,11 @@ var lyrs_arr = [];
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
                 "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
-                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toFixed(2).toString() + "<br>" +
                 "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
                 "<strong>Land type:&nbsp;</strong>" + feature.properties.land_type.toString() + "<br>" +
                 "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
-                "<strong>Per acre CO2:&nbsp;</strong>" + feature.properties.peracreco2.toString() + "<br>" +
+                "<strong>Per acre CO2-eq:&nbsp;</strong>" + feature.properties.peracreco2.toString() + "<br>" +
                 "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.peryrtonsc.toString() + "<br>"
             );
         },
@@ -1034,11 +1034,11 @@ var lyrs_arr = [];
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
                 "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
-                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toFixed(2).toString() + "<br>" +
                 "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
                 "<strong>Land type:&nbsp;</strong>" + feature.properties.land_type.toString() + "<br>" +
                 "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
-                "<strong>Per acre CO2:&nbsp;</strong>" + feature.properties.peracreco2.toString() + "<br>" +
+                "<strong>Per acre CO2-eq:&nbsp;</strong>" + feature.properties.peracreco2.toString() + "<br>" +
                 "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.peryrtonsc.toString() + "<br>"
             );
         },
@@ -1049,10 +1049,10 @@ var lyrs_arr = [];
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
                 "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
-                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toFixed(2).toString() + "<br>" +
                 "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
                 "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
-                "<strong>Per acre CO2:&nbsp;</strong>" + feature.properties.per_acre_c.toString() + "<br>" +
+                "<strong>Per acre CO2-eq:&nbsp;</strong>" + feature.properties.per_acre_c.toString() + "<br>" +
                 "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.per_yr_ton.toString() + "<br>"
             );
         },
@@ -1063,7 +1063,7 @@ var lyrs_arr = [];
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
                 "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
-                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toFixed(2).toString() + "<br>" +
                 "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
                 "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
                 "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.per_yr_ton.toString() + "<br>"
@@ -1076,10 +1076,10 @@ var lyrs_arr = [];
         onEachFeature: function(feature, layer) {
             layer.bindPopup(
                 "<strong>Management unit:&nbsp;</strong>" + feature.properties.mgmt_uni_1.toString() + "<br>" +
-                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toString() + "<br>" +
+                "<strong>Acres:&nbsp;</strong>" + feature.properties.acres_1.toFixed(2).toString() + "<br>" +
                 "<strong>Year established:&nbsp;</strong>" + feature.properties.yr_estab_1.toString() + "&nbsp;&nbsp;<br>" +
                 "<strong>NRCS practice:&nbsp;</strong>" + feature.properties.nrcs_pract.toString() + "<br>" +
-                "<strong>Per acre CO2:&nbsp;</strong>" + feature.properties.per_acre_c.toString() + "<br>" +
+                "<strong>Per acre CO2-eq:&nbsp;</strong>" + feature.properties.per_acre_c.toString() + "<br>" +
                 "<strong>Tons carbon per year:&nbsp;</strong>" + feature.properties.per_yr_ton.toString() + "<br>"
             );
         },
