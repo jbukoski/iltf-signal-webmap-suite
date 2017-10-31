@@ -1241,13 +1241,15 @@ var lyrs_arr = [];
 
     map.addControl(drawControlFull);
 
+    map.on('draw:drawstart', function(e) {
+        legCheck = false;
+    });
+
     map.on('draw:created', function (e) {
         var layer = e.layer;
         drawnItems.addLayer(layer);
         drawControlFull.remove(map);
         drawControlEditOnly.addTo(map);
-        legCheck = false;
-
     });
 
     map.on('draw:deleted', function(e) {

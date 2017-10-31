@@ -1324,7 +1324,13 @@ var lyrs_arr = [];
     // Initialize the FeatureGroup to store editable layers
 
     var drawnItems = new L.FeatureGroup();
+
     map.addLayer(drawnItems);
+
+    map.on('draw:drawstart', function(e) {
+        legCheck = false;
+    });
+
 
     // Specify some custom options for the Drawing tools
 
