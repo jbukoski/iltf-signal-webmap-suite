@@ -1,6 +1,13 @@
+///////////////////////////////////////////
+// Main Javascript file for ISTF webmaps //
+///////////////////////////////////////////
 
-    var map, parcelSearch = [];
+///////////////////////////
+//// Base JS functions ////
+///////////////////////////
 
+    var parcelSearch = [];
+    
     $(document).ready(function() {
         $("[rel=tooltip]").tooltip();
         if (document.body.clientWidth <= 767) {
@@ -8,7 +15,7 @@
             $("#sidebar").css("display", "none");
         };
     });
-
+    
     $(window).resize(function() {
         $(".tt-dropdown-menu").css("max-height", $("#container").height()-$(".navbar").height()-20);
         if (document.body.clientWidth <= 767) {
@@ -19,7 +26,7 @@
             $("#sidebar").css("display", "block");
         };
     });
-
+    
     $("#toggle").click(function() {
         $("#toggle i").toggleClass("fa fa-check-square-o fa fa-map-marker");
         $("#map").toggleClass("col-sm-9 col-lg-9 col-sm-12 col-lg-12");
@@ -30,7 +37,7 @@
         map.invalidateSize();
         return false;
     });
-    //following script from;  https://gist.github.com/bmcbride/6186672
+
     $("input[name='basemapLayers']").change(function () {
         // Remove unchecked layers
         $("input:radio[name='basemapLayers']:not(:checked)").each(function () {
@@ -41,7 +48,7 @@
             map.addLayer(window[$(this).attr("id")]);
         });
     });
-
+    
     $("input:checkbox[name='overlayLayers']" || "input:checkbox[name='vegLayers']").change(function () {
         var layers = [];
         function sortByKey(array, key) {
