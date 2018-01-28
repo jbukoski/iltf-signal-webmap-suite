@@ -1,6 +1,7 @@
 from django.conf.urls import include, url
 from djgeojson.views import GeoJSONLayerView
 from . import views
+import calc.views
 from django.contrib.gis import admin
 from django.contrib.auth import views as auth_views
 
@@ -45,7 +46,7 @@ urlpatterns = [
     url(r'^download_single/', views.download_single_view, name="download_single"),
     url(r'^delete_single/', views.delete_single_view, name="delete_single"),
     url(r'^delete_up/', views.delete_up_view, name='delete_up'),
-    url(r'^legend/', views.legend_view, name='legend'),
-    url(r'^sumstats/', views.sumstats_view, name='sumstats'),
+    url(r'^legend/', calc.views.legend_view, name='legend'),
+    url(r'^sumstats/', calc.views.sumstats_view, name='sumstats'),
     url(r'^admin/logout/$', views.signout_view, name='signout'),
 ]

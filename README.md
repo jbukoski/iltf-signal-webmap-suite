@@ -2,7 +2,30 @@
 ## Product of SIG-NAL, Inc.
 ### Primary authors: Jacob J. Bukoski & Oliver Muellerklein
 
-#### Packages necessary on Dukono
+
+#### Webmap suite structure
+
+The ILTF WebMap Suite is built with the GeoDjango python webmapping framework, leaflet visualizations, and a PostGIS backend. The current structure of the suite of webmaps is as follows:
+
+- iltf (project directory)
+  - manage.py
+  - README.md (this file)
+  - iltf (project level specifications)
+    - ...
+  - data (data directory)
+    - ...
+  - static (static library files)
+    - ...
+  - media (uploaded layers)
+    - ...
+  - calc (raster models and functions; considered an "app")
+    - ...
+  - tribe level apps... (e.g., comanche, lbst, tamaya)
+    - ... (tribe-level specifications for individual webmaps)
+
+#### Setting up a server or local machine for development/deployment
+
+Packages necessary on Dukono
 
 To be installed with 'apt':
 
