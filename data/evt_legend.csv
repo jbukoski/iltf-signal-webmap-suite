@@ -1,0 +1,851 @@
+value,label
+3738,Open Water
+3805,Open Water
+3859,Open Water
+3887,Open Water
+3737,Snow-Ice
+3767,Developed-Open Space
+3768,Developed-Low Intensity
+3769,Developed-Medium Intensity
+3770,Developed-High Intensity
+3800,Developed-Open Space
+3801,Developed-Low Intensity
+3802,Developed-Medium Intensity
+3803,Developed-High Intensity
+3857,Developed-General
+3860,Developed-Medium Intensity
+3861,Developed-High Intensity
+3900,Developed-Upland Deciduous Forest
+3901,Developed-Upland Evergreen Forest
+3902,Developed-Upland Mixed Forest
+3903,Developed-Upland Herbaceous
+3904,Developed-Upland Shrubland
+3905,Developed-Upland Deciduous Forest
+3906,Developed-Upland Evergreen Forest
+3907,Developed-Upland Mixed Forest
+3908,Developed-Upland Herbaceous
+3909,Developed-Upland Shrubland
+3910,Developed-Upland Deciduous Forest
+3911,Developed-Upland Evergreen Forest
+3912,Developed-Upland Mixed Forest
+3913,Developed-Upland Herbaceous
+3914,Developed-Upland Shrubland
+3915,Developed-Upland Deciduous Forest
+3916,Developed-Upland Evergreen Forest
+3917,Developed-Upland Mixed Forest
+3918,Developed-Upland Herbaceous
+3919,Developed-Upland Shrubland
+3920,Developed-Upland Deciduous Forest
+3921,Developed-Upland Evergreen Forest
+3922,Developed-Upland Mixed Forest
+3923,Developed-Upland Shrubland
+3924,Developed-Upland Herbaceous
+3925,Developed-Upland Deciduous Forest
+3926,Developed-Upland Evergreen Forest
+3927,Developed-Upland Mixed Forest
+3928,Developed-Upland Shrubland
+3929,Developed-Upland Herbaceous
+3930,Developed-Upland Deciduous Forest
+3931,Developed-Upland Evergreen Forest
+3932,Developed-Upland Mixed Forest
+3933,Developed-Upland Shrubland
+3934,Developed-Upland Herbaceous
+3935,Developed-Upland Deciduous Forest
+3936,Developed-Upland Evergreen Forest
+3937,Developed-Upland Mixed Forest
+3938,Developed-Upland Shrubland
+3939,Developed-Upland Herbaceous
+3940,Developed-Upland Deciduous Forest
+3941,Developed-Upland Evergreen Forest
+3942,Developed-Upland Mixed Forest
+3943,Developed-Upland Shrubland
+3944,Developed-Upland Herbaceous
+3945,Developed-Upland Deciduous Forest
+3946,Developed-Upland Evergreen Forest
+3947,Developed-Upland Mixed Forest
+3948,Developed-Upland Shrubland
+3949,Developed-Upland Herbaceous
+3950,Developed-Upland Deciduous Forest
+3951,Developed-Upland Evergreen Forest
+3952,Developed-Upland Mixed Forest
+3953,Developed-Upland Shrubland
+3954,Developed-Upland Herbaceous
+3955,Developed-Upland Deciduous Forest
+3956,Developed-Upland Evergreen Forest
+3957,Developed-Upland Mixed Forest
+3958,Developed-Upland Shrubland
+3959,Developed-Upland Herbaceous
+3736,Barren
+3791,Bedrock  Scree  and Talus
+3792,Bedrock  Scree  and Talus
+3793,Bedrock  Scree  and Talus
+3794,Bedrock  Scree  and Talus
+3830,Barren
+3832,Barren
+3884,Barren
+3885,Barren
+3886,Barren
+3001,Sparse Vegetation
+3002,Sparse Vegetation
+3003,Sparse Vegetation
+3004,Sparse Vegetation
+3006,Sparse Vegetation
+3007,Sparse Vegetation
+3218,Sparse Vegetation
+3219,Sparse Vegetation
+3221,Sparse Vegetation
+3222,Sparse Vegetation
+3223,Sparse Vegetation
+3497,Sparse Vegetation
+3498,Sparse Vegetation
+3499,Sparse Vegetation
+3879,Sparse Vegetation
+3745,Wet Meadow
+3747,Wet Meadow
+3756,Dwarf Shrubland
+3083,Deciduous Shrubland
+3084,Deciduous Shrubland
+3168,Deciduous Shrubland
+3169,Deciduous Shrubland
+3385,Western Riparian Woodland and Shrubland
+3162,Western Riparian Woodland and Shrubland
+3253,Western Riparian Woodland and Shrubland
+3254,Western Riparian Woodland and Shrubland
+3273,Eastern Floodplain Forests
+3467,Eastern Floodplain Forests
+3469,Eastern Floodplain Forests
+3476,Eastern Small Stream Riparian Forests
+3525,Eastern Small Stream Riparian Forests
+3562,Eastern Small Stream Riparian Forests
+3563,Eastern Small Stream Riparian Forests
+3482,Depressional Wetland
+3488,Depressional Wetland
+3282,Inland Marshes and Prairies
+3284,Inland Marshes and Prairies
+3285,Inland Marshes and Prairies
+3411,Inland Marshes and Prairies
+3491,Atlantic Coastal Marsh
+3492,Inland Marshes and Prairies
+3494,Inland Marshes and Prairies
+3283,Inland Marshes and Prairies
+3493,Inland Marshes and Prairies
+3461,Atlantic Swamp Forests
+3462,Atlantic Swamp Forests
+3468,Atlantic Swamp Forests
+3480,Atlantic Swamp Forests
+3571,Atlantic Swamp Forests
+3249,Pocosin
+3452,Pocosin
+3399,Heathland and Grassland
+3522,Heathland and Grassland
+3741,Tidal Marsh
+3742,Tidal Flat
+3187,Introduced Upland Vegetation-Treed
+3845,Introduced Upland Vegetation-Treed
+3846,Introduced Upland Vegetation-Treed
+3850,Introduced Upland Vegetation-Treed
+3186,Introduced Upland Vegetation-Shrub
+3847,Introduced Upland Vegetation-Shrub
+3849,Introduced Upland Vegetation-Shrub
+3194,Ruderal Forest
+3528,Ruderal Forest
+3529,Ruderal Forest
+3531,Ruderal Forest
+3532,Ruderal Forest
+3533,Ruderal Forest
+3181,Introduced Annual Grassland
+3182,Introduced Perennial Grassland and Forbland
+3183,Introduced Annual and Biennial Forbland
+3184,Introduced Annual Grassland
+3848,Introduced Perennial Grassland and Forbland
+3247,Glades and Barrens
+3289,Alpine-Subalpine Barrens
+3340,Chestnut Oak-Virginia Pine Forest and Woodland
+3386,Alpine-Subalpine Barrens
+3389,Alpine-Subalpine Barrens
+3397,Glades and Barrens
+3398,Glades and Barrens
+3400,Glades and Barrens
+3408,Glades and Barrens
+3413,Prairies and Barrens
+3414,Glades and Barrens
+3416,Prairies and Barrens
+3417,Prairies and Barrens
+3418,Prairies and Barrens
+3419,Prairies and Barrens
+3248,Atlantic Dunes and Grasslands
+3436,Atlantic Dunes and Grasslands
+3180,Introduced Riparian Vegetation
+3259,Introduced Riparian Vegetation
+3536,Introduced Woody Wetland Vegetation
+3807,Introduced Woody Wetland Vegetation
+3812,Introduced Woody Wetland Vegetation
+3852,Introduced Woody Wetland Vegetation
+3853,Introduced Woody Wetland Vegetation
+3185,Introduced Wetland Vegetation
+3196,Introduced Wetland Vegetation
+3199,Introduced Wetland Vegetation
+3538,Introduced Herbaceous Wetland Vegetation
+3838,Introduced Herbaceous Wetland Vegetation
+3854,Introduced Herbaceous Wetland Vegetation
+3534,Managed Tree Plantation
+3535,Managed Tree Plantation
+3855,Managed Tree Plantation
+3856,Managed Tree Plantation
+3191,Transitional Herbacous Vegetation
+3192,Transitional Shrub Vegetation
+3193,Transitional Forest Vegetation
+3195,Transitional Herbacous Vegetation
+3759,Transitional Herbacous Vegetation
+3760,Transitional Shrub Vegetation
+3287,Modified-Managed Prairie Grassland
+3539,Modified-Managed Prairie Grassland
+3540,Modified-Managed Prairie Grassland
+3564,Modified-Managed Prairie Grassland
+3771,Shrub and Herbaceous Peatlands
+3772,Shrub and Herbaceous Peatlands
+3773,Shrub and Herbaceous Peatlands
+3795,Shrub and Herbaceous Peatlands
+3796,Shrub and Herbaceous Peatlands
+3719,Dwarf Shrubland
+3730,Sparse Shrub and Fell-field
+3751,Peatland Forests
+3752,Peatland Forests
+3774,Peatland Forests
+3797,Peatland Forests
+3808,Hawai'i Rainforest
+3809,Hawai'i Rainforest
+3810,Hawai'i Rainforest
+3813,Hawai'i Dry Forest
+3815,Hawai'i Dry Forest
+3814,Hawai'i Mesic Forest
+3816,Hawai'i Mesic Forest
+3811,Hawai'i Mesic Shrubland
+3818,Hawai'i Mesic Shrubland
+3824,Hawai'i Mesic Shrubland
+3826,Hawai'i Mesic Shrubland
+3827,Hawai'i Mesic Shrubland
+3828,Hawai'i Mesic Shrubland
+3817,Hawai'i Dry Shrubland
+3821,Hawai'i Dry Shrubland
+3825,Hawai'i Dry Shrubland
+3806,Inland Marshes and Prairies
+3820,Hawai'i Mesic Grassland
+3823,Hawai'i Mesic Grassland
+3819,Hawai'i Dry Grassland
+3822,Hawai'i Dry Grassland
+3754,Agriculture-Pasture and Hay
+3755,Agriculture-Cultivated Crops and Irrigated Agriculture
+3804,Agriculture-Cultivated Crops and Irrigated Agriculture
+3858,Agriculture-Cultivated Crops and Irrigated Agriculture
+3862,Agriculture-Cultivated Crops and Irrigated Agriculture
+3863,Agriculture-Cultivated Crops and Irrigated Agriculture
+3864,Agriculture-Cultivated Crops and Irrigated Agriculture
+3865,Agriculture-Cultivated Crops and Irrigated Agriculture
+3960,Agricultural-Orchard
+3961,Agricultural-Vineyard
+3962,Agricultural-Bush fruit and berries
+3963,Agricultural-Row Crop-Close Grown Crop
+3964,Agricultural-Row Crop
+3965,Agricultural-Close Grown Crop
+3966,Agricultural-Fallow/Idle Cropland
+3967,Agricultural-Pasture and Hayland
+3968,Agricultural-Wheat
+3969,Agricultual-Aquaculture
+3970,Agricultural-Orchard
+3971,Agricultural-Vineyard
+3972,Agricultural-Bush fruit and berries
+3973,Agricultural-Row Crop-Close Grown Crop
+3974,Agricultural-Row Crop
+3975,Agricultural-Close Grown Crop
+3976,Agricultural-Fallow/Idle Cropland
+3977,Agricultural-Pasture and Hayland
+3978,Agricultural-Wheat
+3979,Agricultual-Aquaculture
+3980,Agricultural-Orchard
+3981,Agricultural-Vineyard
+3982,Agricultural-Bush fruit and berries
+3983,Agricultural-Row Crop-Close Grown Crop
+3984,Agricultural-Row Crop
+3985,Agricultural-Close Grown Crop
+3986,Agricultural-Fallow/Idle Cropland
+3987,Agricultural-Pasture and Hayland
+3988,Agricultural-Wheat
+3989,Agricultual-Aquaculture
+3990,Agricultural-Orchard
+3991,Agricultural-Vineyard
+3992,Agricultural-Bush fruit and berries
+3993,Agricultural-Row Crop-Close Grown Crop
+3994,Agricultural-Row Crop
+3995,Agricultural-Close Grown Crop
+3996,Agricultural-Fallow/Idle Cropland
+3997,Agricultural-Pasture and Hayland
+3998,Agricultural-Wheat
+3999,Agricultual-Aquaculture
+3833,Pacific Islands Limestone Forest
+3834,Pacific Islands Littoral/Strand Vegetation
+3835,Pacific Islands Lowland Forest
+3836,Pacific Islands Mangrove Forest
+3837,Pacific Islands Palm Forest
+3839,Pacific Islands Ravine Forest
+3840,Pacific Islands Savannah
+3841,Pacific Islands Scrub Forest/Shrub
+3842,Pacific Islands Swamp/Marsh
+3843,Pacific Islands Upland Forest
+3866,Caribbean Deciduous Forest
+3867,Caribbean Deciduous Forest
+3869,Caribbean Deciduous Forest
+3870,Caribbean Deciduous Forest
+3868,Caribbean Mixed Evergreen Deciduous Forest
+3871,Caribbean Mixed Evergreen Deciduous Forest
+3872,Caribbean Mixed Evergreen Deciduous Forest
+3877,Caribbean Mixed Evergreen Deciduous Forest
+3873,Caribbean Evergreen Forest
+3874,Caribbean Evergreen Forest
+3875,Caribbean Evergreen Forest
+3876,Caribbean Evergreen Forest
+3878,Caribbean Shrub/Herbaceous Wetland
+3883,Caribbean Shrub/Herbaceous Wetland
+3880,Caribbean Mangrove Forest
+3881,Caribbean Forested Wetland
+3882,Caribbean Forested Wetland
+3296,Developed-Low Intensity
+3297,Developed-Medium Intensity
+3298,Developed-High Intensity
+3299,Developed-Roads
+-9999,Nodata
+3292,Open Water
+3293,Snow-Ice
+3294,Barren
+3295,Quarries-Strip Mines-Gravel Pits
+3271,Jack Pine Forest
+3272,Jack Pine Forest
+3344,Jack Pine Forest
+3444,Jack Pine Forest
+3466,Inland Marshes and Prairies
+3447,Cypress
+3459,Cypress
+3460,Cypress
+3478,Atlantic Swamp Forests
+3570,Cypress
+3572,Cypress
+3575,Atlantic Swamp Forests
+3333,Hammocks
+3336,Hammocks
+3337,Hammocks
+3470,Mangrove
+3286,Black Oak Woodland and Savanna
+3311,Black Oak Woodland and Savanna
+3517,Black Oak Woodland and Savanna
+3278,Peatland Forests
+3279,Peatland Forests
+3464,Spruce Flats and Barrens
+3477,Peatland Forests
+3290,Black Oak Woodland and Savanna
+3395,Black Oak Woodland and Savanna
+3238,Red Pine-White Pine Forest and Woodland
+3239,Red Pine-White Pine Forest and Woodland
+3242,Jack Pine Forest
+3243,Jack Pine Forest
+3269,Jack Pine Forest
+3362,Red Pine-White Pine Forest and Woodland
+3407,Jack Pine Forest
+3301,Aspen-Birch Forest
+3048,Spruce-Fir Forest and Woodland
+3600,White Spruce Forest and Woodland
+3601,White Spruce Forest and Woodland
+3603,White Spruce Forest and Woodland
+3677,White Spruce Forest and Woodland
+3678,White Spruce Forest and Woodland
+3679,White Spruce-Hardwood Forest and Woodland
+3750,White Spruce-Hardwood Forest and Woodland
+3779,White Spruce-Hardwood Forest and Woodland
+3780,White Spruce-Hardwood Forest and Woodland
+3789,White Spruce-Hardwood Forest and Woodland
+3607,Balsam Poplar-Aspen Woodland
+3762,Floodplain Forest and Shrubland
+3763,Floodplain Forest and Shrubland
+3764,Floodplain Forest and Shrubland
+3776,Riparian Stringer Forest and Shrubland
+3787,Floodplain Forest and Shrubland
+3788,Floodplain Forest and Shrubland
+3790,Floodplain Forest and Shrubland
+3602,Spruce-Lichen Woodland
+3604,Black Spruce Forest and Woodland
+3753,Black Spruce Forest and Woodland
+3765,Black Spruce Forest and Woodland
+3786,Black Spruce Forest and Woodland
+3038,Mountain Hemlock Forest and Woodland
+3041,Mountain Hemlock Forest and Woodland
+3044,Mountain Hemlock Forest and Woodland
+3641,Mountain Hemlock Forest and Woodland
+3648,Mountain Hemlock Forest and Woodland
+3649,Mountain Hemlock Forest and Woodland
+3055,Spruce-Fir Forest and Woodland
+3056,Spruce-Fir Forest and Woodland
+3032,Red Fir Forest and Woodland
+3046,Subalpine Woodland and Parkland
+3229,Subalpine Woodland and Parkland
+3020,Limber Pine Woodland
+3057,Limber Pine Woodland
+3045,Douglas-fir-Ponderosa Pine-Lodgepole Pine Forest and Woodland
+3051,Douglas-fir-Ponderosa Pine-Lodgepole Pine Forest and Woodland
+3166,Douglas-fir Forest and Woodland
+3227,Douglas-fir Forest and Woodland
+3233,Douglas-fir Forest and Woodland
+3234,Douglas-fir Forest and Woodland
+3235,Douglas-fir Forest and Woodland
+3028,Douglas-fir-Grand Fir-White Fir Forest and Woodland
+3052,Douglas-fir-Grand Fir-White Fir Forest and Woodland
+3172,Douglas-fir-Grand Fir-White Fir Forest and Woodland
+3208,Douglas-fir-Grand Fir-White Fir Forest and Woodland
+3228,Western Larch Forest and Woodland
+3236,Western Larch Forest and Woodland
+3237,Western Larch Forest and Woodland
+3018,Douglas-fir-Grand Fir-White Fir Forest and Woodland
+3047,Douglas-fir-Grand Fir-White Fir Forest and Woodland
+3232,Douglas-fir-Grand Fir-White Fir Forest and Woodland
+3009,Aspen Forest  Woodland  and Parkland
+3011,Aspen Forest  Woodland  and Parkland
+3061,Aspen-Mixed Conifer Forest and Woodland
+3606,Dry Aspen-Steppe Bluff
+3050,Lodgepole Pine Forest and Woodland
+3058,Lodgepole Pine Forest and Woodland
+3167,Lodgepole Pine Forest and Woodland
+3173,Douglas-fir-Ponderosa Pine-Lodgepole Pine Forest and Woodland
+3049,Limber Pine Woodland
+3063,Red Alder Forest and Woodland
+3156,Red Alder Forest and Woodland
+3157,Western Red-cedar-Western Hemlock Forest
+3158,Western Riparian Woodland and Shrubland
+3036,Sitka Spruce Forest
+3644,Sitka Spruce Forest
+3650,Periglacial Woodland and Shrubland
+3654,Sitka Spruce Forest
+3766,Periglacial Woodland and Shrubland
+3675,Western Hemlock-Yellow-cedar Forest
+3042,Western Hemlock-Silver Fir Forest
+3174,Western Hemlock-Silver Fir Forest
+3205,Mountain Hemlock Forest and Woodland
+3178,Western Red-cedar-Western Hemlock Forest
+3646,Western Hemlock-Yellow-cedar Forest
+3739,Western Red-cedar-Western Hemlock Forest
+3035,Douglas-fir Forest and Woodland
+3200,Conifer-Oak Forest and Woodland
+3206,Douglas-fir Forest and Woodland
+3266,Conifer-Oak Forest and Woodland
+3267,Conifer-Oak Forest and Woodland
+3037,Douglas-fir-Western Hemlock Forest and Woodland
+3039,Douglas-fir-Western Hemlock Forest and Woodland
+3021,Western Red-cedar-Western Hemlock Forest
+3015,Redwood Forest and Woodland
+3008,Western Oak Woodland and Savanna
+3120,Western Oak Woodland and Savanna
+3201,Western Oak Woodland and Savanna
+3043,California Mixed Evergreen Forest and Woodland
+3154,Western Riparian Woodland and Shrubland
+3159,Western Riparian Woodland and Shrubland
+3161,Spruce-Fir Forest and Woodland
+3251,Western Riparian Woodland and Shrubland
+3255,Western Riparian Woodland and Shrubland
+3013,Bur Oak Woodland and Savanna
+3053,Ponderosa Pine Forest  Woodland and Savanna
+3054,Ponderosa Pine Forest  Woodland and Savanna
+3060,Conifer-Oak Forest and Woodland
+3117,Ponderosa Pine Forest  Woodland and Savanna
+3179,Ponderosa Pine Forest  Woodland and Savanna
+3262,Conifer-Oak Forest and Woodland
+3263,Conifer-Oak Forest and Woodland
+3203,Juniper Woodland and Savanna
+3240,Pine-Hemlock-Hardwood Forest
+3241,Pine-Hemlock-Hardwood Forest
+3366,Pine-Hemlock-Hardwood Forest
+3023,Juniper-Oak
+3024,Conifer-Oak Forest and Woodland
+3026,Conifer-Oak Forest and Woodland
+3027,Douglas-fir-Ponderosa Pine-Lodgepole Pine Forest and Woodland
+3231,Douglas-fir-Grand Fir-White Fir Forest and Woodland
+3029,Western Oak Woodland and Savanna
+3030,Conifer-Oak Forest and Woodland
+3260,Conifer-Oak Forest and Woodland
+3261,Conifer-Oak Forest and Woodland
+3031,Ponderosa Pine Forest  Woodland and Savanna
+3022,Western Red-cedar-Western Hemlock Forest
+3034,Chaparral
+3170,Chaparral
+3177,Conifer-Oak Forest and Woodland
+3014,California Mixed Evergreen Forest and Woodland
+3313,Beech-Maple-Basswood Forest
+3114,Conifer-Oak Forest and Woodland
+3230,Conifer-Oak Forest and Woodland
+3264,Conifer-Oak Forest and Woodland
+3265,Conifer-Oak Forest and Woodland
+3605,Birch-Aspen Forest
+3642,Birch-Cottonwood-Poplar Forest
+3113,Western Oak Woodland and Savanna
+3118,Western Oak Woodland and Savanna
+3033,Subalpine Woodland and Parkland
+3314,Beech-Maple-Basswood Forest
+3302,Yellow Birch-Sugar Maple Forest
+3350,Spruce-Fir-Hardwood Forest
+3373,Spruce-Fir-Hardwood Forest
+3374,Spruce-Fir-Hardwood Forest
+3402,Atlantic Swamp Forests
+3526,Atlantic Swamp Forests
+3554,Spruce-Fir-Hardwood Forest
+3555,Spruce-Fir-Hardwood Forest
+3409,Great Lakes Alvar
+3276,Eastern Floodplain Forests
+3277,Eastern Floodplain Forests
+3281,Atlantic Swamp Forests
+3475,Eastern Floodplain Forests
+3481,Atlantic Swamp Forests
+3308,Post Oak Woodland and Savanna
+3312,Montane Oak Forest
+3326,Hardwood Flatwoods
+3342,Post Oak Woodland and Savanna
+3358,Shortleaf Pine Woodland
+3364,Post Oak Woodland and Savanna
+3381,Post Oak Woodland and Savanna
+3519,Post Oak Woodland and Savanna
+3394,Bur Oak Woodland and Savanna
+3288,Chestnut Oak-Virginia Pine Forest and Woodland
+3305,Chestnut Oak Forest and Woodland
+3315,Chestnut Oak Forest and Woodland
+3317,Chestnut Oak Forest and Woodland
+3369,Chestnut Oak-Virginia Pine Forest and Woodland
+3377,Chestnut Oak-Virginia Pine Forest and Woodland
+3463,Chestnut Oak-Virginia Pine Forest and Woodland
+3502,Chestnut Oak-Virginia Pine Forest and Woodland
+3556,Chestnut Oak-Virginia Pine Forest and Woodland
+3557,Chestnut Oak-Virginia Pine Forest and Woodland
+3354,Pitch Pine Woodlands
+3355,Pitch Pine Woodlands
+3456,Pitch Pine Woodlands
+3375,Glades and Barrens
+3430,Prairies and Barrens
+3567,Prairies and Barrens
+3244,Spruce-Fir-Hardwood Forest
+3245,Spruce-Fir-Hardwood Forest
+3365,Spruce-Fir-Hardwood Forest
+3352,Pitch Pine Woodlands
+3303,White Oak-Red Oak-Hickory Forest and Woodland
+3306,White Oak-Beech Forest and Woodland
+3307,Coastal Plain Oak Forest
+3310,White Oak-Red Oak-Hickory Forest and Woodland
+3316,White Oak-Beech Forest and Woodland
+3320,Montane Oak Forest
+3324,Coastal Plain Oak Forest
+3334,Beech-Maple-Basswood Forest
+3376,White Oak-Red Oak-Hickory Forest and Woodland
+3304,White Oak-Red Oak-Hickory Forest and Woodland
+3322,White Oak-Beech Forest and Woodland
+3327,White Oak-Beech Forest and Woodland
+3509,White Oak-Beech Forest and Woodland
+3309,Yellow Birch-Sugar Maple Forest
+3318,Beech-Maple-Basswood Forest
+3325,Sweetgum-Water Oak Forest
+3368,Chestnut Oak-Virginia Pine Forest and Woodland
+3406,Chestnut Oak-Virginia Pine Forest and Woodland
+3448,Chestnut Oak-Virginia Pine Forest and Woodland
+3321,Beech-Maple-Basswood Forest
+3370,Pine-Hemlock-Hardwood Forest
+3511,Pine-Hemlock-Hardwood Forest
+3512,Pine-Hemlock-Hardwood Forest
+3274,Eastern Floodplain Forests
+3275,Eastern Floodplain Forests
+3280,Atlantic Swamp Forests
+3300,Eastern Small Stream Riparian Forests
+3319,Eastern Small Stream Riparian Forests
+3471,Eastern Floodplain Forests
+3472,Eastern Small Stream Riparian Forests
+3479,Atlantic Swamp Forests
+3518,Hardwood Flatwoods
+3349,Longleaf Pine Woodland
+3351,Longleaf Pine Woodland
+3552,Longleaf Pine Woodland
+3346,Longleaf Pine Woodland
+3347,Longleaf Pine Woodland
+3348,Longleaf Pine Woodland
+3356,Longleaf Pine Woodland
+3403,Glades and Barrens
+3335,Coastal Plain Oak Forest
+3387,Southern Scrub Oak
+3565,Southern Scrub Oak
+3361,Maritime Forest
+3380,Maritime Forest
+3382,Maritime Forest
+3507,Shortleaf Pine Woodland
+3367,Shortleaf Pine-Oak Forest and Woodland
+3372,Shortleaf Pine-Oak Forest and Woodland
+3378,Shortleaf Pine Woodland
+3510,Shortleaf Pine-Oak Forest and Woodland
+3527,Shortleaf Pine-Oak Forest and Woodland
+3546,Shortleaf Pine-Oak Forest and Woodland
+3582,Shortleaf Pine-Oak Forest and Woodland
+3583,Shortleaf Pine-Oak Forest and Woodland
+3586,Shortleaf Pine Woodland
+3587,Shortleaf Pine Woodland
+3353,Virginia Pine Forest
+3379,Maritime Forest
+3550,Loblolly Pine Forest and Woodland
+3371,Shortleaf Pine Woodland
+3458,Pine Flatwoods
+3584,Shortleaf Pine Woodland
+3585,Shortleaf Pine Woodland
+3590,Pine Flatwoods
+3591,Pine Flatwoods
+3450,Pine Flatwoods
+3451,Pine Flatwoods
+3453,Pine Flatwoods
+3454,Pine Flatwoods
+3553,Loblolly Pine-Slash Pine Forest and Woodland
+3551,Pine Flatwoods
+3357,Sweetgum-Water Oak Forest
+3457,Hardwood Flatwoods
+3506,Hardwood Flatwoods
+3330,Coastal Plain Oak Forest
+3338,Texas Live Oak
+3339,Texas Live Oak
+3384,Maritime Forest
+3328,Sweetgum-Water Oak Forest
+3329,White Oak-Beech Forest and Woodland
+3455,Pine Flatwoods
+3588,Pine Flatwoods
+3589,Pine Flatwoods
+3323,Sweetgum-Water Oak Forest
+3332,Eastern Floodplain Forests
+3343,Sweetgum-Water Oak Forest
+3359,Eastern Floodplain Forests
+3473,Eastern Floodplain Forests
+3474,Eastern Small Stream Riparian Forests
+3513,Pine Flatwoods
+3573,Eastern Small Stream Riparian Forests
+3574,Eastern Small Stream Riparian Forests
+3501,Atlantic Swamp Forests
+3449,Pine Flatwoods
+3569,Pine Flatwoods
+3134,Grassland
+3138,Grassland
+3142,Grassland
+3171,Grassland
+3065,Desert Scrub
+3123,Grassland and Steppe
+3017,Juniper Woodland and Savanna
+3202,Juniper Woodland and Savanna
+3068,Alpine Dwarf-Shrubland  Fell-field and Meadow
+3165,Douglas-fir Forest and Woodland
+3268,Aspen Forest  Woodland  and Parkland
+3331,Aspen Forest  Woodland  and Parkland
+3112,Western Oak Woodland and Savanna
+3151,Western Riparian Woodland and Shrubland
+3152,Western Riparian Woodland and Shrubland
+3155,Western Riparian Woodland and Shrubland
+3257,Western Riparian Woodland and Shrubland
+3258,Western Riparian Woodland and Shrubland
+3128,Pacific Coastal Scrub
+3092,Pacific Coastal Scrub
+3105,Chaparral
+3110,Chaparral
+3097,Chaparral
+3096,Chaparral
+3098,Chaparral
+3099,Chaparral
+3078,Blackbrush Shrubland
+3082,Desert Scrub
+3210,Blackbrush Shrubland
+3067,Alpine Dwarf-Shrubland  Fell-field and Meadow
+3071,Alpine Dwarf-Shrubland  Fell-field and Meadow
+3136,Dry Tundra
+3131,Grassland
+3129,Grassland
+3130,Grassland
+3137,Alpine Dwarf-Shrubland  Fell-field and Meadow
+3163,Pacific Coastal Marsh
+3139,Grassland
+3140,Grassland
+3125,Big Sagebrush Shrubland and Steppe
+3126,Big Sagebrush Shrubland and Steppe
+3220,Big Sagebrush Shrubland and Steppe
+3080,Big Sagebrush Shrubland and Steppe
+3127,Desert Scrub
+3064,Low Sagebrush Shrubland and Steppe
+3072,Low Sagebrush Shrubland and Steppe
+3079,Low Sagebrush Shrubland and Steppe
+3124,Low Sagebrush Shrubland and Steppe
+3145,Alpine Dwarf-Shrubland  Fell-field and Meadow
+3070,Alpine Dwarf-Shrubland  Fell-field and Meadow
+3143,Alpine Dwarf-Shrubland  Fell-field and Meadow
+3144,Dry Tundra
+3146,Grassland
+3019,Pinyon-Juniper Woodland
+3115,Juniper Woodland and Savanna
+3107,Deciduous Shrubland
+3217,Deciduous Shrubland
+3075,Salt Desert Scrub
+3081,Salt Desert Scrub
+3088,Salt Desert Scrub
+3211,Desert Scrub
+3062,Mountain Mahogany Woodland and Shrubland
+3250,Mountain Mahogany Woodland and Shrubland
+3012,Bigtooth Maple Woodland
+3086,Deciduous Shrubland
+3106,Deciduous Shrubland
+3160,Western Riparian Woodland and Shrubland
+3164,Western Herbaceous Wetland
+3252,Western Riparian Woodland and Shrubland
+3066,Salt Desert Scrub
+3153,Greasewood Shrubland
+3135,Grassland
+3103,Chaparral
+3104,Chaparral
+3108,Chaparral
+3214,Chaparral
+3215,Chaparral
+3216,Chaparral
+3016,Pinyon-Juniper Woodland
+3025,Pinyon-Juniper Woodland
+3059,Pinyon-Juniper Woodland
+3119,Juniper Woodland and Savanna
+3121,Grassland and Steppe
+3122,Grassland and Steppe
+3256,Grassland and Steppe
+3074,Creosotebush Desert Scrub
+3087,Creosotebush Desert Scrub
+3090,Desert Scrub
+3091,Desert Scrub
+3109,Desert Scrub
+3100,Desert Scrub
+3150,Tallgrass Prairie
+3270,Tallgrass Prairie
+3412,Tallgrass Prairie
+3420,Tallgrass Prairie
+3421,Tallgrass Prairie
+3495,Depressional Wetland
+3147,Grassland
+3093,Sand Shrubland
+3094,Sand Shrubland
+3212,Sand Shrubland
+3141,Mixedgrass Prairie
+3149,Shortgrass Prairie
+3085,Big Sagebrush Shrubland and Steppe
+3503,Grassland
+3504,Depressional Wetland
+3132,Mixedgrass Prairie
+3207,Mixedgrass Prairie
+3423,Tallgrass Prairie
+3434,Inland Marshes and Prairies
+3133,Grassland
+3422,Tallgrass Prairie
+3428,Prairies and Barrens
+3429,Prairies and Barrens
+3433,Prairies and Barrens
+3568,Prairies and Barrens
+3442,Grassland
+3148,Sand Prairie
+3209,Sand Prairie
+3426,Atlantic Dunes and Grasslands
+3435,Atlantic Dunes and Grasslands
+3437,Atlantic Dunes and Grasslands
+3440,Grassland
+3443,Atlantic Dunes and Grasslands
+3439,Grassland
+3390,Desert Scrub
+3391,Mesquite Woodland and Scrub
+3392,Desert Scrub
+3438,Grassland
+3560,Desert Scrub
+3076,Desert Scrub
+3095,Mesquite Woodland and Scrub
+3111,Mesquite Woodland and Scrub
+3204,Mesquite Woodland and Scrub
+3213,Juniper-Oak
+3405,Glades and Barrens
+3415,Prairies and Barrens
+3383,Post Oak Woodland and Savanna
+3393,Juniper-Oak
+3410,Glades and Barrens
+3523,Juniper-Oak
+3524,Bigtooth Maple Woodland
+3558,Post Oak Woodland and Savanna
+3559,Post Oak Woodland and Savanna
+3561,Glades and Barrens
+3077,Succulent Desert Scrub
+3101,Chaparral
+3116,Juniper Woodland and Savanna
+3291,Glades and Barrens
+3363,Glades and Barrens
+3401,Glades and Barrens
+3486,Inland Marshes and Prairies
+3446,Pine Flatwoods
+3425,Prairies and Barrens
+3566,Prairies and Barrens
+3396,Atlantic Coastal Marsh
+3483,Atlantic Coastal Marsh
+3490,Atlantic Coastal Marsh
+3576,Atlantic Coastal Marsh
+3581,Atlantic Coastal Marsh
+3485,Inland Marshes and Prairies
+3489,Inland Marshes and Prairies
+3577,Inland Marshes and Prairies
+3578,Inland Marshes and Prairies
+3579,Inland Marshes and Prairies
+3580,Inland Marshes and Prairies
+3608,Avalanche Slope Shrubland
+3609,Alder Shrubland
+3638,Alder Shrubland
+3652,Alder Shrubland
+3672,Alder Shrubland
+3680,Avalanche Slope Shrubland
+3718,Alder Shrubland
+3633,Herbaceous Meadow
+3645,Herbaceous Meadow
+3671,Dune Grassland
+3709,Beach Meadow
+3725,Beach Meadow
+3749,Beach Meadow
+3611,Wet Meadow
+3634,Dwarf Shrubland
+3685,Sparse Tundra
+3686,Sparse Tundra
+3688,Dwarf Shrubland
+3689,Dwarf Shrubland
+3690,Dwarf Shrubland
+3612,Boreal Grassland
+3740,Freshwater Aquatic Bed
+3743,Freshwater Marsh
+3744,Freshwater Marsh
+3746,Freshwater Marsh
+3748,Freshwater Marsh
+3761,Shrub and Herbaceous Floodplain Wetland
+3775,Shrub and Herbaceous Floodplain Wetland
+3687,Shrub Tundra
+3691,Shrub Tundra
+3692,Shrub Tundra
+3631,Dwarf Shrubland
+3635,Dwarf Shrubland
+3636,Dwarf Shrubland
+3643,Dwarf Shrubland
+3674,Sparse Shrub and Fell-field
+3682,Dwarf Shrubland
+3720,Dwarf Shrubland
+3757,Dwarf Shrubland
+3758,Dwarf Shrubland
+3651,Herbaceous Meadow
+3653,Herbaceous Meadow
+3699,Herbaceous Meadow
+3683,Shrub Tundra
+3684,Shrub Tundra
+3785,Shrub Tundra
+3777,Shrub Swamp
+3778,Shrub Swamp
+3782,Tussock Tundra
+3783,Tussock Tundra
+3784,Tussock Tundra
+3799,Tussock Tundra
+3781,Sparse Tundra
+3798,Sparse Tundra
+3610,Willow Shrubland
+3639,Willow Shrubland
+3640,Willow Shrubland
+3731,Willow Shrubland
