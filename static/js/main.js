@@ -1,6 +1,6 @@
 ///////////////////////////////////////////
 // Main Javascript file for ISTF webmaps //
-///////////////////////////////////////////
+////a////////////////////////////////////
 
 ///////////////////////////
 //// Base JS functions ////
@@ -121,4 +121,366 @@
             }
         });
     }
+
+/////////////////////////////////////////////////////////
+//// Initialize Map to be Updated by Individual Apps ////
+/////////////////////////////////////////////////////////
+
+    var map = L.map("map", {
+        zoom: 8,
+        minZoom: 4,
+        maxZoom: 22,
+        layers: [esriWorld]
+    });
+
+    var lyrs;
+    var legPopup = L.popup();
+    var lyrs_arr = [];
+
+
+///////////////////////////////////////
+////// Add Leaflet-Draw controls //////
+///////////////////////////////////////
+
+    // Initialize the FeatureGroup to store editable layers
+
+    var drawnItems = new L.FeatureGroup();
+
+    map.addLayer(drawnItems);
+
+    map.on('draw:drawstart', function(e) {
+        legCheck = false;
+    });
+
+
+    // Specify some custom options for the Drawing tools
+
+    var drawOptionsFull = {
+          draw: {
+            polygon: {showArea: true},
+            circle: false,
+            marker: false,
+            polyline: false
+          },
+          edit: {
+            featureGroup: drawnItems
+          }
+        }
+
+    var drawOptionsEditOnly = {
+          edit: {
+            featureGroup: drawnItems
+          },
+          draw: false
+    };
+
+
+    // Initialize the draw control and pass it the FeatureGroup of editable layers
+    var drawControlFull = new L.Control.Draw(drawOptionsFull);
+    var drawControlEditOnly = new L.Control.Draw(drawOptionsEditOnly);
+    var layerGeom = {};
+    var legCheck = true;
+
+    map.addControl(drawControlFull);
+
+    map.on('draw:created', function (e) {
+        var layer = e.layer;
+        drawnItems.addLayer(layer);
+        drawControlFull.remove(map);
+        drawControlEditOnly.addTo(map);
+        legCheck = false;
+
+    });
+
+    map.on('draw:deleted', function(e) {
+        if (drawnItems.getLayers().length === 0) {
+            drawControlEditOnly.remove(map);
+            drawControlFull.addTo(map);
+            legCheck = true;
+        };
+    });
+
+/////////////////////////////////////////////////////////
+//// Add north arrow, scale, and easy print function ////
+/////////////////////////////////////////////////////////
+
+    L.control.scale().addTo(map);
+
+    var north = L.control({position: "bottomright"});
+    north.onAdd = function(map) {
+        var div = L.DomUtil.create("div", "info legend");
+	var arrow_url = "{% static '/img/north_arrow.png' %}";
+        div.innerHTML = '<img src=' + arrow_url + 'height="40" width="40">';
+        return div;
+    }
+    north.addTo(map);
+
+////////////////////////////
+////// Upload Layers ///////
+////////////////////////////
+
+    var uploaded_layers = $('#downloads_uploads').children();
+    var num_layers = uploaded_layers.length;
+    var tmp_url = null;
+
+    for ( var i = 0; i < num_layers; i++ ) {
+        try {
+            tmp_url = uploaded_layers[i].children[1].value;
+        } catch ( err ) {
+            tmp_url = null;
+        }
+    }
+
+    function uploader() {
+
+        var x = document.getElementById( "upload_file" );
+        var txt = " ";
+        var file;
+        var checkerr = false;
+
+        if ( "files" in x ) {
+            if ( x.files.length == 0 ) {
+                txt = "<br>Select one or more files.<br>";
+            } else {
+                txt += "<hr><h5>File Breakdown</h5><br>";
+                file = x.files[0];
+                checkerr = true;
+
+                if ( "name" in file ) {
+                    txt += "<b>File Name: </b>" + file.name + "<br>";
+                }
+
+                if ( "size" in file ) {
+                    txt += "<b>File Size: </b>" + file.size + " bytes <br>";
+                }
+
+                if ( "lastModifiedDate" in file ) {
+                    txt += "<b>File Last Modified: </b><br>" + file.lastModifiedDate + "<br>";
+                }
+            }
+        } else {
+            if ( x.value == "" ) {
+                txt += "Select a GeoJSON or SHP file to upload.";
+            } else {
+                txt += "<b>The files property is not supported by your browser!</b><hr>";
+                txt += "<b>File path: </b>" + x.value;
+            }
+        }
+        document.getElementById("show_upload").innerHTML = txt;
+
+        if ( checkerr ) {
+            document.getElementById("send_upload").style.display = "block";
+        } else {
+            document.getElementById("send_upload").style.display = "none";
+        }
+    }
+
+//////////////////////////////////////////
+/////// Render User Uploaded Layers //////
+//////////////////////////////////////////
+
+    function show_static( uploadedLayer ) {
+    
+        var lyr = document.getElementById( uploadedLayer ).value;
+        var usr_lyr = new L.geoJSON();
+        var data = {'layer': lyr, csrfmiddlewaretoken: '{{csrf_token }}'};
+    
+        $("input[type='checkbox'][id='" + lyr + "']").change(function () {
+    
+            if (this.checked) {
+
+                legCheck = false;
+    
+                var updateUsrLyr = $.post("{% url 'render_geojson' %}", data, function(resp) {
+                    var geojson_lyr = JSON.parse(resp.layer_json);
+                    usr_lyr.addData(geojson_lyr);
+                });
+    
+                $.when(updateUsrLyr).then(function() { map.addLayer(usr_lyr);} );
+               
+                usr_lyr.on('click', function(e) { 
+                    var usr_lyr = e.layer;
+                    var centroid = usr_lyr.getBounds().getCenter();
+                    var lyrGeoJSON = usr_lyr.toGeoJSON();
+                    var lyrGeom = JSON.stringify(lyrGeoJSON.geometry);
+                    var c_lyrs = $("div#carbon-layers input[type='checkbox']:checked").map(function() {return this.id;});
+                    var c_arr = $.map(c_lyrs, function(value, index) { return [value]; });
+                    var usrPopup = L.popup();
+                    var usrResp;
+                    
+                    data = {'geom': lyrGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
+    
+                    var usrPost = $.post('{% url \'sumstats\' %}', data, function(resp) { usrResp = resp; });
+    
+                    $.when(usrPost).then(function() {
+                        var arr = [];
+                        for(var key in c_arr) {
+                            var forestArea = '<b>&nbsp&nbspForest area selected: </b>' + usrResp.forestArea + ' ha</br>';
+                            arr.push(forestArea); 
+                            arr.push(usrResp.text[c_arr[key]]); 
+                        };
+                        var arr_string = arr.join('');
+    
+                        if(usrResp.totalArea < 62.5) {
+                            var areaFlag = '</br><b>&nbsp&nbspNote:</b> The queried polygon area is small relative to the resolution of the forest carbon pixels. Valid biomass forest carbon estimates cannot be provided. The soil organic carbon results may still be valid. </br>';
+                            if($.inArray('gssurgoSOC', c_arr) > -1) {
+                                if(Object.keys(c_arr).length > 1) {
+                                    var arr_string = areaFlag.concat(usrResp.text['gssurgoSOC']);
+                                } else {
+                                    var arr_string = usrResp.text['gssurgoSOC'];
+                                };
+                            } else {
+                                var arr_string = areaFlag;
+                            };
+                        };
+    
+                        usrPopup
+                            .setLatLng(centroid)
+                            .setContent('<p><b>SUMMARY STATISTICS: </b>' +
+                                        '</br><b>&nbsp&nbspArea selected: </b>' + usrResp.totalArea + ' ha</br>' +
+                                        arr_string + "</p>")
+    
+                        setTimeout(function() {
+                            if(Object.keys(c_arr).length > 0) {    
+                                usrPopup .openOn(map);
+                            }
+                        }, 250);
+                    });
+                });
+    
+            } else if ($("input[type='checkbox'][id='" + lyr + "']").prop("checked") != true) {
+                legCheck = true;
+                map.removeLayer(usr_lyr);
+                usr_lyr = L.geoJSON();
+                $("input[type='checkbox'][id='" + lyr + "']").unbind('change');
+            };
+        });
+    };
+
+////////////////////////////////////
+//// Build legend functionality ////
+////////////////////////////////////
+
+var lyrs;
+var legPopup = L.popup();
+var lyrs_arr = [];
+
+    $("div#vegetation-layers input[type='checkbox'], div#carbon-layers input[type='checkbox']").change(function () {
+        lyrs = $("div#vegetation-layers input:checkbox:checked, div#carbon-layers input:checkbox:checked").map(function() {return this.id});
+        legendFunction(lyrs);
+    });
+
+    function legendFunction( lyrs ) {
+        if ($("div#vegetation-layers input[type='checkbox'], div#carbon-layers input[type='checkbox']").is(':checked')) {
+
+            var legPopup = L.popup();
+            lyrs_arr = [];
+            for(i = 0; i < lyrs.length; i++) {
+                lyrs_arr[i] = lyrs[i];
+            };
+
+            buff_bndry.addTo(map);
+
+            map.off('click');
+
+            map.on('click', function(e) {
+                if(legCheck) {
+                    var lng = e.latlng.lng;
+                    var lat = e.latlng.lat;
+                    updateLatLng(lat, lng, lyrs_arr);
+                };
+            });
+
+        } else {
+            if(map) {
+                map.closePopup();
+                buff_bndry.remove();
+                map.off('click');
+            };
+        };
+
+    };
+
+    function updateLatLng(lat, lng, leg_lyrs) {
+        var legendResp;
+        var data = {'lat': lat, 'lng': lng, csrfmiddlewaretoken: '{{ csrf_token }}'};
+
+        var legendPost = $.post("{% url 'legend' %}", data, function(resp) { legendResp = resp });
+
+        $.when(legendPost).then(function() {
+            var text = legendResp.legText
+            var arr = [];
+            for(var key in leg_lyrs) { arr.push(text[leg_lyrs[key]]); };
+            var arr_string = arr.join('');
+
+            legPopup
+                .setLatLng([lat, lng])
+                .setContent("<p><b>VEGETATION LAYERS LEGENDS: </b></br></br>" + arr_string + "</p>")
+
+            setTimeout(function() {
+                legPopup.openOn(map);
+            }, 250);
+        });
+    };
+
+
+////////////////////////////////////
+////// Summary Stats Function //////
+////////////////////////////////////
+
+    drawnItems.on("click", function(e) {
+        var layer = e.layer;
+        var type = layer.toGeoJSON().geometry.type;
+    
+        if (type === 'Polygon') {
+            var centroid = layer.getBounds().getCenter();
+            var layerGeoJSON = layer.toGeoJSON();
+            var layerGeom = JSON.stringify(layerGeoJSON.geometry);
+            var queryPopup = L.popup(); 
+            var c_lyrs = $("div#carbon-layers input[type='checkbox']:checked").map(function() {return this.id;});
+            var c_arr = $.map(c_lyrs, function(value, index) { return [value]; });
+            var post_resp;
+    
+            data = {'geom': layerGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
+    
+            var sumstatsPost = $.post('{% url \'sumstats\' %}', data, function(resp) { post_resp = resp; });
+    
+            $.when(sumstatsPost).then(function(args) {
+                var arr = [];
+                for(var key in c_arr) { 
+                    var forestArea = '<b>&nbsp&nbspForest area selected: </b>' + '~' + post_resp.forestArea + ' ha</br>';
+                    arr.push(forestArea); 
+                    arr.push(post_resp.text[c_arr[key]]); 
+                };
+                var arr_string = arr.join('');
+    
+                if(post_resp.totalArea < 62.5) {
+                    var areaFlag = '</br><b>&nbsp&nbspNote:</b> The queried polygon area is small relative to the resolution of the forest carbon pixels. Valid biomass forest carbon estimates cannot be provided. The soil organic carbon results may still be valid. </br>';
+                    if($.inArray('gssurgoSOC', c_arr) > -1) {
+                        if(Object.keys(c_arr).length > 1) {
+                            var arr_string = areaFlag.concat(statsText['gssurgoSOC']);
+                        } else {
+                            var arr_string = statsText['gssurgoSOC'];
+                        };
+                    } else {
+                        var arr_string = areaFlag;
+                    };
+                };
+    
+                queryPopup
+                    .setLatLng(centroid)
+                    .setContent('<p><b>SUMMARY STATISTICS: </b>' +
+                                '</br><b>&nbsp&nbspArea selected: </b>' + post_resp.totalArea + ' ha</br>' +
+                                arr_string + "</p>")
+    
+                setTimeout(function() {
+                    if(Object.keys(c_arr).length > 0) {    
+                        queryPopup.openOn(map);
+                    };
+                }, 250);
+            });    
+        };
+    });
+
+
 

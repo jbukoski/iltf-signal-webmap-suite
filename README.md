@@ -121,17 +121,10 @@ Need to add the following to **models.py**:
 
 TO DO:
 
-  - Finalize carbon data layers to add
-    - Landfire EVT
-    - gSSURGO SOC layer
-    - aboveground carbon layer?
-    - other carbon layers?
-  - Build out legend function for raster layers
   - Build in transparency function
-  - Build summary functions using draw function
-  - Login functions on home page
   - Set-up in deployable, generalizable fashion
-  - On import-map
-    - allow user-specified name of layer
-    - resolve blank map on delete (?)
-    - checks for file type and size
+  - Connect/set-up SIG VPN
+  - Login functions
+  - Watch video and connect with Shane
+  - GEE integration?
+  - Scale-invariant UI

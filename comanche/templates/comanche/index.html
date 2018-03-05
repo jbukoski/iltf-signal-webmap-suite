@@ -300,13 +300,8 @@
 ////// Leaflet Map /////////
 ////////////////////////////
 
-    var map = L.map("map", {
-        zoom: 8,
-        center: [34.79, -98.45], 
-        minZoom: 6,
-        maxZoom: 20,
-        layers: [esriWorld, counties, boundaries]
-    });
+    map.panTo(new L.LatLng(34.79, -98.45));
+    map.addLayer(counties, boundaries);
 
 ///////////////////////////////////////
 ////// Add Leaflet-Draw controls //////
