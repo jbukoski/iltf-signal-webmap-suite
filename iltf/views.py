@@ -5,7 +5,6 @@ from django.core.serializers import serialize
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse
-from . import templates
 import json, os
 
 def index(request):
