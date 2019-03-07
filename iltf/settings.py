@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'djgeojson',
     'leaflet',
     'calc',
+    'bmic',
     'comanche',
     'lbst',
     'tamaya',
@@ -64,12 +65,18 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['iltf/templates',
+                 'bmic/templates/bmic',
                  'tamaya/templates/tamaya',
                  'comanche/templates/comanche',
                  'lbst/templates/lbst',
                 ],
-        'APP_DIRS': True,
+        'APP_DIRS': False,
         'OPTIONS': {
+            'loaders': [
+                'app_namespace.Loader',
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',

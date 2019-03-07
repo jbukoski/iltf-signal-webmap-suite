@@ -13,9 +13,12 @@ from django.urls import reverse
 
 from django.core.files.storage import FileSystemStorage
 from django.core.exceptions import ValidationError
+from django.views.decorators.csrf import csrf_protect
 
 # Raster interaction views:
 
+
+@csrf_protect
 def legend_view(request):
 
     if request.method == 'POST':
@@ -58,10 +61,12 @@ def legend_view(request):
                         SELECT *
                         FROM evt_point, evt_class, ndvi2005, ndvi2010, ndvi2015, agc, bgc, soc; """ % (lon, lat)
 
-        conn = psycopg2.connect("dbname='iltf' user='postgres'")
+        conn = psycopg2.connect("dbname='iltf' user='postgres' password='sig_pass'")
         cur = conn.cursor()
         cur.execute(query)
         results = cur.fetchall()
+
+        print("\n\n", results, "\n\n")
 
         landfireEVT = int(results[0][0])
         evtClass = results[0][1]
@@ -85,7 +90,7 @@ def legend_view(request):
                     "bgc": "&nbsp&nbsp<b>Belowground forest carbon: </b>" + str(bgc) + "</br>",
                     "gssurgoSOC": "&nbsp&nbsp<b>Soil organic carbon: </b>" + str(soc) + "&nbsp;Mg/ha</br>"}
 
-        print("/n/n", legText, "/n/n")
+        print("\n\n", legText, "\n\n")
 
         return JsonResponse({'evtClass': evtClass, 'ndvi2005': ndvi2005,
                              'ndvi2010': ndvi2010, 'ndvi2015': ndvi2015,
@@ -125,7 +130,7 @@ def sumstats_view(request):
                        CROSS JOIN bgc_clip
                        CROSS JOIN soc_clip;""" % (geom)
 
-        conn = psycopg2.connect("dbname='iltf' user='postgres'")
+        conn = psycopg2.connect("dbname='iltf' user='postgres' password='sig_pass'")
         cur = conn.cursor()
         cur.execute(query)
 

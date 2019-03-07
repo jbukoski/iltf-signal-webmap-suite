@@ -170,10 +170,9 @@ Styling for index.html (home page)
 ***************************************/
 
 #index-home {
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255, 255, 255, 0.7);
     padding: 2rem 2rem 2rem 2rem;
     height: 100%;
-    right: 0rem;
     position: absolute;
 }
 
@@ -181,9 +180,8 @@ Styling for index.html (home page)
     text-align: center;
     font-family: 'Oswald', Sans-Serif;
     text-transform: uppercase;
-    padding-top: 1rem;
     padding-bottom: 2rem;
-    font-size: 28px;
+    font-size: calc(18px + (26 - 18) * ((100vw - 300px) / (1600 - 300)));
     font-weight: 500;
 }
 
@@ -191,7 +189,7 @@ Styling for index.html (home page)
     text-align: center;
     font-family: "Arial", Sans-Serif;
     font-weight: 400;
-    font-size: 15px;
+    font-size: calc(12px + (16 - 12) * ((100vw - 300px) / (1600 - 300)));
     padding-bottom: 1rem;
 }
 
@@ -203,23 +201,64 @@ Styling for index.html (home page)
     padding: 2rem;
 }
 
-#index-home a{
+#index-header p{
+    font-size: calc(18px + (28 - 18) * ((100vw - 300px) / (1600 - 300)));
+    color: white;
+    padding-left: 5rem;
+    padding-top: 0.25rem;
+    font-family: "Oswald";
+    white-space: nowrap;
+    vertical-align: middle;
+    margin: 0;
+    display: inline-block;
 }
 
 @media (min-width: 768px) {
     #index-home {
-        right: 10rem;
+	position: absolute;
+	right: 10rem;
+	height: 100%;
+    }
+    #index-home p{
     }
 }
 
-#index-home #login {
-    padding-top: 2rem;
-    padding-bottom: 2rem; 
+@media (max-width: 768px) {
+    #index-home {
+        right: 0rem;
+    }
+	
+    #index-header p{
+        padding-left: 0rem;
+        text-align: center;
+	width: 100%;
+    }
+}
+
+@media (max-width: 320px) {
+    #index-home {
+        width: 100%;
+    }
+    #index-header p{
+        width: 100%;
+	font-size: 15px;
+    }
 }
 
 
+#index-home #login {
+    padding-top: 1rem;
+    padding-bottom: 1rem; 
+}
+
+#index-navbar {
+    padding; 0 0;
+    margin: 0;
+    border-bottom-width: 0;
+}
+
 #login .logBut {
-    width: 32rem;
+    width: 70%;
     color: white;
     text-align: center;
     position: relative;
@@ -228,6 +267,8 @@ Styling for index.html (home page)
     border: blue;
     border-radius: 4px;
     background: #722421;
+    font-size: 14px;
+    padding-bottom: 0.5rem;
 }
 
 #login table {
@@ -242,7 +283,7 @@ Styling for index.html (home page)
 }
 
 #login table tr td {
-    text-align: center
+    text-align: center;
 }
 
 #login table #id_password {

@@ -55,8 +55,6 @@ urlpatterns = [
     url(r'^delete_single/', views.delete_single_view, name="lbst_delete_single"),
     url(r'^download_single/', views.download_single_view, name="lbst_download_single"),
     url(r'^delete_up/', views.delete_up_view, name='lbst_delete_up'),
-    url(r'^legend/', calc.views.legend_view, name='lbst_legend'),
-    url(r'^sumstats/', calc.views.sumstats_view, name='lbst_sumstats'),
     url(r'^admin/logout/$', views.signout_view, name='signout'),
 ]
 

@@ -41,7 +41,6 @@ urlpatterns = [
     url(r'^bgc_dl/$', views.bgc_dl_view, name = 'bgc_dl'),
     url(r'^soc_dl/$', views.soc_dl_view, name = 'soc_dl'),
     url(r'^sample_up/', views.sample_up_view, name='sample_up'),
-#    url(r'^list/$', views.list, name='tamaya_list'),
     url(r'^render_geojson/', views.render_geojson_view, name='render_geojson'),
     url(r'^download_single/', views.download_single_view, name="download_single"),
     url(r'^delete_single/', views.delete_single_view, name="delete_single"),

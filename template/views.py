@@ -21,20 +21,20 @@ path = os.path.dirname(os.path.abspath(__file__))
 @login_required(login_url='/login/')
 def index(request):
      
-    if not request.user.username == 'tamaya_user':
+    if not request.user.username == 'RENAME_user':
         return HttpResponseRedirect(reverse('iltf_index'))
 
     bndry = models.boundary.objects.all()
     documents = models.Document.objects.all()
-    upload_files = next(os.walk(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded')))[2]
+    upload_files = next(os.walk(os.path.join(os.path.dirname(path), 'media/RENAME/uploaded')))[2]
     upload_list = []
 
     for up_file in upload_files:
 
         if up_file != ".DS_Store":
 
-            up_file_path = os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/', up_file)
-            raw_doc_json = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/', up_file)).read()
+            up_file_path = os.path.join(os.path.dirname(path), 'media/RENAME/uploaded/', up_file)
+            raw_doc_json = open(os.path.join(os.path.dirname(path), 'media/RENAME/uploaded/', up_file)).read()
             upload_list.append(raw_doc_json)
 
     doc_counter = 1
@@ -42,14 +42,14 @@ def index(request):
     for document in documents:
         doc_counter += 1
 
-    return render(request, 'tamaya/index.html', {
+    return render(request, 'RENAME/index.html', {
         'title': 'Santa Ana Pueblo of NM',
         'bndry': bndry,
         'documents': documents
     })
 
 def home(request):
-    return HttpResponseRedirect(urlresolvers.reverse('admin:app_list', args=("tamaya/",)))
+    return HttpResponseRedirect(urlresolvers.reverse('admin:app_list', args=("RENAME/",)))
 
 def render_geojson_view(request):
 
@@ -73,35 +73,35 @@ def legend_view(request):
         query = """WITH mypoint AS (SELECT ST_SetSRID(ST_MakePoint(%s, %s), 4326) geom),
                         evt_point AS (SELECT ST_Value(evt.rast, geom) AS value
                                       FROM mypoint AS p 
-                                      CROSS JOIN tamaya_landfire_evt AS evt
+                                      CROSS JOIN RENAME_landfire_evt AS evt
                                       WHERE ST_Intersects(p.geom, evt.rast)),
                         evt_class AS (SELECT classes.label
-                                      FROM tamaya_landfire_classes AS classes
+                                      FROM RENAME_landfire_classes AS classes
                                       CROSS JOIN evt_point
                                       WHERE classes.value = evt_point.value),
                         ndvi2005 AS (SELECT ST_Value(ndvi2005.rast, geom) AS value
                                       FROM mypoint AS p
-                                      CROSS JOIN tamaya_ndvi_2005 AS ndvi2005
+                                      CROSS JOIN RENAME_ndvi_2005 AS ndvi2005
                                       WHERE ST_Intersects(p.geom, ndvi2005.rast)),
                         ndvi2010 AS (SELECT ST_Value(ndvi2010.rast, geom) AS value
                                       FROM mypoint AS p
-                                      CROSS JOIN tamaya_ndvi_2010 AS ndvi2010
+                                      CROSS JOIN RENAME_ndvi_2010 AS ndvi2010
                                       WHERE ST_Intersects(p.geom, ndvi2010.rast)),
                         ndvi2015 AS (SELECT ST_Value(ndvi2015.rast, geom) AS value
                                       FROM mypoint AS p
-                                      CROSS JOIN tamaya_ndvi_2015 AS ndvi2015
+                                      CROSS JOIN RENAME_ndvi_2015 AS ndvi2015
                                       WHERE ST_Intersects(p.geom, ndvi2015.rast)),
                         agc AS (SELECT ST_Value(agc.rast, geom) AS value
                                       FROM mypoint AS p
-                                      CROSS JOIN tamaya_forest_agc AS agc
+                                      CROSS JOIN RENAME_forest_agc AS agc
                                       WHERE ST_Intersects(p.geom, agc.rast)),
                         bgc AS (SELECT ST_Value(bgc.rast, geom) AS value
                                       FROM mypoint AS p
-                                      CROSS JOIN tamaya_forest_bgc AS bgc
+                                      CROSS JOIN RENAME_forest_bgc AS bgc
                                       WHERE ST_Intersects(p.geom, bgc.rast)),
                         soc AS (SELECT ST_Value(soc.rast, geom) AS value
                                       FROM mypoint AS p
-                                      CROSS JOIN tamaya_gssurgo_soc AS soc
+                                      CROSS JOIN RENAME_gssurgo_soc AS soc
                                       WHERE ST_Intersects(p.geom, soc.rast))
                         SELECT *
                         FROM evt_point, evt_class, ndvi2005, ndvi2010, ndvi2015, agc, bgc, soc; """ % (lon, lat)
@@ -153,15 +153,15 @@ def sumstats_view(request):
         query = """WITH poly AS (SELECT ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS geom),
                        poly_eq_area AS (SELECT ST_Transform(geom, 32113) AS geom_eq_area FROM poly),
                        agc_clip AS (SELECT ST_Union(ST_Clip(agc.rast, poly.geom)) AS raster
-                           FROM tamaya_forest_agc AS agc
+                           FROM RENAME_forest_agc AS agc
                              CROSS JOIN poly
                              WHERE (ST_Intersects(poly.geom, agc.rast))),
                        bgc_clip AS (SELECT ST_Union(ST_Clip(bgc.rast, poly.geom)) AS raster
-                           FROM tamaya_forest_bgc AS bgc
+                           FROM RENAME_forest_bgc AS bgc
                              CROSS JOIN poly
                              WHERE (ST_Intersects(poly.geom, bgc.rast))),
                        soc_clip AS (SELECT ST_Union(ST_Clip(soc.rast, poly.geom)) AS raster
-                           FROM tamaya_gssurgo_soc AS soc
+                           FROM RENAME_gssurgo_soc AS soc
                              CROSS JOIN poly
                              WHERE (ST_Intersects(poly.geom, soc.rast)))
                    SELECT ST_Area(geom_eq_area) AS area,
@@ -230,207 +230,6 @@ def sumstats_view(request):
         return JsonResponse({'error', error_msg})
 
 
-def boundary_view(request):
-    boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field="geom")
-    return HttpResponse(boundary_json, content_type='json')
-
-def buff_boundary_view(request):
-    buff_boundary_json = serialize('geojson', models.buffered_bndry.objects.all(), geometry_field="geom")
-    return HttpResponse(buff_boundary_json, content_type='json')
-
-def ag_view(request):
-    ag_json = serialize('geojson', models.ag.objects.all(), geometry_field="geom", fields=('id', 'acres', 'status', 'tract_numb', 'community', 'soctotal', 'socmean'))
-    return HttpResponse(ag_json, content_type='json')
-
-def vineyards_view(request):
-    vineyards_json = serialize('geojson', models.vineyards.objects.all(), geometry_field="geom", fields=('section', 'acres', 'soctotal', 'socmean'))
-    return HttpResponse(vineyards_json, content_type='json')
-
-def mbls_view(request):
-    mbls_json = serialize('geojson', models.mbls.objects.all(), geometry_field="geom", fields=('entity', 'area', 'acres', 'comment', 'perimeter', 'mbl_field', 'soctotal', 'socmean'))
-    return HttpResponse(mbls_json, content_type='json')
-
-def roads_view(request):
-    roads_json = serialize('geojson', models.roads.objects.all(), geometry_field="geom", fields=('name', 'surface', 'comment', 'condition', 'id'))
-    return HttpResponse(roads_json, content_type='json')
-
-def watersheds_view(request):
-    watersheds_json = serialize('geojson', models.watersheds.objects.all(), geometry_field="geom", fields=('watershed_id', 'hu_8_name', 'shape_area'))
-    return HttpResponse(watersheds_json, content_type="json")
-
-def subwatersheds_view(request):
-    subwatersheds_json = serialize('geojson', models.subwatersheds.objects.all(), geometry_field="geom", fields=('subwatershed_id', 'watershed', 'subwatshed', 'acres'))
-    return HttpResponse(subwatersheds_json, content_type="json")
-
-def surfacehydro_view(request):
-    surfacehydro_json = serialize('geojson', models.surfacehydro.objects.all(), geometry_field="geom")
-    return HttpResponse(surfacehydro_json, content_type="json")
-
-def soil_data_view(request):
-    soil_data_json = serialize('geojson', models.soil_data.objects.all(), geometry_field="geom", fields=('poly_id','tax_class', 'org_matter', 'composting', 'texture', 'ph_water', 'bulk_densi'))
-    return HttpResponse(soil_data_json, content_type='json')
-
-###############
-## Downloads ##
-###############
-
-# Admin layers
-
-def boundary_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'boundary.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="boundary.zip"'
-
-    return response
-
-def ag_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'agriculture.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="agriculture.zip"'
-
-    return response
-
-def vineyards_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'vineyards.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="vineyards.zip"'
-
-    return response
-
-def mbl_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'mbl_int.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="mbl_int.zip"'
-
-    return response
-
-def roads_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'santa_ana_roads.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="reservation_roads.zip"'
-
-    return response
-
-# Hydrology layers
-
-def watersheds_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'watersheds.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="watersheds.zip"'
-
-    return response
-
-def subwatersheds_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'subwatersheds.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="subwatersheds.zip"'
-
-    return response
-
-def surfacehydrology_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'surfacehydrology.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="surfacehydrology.zip"'
-
-    return response
-
-# Soil layers
-
-def bd_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'bulk_density_1_3_bar.zip'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="bulk_density_1_3_bar.zip"'
-
-    return response
-
-def compost_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'composting_medium_and_final_cover.zip'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="composting_medium_and_final_cover.zip"'
-
-    return response
-
-def om_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'organic_matter.zip'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="organic_matter.zip"'
-
-    return response
-
-def ph_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'ph_surface_weighted_average.zip'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="ph_surface_weighted_average.zip"'
-
-    return response
-
-def taxonomy_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'soil_taxonomy.zip'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="soil_taxonomy.zip"'
-
-    return response
-
-def texture_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'surface_texture_dcp.zip'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="soil_texture_dcp.zip"'
-
-    return response
-
-## Vegetation layers
-
-def landfire_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_landfire_evt.tif'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="tamaya_landfire_evt.tif"'
-
-    return response
-
-def ndvi_2005_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_ndvi_2005.tif'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="tamaya_ndvi_2005.tif"'
-
-    return response
-
-def ndvi_2010_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_ndvi_2010.tif'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="tamaya_ndvi_2010.tif"'
-
-    return response
-
-def ndvi_2015_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_ndvi_2015.tif'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="tamaya_ndvi_2015.tif"'
-
-    return response
-
-## Carbon layers
-
-def agc_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_forest_agc.tif'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="tamaya_forest_agc.tif"'
-
-    return response
-
-def bgc_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_forest_bgc.tif'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="tamaya_forest_bgc.tif"'
-
-    return response
-
-def soc_dl_view(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'tamaya', 'tamaya_gssurgo_soc.tif'), "rb")
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="tamaya_gssurgo_soc.tif"'
-
-    return response
-
 ######################
 ## Import Utilities ##
 ######################
@@ -453,7 +252,7 @@ def sample_dl_view(request):
 
             if text_name == "boundary.geojson":
 
-                download_file = open(os.path.join(os.path.dirname(path), 'media/tamaya/uploaded/boundary.geojson'), "rb")
+                download_file = open(os.path.join(os.path.dirname(path), 'media/RENAME/uploaded/boundary.geojson'), "rb")
                 response = HttpResponse(download_file, content_type='application/force-download')
                 response['Content-Disposition'] = 'attachment; filename="boundary.geojson"'
                 return response
@@ -470,7 +269,7 @@ def sample_dl_view(request):
 
                     if document.docfile.name == text_name:
 
-                        download_file = open(os.path.join(os.path.dirname(path), "media/tamaya/uploaded/", short_name), "rb")
+                        download_file = open(os.path.join(os.path.dirname(path), "media/RENAME/uploaded/", short_name), "rb")
                         response = HttpResponse(download_file, content_type='application/force-download')
                         response['Content-Disposition'] = 'attachment; filename="' + short_name + '"'
                         return response
@@ -500,7 +299,7 @@ def sample_up_view(request):
                 this_file = request.FILES['docfile']
                 file_sys = FileSystemStorage()
 
-                file_path = os.path.join('tamaya/uploaded/', this_file.name)
+                file_path = os.path.join('RENAME/uploaded/', this_file.name)
 
                 filename = re.sub('\.geojson$', '', this_file.name)
 
@@ -509,9 +308,9 @@ def sample_up_view(request):
 
                 documents = models.Document.objects.all()
 
-                return HttpResponseRedirect(reverse('tamaya_index'))
+                return HttpResponseRedirect(reverse('RENAME_index'))
 
-        return render(request, 'tamaya_index')
+        return render(request, 'RENAME_index')
 
     else:
         form = DocumentForm()       # Empty
@@ -520,7 +319,7 @@ def sample_up_view(request):
 
     context = {'documents' : documents, 'form' : form}
 
-    return render(request, 'tamaya_index', context)
+    return render(request, 'RENAME_index', context)
 
 def download_single_view(request):
 
@@ -546,7 +345,7 @@ def delete_single_view(request):
         doc2delete = documents.filter(docfile=file2delete)
         doc2delete.delete()
 
-        return HttpResponseRedirect(reverse('tamaya_index'))
+        return HttpResponseRedirect(reverse('RENAME_index'))
 
 
 def delete_up_view(request):
@@ -560,7 +359,7 @@ def delete_up_view(request):
         os.remove(os.path.join(settings.MEDIA_ROOT, document.docfile.name))
         document.delete()
 
-    return HttpResponseRedirect(reverse('tamaya_index'))
+    return HttpResponseRedirect(reverse('RENAME_index'))
 
 # Logout
 

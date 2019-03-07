@@ -3,13 +3,13 @@
 
 {% block side_bar %}
 
-    <title>{{ title }}</title>
+    <title>Bay Mills Indian Community Webmap</title>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle btn" data-toggle="collapse" data-target=".navbar-collapse" style="height: 34px; padding: 5px 10px; margin-right: 10px;"><i class="fa fa-ellipsis-v" style="color: white"></i></button>
             <button id="toggle" type="button" class="navbar-toggle btn" style="height: 34px; padding: 5px 10px; margin-right: 10px;"><i id="toggleIcon" class="fa fa-check-square-o" style="color: white"></i></button>
-            <a class="navbar-brand" href="ENTER TRIBE URL" target="_blank_">RENAME</a>
+            <a class="navbar-brand" href="http://www.baymills.org/" target="_blank_">Bay Mills Indian Community</a>
         </div>
         <div class="navbar-collapse collapse" id="navbar-collapse">
             <ul class="nav navbar-nav pull-left">
@@ -44,12 +44,98 @@
 				    <div class="checkbox">
 				        <label>
                                             <input type="checkbox" name="overlayLayers" id="boundary" z-index="1" checked>
-                                            &nbsp; Reservation boundary &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            &nbsp; Reservation boundary &nbsp; <a href="{% url 'bmic_boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
                                     </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="parcels" z-index="1">
+                                            &nbsp; BMIC parcels &nbsp; <a href="{% url 'bmic_parcels_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="chippewa_cnty" z-index="1">
+                                            &nbsp; Chippewa County &nbsp; <a href="{% url 'bmic_chippewa_cnty_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="mi_cntys" z-index="1">
+                                            &nbsp; Michigan Counties &nbsp; <a href="{% url 'bmic_mi_cntys_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="golf_course" z-index="3">
+                                            &nbsp; Golf Course &nbsp; <a href="{% url 'bmic_golf_course_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="ceded_territory" z-index="3">
+                                            &nbsp; Ceded Territory &nbsp; <a href="{% url 'bmic_ceded_territory_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+
+
 				</div>
 	                    </div>
                         </div> <!--Closes 'panel panel-default for administrative layers'-->
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#utility-layers">
+                                        Utility Layers
+                                </a>
+                            </div>
+                            <div id="utility-layers" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="chippewa_roads" z-index="3">
+                                            &nbsp; Chippewa County Roads &nbsp; <a href="{% url 'bmic_chippewa_roads_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="chippewa_waterwells" z-index="3">
+                                            &nbsp; Chippewa County Water Wells &nbsp; <a href="{% url 'bmic_chippewa_waterwells_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="ir_roads" z-index="3">
+                                            &nbsp; BMIC Roads &nbsp; <a href="{% url 'bmic_ir_roads_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="pwr_syst_backup_2014" z-index="3">
+                                            &nbsp; Power System Backup, 2014 &nbsp; <a href="{% url 'bmic_pwr_syst_backup_2014_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="snowmobile_trails" z-index="3">
+                                            &nbsp; Snowmobile Trails &nbsp; <a href="{% url 'bmic_snowmobile_trails_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="wellhead_protection" z-index="3">
+                                            &nbsp; Wellhead Protection &nbsp; <a href="{% url 'bmic_wellhead_protection_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="railroad" z-index="3">
+                                            &nbsp; Railroad &nbsp; <a href="{% url 'bmic_railroad_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!--Closes 'panel panel-default for the utilities layers'-->
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -61,8 +147,80 @@
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="overlayLayers" id="watersheds" z-index="3">
-                                            &nbsp; ENTER HYDROLOGY LAYERS &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                            <input type="checkbox" name="overlayLayers" id="great_lakes" z-index="3">
+                                            &nbsp; Great Lakes &nbsp; <a href="{% url 'bmic_great_lakes_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="lake_sprior_grid" z-index="3">
+                                            &nbsp; Lake Superior Grid &nbsp; <a href="{% url 'bmic_lake_sprior_grid_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="chippewa_streams" z-index="3">
+                                            &nbsp; Chippewa County Streams &nbsp; <a href="{% url 'bmic_chippewa_streams_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="mi_lakes" z-index="3">
+                                            &nbsp; Michigan Lakes &nbsp; <a href="{% url 'bmic_mi_lakes_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="rivers" z-index="3">
+                                            &nbsp; Rivers &nbsp; <a href="{% url 'bmic_rivers_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="subwatersheds" z-index="3">
+                                            &nbsp; Subwatersheds &nbsp; <a href="{% url 'bmic_subwatersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="waishkey_add_streams" z-index="3">
+                                            &nbsp; Waishkey River Additional Streams &nbsp; <a href="{% url 'bmic_waishkey_add_streams_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="waishkey_ptnl_wtlnd_rstrn" z-index="3">
+                                            &nbsp; Potential Wetland Restoration &nbsp; <a href="{% url 'bmic_waishkey_ptnl_wtlnd_rstrn_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="wetland_preserve" z-index="3">
+                                            &nbsp; Wetland Preserve &nbsp; <a href="{% url 'bmic_wetland_preserve_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="coastal_wetlands" z-index="3">
+                                            &nbsp; Coastal Wetlands &nbsp; <a href="{% url 'bmic_coastal_wetlands_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="waishkey_river" z-index="3">
+                                            &nbsp; Waishkey River &nbsp; <a href="{% url 'bmic_waishkey_river_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="waiska_watershed" z-index="3">
+                                            &nbsp; Waiska Watershed &nbsp; <a href="{% url 'bmic_waiska_watershed_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="whitefish_bay_reserve" z-index="3">
+                                            &nbsp; Whitefish Bay Reserve &nbsp; <a href="{% url 'bmic_whitefish_bay_reserve_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
                                 </div>
@@ -260,8 +418,8 @@
                             <div id="overview" class="panel-collapse collapse in">
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div style="padding: 15px 5px;">
-                                        <p> This webmap is a collaborative product between the <a href="ENTER TRIBE URL HERE" target="_blank">ENTER TRIBE NAME HERE</a>, the <a href="https://iltf.org/" target="_blank">Indian Land Tenure Foundation</a> and the <a href="http://sig-nal.org/" target="_blank">Spatial Informatics Group Natural Assets Laboratory (SIG-NAL)</a>. </p>
-                                        <p> The webmap compiles TRIBE NAME HERE data layers with publically available environmental raster layers and several functions designed to facilitate environmental decision-making within the TRIBE NAME's jurisdiction.</p>
+                                        <p> This webmap is a collaborative product between the <a href="http://www.baymills.org/" target="_blank">Bay Mills Indian Community</a>, the <a href="https://iltf.org/" target="_blank">Indian Land Tenure Foundation</a> and the <a href="http://sig-nal.org/" target="_blank">Spatial Informatics Group Natural Assets Laboratory (SIG-NAL)</a>. </p>
+                                        <p> The webmap compiles Bay Mills Indian Community data layers with publically available environmental raster layers and several functions designed to facilitate environmental decision-making within the Bay Mills Indian Community's jurisdiction.</p>
                                         <p> For more information on the various data layers and webmap functions provided, expand the tabs below.</p>
                                     </div>
                                 </div>
@@ -277,7 +435,7 @@
                             <div id="data-layers-overview" class="panel-collapse collapse">
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div style="padding: 15px 5px;">
-                                        <p> The data layers hosted on this webmap are a combination of layers provided by the Pueblo and publically accessible environmental data layers. Additional information on the layers metadata and sources are provided in the Data Layers tabs below. </p>
+                                        <p> The data layers hosted on this webmap are a combination of layers provided by the tribe and publically accessible environmental data layers. Additional information on the layers metadata and sources are provided in the Data Layers tabs below. </p>
                                     </div>
                                 </div>
                             </div>
@@ -292,14 +450,7 @@
                             <div id="data-layers-admin" class="panel-collapse collapse">
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div style="padding: 15px 5px;">
-                                        <p> The <b>administrative layers</b> hosted on the webmap consist of:
-                                              <ul>
-                                                 <li> <i>Reservation boundary</i> </li>
-                                                 <li> <i>Master business leases</i> </li>
-                                                 <li> <i>Reservation roads</i> </li>
-                                              </ul>
-                                              <p>The administrative layers are provided by the Pueblo. The layers provide the approximate reservation boundary, polygons representing five master business leases within the boundary, and a database of roads. The master business leases and roads layers can be queried for additional information.</p>
-                                        </p>
+                                        <p> The <b>administrative layers</b> hosted on the webmap are provided by the tribe.</p>
                                     </div>
                                 </div>
                             </div>
@@ -314,13 +465,7 @@
                             <div id="data-layers-hydro" class="panel-collapse collapse">
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div style="padding: 15px 5px;">
-                                        <p> The <b>hydrology layers</b> hosted on the webmap consist of:
-                                              <ul>
-                                                 <li> <i>Watersheds</i> </li>
-                                                 <li> <i>Subwatersheds</i> </li>
-                                                 <li> <i>Surface hydrology</i> </li>
-                                              </ul>
-                                              <p>The hydrology layers are provided by the Pueblo and represent the geographic boundaries of watersheds, subwatersheds, and surface hydrology for the region. The watershed and subwatershed layers can be queried for additional information.</p>
+                                        <p> The <b>hydrology layers</b> hosted on the webmap are provided by the tribe and represent the geographic boundaries of watersheds, subwatersheds, and surface hydrology for the region. The layers can be queried for additional information.</p>
                                         </p>
                                     </div>
                                 </div>
@@ -491,310 +636,9 @@
 {% block layers %}
 
 <script type="text/javascript" href="http://depot.ign.fr/geoportail/api/develop/tech-docs-js/examples/js/geoportalLeaflet.js"></script>
-<script type="text/javascript">
 
-
-///////////////////////////
-////// Vector Layers //////
-///////////////////////////
-
-    var boundary = new L.GeoJSON.AJAX("{% url 'boundary' %}", {
-        style: { clickable: false,
-                 weight: 3,
-                 color: '#000000',
-                 dashArray: 3,
-                 opacity: 1,
-                 fill: false,
-               }
-    });
-
-    var buff_bndry = new L.GeoJSON.AJAX("{% url 'buff_bndry' %}", {
-        style: {clickable: true,
-                opacity: 0,
-                fill: true,
-                fillOpacity: 0,
-                zIndex: -100,
-               }
-    });
-
-
-    var soil_dat;
-    get_soil_dat = $.get("{% url 'soil_data' %}", function(json) {
-        soil_dat = json
-    });
-
-    var bulkDens, composting, org_matter, soil_ph, taxonomy, texture;
-    $.when(get_soil_dat).then(function() {
-        bulkDens = new L.GeoJSON(soil_dat, {
-            style: function(feature) {
-            	    switch (true) {
-                            case (feature.properties.bulk_densi <= 1.3):
-                                return {color: "#ffffff", fillColor: "#E3CE9F", fill: true, fillOpacity: 0.8, weight: 0.8};
-                            case (feature.properties.bulk_densi > 1.3 && feature.properties.bulk_densi <= 1.4):
-                                return {color: "#ffffff", fillColor: "#C5AB71", fill: true, fillOpacity: 0.8, weight: 0.8};
-                            case (feature.properties.bulk_densi > 1.4 && feature.properties.bulk_densi <= 1.5):
-                                return {color: "#ffffff", fillColor: "#B6995A", fill: true, fillOpacity: 0.8, weight: 0.8};
-                            case (feature.properties.bulk_densi > 1.5 && feature.properties.bulk_densi <= 1.6):
-                                return {color: "#ffffff", fillColor: "#A07F38", fill: true, fillOpacity: 0.8, weight: 0.8};
-                            case (feature.properties.bulk_densi > 1.6):
-                                return {color: "#ffffff", fillColor: "#825C0B", fill: true, fillOpacity: 0.8, weight: 0.8};
-            		}
-            },
-            onEachFeature: function(feature, layer) {
-                layer.bindPopup(
-                    "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id +
-                    "<br><strong>Bulk density:&nbsp;</strong>" + feature.properties.bulk_densi + "&nbsp;g/cm" + "3".sup() +
-                    "<br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
-                    closeButton: false
-                });
-            },
-        });
-
-        composting = new L.GeoJSON(soil_dat, {
-            style: function(feature) {
-                        switch (feature.properties.composting) {
-                            case 'Poor': return {color: "#ffffff", fillColor: "#BC3812", fill: true, fillOpacity: 0.8, weight: 0.8};
-                            case 'Fair': return {color: "#ffffff", fillColor: "#553ADB", fill: true, fillOpacity: 0.8, weight: 0.8};
-                            case 'Good': return {color: "#ffffff", fillColor: '#08794E', fill: true, fillOpacity: 0.8, weight: 0.8};
-                            case 'Not rated': return {color: "#ffffff", fillColor: '#B2C7EE', fill: true, fillOpacity: 0.8, weight: 0.8};
-                            }
-            },
-            onEachFeature: function(feature, layer) {
-                layer.bindPopup(
-                    "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id +
-                    "<br><strong>Composting cover:&nbsp;</strong>" + feature.properties.composting +
-                    "<br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
-                    closeButton: false
-                });
-            },
-        });
-
-        org_matter = new L.GeoJSON(soil_dat, {
-            style: function(feature) {
-                       switch (true) {
-                           case (feature.properties.org_matter > 1.5):
-                               return {color: "#ffffff", fillColor: '#397D02', fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.org_matter > 1.25 && feature.properties.org_matter <= 1.5):
-                               return {color: "#ffffff", fillColor: "#567E3A", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.org_matter > 1.00 && feature.properties.org_matter <= 1.25):
-                               return {color: "#ffffff", fillColor: "#61B329", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.org_matter > 0.75 && feature.properties.org_matter <= 1.00):
-                               return {color: "#ffffff", fillColor: "#A6D785", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.org_matter > 0.5 && feature.properties.org_matter <= 0.75):
-                               return {color: "#ffffff", fillColor: "#8AA37B", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           default:
-                               return {color: "#ffffff", fillColor: "#687E5A", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       }
-            },
-            onEachFeature: function(feature, layer) {
-                layer.bindPopup(
-                    "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id +
-                    "<br><strong>Organic matter:&nbsp;</strong>" + feature.properties.org_matter + "%" +
-                    "<br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
-                    closeButton: false
-                });
-            },
-        });
-
-        soil_ph = new L.GeoJSON(soil_dat, {
-            style: function(feature) {
-            	    switch (feature.properties.ph_water) {
-            		case 7: return {color: "#ffffff", fillColor: "#d7191c", fillOpacity: 0.8, weight: 0.8};
-            		case 7.1: return {color: "#ffffff", fillColor: "#e65437", fillOpacity: 0.8, weight: 0.8};
-            		case 7.3: return {color: "#ffffff", fillColor: '#f59053', fillOpacity: 0.8, weight: 0.8};
-            		case 7.5: return {color: "#ffffff", fillColor: '#fdbe73', fillOpacity: 0.8, weight: 0.8};
-            		case 7.6: return {color: "#ffffff", fillColor: '#fede99', fillOpacity: 0.8, weight: 0.8};
-            		case 7.7: return {color: "#ffffff", fillColor: '#ffffbf', fillOpacity: 0.8, weight: 0.8};
-            		case 7.8: return {color: "#ffffff", fillColor: '#ddf1bf', fillOpacity: 0.8, weight: 0.8};
-            		case 7.9: return {color: "#ffffff", fillColor: '#bbe3a9', fillOpacity: 0.8, weight: 0.8};
-            		case 8.0: return {color: "#ffffff", fillColor: '#91cba8', fillOpacity: 0.8, weight: 0.8};
-            		case 8.1: return {color: "#ffffff", fillColor: '#5ea781', fillOpacity: 0.8, weight: 0.8};
-                        }
-            },
-            onEachFeature: function(feature, layer) {
-                layer.bindPopup(
-                    "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id +
-                    "<br><strong>Soil pH:&nbsp;</strong>" + feature.properties.ph_water +
-                    "<br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
-                    closeButton: false
-                });
-            },
-        });
-
-        taxonomy = new L.GeoJSON(soil_dat, {
-            style: function(feature) {
-                       switch (true) {
-                           case (feature.properties.tax_class.includes("Calciorthids")):
-                               return {color: "#ffffff", fillColor: "#d12ea1", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.tax_class.includes("Haplargids")):
-                               return {color: "#ffffff", fillColor: "#3a2466", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.tax_class.includes("Haplustalfs")):
-                               return {color: "#ffffff", fillColor: "#1c1ed1", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.tax_class.includes("Torrifluvents")):
-                               return {color: "#ffffff", fillColor: "#a17153", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.tax_class.includes("Torriorthents")):
-                               return {color: "#ffffff", fillColor: "#f17369", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.tax_class.includes("Torripsamments")):
-                               return {color: "#ffffff", fillColor: "#55360c", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.tax_class.includes("Ustifluvents")):
-                               return {color: "#ffffff", fillColor: "#7f4a21", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.tax_class.includes("Ustipsamments")):
-                               return {color: "#ffffff", fillColor: "#58f171", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.tax_class.includes("Ustorthents")):
-                               return {color: "#ffffff", fillColor: "#7c607c", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           default:
-                               return {color: "#ffffff", fillColor: "#ffffff", fill: true, fillOpacity: 0.8, weight: 0.8};
-                       }
-                   },
-            onEachFeature: function(feature, layer) {
-                layer.bindPopup(
-                    "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id +
-                    "<br><strong>Taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
-                    closeButton: false
-                });
-            },
-        });
-
-        texture = new L.GeoJSON(soil_dat, {
-            style: function(feature) {
-                        switch (true) {
-                           case (feature.properties.texture.toLowerCase().includes("clay loam")):
-                               return {color: "#ffffff", fillColor: "#CCCC00", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.texture.toLowerCase().includes("cobbly loam")):
-                               return {color: "#ffffff", fillColor: "#999900", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.texture.toLowerCase().includes("fine sand")):
-                               return {color: "#ffffff", fillColor: "#ffd700", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.texture.toLowerCase().includes("loam")):
-                               return {color: "#ffffff", fillColor: "#FFFF00", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.texture.toLowerCase().includes("loamy sand")):
-                               return {color: "#ffffff", fillColor: "#ffa500", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.texture.toLowerCase().includes("sand")):
-                               return {color: "#ffffff", fillColor: "#ff8c00", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.texture.toLowerCase().includes("sandy loam")):
-                               return {color: "#ffffff", fillColor: "#FFFF66", fill: true, fillOpacity: 0.8, weight: 0.8};
-                           case (feature.properties.texture.toLowerCase().includes("stony loam")):
-                               return {color: "#ffffff", fillColor: "#666600", fill: true, fillOpacity: 0.8, weight: 0.8};
-
-                           default:
-                               return {color: "#ffffff", fillColor: "#ffffff", fill: true, fillOpacity: 0.8, weight: 0.8};
-                        }
-            },
-            onEachFeature: function(feature, layer) {
-                layer.bindPopup(
-                    "<strong>Feature ID:&nbsp;</strong>" + feature.properties.poly_id +
-                    "<br><strong>Soil texture:&nbsp;</strong>" + feature.properties.texture +
-                    "<br><strong>Soil taxonomic class:&nbsp;</strong>" + feature.properties.tax_class, {
-                    closeButton: false
-                });
-            },
-        });
-
-    });
-
-
-////////////////////////////
-////// Raster Layers ///////
-////////////////////////////
-
-// Vegetation layers
-
-    var landfireEVT = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
-        service: 'WMS',
-        version: '1.1.1',
-        request: 'GetMap',
-        format: 'image/png',
-        layers: 'iltf:RENAME_evt',
-        transparent: true,
-        tiled: true,
-        zIndex: 10,
-        bgcolor: '#FFFFFF',
-        clickable: true
-    });
-
-    var ndvi2005 = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
-        service: 'WMS',
-        version: '1.1.1',
-        request: 'GetMap',
-        format: 'image/png',
-        layers: 'iltf:RENAME_ndvi_2005',
-        transparent: true,
-        tiled: true,
-        zIndex: 10,
-        bgcolor: '#FFFFFF',
-        clickable: true
-    });
-
-    var ndvi2010 = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
-        service: 'WMS',
-        version: '1.1.1',
-        request: 'GetMap',
-        format: 'image/png',
-        layers: 'iltf:RENAME_ndvi_2010',
-        transparent: true,
-        tiled: true,
-        zIndex: 10,
-        bgcolor: '#FFFFFF',
-        clickable: true
-    });
-
-    var ndvi2015 = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
-        service: 'WMS',
-        version: '1.1.1',
-        request: 'GetMap',
-        format: 'image/png',
-        layers: 'iltf:RENAME_ndvi_2015',
-        transparent: true,
-        tiled: true,
-        zIndex: 10,
-        bgcolor: '#FFFFFF',
-        clickable: true
-    });
-
-// Carbon layers
-
-    var agc = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
-        service: 'WMS',
-        version: '1.1.1',
-        request: 'GetMap',
-        format: 'image/png',
-        layers: 'iltf:RENAME_agc',
-        transparent: true,
-        tiled: true,
-        zIndex: 10,
-        bgcolor: '#FFFFFF'
-    });
-
-    var bgc = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
-        service: 'WMS',
-        version: '1.1.1',
-        request: 'GetMap',
-        format: 'image/png',
-        layers: 'iltf:RENAME_bgc',
-        transparent: true,
-        tiled: true,
-        zIndex: 10,
-        bgcolor: '#FFFFFF'
-    });
-
-    var gssurgoSOC = new L.tileLayer.wms('http://198.167.239.16:8081/geoserver/iltf/wms?', {
-        service: 'WMS',
-        version: '1.1.1',
-        request: 'GetMap',
-        format: 'image/png',
-        layers: 'iltf:RENAME_gssurgo_soc',
-        transparent: true,
-        tiled: true,
-        zIndex: 10,
-        bgcolor: '#FFFFFF'
-    });
-
-////////////////////////////
-////// Leaflet Map /////////
-////////////////////////////
-
-    map.setView(new L.LatLng(45, -80), 10);
-    map.addLayer(boundary);
-
-</script>
+    {% include 'vector_layers.html' %}
+    {% include 'raster_layers.html' %}
 
 {% endblock layers %}
+

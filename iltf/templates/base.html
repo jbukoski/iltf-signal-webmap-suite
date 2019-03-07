@@ -470,6 +470,7 @@ var lyrs_arr = [];
                     var lng = e.latlng.lng;
                     var lat = e.latlng.lat;
                     updateLatLng(lat, lng, lyrs_arr);
+		    consoleLog('legendFunction fired');
                 };
             });
 
@@ -487,7 +488,7 @@ var lyrs_arr = [];
         var legendResp;
         var data = {'lat': lat, 'lng': lng, csrfmiddlewaretoken: '{{ csrf_token }}'};
 
-        var legendPost = $.post("{% url 'legend' %}", data, function(resp) { legendResp = resp });
+        var legendPost = $.post("{% url 'calc_legend' %}", data, function(resp) { legendResp = resp });
 
         $.when(legendPost).then(function() {
             var text = legendResp.legText
@@ -525,7 +526,7 @@ var lyrs_arr = [];
     
             data = {'geom': layerGeom, csrfmiddlewaretoken: '{{ csrf_token }}'};
     
-            var sumstatsPost = $.post("{% url 'sumstats' %}", data, function(resp) { post_resp = resp; });
+            var sumstatsPost = $.post("{% url 'calc_sumstats' %}", data, function(resp) { post_resp = resp; });
     
             $.when(sumstatsPost).then(function(args) {
                 var arr = [];
