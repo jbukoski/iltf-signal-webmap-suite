@@ -507,6 +507,60 @@ def wetland_preserve_view(request):
 
 ## Layer Download Views
 
+## Raster Download Views
+
+def bmic_forest_agc_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'bmic_forest_agc.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="bmic_forest_agc.zip"'
+
+    return response
+
+def bmic_forest_bgc_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'bmic_forest_bgc.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="bmic_forest_bgc.zip"'
+
+    return response
+
+def bmic_gssurgo_soc_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'bmic_soc.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="bmic_gssurgo_soc.zip"'
+
+    return response
+
+def bmic_landfire_evt_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'bmic_evt.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="bmic_landfire_evt.zip"'
+
+    return response
+
+def bmic_ndvi_2005_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'bmic_ndvi_2005.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="bmic_ndvi_2005.zip"'
+
+    return response
+
+def bmic_ndvi_2010_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'bmic_ndvi_2010.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="bmic_ndvi_2010.zip"'
+
+    return response
+
+def bmic_ndvi_2015_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'bmic_ndvi_2015.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="bmic_ndvi_2015.zip"'
+
+    return response
+
+
+## Vector Download Views
+
 def lake_sprior_grid_view_dl(request):
     download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'lake_sprior_grid.zip'), 'rb')
     response = HttpResponse(download_file, content_type='application/force-download')
