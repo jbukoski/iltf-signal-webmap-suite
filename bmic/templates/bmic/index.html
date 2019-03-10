@@ -133,6 +133,13 @@
                                             &nbsp; Railroad &nbsp; <a href="{% url 'bmic_railroad_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="wastewater_lines" z-index="3">
+                                            &nbsp; Wastewater Lines &nbsp; <a href="{% url 'bmic_wastewater_lines_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+
                                 </div>
                             </div>
                         </div> <!--Closes 'panel panel-default for the utilities layers'-->
@@ -226,6 +233,56 @@
                                 </div>
                             </div>
                         </div> <!--Closes 'panel panel-default for hydrology layers'-->
+
+			<div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#parks-layers">
+                                    Parks & Protected Areas Layers
+                                </a>
+                            </div>
+                            <div id="parks-layers" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="aoc_mi_stmarys" z-index="3">
+                                            &nbsp; St. Mary's Areas of Concern &nbsp; <a href="{% url 'bmic_aoc_mi_stmarys_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="comm_forst_ceded" z-index="3">
+                                            &nbsp; Commercial Forests &nbsp; <a href="{% url 'bmic_comm_forst_ceded_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="critical_dunes" z-index="3">
+                                            &nbsp; Critical Dunes &nbsp; <a href="{% url 'bmic_critical_dunes_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="mi_state_parks" z-index="3">
+                                            &nbsp; Michigan State Parks &nbsp; <a href="{% url 'bmic_mi_state_parks_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="eup_state_parks" z-index="3">
+                                            &nbsp; Upper Peninsula State Parks &nbsp; <a href="{% url 'bmic_eup_state_parks_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="e_hiawathanf" z-index="3">
+                                            &nbsp; Hiawatha National Forest &nbsp; <a href="{% url 'bmic_e_hiawathanf_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+
+            		        </div>
+            		    </div>
+                        </div>
+
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
