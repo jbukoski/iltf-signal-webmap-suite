@@ -42,7 +42,7 @@
         onEachFeature: popupFunc
     });
 
-    /* var ceded_territory = new L.GeoJSON.AJAX('{% url "bmic_ceded_territory" %}', {
+    var ceded_territory = new L.GeoJSON.AJAX('{% url "bmic_ceded_territory" %}', {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
@@ -78,14 +78,14 @@
 	onEachFeature: popupFunc
     });
 
-/*    var chippewa_waterwells = new L.GeoJSON.AJAX('{% url "bmic_chippewa_waterwells" %}', {
+    /*var chippewa_waterwells = new L.GeoJSON.AJAX('{% url "bmic_chippewa_waterwells" %}', {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
-    });
+    });*/
 
 
     var coastal_wetlands = new L.GeoJSON.AJAX('{% url "bmic_coastal_wetlands" %}', {
@@ -221,7 +221,7 @@
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
-    }); */
+    });
 
     /*var rivers = new L.GeoJSON.AJAX('{% url "bmic_rivers" %}', {
         style: {clickable: false,
@@ -233,7 +233,7 @@
     });*/
 
 
-    rootUrl = 'http://216.218.220.139:8081/geoserver/iltf/ows';
+    /*rootUrl = 'http://216.218.220.139:8081/geoserver/iltf/ows';
 
     var defaultParameters = {
         service: 'WFS',
@@ -261,10 +261,10 @@
 	    error: function(response) {
 		console.log("ERROR: " + response);
 	    },
-        });
+        });*/
 
 
-    /*var snowmobile_trails = new L.GeoJSON.AJAX('{% url "bmic_snowmobile_trails" %}', {
+    var snowmobile_trails = new L.GeoJSON.AJAX('{% url "bmic_snowmobile_trails" %}', {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
@@ -352,7 +352,7 @@
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
-    }); */
+    });
 
 
 ////////////////////////////
