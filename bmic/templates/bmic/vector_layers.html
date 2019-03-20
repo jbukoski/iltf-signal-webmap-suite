@@ -42,7 +42,7 @@
         onEachFeature: popupFunc
     });
 
-    var ceded_territory = new L.GeoJSON.AJAX('{% url "bmic_ceded_territory" %}', {
+    /* var ceded_territory = new L.GeoJSON.AJAX('{% url "bmic_ceded_territory" %}', {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
@@ -86,7 +86,7 @@
 	    },
 	onEachFeature: popupFunc
     });
-*/
+
 
     var coastal_wetlands = new L.GeoJSON.AJAX('{% url "bmic_coastal_wetlands" %}', {
         style: {clickable: false,
@@ -221,18 +221,50 @@
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
-    });
+    }); */
 
-    var rivers = new L.GeoJSON.AJAX('{% url "bmic_rivers" %}', {
+    /*var rivers = new L.GeoJSON.AJAX('{% url "bmic_rivers" %}', {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
-    });
+    });*/
 
-    var snowmobile_trails = new L.GeoJSON.AJAX('{% url "bmic_snowmobile_trails" %}', {
+
+    rootUrl = 'http://216.218.220.139:8081/geoserver/iltf/ows';
+
+    var defaultParameters = {
+        service: 'WFS',
+        version: '1.0.0',
+        request: 'GetFeature',
+	typeName: 'iltf:bmic_rivers',
+        maxFeatures: 1000,
+        outputFormat: 'application/json', 
+    };
+
+    var parameters = L.Util.extend(defaultParameters);
+    var URL = rootUrl + L.Util.getParamString(parameters);
+    
+    console.log(URL);
+    
+    var rivers = null;
+    $.ajax({
+	    url: URL,
+	    type: 'GET',
+	    dataType: 'json',
+	    contentType: 'application/json',
+	    success: function (response) {
+		console.log("SUCCESS:" + response);
+	    },
+	    error: function(response) {
+		console.log("ERROR: " + response);
+	    },
+        });
+
+
+    /*var snowmobile_trails = new L.GeoJSON.AJAX('{% url "bmic_snowmobile_trails" %}', {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
@@ -320,7 +352,7 @@
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
-    });
+    }); */
 
 
 ////////////////////////////

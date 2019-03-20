@@ -44,7 +44,7 @@
 				    <div class="checkbox">
 				        <label>
                                             <input type="checkbox" name="overlayLayers" id="boundary" z-index="1" checked>
-                                            &nbsp; Reservation boundary &nbsp; <a href="{% url 'bmic_boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            &nbsp; BMIC territory &nbsp; <a href="{% url 'bmic_boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
                                     </div>
 				    <div class="checkbox">
@@ -371,13 +371,13 @@
                                                     </input>
                                                 </label>
                                                 <div style="display: inline-block; float:right;">
-                                                <form role="form" method="POST" action="{% url 'delete_single' %}" enctype="multipart/form-data" style="display: inline-block;">
+                                                <form role="form" method="POST" action="{% url 'bmic_delete_single' %}" enctype="multipart/form-data" style="display: inline-block;">
                                                     {% csrf_token %}
                                                     <input name="dat" value={{ document.docfile }} style="display: none;">
                                                         <button class="fa fa-trash-o" type="submit" style="color: red; border: none; background: none;"></button>
                                                     </input>
                                                 </form>
-                                                <form role="form" method="POST" action="{% url 'download_single' %}" enctype="multipart/form-data" style="display: inline-block;">
+                                                <form role="form" method="POST" action="{% url 'bmic_download_single' %}" enctype="multipart/form-data" style="display: inline-block;">
                                                     {% csrf_token %}
                                                     <input name="dl_file" value={{ document.docfile }} style="display: none;">
                                                         <button class="fa fa-download" type="submit" style="color: #428BCA; border: none; background: none;"></button>
@@ -439,7 +439,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4>Upload local <i>.geojson</i> file:</h4>
-                            <form role="form" method="POST" action="{% url 'sample_up' %}" enctype="multipart/form-data">
+                            <form role="form" method="POST" action="{% url 'bmic_sample_up' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <input type="file" name="docfile" onchange="uploader()" id="upload_file">
                                 <div style="height: 15px;"></div>
@@ -453,7 +453,7 @@
                         <div class="col-md-12">
                             <h4>Delete Uploaded GeoJSON:</h4>
                             <p>Delete <strong>all</strong> previously uploaded GeoJSON files from the server. <i>Please note that this action cannot be undone.</i></p>
-                            <form role="form" method="POST" action="{% url 'delete_up' %}" enctype="multipart/form-data">
+                            <form role="form" method="POST" action="{% url 'bmic_delete_up' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <input name="del_files" type="file" id="del_files" value="{{ request.path }}" style="display: none;">
                                 <button id="del_uploads" class="btn btn-info" type="submit">Delete Files</button>
@@ -570,7 +570,7 @@
                                                  <li> <i>LANDFIRE Existing Vegetation Type</i> </li>
                                                  <li> <i>Mean Annual NDVI for three different years</i> </li>
                                               </ul>
-                                              <p>The <b>LANDFIRE Existing Vegetation Type</b> is a product of the United States Geological Survey that provides the existing vegetation type on the landscape for 2014. More information on LANDFIRE EVT can be found <a href="https://www.landfire.gov/NationalProductDescriptions21.php">here</a>.</p>
+                                              <p>The <b>LANDFIRE Existing Vegetation Type</b> is a product of the United States Geological Survey that provides the existing vegetation type on the landscape for 2014. More information on LANDFIRE EVT can be found <a href="https://www.landfire.gov/NationalProductDescriptions21.php" target="_blank">here</a>.</p>
                                               <p>The <b>mean annual Normalized Difference Vegetation Index</b> (NDVI) layers provide the mean annual NDVI for 2005, 2010, and 2015 (i.e., the average NDVI value for each pixel in the landscape for the year of interest). NDVI is an indicator of "greenness" in a landscape, and provides a proxy for presence of healthy, green vegetation. More information on NDVI can be found <a href="https://en.wikipedia.org/wiki/Normalized_Difference_Vegetation_Index" target="_blank">here</a>.</p>
                                         </p>
                                     </div>
@@ -593,10 +593,10 @@
                                                  <li> <i>Belowground forest carbon</i> </li>
                                                  <li> <i>Soil organic carbon</i> </li>
                                               </ul>
-                                              <p>All of the carbon layers are taken from the United States Department of Agriculture's <a href="www.carbonscapes.org" target="_blank">CarbonScapes</a> Initiative, which seeks to providely publically accessible data on geospatial patterns of terrestrial carbon within the United States.</p>
-				              <p>The <b>aboveground forest carbon</b> data layer provides estimates of aboveground biomass carbon (g/cm<sup>3</sup>) gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=93">here</a>.</p>
-                                              <p>The <b>belowground forest carbon</b> data layer provides estimates of belowground biomass carbon (g/cm<sup>3</sup> gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=94">here</a>.</p>
-                                              <p>The <b>soil organic carbon</b> provides data on organic carbon (g/cm<sup>3</sup>) from 0 - 100 cm, gridded to a 10 x 10 m resolution. The data is provided by the gridded Soil Survey Geographic Database (gSSURGO), and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=80">here</a>.</p>
+                                              <p>All of the carbon layers are taken from the United States Department of Agriculture's <a href="http://www.carbonscapes.org" target="_blank">CarbonScapes</a> Initiative, which seeks to providely publically accessible data on geospatial patterns of terrestrial carbon within the United States.</p>
+				              <p>The <b>aboveground forest carbon</b> data layer provides estimates of aboveground biomass carbon (g/cm<sup>3</sup>) gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="https://www.fs.usda.gov/rds/archive/Product/RDS-2013-0004" target="_blank">here</a>.</p>
+                                              <p>The <b>belowground forest carbon</b> data layer provides estimates of belowground biomass carbon (g/cm<sup>3</sup> gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="https://www.fs.usda.gov/rds/archive/Product/RDS-2013-0004" target="_blank">here</a>.</p>
+                                              <p>The <b>soil organic carbon</b> provides data on organic carbon (g/cm<sup>3</sup>) from 0 - 100 cm, gridded to a 10 x 10 m resolution. The data is provided by the gridded Soil Survey Geographic Database (gSSURGO), and additional details can be found <a href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/soils/survey/geo/?cid=nrcs142p2_053628" target="_blank">here</a>.</p>
                                         </p>
                                     </div>
                                 </div>
