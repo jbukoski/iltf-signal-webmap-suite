@@ -367,6 +367,23 @@ def signout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('iltf_index'))
 
+
+def simplify_geom(model):
+
+    query = """SELECT ST_SimplifyVW(geom, 0.0001) FROM %s;""" %(model)
+
+    conn = psycopg2.connect("dbname='iltf' user='postgres' password='sig_pass'")
+    cur = conn.cursor()
+    cur.execute(query)
+    results = cur.fetchall()
+
+    conn.close()
+
+    return(results)
+
+
+
+
 ## Layer Views
 
 def lake_sprior_grid_view(request):
@@ -478,8 +495,11 @@ def comm_forst_ceded_view(request):
     return HttpResponse(comm_forst_ceded_json, content_type='json')
 
 def rivers_view(request):
+    #with open('/home/jbukoski/consulting/sig/geodjango/iltf/data/bmic/rivers.geojson') as f:
+    #    data = json.load(f)
+    #print(data)
     rivers_json = serialize('geojson', models.rivers.objects.all(), geometry_field='geom', fields = ('fid', 'name', 'oid_1', 'ver', 'mgf_hist', 'length', 'fcc', 'name2', 'name3', 'fid2', 'geom', 'id'))
-    return HttpResponse(rivers_json, content_type='json')
+    return HttpResponse(data, content_type='json')
 
 def wellhead_protection_view(request):
     wellhead_protection_json = serialize('geojson', models.wellhead_protection.objects.all(), geometry_field='geom', fields = ('objectid', 'michiganwe', 'wssn', 'system', 'type', 'approval_d', 'shapestare', 'shapestlen', 'geom', 'id'))
