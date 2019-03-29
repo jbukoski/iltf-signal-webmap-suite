@@ -18,14 +18,16 @@ def custLogin(request):
     print(request.user.username)
     print("==================\n\n")
     
-    if request.user.username == 'tamaya_user':
-        return HttpResponseRedirect(reverse('tamaya_index'))
+    if request.user.username == 'bmic_user':
+        return HttpResponseRedirect(reverse('bmic_index'))
     elif request.user.username == 'comanche_user':
         return HttpResponseRedirect(reverse('comanche_index'))
-    elif request.user.username == 'bmic_user':
-        return HttpResponseRedirect(reverse('bmic_index'))
     elif request.user.username == 'lbst_user':
         return HttpResponseRedirect(reverse('lbst_index'))
+    elif request.user.username == 'tamaya_user':
+        return HttpResponseRedirect(reverse('tamaya_index'))
+    elif request.user.username == 'ssmt_user':
+        return HttpResponseRedirect(reverse('ssmt_index'))
     else:
         return redirect('iltf_index')
 

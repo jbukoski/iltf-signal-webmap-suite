@@ -2,9 +2,8 @@ from django.contrib import admin
 from django.contrib.admin import AdminSite
 from . import models
 
-class tamayaAdmin(AdminSite):
-    site_header = 'Santa Ana Pueblo Webmap Login'
-    site_url = '/tamaya/'
+class RENAMEAdmin(AdminSite):
+    site_header = 'CHANGE ME IN TRIBE/ADMIN.PY'
+    site_url = '/RENAME/'
 
-tamaya_admin = tamayaAdmin(name='tamaya_admin')
-tamaya_admin.register(models.Document)
+RENAME_admin = RENAMEAdmin(name='RENAME_admin')

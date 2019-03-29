@@ -3,7 +3,7 @@
 
 {% block side_bar %}
 
-    <title>{{ title }}</title>
+    <title>Sioux St Marie Tribe Webmap</title>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
@@ -44,9 +44,9 @@
 				    <div class="checkbox">
 				        <label>
                                             <input type="checkbox" name="overlayLayers" id="boundary" z-index="1" checked>
-                                            &nbsp; Reservation boundary &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            &nbsp; Reservation boundary &nbsp; <a href="#"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
-                                    </div>
+				    </div>
 				</div>
 	                    </div>
                         </div> <!--Closes 'panel panel-default for administrative layers'-->
@@ -491,9 +491,9 @@
 {% block layers %}
 
 <script type="text/javascript" href="http://depot.ign.fr/geoportail/api/develop/tech-docs-js/examples/js/geoportalLeaflet.js"></script>
-
-    {% include 'RENAME_vector_layers.html' %}
-    {% include 'RENAME_raster_layers.html' %}
+    
+    {% include 'ssmt_vector_layers.html' %}
+    {% include 'ssmt_raster_layers.html' %}
 
 {% endblock layers %}
 

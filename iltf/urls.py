@@ -6,6 +6,7 @@ from django.conf import settings
 from bmic.admin import bmic_admin
 from comanche.admin import comanche_admin
 from lbst.admin import lbst_admin
+from ssmt.admin import ssmt_admin
 from tamaya.admin import tamaya_admin
 from . import views
 
@@ -23,6 +24,8 @@ urlpatterns = [
     url(r'^comanche/admin', include(comanche_admin.urls)),
     url(r'^lbst/', include('lbst.urls')),
     url(r'^lbst/admin', include(lbst_admin.urls)),
+    url(r'^ssmt/', include('ssmt.urls'), name='ssmt'),
+    url(r'^ssmt/admin/', include(ssmt_admin.urls)),
     url(r'^tamaya/', include('tamaya.urls'), name='tamaya'),
     url(r'^tamaya/admin/', include(tamaya_admin.urls)),
 ]

@@ -1,0 +1,57 @@
+{% block layers %}
+
+<script>
+
+///////////////////////////
+////// Vector Layers //////
+///////////////////////////
+
+            function popupFunc(feature, layer) {
+                var popupContent = "";
+                for (var k in feature.properties) {
+                     var v = String(feature.properties[k]);
+                     popupContent += "<strong>" + k + "</strong>" + ": " + v + "</br>";
+                };
+                return layer.bindPopup(popupContent);
+            };
+
+
+    var boundary = new L.GeoJSON.AJAX('{% url "ssmt_boundary" %}', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var buff_bndry = new L.GeoJSON.AJAX('{% url "ssmt_buff_bndry" %}', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var document = new L.GeoJSON.AJAX('{% url "ssmt_document" %}', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+
+
+////////////////////////////
+////// Leaflet Map /////////
+////////////////////////////
+
+    map.setView(new L.LatLng(46.4188, -84.4149), 11);
+    map.addLayer(boundary);
+
+</script>
+
+{% endblock layers %}

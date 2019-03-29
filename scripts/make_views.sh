@@ -2,7 +2,7 @@
 
 TRIBE=$1
 
-sed -i 's/RENAME/bmic/g' ../$TRIBE/views.py
+sed -i 's/RENAME/$TRIBE/g' ../$TRIBE/views.py
 
 PY_MODELS=($(python ../manage.py shell -c " 
 

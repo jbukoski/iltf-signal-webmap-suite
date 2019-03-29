@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'comanche',
     'lbst',
     'tamaya',
+    'ssmt',
     'wms',
 ]
 
@@ -66,9 +67,10 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['iltf/templates',
                  'bmic/templates/bmic',
-                 'tamaya/templates/tamaya',
                  'comanche/templates/comanche',
                  'lbst/templates/lbst',
+                 'ssmt/templates/ssmt',
+                 'tamaya/templates/tamaya',
                 ],
         'APP_DIRS': False,
         'OPTIONS': {
