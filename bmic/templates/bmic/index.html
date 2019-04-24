@@ -111,8 +111,26 @@
                                     </div>
                                     <div class="checkbox">
                                         <label>
+                                            <input type="checkbox" name="overlayLayers" id="onsitewaste" z-index="3">
+                                            &nbsp; On Site Waste &nbsp; <a href="{% url 'bmic_onsitewaste_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="onsitewastewater" z-index="3">
+                                            &nbsp; On Site Waste Water &nbsp; <a href="{% url 'bmic_onsitewastewater_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
                                             <input type="checkbox" name="overlayLayers" id="pwr_syst_backup_2014" z-index="3">
                                             &nbsp; Power System Backup, 2014 &nbsp; <a href="{% url 'bmic_pwr_syst_backup_2014_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="septic_tanks" z-index="3">
+                                            &nbsp; Septic Tanks &nbsp; <a href="{% url 'bmic_septic_tanks_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
                                     <div class="checkbox">
@@ -121,6 +139,13 @@
                                             &nbsp; Snowmobile Trails &nbsp; <a href="{% url 'bmic_snowmobile_trails_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="trails" z-index="3">
+                                            &nbsp; Trails &nbsp; <a href="{% url 'bmic_trails_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="wellhead_protection" z-index="3">
@@ -139,7 +164,6 @@
                                             &nbsp; Wastewater Lines &nbsp; <a href="{% url 'bmic_wastewater_lines_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
-
                                 </div>
                             </div>
                         </div> <!--Closes 'panel panel-default for the utilities layers'-->
