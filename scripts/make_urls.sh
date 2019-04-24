@@ -9,7 +9,7 @@ from django.contrib.gis import admin
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    url(r'^$', views.index, name='bmic_index'),
+    url(r'^$', views.index, name='${TRIBE}_index'),
     url(r'^login/$', auth_views.login, {'template_name': 'registration/login.html'}),
     url(r'^sample_up/', views.sample_up_view, name='sample_up'),
     url(r'^render_geojson/', views.render_geojson_view, name='render_geojson'),

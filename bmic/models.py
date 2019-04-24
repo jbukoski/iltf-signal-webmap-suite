@@ -223,6 +223,29 @@ class critical_dunes(models.Model):
     def __str__(self):
         return '%s' % (self.id)
 
+class drainfields(models.Model):
+    objectid = models.BigIntegerField()
+    lot_id = models.IntegerField()
+    address = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    date_const = models.DateField(null = True)
+    contractor = models.CharField(max_length=50)
+    repaired = models.DateField(null = True)
+    inspected = models.DateField()
+    lyr_pass = models.IntegerField()
+    sq_ft = models.IntegerField()
+    flow = models.IntegerField()
+    ihs_funded = models.IntegerField()
+    lyr_type = models.CharField(max_length=50)
+    notes = models.CharField(max_length=50)
+    shape_leng = models.FloatField()
+    shape_area = models.FloatField()
+    geom = models.MultiPolygonField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
 
 class e_hiawathanf(models.Model):
     objectid = models.BigIntegerField()
@@ -351,6 +374,125 @@ class mi_state_parks(models.Model):
     district = models.CharField(max_length=80)
     facility = models.CharField(max_length=80)
     geom = models.MultiPolygonField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+class onsitewaste(models.Model):
+    objectid = models.BigIntegerField()
+    lot_id = models.CharField(max_length=50)
+    address = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    tank_size = models.IntegerField()
+    last_pumpe = models.DateField(null = True)
+    pass_fail = models.FloatField()
+    inspection = models.DateField(null = True)
+    notes = models.CharField(max_length=254)
+    ft_from_wa = models.IntegerField()
+    rstre = models.IntegerField()
+    drainfield = models.IntegerField()
+    drainfi8el = models.CharField(max_length=50)
+    lyr_type = models.CharField(max_length=254)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    powts = models.IntegerField()
+    yr_cnstrtd = models.IntegerField()
+    qstnre_cmp = models.CharField(max_length=15)
+    occupnts_c = models.IntegerField()
+    occupnts_a = models.IntegerField()
+    vacant_mon = models.IntegerField()
+    nmbr_bedro = models.IntegerField()
+    water_mete = models.CharField(max_length=15)
+    backup = models.CharField(max_length=15)
+    system_rep = models.CharField(max_length=50)
+    inspcted_o = models.CharField(max_length=15)
+    inspcted_w = models.CharField(max_length=30)
+    inspcted_f = models.CharField(max_length=10)
+    service_co = models.CharField(max_length=15)
+    srvc_cntrc = models.CharField(max_length=35)
+    tnk_last_p = models.DateField(null = True)
+    pump_frequ = models.CharField(max_length=15)
+    pump_compa = models.CharField(max_length=35)
+    size_gal_g = models.IntegerField()
+    pump_gpm_t = models.IntegerField()
+    pretreat_g = models.IntegerField()
+    pump2_gpm_field = models.IntegerField()
+    soil_trt_u = models.CharField(max_length=15)
+    graywtr_sy = models.CharField(max_length=35)
+    observatio = models.CharField(max_length=35)
+    tank_mater = models.CharField(max_length=20)
+    inletbaffl = models.CharField(max_length=15)
+    warning_la = models.CharField(max_length=15)
+    locate_cov = models.CharField(max_length=10)
+    cover_secu = models.CharField(max_length=10)
+    srfc_wtr_i = models.CharField(max_length=10)
+    fail_indic = models.CharField(max_length=10)
+    inspect_li = models.CharField(max_length=10)
+    effluent_f = models.CharField(max_length=10)
+    run_op_tes = models.CharField(max_length=10)
+    gall_added = models.IntegerField()
+    pump_out_p = models.CharField(max_length=10)
+    backflow_c = models.CharField(max_length=50)
+    inspect_pr = models.CharField(max_length=10)
+    inspect_ba = models.CharField(max_length=10)
+    dosing_pum = models.CharField(max_length=10)
+    integrity_field = models.CharField(max_length=10)
+    pump_eleva = models.CharField(max_length=10)
+    pump_work = models.CharField(max_length=10)
+    checkvalve = models.CharField(max_length=10)
+    high_water = models.CharField(max_length=10)
+    alarm_work = models.CharField(max_length=10)
+    electrical = models.CharField(max_length=10)
+    clean_pump = models.CharField(max_length=10)
+    probe_soil = models.CharField(max_length=10)
+    gravity_pr = models.CharField(max_length=15)
+    previous_f = models.CharField(max_length=10)
+    seepage = models.CharField(max_length=10)
+    lush_veget = models.CharField(max_length=10)
+    ponding = models.CharField(max_length=10)
+    even_distr = models.CharField(max_length=10)
+    feet_to_we = models.IntegerField()
+    groundwate = models.CharField(max_length=10)
+    depth_to_s = models.IntegerField()
+    pretreatme = models.CharField(max_length=25)
+    pretreat_1 = models.CharField(max_length=25)
+    pretreat_2 = models.CharField(max_length=35)
+    soil_treat = models.CharField(max_length=25)
+    soil_area_field = models.CharField(max_length=35)
+    pump_tank = models.CharField(max_length=25)
+    pump_tank_field = models.CharField(max_length=35)
+    inspector = models.CharField(max_length=35)
+    inspecti_1 = models.DateField(null = True)
+    data_entry = models.CharField(max_length=35)
+    data_ent_1 = models.DateField()
+    latitude = models.CharField(max_length=25)
+    longitude = models.CharField(max_length=25)
+    geom = models.MultiPointField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+class onsitewastewater(models.Model):
+    objectid = models.BigIntegerField()
+    lot_id = models.IntegerField()
+    address = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    volume = models.IntegerField()
+    tank_manuf = models.CharField(max_length=50)
+    tank_type = models.CharField(max_length=50)
+    inspected = models.DateField(null=True)
+    last_inspe = models.DateField(null=True)
+    pumped = models.DateField(null=True)
+    lastpumped = models.DateField(null=True)
+    flow = models.IntegerField()
+    lyr_filter = models.IntegerField()
+    last_filte = models.DateField(null=True)
+    pass_failu = models.CharField(max_length=50)
+    cover_secu = models.IntegerField()
+    inspection = models.CharField(max_length=50)
+    geom = models.MultiPointField(srid=4326)
     id = models.AutoField(primary_key = True)
 
     def __str__(self):
@@ -505,6 +647,32 @@ class rivers(models.Model):
     def __str__(self):
         return '%s' % (self.id)
 
+class septic_tanks(models.Model):
+    objectid = models.BigIntegerField()
+    lot_id = models.IntegerField()
+    address = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    volume = models.IntegerField()
+    tank_manuf = models.CharField(max_length=50)
+    tank_type = models.CharField(max_length=50)
+    inspected = models.DateField(null=True)
+    last_inspe = models.DateField(null=True)
+    pumped = models.DateField(null=True)
+    lastpumped = models.DateField(null=True)
+    flow = models.IntegerField()
+    lyr_filter = models.IntegerField()
+    last_filte = models.DateField(null=True)
+    pass_failu = models.CharField(max_length=50)
+    cover_secu = models.IntegerField()
+    inspection = models.CharField(max_length=50)
+    shape_leng = models.FloatField()
+    shape_area = models.FloatField()
+    geom = models.MultiPolygonField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
 
 class snowmobile_trails(models.Model):
     date = models.DateField(null = True)
@@ -535,6 +703,18 @@ class subwatersheds(models.Model):
 
     def __str__(self):
         return '%s' % (self.id)
+
+
+class trails(models.Model):
+    begin = models.CharField(max_length=254)
+    end = models.CharField(max_length=254)
+    path = models.CharField(max_length=200)
+    geom = models.MultiLineStringField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
 
 
 class waishkey_add_streams(models.Model):

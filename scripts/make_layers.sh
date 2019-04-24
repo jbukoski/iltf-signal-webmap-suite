@@ -53,7 +53,7 @@ echo '{% block layers %}
 
 
 
-' > ../${TRIBE}/templates/${TRIBE}/layers.html
+' > ../${TRIBE}/templates/${TRIBE}/${TRIBE}_vector_layers.html
 
 for i in "${MODELS[@]}"; do
 
@@ -65,7 +65,7 @@ for i in "${MODELS[@]}"; do
 	    },
 	onEachFeature: popupFunc
     });
-" >> ../$TRIBE/templates/$TRIBE/layers.html
+" >> ../$TRIBE/templates/$TRIBE/${TRIBE}_vector_layers.html
 
 done
 
@@ -80,4 +80,4 @@ echo '
 
 </script>
 
-{% endblock layers %}' >> ../$TRIBE/templates/$TRIBE/layers.html
+{% endblock layers %}' >> ../$TRIBE/templates/$TRIBE/${TRIBE}_vector_layers.html

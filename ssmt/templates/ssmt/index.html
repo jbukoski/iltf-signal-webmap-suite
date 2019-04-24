@@ -3,13 +3,13 @@
 
 {% block side_bar %}
 
-    <title>Bay Mills Indian Community Webmap</title>
+    <title>Sault Ste. Marie Tribe Webmap</title>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle btn" data-toggle="collapse" data-target=".navbar-collapse" style="height: 34px; padding: 5px 10px; margin-right: 10px;"><i class="fa fa-ellipsis-v" style="color: white"></i></button>
             <button id="toggle" type="button" class="navbar-toggle btn" style="height: 34px; padding: 5px 10px; margin-right: 10px;"><i id="toggleIcon" class="fa fa-check-square-o" style="color: white"></i></button>
-            <a class="navbar-brand" href="http://www.baymills.org/" target="_blank_">Bay Mills Indian Community</a>
+            <a class="navbar-brand" href="https://www.saulttribe.com/" target="_blank_">Sault Ste. Marie Tribe</a>
         </div>
         <div class="navbar-collapse collapse" id="navbar-collapse">
             <ul class="nav navbar-nav pull-left">
@@ -44,105 +44,12 @@
 				    <div class="checkbox">
 				        <label>
                                             <input type="checkbox" name="overlayLayers" id="boundary" z-index="1" checked>
-                                            &nbsp; BMIC territory &nbsp; <a href="{% url 'bmic_boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            &nbsp; Reservation boundary &nbsp; <a href="#"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
-                                    </div>
-				    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="parcels" z-index="1">
-                                            &nbsp; BMIC parcels &nbsp; <a href="{% url 'bmic_parcels_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-				    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="chippewa_cnty" z-index="1">
-                                            &nbsp; Chippewa County &nbsp; <a href="{% url 'bmic_chippewa_cnty_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="mi_cntys" z-index="1">
-                                            &nbsp; Michigan Counties &nbsp; <a href="{% url 'bmic_mi_cntys_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-				    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="golf_course" z-index="3">
-                                            &nbsp; Golf Course &nbsp; <a href="{% url 'bmic_golf_course_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="ceded_territory" z-index="3">
-                                            &nbsp; Ceded Territory &nbsp; <a href="{% url 'bmic_ceded_territory_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-
-
+				    </div>
 				</div>
 	                    </div>
                         </div> <!--Closes 'panel panel-default for administrative layers'-->
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#utility-layers">
-                                        Utility Layers
-                                </a>
-                            </div>
-                            <div id="utility-layers" class="panel-collapse collapse">
-                                <div class="panel-body" style="padding: 0px 15px;">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="chippewa_roads" z-index="3">
-                                            &nbsp; Chippewa County Roads &nbsp; <a href="{% url 'bmic_chippewa_roads_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-				   <!-- <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="chippewa_waterwells" z-index="3">
-                                            &nbsp; Chippewa County Water Wells &nbsp; <a href="{% url 'bmic_chippewa_waterwells_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-				   </div> -->
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="ir_roads" z-index="3">
-                                            &nbsp; BMIC Roads &nbsp; <a href="{% url 'bmic_ir_roads_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="pwr_syst_backup_2014" z-index="3">
-                                            &nbsp; Power System Backup, 2014 &nbsp; <a href="{% url 'bmic_pwr_syst_backup_2014_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="snowmobile_trails" z-index="3">
-                                            &nbsp; Snowmobile Trails &nbsp; <a href="{% url 'bmic_snowmobile_trails_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="wellhead_protection" z-index="3">
-                                            &nbsp; Wellhead Protection &nbsp; <a href="{% url 'bmic_wellhead_protection_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="railroad" z-index="3">
-                                            &nbsp; Railroad &nbsp; <a href="{% url 'bmic_railroad_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-				    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="wastewater_lines" z-index="3">
-                                            &nbsp; Wastewater Lines &nbsp; <a href="{% url 'bmic_wastewater_lines_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div> <!--Closes 'panel panel-default for the utilities layers'-->
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -154,135 +61,13 @@
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="overlayLayers" id="great_lakes" z-index="3">
-                                            &nbsp; Great Lakes &nbsp; <a href="{% url 'bmic_great_lakes_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-				    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="lake_sprior_grid" z-index="3">
-                                            &nbsp; Lake Superior Grid &nbsp; <a href="{% url 'bmic_lake_sprior_grid_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="chippewa_streams" z-index="3">
-                                            &nbsp; Chippewa County Streams &nbsp; <a href="{% url 'bmic_chippewa_streams_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="mi_lakes" z-index="3">
-                                            &nbsp; Michigan Lakes &nbsp; <a href="{% url 'bmic_mi_lakes_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="rivers" z-index="3">
-                                            &nbsp; Rivers &nbsp; <a href="{% url 'bmic_rivers_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-				    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="subwatersheds" z-index="3">
-                                            &nbsp; Subwatersheds &nbsp; <a href="{% url 'bmic_subwatersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="waishkey_add_streams" z-index="3">
-                                            &nbsp; Waishkey River Additional Streams &nbsp; <a href="{% url 'bmic_waishkey_add_streams_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="waishkey_ptnl_wtlnd_rstrn" z-index="3">
-                                            &nbsp; Potential Wetland Restoration &nbsp; <a href="{% url 'bmic_waishkey_ptnl_wtlnd_rstrn_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-				    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="wetland_preserve" z-index="3">
-                                            &nbsp; Wetland Preserve &nbsp; <a href="{% url 'bmic_wetland_preserve_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="coastal_wetlands" z-index="3">
-                                            &nbsp; Coastal Wetlands &nbsp; <a href="{% url 'bmic_coastal_wetlands_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="waishkey_river" z-index="3">
-                                            &nbsp; Waishkey River &nbsp; <a href="{% url 'bmic_waishkey_river_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="waiska_watershed" z-index="3">
-                                            &nbsp; Waiska Watershed &nbsp; <a href="{% url 'bmic_waiska_watershed_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="whitefish_bay_reserve" z-index="3">
-                                            &nbsp; Whitefish Bay Reserve &nbsp; <a href="{% url 'bmic_whitefish_bay_reserve_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                            <input type="checkbox" name="overlayLayers" id="watersheds" z-index="3">
+                                            &nbsp; ENTER HYDROLOGY LAYERS &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                         </div> <!--Closes 'panel panel-default for hydrology layers'-->
-
-			<div class="panel panel-default">
-                            <div class="panel-heading">
-                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#parks-layers">
-                                    Parks & Protected Areas Layers
-                                </a>
-                            </div>
-                            <div id="parks-layers" class="panel-collapse collapse">
-                                <div class="panel-body" style="padding: 0px 15px;">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="aoc_mi_stmarys" z-index="3">
-                                            &nbsp; St. Mary's Areas of Concern &nbsp; <a href="{% url 'bmic_aoc_mi_stmarys_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-				    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="comm_forst_ceded" z-index="3">
-                                            &nbsp; Commercial Forests &nbsp; <a href="{% url 'bmic_comm_forst_ceded_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="critical_dunes" z-index="3">
-                                            &nbsp; Critical Dunes &nbsp; <a href="{% url 'bmic_critical_dunes_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-				    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="mi_state_parks" z-index="3">
-                                            &nbsp; Michigan State Parks &nbsp; <a href="{% url 'bmic_mi_state_parks_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="eup_state_parks" z-index="3">
-                                            &nbsp; Upper Peninsula State Parks &nbsp; <a href="{% url 'bmic_eup_state_parks_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="e_hiawathanf" z-index="3">
-                                            &nbsp; Hiawatha National Forest &nbsp; <a href="{% url 'bmic_e_hiawathanf_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-
-            		        </div>
-            		    </div>
-                        </div>
-
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -295,25 +80,25 @@
                                    <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="landfireEVT" z-index="3">
-                                            &nbsp; LANDFIRE Vegetation Type &nbsp; <a href="{% url 'bmic_landfire_evt_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            &nbsp; LANDFIRE Vegetation Type &nbsp; <a href="{% url 'landfire_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
                                    </div>
                                    <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="ndvi2005" z-index="3">
-                                            &nbsp; Mean Annual NDVI - 2005 &nbsp; <a href="{% url 'bmic_ndvi_2005_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            &nbsp; Mean Annual NDVI - 2005 &nbsp; <a href="{% url 'ndvi_2005_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
                                    </div>
                                    <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="ndvi2010" z-index="3">
-                                            &nbsp; Mean Annual NDVI - 2010 &nbsp; <a href="{% url 'bmic_ndvi_2010_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            &nbsp; Mean Annual NDVI - 2010 &nbsp; <a href="{% url 'ndvi_2010_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
                                    </div>
                                    <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="ndvi2015" z-index="3">
-                                            &nbsp; Mean Annual NDVI - 2015 &nbsp; <a href="{% url 'bmic_ndvi_2015_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            &nbsp; Mean Annual NDVI - 2015 &nbsp; <a href="{% url 'ndvi_2015_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
                                    </div>
                                 </div>
@@ -331,19 +116,19 @@
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="agc" z-index="3">
-                                            &nbsp; Forest aboveground carbon &nbsp; <a href="{% url 'bmic_agc_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                            &nbsp; Forest aboveground carbon &nbsp; <a href="{% url 'agc_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="bgc" z-index="3">
-                                            &nbsp; Forest belowground carbon &nbsp; <a href="{% url 'bmic_bgc_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                            &nbsp; Forest belowground carbon &nbsp; <a href="{% url 'bgc_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
                                     <div class="checkbox">
 			    	    <label>
                                             <input type="checkbox" name="overlayLayers" id="gssurgoSOC" z-index="3">
-                                            &nbsp; Soil organic carbon &nbsp; <a href="{% url 'bmic_soc_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                            &nbsp; Soil organic carbon &nbsp; <a href="{% url 'soc_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
             		        </div>
@@ -371,13 +156,13 @@
                                                     </input>
                                                 </label>
                                                 <div style="display: inline-block; float:right;">
-                                                <form role="form" method="POST" action="{% url 'bmic_delete_single' %}" enctype="multipart/form-data" style="display: inline-block;">
+                                                <form role="form" method="POST" action="{% url 'delete_single' %}" enctype="multipart/form-data" style="display: inline-block;">
                                                     {% csrf_token %}
                                                     <input name="dat" value={{ document.docfile }} style="display: none;">
                                                         <button class="fa fa-trash-o" type="submit" style="color: red; border: none; background: none;"></button>
                                                     </input>
                                                 </form>
-                                                <form role="form" method="POST" action="{% url 'bmic_download_single' %}" enctype="multipart/form-data" style="display: inline-block;">
+                                                <form role="form" method="POST" action="{% url 'download_single' %}" enctype="multipart/form-data" style="display: inline-block;">
                                                     {% csrf_token %}
                                                     <input name="dl_file" value={{ document.docfile }} style="display: none;">
                                                         <button class="fa fa-download" type="submit" style="color: #428BCA; border: none; background: none;"></button>
@@ -439,7 +224,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4>Upload local <i>.geojson</i> file:</h4>
-                            <form role="form" method="POST" action="{% url 'bmic_sample_up' %}" enctype="multipart/form-data">
+                            <form role="form" method="POST" action="{% url 'sample_up' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <input type="file" name="docfile" onchange="uploader()" id="upload_file">
                                 <div style="height: 15px;"></div>
@@ -453,7 +238,7 @@
                         <div class="col-md-12">
                             <h4>Delete Uploaded GeoJSON:</h4>
                             <p>Delete <strong>all</strong> previously uploaded GeoJSON files from the server. <i>Please note that this action cannot be undone.</i></p>
-                            <form role="form" method="POST" action="{% url 'bmic_delete_up' %}" enctype="multipart/form-data">
+                            <form role="form" method="POST" action="{% url 'delete_up' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <input name="del_files" type="file" id="del_files" value="{{ request.path }}" style="display: none;">
                                 <button id="del_uploads" class="btn btn-info" type="submit">Delete Files</button>
@@ -475,8 +260,8 @@
                             <div id="overview" class="panel-collapse collapse in">
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div style="padding: 15px 5px;">
-                                        <p> This webmap is a collaborative product between the <a href="http://www.baymills.org/" target="_blank">Bay Mills Indian Community</a>, the <a href="https://iltf.org/" target="_blank">Indian Land Tenure Foundation</a> and the <a href="http://sig-nal.org/" target="_blank">Spatial Informatics Group Natural Assets Laboratory (SIG-NAL)</a>. </p>
-                                        <p> The webmap compiles Bay Mills Indian Community data layers with publically available environmental raster layers and several functions designed to facilitate environmental decision-making within the Bay Mills Indian Community's jurisdiction.</p>
+                                        <p> This webmap is a collaborative product between the <a href="ENTER TRIBE URL HERE" target="_blank">ENTER TRIBE NAME HERE</a>, the <a href="https://iltf.org/" target="_blank">Indian Land Tenure Foundation</a> and the <a href="http://sig-nal.org/" target="_blank">Spatial Informatics Group Natural Assets Laboratory (SIG-NAL)</a>. </p>
+                                        <p> The webmap compiles TRIBE NAME HERE data layers with publically available environmental raster layers and several functions designed to facilitate environmental decision-making within the TRIBE NAME's jurisdiction.</p>
                                         <p> For more information on the various data layers and webmap functions provided, expand the tabs below.</p>
                                     </div>
                                 </div>
@@ -492,7 +277,7 @@
                             <div id="data-layers-overview" class="panel-collapse collapse">
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div style="padding: 15px 5px;">
-                                        <p> The data layers hosted on this webmap are a combination of layers provided by the tribe and publically accessible environmental data layers. Additional information on the layers metadata and sources are provided in the Data Layers tabs below. </p>
+                                        <p> The data layers hosted on this webmap are a combination of layers provided by the Pueblo and publically accessible environmental data layers. Additional information on the layers metadata and sources are provided in the Data Layers tabs below. </p>
                                     </div>
                                 </div>
                             </div>
@@ -507,7 +292,14 @@
                             <div id="data-layers-admin" class="panel-collapse collapse">
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div style="padding: 15px 5px;">
-                                        <p> The <b>administrative layers</b> hosted on the webmap are provided by the tribe.</p>
+                                        <p> The <b>administrative layers</b> hosted on the webmap consist of:
+                                              <ul>
+                                                 <li> <i>Reservation boundary</i> </li>
+                                                 <li> <i>Master business leases</i> </li>
+                                                 <li> <i>Reservation roads</i> </li>
+                                              </ul>
+                                              <p>The administrative layers are provided by the Pueblo. The layers provide the approximate reservation boundary, polygons representing five master business leases within the boundary, and a database of roads. The master business leases and roads layers can be queried for additional information.</p>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -522,7 +314,13 @@
                             <div id="data-layers-hydro" class="panel-collapse collapse">
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div style="padding: 15px 5px;">
-                                        <p> The <b>hydrology layers</b> hosted on the webmap are provided by the tribe and represent the geographic boundaries of watersheds, subwatersheds, and surface hydrology for the region. The layers can be queried for additional information.</p>
+                                        <p> The <b>hydrology layers</b> hosted on the webmap consist of:
+                                              <ul>
+                                                 <li> <i>Watersheds</i> </li>
+                                                 <li> <i>Subwatersheds</i> </li>
+                                                 <li> <i>Surface hydrology</i> </li>
+                                              </ul>
+                                              <p>The hydrology layers are provided by the Pueblo and represent the geographic boundaries of watersheds, subwatersheds, and surface hydrology for the region. The watershed and subwatershed layers can be queried for additional information.</p>
                                         </p>
                                     </div>
                                 </div>
@@ -530,7 +328,7 @@
                         </div>
 
 
-                        <!--<div class="panel panel-default">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
                                 <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-soil" style="padding: 0px 0px 0px 15px;">
                                     <i>Data Layers: Soil Characteristics</i>
@@ -553,7 +351,7 @@
                                     </div>
                                 </div>
                             </div>
-			</div> -->
+                        </div>
 
 
                         <div class="panel panel-default">
@@ -570,7 +368,7 @@
                                                  <li> <i>LANDFIRE Existing Vegetation Type</i> </li>
                                                  <li> <i>Mean Annual NDVI for three different years</i> </li>
                                               </ul>
-                                              <p>The <b>LANDFIRE Existing Vegetation Type</b> is a product of the United States Geological Survey that provides the existing vegetation type on the landscape for 2014. More information on LANDFIRE EVT can be found <a href="https://www.landfire.gov/NationalProductDescriptions21.php" target="_blank">here</a>.</p>
+                                              <p>The <b>LANDFIRE Existing Vegetation Type</b> is a product of the United States Geological Survey that provides the existing vegetation type on the landscape for 2014. More information on LANDFIRE EVT can be found <a href="https://www.landfire.gov/NationalProductDescriptions21.php">here</a>.</p>
                                               <p>The <b>mean annual Normalized Difference Vegetation Index</b> (NDVI) layers provide the mean annual NDVI for 2005, 2010, and 2015 (i.e., the average NDVI value for each pixel in the landscape for the year of interest). NDVI is an indicator of "greenness" in a landscape, and provides a proxy for presence of healthy, green vegetation. More information on NDVI can be found <a href="https://en.wikipedia.org/wiki/Normalized_Difference_Vegetation_Index" target="_blank">here</a>.</p>
                                         </p>
                                     </div>
@@ -593,10 +391,10 @@
                                                  <li> <i>Belowground forest carbon</i> </li>
                                                  <li> <i>Soil organic carbon</i> </li>
                                               </ul>
-                                              <p>All of the carbon layers are taken from the United States Department of Agriculture's <a href="http://www.carbonscapes.org" target="_blank">CarbonScapes</a> Initiative, which seeks to providely publically accessible data on geospatial patterns of terrestrial carbon within the United States.</p>
-				              <p>The <b>aboveground forest carbon</b> data layer provides estimates of aboveground biomass carbon (g/cm<sup>3</sup>) gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="https://www.fs.usda.gov/rds/archive/Product/RDS-2013-0004" target="_blank">here</a>.</p>
-                                              <p>The <b>belowground forest carbon</b> data layer provides estimates of belowground biomass carbon (g/cm<sup>3</sup> gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="https://www.fs.usda.gov/rds/archive/Product/RDS-2013-0004" target="_blank">here</a>.</p>
-                                              <p>The <b>soil organic carbon</b> provides data on organic carbon (g/cm<sup>3</sup>) from 0 - 100 cm, gridded to a 10 x 10 m resolution. The data is provided by the gridded Soil Survey Geographic Database (gSSURGO), and additional details can be found <a href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/soils/survey/geo/?cid=nrcs142p2_053628" target="_blank">here</a>.</p>
+                                              <p>All of the carbon layers are taken from the United States Department of Agriculture's <a href="www.carbonscapes.org" target="_blank">CarbonScapes</a> Initiative, which seeks to providely publically accessible data on geospatial patterns of terrestrial carbon within the United States.</p>
+				              <p>The <b>aboveground forest carbon</b> data layer provides estimates of aboveground biomass carbon (g/cm<sup>3</sup>) gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=93">here</a>.</p>
+                                              <p>The <b>belowground forest carbon</b> data layer provides estimates of belowground biomass carbon (g/cm<sup>3</sup> gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=94">here</a>.</p>
+                                              <p>The <b>soil organic carbon</b> provides data on organic carbon (g/cm<sup>3</sup>) from 0 - 100 cm, gridded to a 10 x 10 m resolution. The data is provided by the gridded Soil Survey Geographic Database (gSSURGO), and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=80">here</a>.</p>
                                         </p>
                                     </div>
                                 </div>
@@ -693,9 +491,9 @@
 {% block layers %}
 
 <script type="text/javascript" href="http://depot.ign.fr/geoportail/api/develop/tech-docs-js/examples/js/geoportalLeaflet.js"></script>
-
-    {% include 'vector_layers.html' %}
-    {% include 'raster_layers.html' %}
+    
+    {% include 'ssmt_vector_layers.html' %}
+    {% include 'ssmt_raster_layers.html' %}
 
 {% endblock layers %}
 
