@@ -131,6 +131,14 @@
 	onEachFeature: popupFunc
     });
 
+    var drainfields = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_drainfields", {
+        style: {weight: 2,
+                color: '#FFFFFF',
+                fill: false,
+            },
+        onEachFeature: popupFunc
+    });
+
     var e_hiawathanf = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_e_hiawathanf", {
         style: function(feature) {
 		switch(true) {
@@ -248,6 +256,22 @@
 	onEachFeature: popupFunc
     });
 
+    var onsitewaste = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_onsitewaste", {
+        style: {weight: 2,
+                color: '#FFFFFF',
+                fill: false,
+            },
+        onEachFeature: popupFunc
+    });
+
+    var onsitewastewater = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_onsitewastewater", {
+        style: {weight: 2,
+                color: '#FFFFFF',
+                fill: false,
+            },
+        onEachFeature: popupFunc
+    });
+
     var parcels = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_parcels", {
 	style: function (feature) {
 		return {color: randomColor(),
@@ -282,6 +306,14 @@
 	    onEachFeature: popupFunc
     });
 
+    var septic_tanks = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_septic_tanks", {
+        style: {weight: 2,
+                color: '#FFFFFF',
+                fill: false,
+            },
+        onEachFeature: popupFunc
+    });
+
     var snowmobile_trails = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_snowmobile_trails", {
         style: {weight: 2,
 	        color: '#FFFFFF',
@@ -299,6 +331,15 @@
 	    },
 	onEachFeature: popupFunc
     });
+
+    var trails = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_trails", {
+        style: {weight: 2,
+                color: '#FFFFFF',
+                fill: false,
+            },
+        onEachFeature: popupFunc
+    });
+
 
     var waishkey_add_streams = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_waishkey_add_streams", {
         style: {weight: 2,

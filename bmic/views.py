@@ -825,4 +825,39 @@ def wetland_preserve_view_dl(request):
     response['Content-Disposition'] = 'attachment; filename="wetland_preserve.zip"'
 
     return response
-  
+
+def trails_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'trails.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="trails.zip"'
+
+    return response
+
+def drainfields_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'drainfields.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="drainfields.zip"'
+
+    return response
+
+def onsitewaste_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'onsitewaste.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="onsitewaste.zip"'
+
+    return response
+
+def onsitewastewater_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'onsitewastewater.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="onsitewastewater.zip"'
+
+    return response
+
+def septic_tanks_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'septic_tanks.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="septic_tanks.zip"'
+
+    return response
+
