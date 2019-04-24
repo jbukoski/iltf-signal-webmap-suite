@@ -204,6 +204,28 @@ critical_dunes_mapping = {
 
 critical_dunes_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'bmic', 'critical_dunes.shp'))
 
+drainfields_mapping = {
+    'objectid' : 'OBJECTID',
+    'lot_id' : 'Lot_ID',
+    'address' : 'address',
+    'name' : 'name',
+    'date_const' : 'date_const',
+    'contractor' : 'contractor',
+    'repaired' : 'repaired',
+    'inspected' : 'inspected',
+    'lyr_pass' : 'pass',
+    'sq_ft' : 'sq__ft',
+    'flow' : 'flow',
+    'ihs_funded' : 'IHS_funded',
+    'lyr_type' : 'type',
+    'notes' : 'notes',
+    'shape_leng' : 'SHAPE_Leng',
+    'shape_area' : 'SHAPE_Area',
+    'geom' : 'MULTIPOLYGON',
+}
+
+drainfields_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'bmic', 'drainfields.shp'))
+
 e_hiawathanf_mapping = {
     'objectid' : 'OBJECTID',
     'gisacres' : 'GISACRES',
@@ -318,6 +340,124 @@ mi_state_parks_mapping = {
 }
 
 mi_state_parks_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'bmic', 'mi_state_parks.shp'))
+
+onsitewaste_mapping = {
+    'objectid' : 'OBJECTID',
+    'lot_id' : 'Lot_ID',
+    'address' : 'address',
+    'name' : 'name',
+    'tank_size' : 'tank_size',
+    'last_pumpe' : 'last_pumpe',
+    'pass_fail' : 'pass_fail',
+    'inspection' : 'inspection',
+    'notes' : 'notes',
+    'ft_from_wa' : 'Ft_from_wa',
+    'rstre' : 'rstre',
+    'drainfield' : 'drainfield',
+    'drainfi8el' : 'drainfi8el',
+    'lyr_type' : 'type',
+    'city' : 'City',
+    'state' : 'State',
+    'powts' : 'POWTS',
+    'yr_cnstrtd' : 'Yr_Cnstrtd',
+    'qstnre_cmp' : 'Qstnre_Cmp',
+    'occupnts_c' : 'Occupnts_C',
+    'occupnts_a' : 'Occupnts_A',
+    'vacant_mon' : 'Vacant_Mon',
+    'nmbr_bedro' : 'Nmbr_Bedro',
+    'water_mete' : 'Water_Mete',
+    'backup' : 'Backup',
+    'system_rep' : 'System_Rep',
+    'inspcted_o' : 'Inspcted_O',
+    'inspcted_w' : 'Inspcted_W',
+    'inspcted_f' : 'Inspcted_F',
+    'service_co' : 'Service_Co',
+    'srvc_cntrc' : 'Srvc_Cntrc',
+    'tnk_last_p' : 'Tnk_Last_P',
+    'pump_frequ' : 'Pump_frequ',
+    'pump_compa' : 'Pump_Compa',
+    'size_gal_g' : 'Size_Gal_g',
+    'pump_gpm_t' : 'Pump_gpm_t',
+    'pretreat_g' : 'Pretreat_g',
+    'pump2_gpm_field' : 'Pump2_gpm_',
+    'soil_trt_u' : 'Soil_Trt_U',
+    'graywtr_sy' : 'GrayWtr_Sy',
+    'observatio' : 'Observatio',
+    'tank_mater' : 'Tank_Mater',
+    'inletbaffl' : 'InletBaffl',
+    'warning_la' : 'Warning_La',
+    'locate_cov' : 'Locate_Cov',
+    'cover_secu' : 'Cover_Secu',
+    'srfc_wtr_i' : 'Srfc_Wtr_I',
+    'fail_indic' : 'Fail_Indic',
+    'inspect_li' : 'Inspect_li',
+    'effluent_f' : 'Effluent_F',
+    'run_op_tes' : 'Run_Op_Tes',
+    'gall_added' : 'Gall_Added',
+    'pump_out_p' : 'Pump_Out_P',
+    'backflow_c' : 'Backflow_C',
+    'inspect_pr' : 'Inspect_Pr',
+    'inspect_ba' : 'Inspect_Ba',
+    'dosing_pum' : 'Dosing_Pum',
+    'integrity_field' : 'Integrity_',
+    'pump_eleva' : 'Pump_Eleva',
+    'pump_work' : 'Pump_Work',
+    'checkvalve' : 'CheckValve',
+    'high_water' : 'High_Water',
+    'alarm_work' : 'Alarm_Work',
+    'electrical' : 'Electrical',
+    'clean_pump' : 'Clean_Pump',
+    'probe_soil' : 'Probe_Soil',
+    'gravity_pr' : 'Gravity_Pr',
+    'previous_f' : 'Previous_F',
+    'seepage' : 'Seepage',
+    'lush_veget' : 'Lush_Veget',
+    'ponding' : 'Ponding',
+    'even_distr' : 'Even_Distr',
+    'feet_to_we' : 'Feet_to_We',
+    'groundwate' : 'Groundwate',
+    'depth_to_s' : 'Depth_to_S',
+    'pretreatme' : 'Pretreatme',
+    'pretreat_1' : 'Pretreat_1',
+    'pretreat_2' : 'Pretreat_2',
+    'soil_treat' : 'Soil_Treat',
+    'soil_area_field' : 'Soil_Area_',
+    'pump_tank' : 'Pump_Tank',
+    'pump_tank_field' : 'Pump_Tank_',
+    'inspector' : 'Inspector',
+    'inspecti_1' : 'Inspecti_1',
+    'data_entry' : 'Data_Entry',
+    'data_ent_1' : 'Data_Ent_1',
+    'latitude' : 'Latitude',
+    'longitude' : 'Longitude',
+    'geom' : 'MULTIPOINT',
+}
+
+onsitewaste_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'bmic', 'onsitewaste.shp'))
+
+onsitewastewater_mapping = {
+    'objectid' : 'OBJECTID',
+    'lot_id' : 'lot_ID',
+    'address' : 'address',
+    'name' : 'Name',
+    'volume' : 'Volume',
+    'tank_manuf' : 'tank_manuf',
+    'tank_type' : 'tank_TYPE',
+    'inspected' : 'Inspected',
+    'last_inspe' : 'Last_inspe',
+    'pumped' : 'pumped',
+    'lastpumped' : 'lastpumped',
+    'flow' : 'flow',
+    'lyr_filter' : 'filter',
+    'last_filte' : 'Last_filte',
+    'pass_failu' : 'pass_failu',
+    'cover_secu' : 'cover_secu',
+    'inspection' : 'inspection',
+    'geom' : 'MULTIPOINT',
+}
+
+onsitewastewater_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'bmic', 'onsitewastewater.shp'))
+
 
 parcels_mapping = {
     'area' : 'AREA',
@@ -460,6 +600,32 @@ rivers_mapping = {
 
 rivers_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'bmic', 'rivers.shp'))
 
+septic_tanks_mapping = {
+    'objectid' : 'OBJECTID',
+    'lot_id' : 'lot_ID',
+    'address' : 'address',
+    'name' : 'Name',
+    'volume' : 'Volume',
+    'tank_manuf' : 'tank_manuf',
+    'tank_type' : 'tank_TYPE',
+    'inspected' : 'Inspected',
+    'last_inspe' : 'Last_inspe',
+    'pumped' : 'pumped',
+    'lastpumped' : 'lastpumped',
+    'flow' : 'flow',
+    'lyr_filter' : 'filter',
+    'last_filte' : 'Last_filte',
+    'pass_failu' : 'pass_failu',
+    'cover_secu' : 'cover_secu',
+    'inspection' : 'inspection',
+    'shape_leng' : 'SHAPE_Leng',
+    'shape_area' : 'SHAPE_Area',
+    'geom' : 'MULTIPOLYGON',
+}
+
+septic_tanks_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'bmic', 'septic_tanks.shp'))
+
+
 snowmobile_trails_mapping = {
     'date' : 'DATE',
     'time' : 'TIME',
@@ -486,6 +652,16 @@ subwatersheds_mapping = {
 }
 
 subwatersheds_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'bmic', 'subwatersheds.shp'))
+
+trails_mapping = {
+    'begin' : 'begin',
+    'end' : 'end',
+    'path' : 'path',
+    'geom' : 'MULTILINESTRING',
+}
+
+trails_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'bmic', 'trails.shp'))
+
 
 waishkey_add_streams_mapping = {
     'fcc' : 'FCC',
@@ -615,6 +791,40 @@ whitefish_bay_reserve_mapping = {
 }
 
 whitefish_bay_reserve_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'bmic', 'whitefish_bay_reserve.shp'))
+
+def load_additional(verbose=True):
+
+    trails_lm = LayerMapping(
+        models.trails, trails_shp, trails_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    trails_lm.save(strict=True, verbose=verbose)
+
+    drainfields_lm = LayerMapping(
+        models.drainfields, drainfields_shp, drainfields_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    drainfields_lm.save(strict=True, verbose=verbose)
+
+    onsitewaste_lm = LayerMapping(
+        models.onsitewaste, onsitewaste_shp, onsitewaste_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    onsitewaste_lm.save(strict=True, verbose=verbose)
+
+    onsitewastewater_lm = LayerMapping(
+        models.onsitewastewater, onsitewastewater_shp, onsitewastewater_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    onsitewastewater_lm.save(strict=True, verbose=verbose)
+
+    septic_tanks_lm = LayerMapping(
+        models.septic_tanks, septic_tanks_shp, septic_tanks_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    septic_tanks_lm.save(strict=True, verbose=verbose)
+
+
 
 def run(verbose=True):
 

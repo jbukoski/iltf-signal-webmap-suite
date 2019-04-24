@@ -1,21 +1,37 @@
 {% block vector_layers %}
 
-<script>
 
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.min.js"></script>
+
+	<script>
 ///////////////////////////
 ////// Vector Layers //////
 ///////////////////////////
 
-            function popupFunc(feature, layer) {
-                var popupContent = "";
-                for (var k in feature.properties) {
-                     var v = String(feature.properties[k]);
-                     popupContent += "<strong>" + k + "</strong>" + ": " + v + "</br>";
-                };
-                return layer.bindPopup(popupContent);
+    function popupFunc(feature, layer) {
+	    var popupContent = "";
+            for (var k in feature.properties) {
+                 var v = String(feature.properties[k]);
+                 popupContent += "<strong>" + k + "</strong>" + ": " + v + "</br>";
             };
+            return layer.bindPopup(popupContent);
+        };
 
-    var buff_bndry = new L.GeoJSON.AJAX('{% url "bmic_buffered_bndry" %}', {
+    function rndmPolys(feature) {
+	    var col = randomColor()
+	    return {color: col,
+		    weight: 3 };
+    }
+
+    function stylePolys(feature, prop) {
+	    d = feature.properties.get(prop);
+	    return d == "ST. MARYS DRAINAGE BASIN" ? {color: '#00FF7F', opacity: 0.7}:
+		    {color: '#ffffff', opacity: 1};
+    };
+
+    var baseVectorURL = "http://216.218.220.139:8081/geoserver/iltf/ows?service=WFS&version=1.1.0&request=GetFeature&srsName=EPSG:4326&outputFormat=json&format_options=callback:loadGeoJson"
+
+    var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_buffered_bndry", {
         style: {clickable: true,
                 fill: true,
 		opacity: 0,
@@ -24,25 +40,62 @@
             },
     });
 
-    var aoc_mi_stmarys = new L.GeoJSON.AJAX('{% url "bmic_aoc_mi_stmarys" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var boundary = new L.GeoJSON.AJAX('{% url "bmic_boundary" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
+    var aoc_mi_stmarys = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_aoc_mi_stmarys", {
+       style: function(feature) {
+                switch(true) {
+                            case(feature.properties.aoc === "ST. MARYS DRAINAGE BASIN"):
+                                return {color: '#20B2AA', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.type_class === "ST. MARYS AREA OF CONCERN"):
+                                return {color: '#FFFF00', fill: true, fillOpacity: 0.3};
+            }
+        },
         onEachFeature: popupFunc
     });
 
-    var ceded_territory = new L.GeoJSON.AJAX('{% url "bmic_ceded_territory" %}', {
+    var boundary = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_boundary", {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: false,
+	},
+        onEachFeature: popupFunc
+    });
+
+    var ceded_territory = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_ceded_territory", {
+        style: {color: '#C0C0C0',
+                weight: 3,
+	        fill: true,
+		fillOpacity: 0.2,
+	},
+	onEachFeature: popupFunc
+    });
+
+    var chippewa_cnty = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_chippewa_cnty", {
+        style: {weight: 3,
+	        color: '#00274c',
+	        fill: true,
+		fillOpacity: 0.2,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var chippewa_roads = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_chippewa_roads", {
+        style: {weight: 2,
+	        color: '#aaaaaa',
+	        fill: false,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var chippewa_streams = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_chippewa_streams", {
+        style: {weight: 2,
+	        color: '#6e6ef2',
+	        fill: false,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var chippewa_waterwells = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_chippewa_waterwells", {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
@@ -51,7 +104,49 @@
 	onEachFeature: popupFunc
     });
 
-    var chippewa_cnty = new L.GeoJSON.AJAX('{% url "bmic_chippewa_cnty" %}', {
+
+    var coastal_wetlands = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_coastal_wetlands", {
+        style: {weight: 3,
+	        color: '#8282d2',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var comm_forst_ceded = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_comm_forst_ceded", {
+        style: {weight: 3,
+	        color: '#00FF00',
+	        fill: true,
+		fillOpacity: 0.2,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var critical_dunes = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_critical_dunes", {
+        style: {weight: 3,
+	        color: '#FFFF66',
+	        fill: true,
+		fillOpacity: 0.2,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var e_hiawathanf = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_e_hiawathanf", {
+        style: function(feature) {
+		switch(true) {
+                            case(feature.properties.type_class === "USFS"):
+                                return {color: '#F1C888', fillColor: "#604E4C", fill: true, fillOpacity: 0.5};
+                            case(feature.properties.type_class === "OTHER"):
+                                return {color: '#FFFFFF', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.type_class === 3):
+                                return {color: '#B1D8ED', fill: true, fillOpacity: 0.3};
+            }
+        },
+
+	onEachFeature: popupFunc
+    });
+
+    var eup_state_parks = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_eup_state_parks", {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
@@ -60,7 +155,91 @@
 	onEachFeature: popupFunc
     });
 
-    var chippewa_roads = new L.GeoJSON.AJAX('{% url "bmic_chippewa_roads" %}', {
+    var golf_course = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_golf_course", {
+        style: {clickable: true,
+                weight: 3,
+	        color: '#006400',
+	        fill: true,
+		fillOpacity: 0.2
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var great_lakes = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_great_lakes", {
+	    style: function (feature) {
+                    return {clickable: false,
+                            weight: 3,
+                            color: randomColor({hue: 'blue'}),
+                            fill: true}
+            },
+	onEachFeature: popupFunc
+    });
+
+    var ir_roads = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_ir_roads", {
+	    style: function (feature) {
+		    switch(true) {
+                            case(feature.properties.irr === "PROPOSED"):
+                                    return {color: "#A9A9A9", fill: false, weight: 2, dashArray: "5, 10"};
+			    case(feature.properties.irr === "YES"):
+				    return {color: "#A9A9A9", fill: false, weight: 2};
+			    case(feature.properties.irr === "NO"):
+				    return {color: "#708090", fill: false, weight: 2};
+			    case(feature.properties.irr === ""):
+				    return {color: "#A9A9A9", fill: false, weight: 2};
+		    }
+
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var lake_sprior_grid = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_lake_sprior_grid", {
+        style: function(feature) {
+                    switch(true) {
+                            case(feature.properties.lake_trout === "MI-1"):
+                                return {color: '#B1D8ED', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.lake_trout === "MI-2"):
+                                return {color: '#95C8DB', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.lake_trout === "MI-3"):
+                                return {color: '#5FACBE', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.lake_trout === "MI-4"):
+                                return {color: '#2181A1', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.lake_trout === "MI-5"):
+                                return {color: '#035D75', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.lake_trout === "MI-6"):
+                                return {color: '#23527E', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.lake_trout === "MI-7"):
+                                return {color: '#164169', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.lake_trout === "MI-8"):
+                                return {color: '#0B345B', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.lake_trout === ""):
+                                return {color: '#ffffff', fill: true, fillOpacity: 0.1, weight: 1};
+            }
+        },
+
+	    onEachFeature: popupFunc
+    });
+
+    var mi_cntys = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_mi_cntys", {
+	    style: function (feature) {
+		    return {weight: 3,
+			    color: randomColor({hue: "monochrome"}),
+	                    fill: true,
+		            fillOpacity: 0.2};
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var mi_lakes = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_mi_lakes", {
+	    style: function (feature) {
+		    return {clickable: false,
+                            weight: 3,
+			    color: '#000080',
+	                    fill: true}
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var mi_state_parks = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_mi_state_parks", {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
@@ -69,7 +248,15 @@
 	onEachFeature: popupFunc
     });
 
-    var chippewa_streams = new L.GeoJSON.AJAX('{% url "bmic_chippewa_streams" %}', {
+    var parcels = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_parcels", {
+	style: function (feature) {
+		return {color: randomColor(),
+                        weight: 3};
+            },
+	onEachFeature: popupFunc
+    });
+
+    var pwr_syst_backup_2014 = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_pwr_syst_backup_2014", {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
@@ -78,17 +265,82 @@
 	onEachFeature: popupFunc
     });
 
-    /*var chippewa_waterwells = new L.GeoJSON.AJAX('{% url "bmic_chippewa_waterwells" %}', {
-        style: {clickable: false,
-                weight: 3,
+    var railroad = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_railroad", {
+        style: {weight: 3,
 	        color: '#000000',
-	        fill: true,
+	        fill: false,
+		dashArray: "20, 5",
 	    },
 	onEachFeature: popupFunc
-    });*/
+    });
 
+    var rivers = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_rivers", {
+	    style: {weight: 2,
+	            color: '#6e6ef2',
+	            fill: false,
+	    },
+	    onEachFeature: popupFunc
+    });
 
-    var coastal_wetlands = new L.GeoJSON.AJAX('{% url "bmic_coastal_wetlands" %}', {
+    var snowmobile_trails = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_snowmobile_trails", {
+        style: {weight: 2,
+	        color: '#FFFFFF',
+	        fill: false,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var subwatersheds = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_subwatersheds", {
+	    style: function (feature) {
+	        return {weight: 3,
+		        color: randomColor({hue: 'blue'}),
+	                fill: true,
+			fillOpacity: 0.2,}
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var waishkey_add_streams = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_waishkey_add_streams", {
+        style: {weight: 2,
+	        color: '#6e6ef2',
+	        fill: false,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var waishkey_ptnl_wtlnd_rstrn = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_waishkey_ptnl_wtlnd_rstrn", {
+	    style: function(feature) {
+		    switch(true) {
+			    case(feature.properties.res_rank === 1):
+                                return {color: '#035D75', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.res_rank === 2):
+				return {color: '#5FACBE', fill: true, fillOpacity: 0.3};
+			    case(feature.properties.res_rank === 3):
+                                return {color: '#B1D8ED', fill: true, fillOpacity: 0.3};
+	    }
+	},
+	onEachFeature: popupFunc
+    });
+
+    var waishkey_river = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_waishkey_river", {
+        style: {weight: 2,
+                color: '#6e6ef2',
+                fill: false,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var waiska_watershed = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_waiska_watershed", {
+	    style: function (feature) {
+                return {weight: 3,
+                        color: randomColor({hue: 'blue'}),
+                        fill: true,
+                        fillOpacity: 0.2,}
+            },
+	onEachFeature: popupFunc
+    });
+
+    var wastewater_lines = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_wastewater_lines", {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
@@ -97,258 +349,33 @@
 	onEachFeature: popupFunc
     });
 
-    var comm_forst_ceded = new L.GeoJSON.AJAX('{% url "bmic_comm_forst_ceded" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
+    var wellhead_protection = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_wellhead_protection", {
+	    style: function(feature) {
+                    switch(true) {
+                            case(feature.properties.type === "Low Vulnerability Wellhead Area"):
+                                return {color: '#c4d4e5', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.type === "Type 1 Provisional Wellhead Protection Area"):
+                                return {color: '#99badd', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.type === "Type 2 Provisional Wellhead Protection Area"):
+                                return {color: '#6598ce', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.type === "Traditional Wellhead Protection Area Delineation"):
+                                return {color: '#2570bf', fill: true, fillOpacity: 0.3};
+		    }
+            },
+	onEachFeature: popupFunc
+    });
+
+    var wetland_preserve = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_wetland_preserve", {
+        style: {weight: 3,
+	        color: '#0f0fb9',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
     });
 
-    var critical_dunes = new L.GeoJSON.AJAX('{% url "bmic_critical_dunes" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var e_hiawathanf = new L.GeoJSON.AJAX('{% url "bmic_e_hiawathanf" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var eup_state_parks = new L.GeoJSON.AJAX('{% url "bmic_eup_state_parks" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var golf_course = new L.GeoJSON.AJAX('{% url "bmic_golf_course" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var great_lakes = new L.GeoJSON.AJAX('{% url "bmic_great_lakes" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var ir_roads = new L.GeoJSON.AJAX('{% url "bmic_ir_roads" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var lake_sprior_grid = new L.GeoJSON.AJAX('{% url "bmic_lake_sprior_grid" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var mi_cntys = new L.GeoJSON.AJAX('{% url "bmic_mi_cntys" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var mi_lakes = new L.GeoJSON.AJAX('{% url "bmic_mi_lakes" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var mi_state_parks = new L.GeoJSON.AJAX('{% url "bmic_mi_state_parks" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var parcels = new L.GeoJSON.AJAX('{% url "bmic_parcels" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var pwr_syst_backup_2014 = new L.GeoJSON.AJAX('{% url "bmic_pwr_syst_backup_2014" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var railroad = new L.GeoJSON.AJAX('{% url "bmic_railroad" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    /*var rivers = new L.GeoJSON.AJAX('{% url "bmic_rivers" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });*/
-
-
-    /*rootUrl = 'http://216.218.220.139:8081/geoserver/iltf/ows';
-
-    var defaultParameters = {
-        service: 'WFS',
-        version: '1.0.0',
-        request: 'GetFeature',
-	typeName: 'iltf:bmic_rivers',
-        maxFeatures: 1000,
-        outputFormat: 'application/json', 
-    };
-
-    var parameters = L.Util.extend(defaultParameters);
-    var URL = rootUrl + L.Util.getParamString(parameters);
-    
-    console.log(URL);
-    
-    var rivers = null;
-    $.ajax({
-	    url: URL,
-	    type: 'GET',
-	    dataType: 'json',
-	    contentType: 'application/json',
-	    success: function (response) {
-		console.log("SUCCESS:" + response);
-	    },
-	    error: function(response) {
-		console.log("ERROR: " + response);
-	    },
-        });*/
-
-
-    var snowmobile_trails = new L.GeoJSON.AJAX('{% url "bmic_snowmobile_trails" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var subwatersheds = new L.GeoJSON.AJAX('{% url "bmic_subwatersheds" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var waishkey_add_streams = new L.GeoJSON.AJAX('{% url "bmic_waishkey_add_streams" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var waishkey_ptnl_wtlnd_rstrn = new L.GeoJSON.AJAX('{% url "bmic_waishkey_ptnl_wtlnd_rstrn" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var waishkey_river = new L.GeoJSON.AJAX('{% url "bmic_waishkey_river" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var waiska_watershed = new L.GeoJSON.AJAX('{% url "bmic_waiska_watershed" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var wastewater_lines = new L.GeoJSON.AJAX('{% url "bmic_wastewater_lines" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var wellhead_protection = new L.GeoJSON.AJAX('{% url "bmic_wellhead_protection" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var wetland_preserve = new L.GeoJSON.AJAX('{% url "bmic_wetland_preserve" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var whitefish_bay_reserve = new L.GeoJSON.AJAX('{% url "bmic_whitefish_bay_reserve" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
+    var whitefish_bay_reserve = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_whitefish_bay_reserve", {
+        style: {weight: 3,
+	        color: '#d2d2f1',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc

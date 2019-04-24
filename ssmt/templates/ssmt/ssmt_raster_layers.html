@@ -11,7 +11,7 @@
         version: '1.1.1',
         request: 'GetMap',
         format: 'image/png',
-        layers: 'iltf:ssmt_agc',
+        layers: 'iltf:bmic_agc',
         transparent: true,
         tiled: true,
         zIndex: 10,
@@ -23,19 +23,32 @@
         version: '1.1.1',
         request: 'GetMap',
         format: 'image/png',
-        layers: 'iltf:ssmt_bgc',
+        layers: 'iltf:bmic_bgc',
         transparent: true,
         tiled: true,
         zIndex: 10,
         bgcolor: '#FFFFFF'
     });
 
+    var gssurgoSOC = new L.tileLayer.wms('http://216.218.220.139:8081/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:bmic_soc',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
+
+
     var landfireEVT = new L.tileLayer.wms('http://216.218.220.139:8081/geoserver/iltf/wms?', {
         service: 'WMS',
         version: '1.1.1',
         request: 'GetMap',
         format: 'image/png',
-        layers: 'iltf:ssmt_evt',
+        layers: 'iltf:bmic_evt',
         transparent: true,
         tiled: true,
         zIndex: 10,
@@ -47,7 +60,7 @@
         version: '1.1.1',
         request: 'GetMap',
         format: 'image/png',
-        layers: 'iltf:ssmt_ndvi_2005',
+        layers: 'iltf:bmic_ndvi_2005',
         transparent: true,
         tiled: true,
         zIndex: 10,
@@ -59,7 +72,7 @@
         version: '1.1.1',
         request: 'GetMap',
         format: 'image/png',
-        layers: 'iltf:ssmt_ndvi_2010',
+        layers: 'iltf:bmic_ndvi_2010',
         transparent: true,
         tiled: true,
         zIndex: 10,
@@ -71,7 +84,7 @@
         version: '1.1.1',
         request: 'GetMap',
         format: 'image/png',
-        layers: 'iltf:ssmt_ndvi_2015',
+        layers: 'iltf:bmic_ndvi_2015',
         transparent: true,
         tiled: true,
         zIndex: 10,
