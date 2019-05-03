@@ -26,10 +26,11 @@
     });
 
     var buff_bndry = new L.GeoJSON.AJAX('{% url "ssmt_buff_bndry" %}', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
+        style: {clickable: true,
+                fill: true,
+                opacity: 0,
+                fillOpacity: 0,
+                zIndex: -100,
 	    },
 	onEachFeature: popupFunc
     });

@@ -3,6 +3,27 @@ from django.contrib.gis.utils import LayerMapping
 from . import models
 
 boundary_mapping = {
+    'aiannhce' : 'AIANNHCE',
+    'aiannhns' : 'AIANNHNS',
+    'affgeoid' : 'AFFGEOID',
+    'geoid' : 'GEOID',
+    'name' : 'NAME',
+    'lsad' : 'LSAD',
+    'aland' : 'ALAND',
+    'awater' : 'AWATER',
+    'geom' : 'MULTIPOLYGON',
+}
+
+boundary_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'ssmt', 'boundary.shp'))
+
+buff_bndry_mapping = {
+    'id' : 'id',
+    'geom' : 'MULTIPOLYGON',
+}
+
+buff_bndry_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'ssmt', 'buff_bndry.shp'))
+
+parcels_mapping = {
     'objectid' : 'OBJECTID',
     'joined' : 'Joined',
     'planid' : 'PlanID',
@@ -19,14 +40,25 @@ boundary_mapping = {
     'geom' : 'MULTIPOLYGON25D',
 }
 
-boundary_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'ssmt', 'boundary.shp'))
+parcels_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'ssmt', 'parcels.shp'))
 
-buff_bndry_mapping = {
-    'id' : 'id',
+tax_areas_mapping = {
+    'county' : 'County',
+    'shape_leng' : 'SHAPE_Leng',
+    'shape_area' : 'SHAPE_Area',
+    'state' : 'State',
+    'name' : 'Name',
     'geom' : 'MULTIPOLYGON',
 }
 
-buff_bndry_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'ssmt', 'buff_bndry.shp'))
+tax_areas_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'ssmt', 'tax_areas.shp'))
+
+units_mapping = {
+    'id' : 'Id',
+    'geom' : 'MULTIPOLYGON',
+}
+
+units_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'ssmt', 'units.shp'))
 
 def run(verbose=True):
 
@@ -41,3 +73,21 @@ def run(verbose=True):
         transform=False, encoding='iso-8859-1'
     )
     buff_bndry_lm.save(strict=True, verbose=verbose)
+
+    parcels_lm = LayerMapping(
+        models.parcels, parcels_shp, parcels_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    parcels_lm.save(strict=True, verbose=verbose)
+
+    tax_areas_lm = LayerMapping(
+        models.tax_areas, tax_areas_shp, tax_areas_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    tax_areas_lm.save(strict=True, verbose=verbose)
+
+    units_lm = LayerMapping(
+        models.units, units_shp, units_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    units_lm.save(strict=True, verbose=verbose)
