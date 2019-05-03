@@ -107,6 +107,8 @@ def sumstats_view(request):
     if request.method == 'POST':
         geom = request.POST['geom']
 
+        print(geom);
+
         query = """WITH poly AS (SELECT ST_SetSRID(ST_GeomFromGeoJSON('%s'), 4326) AS geom),
                        poly_eq_area AS (SELECT ST_Transform(geom, 32113) AS geom_eq_area FROM poly),
                        agc_clip AS (SELECT ST_Union(ST_Clip(agc.rast, poly.geom)) AS raster
