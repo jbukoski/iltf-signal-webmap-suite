@@ -1,6 +1,31 @@
 from django.contrib.gis.db import models
 
 class boundary(models.Model):
+    aiannhce = models.CharField(max_length=4)
+    aiannhns = models.CharField(max_length=8)
+    affgeoid = models.CharField(null=True, max_length=13)
+    geoid = models.CharField(max_length=4)
+    name = models.CharField(max_length=100)
+    lsad = models.CharField(max_length=2)
+    aland = models.BigIntegerField()
+    awater = models.BigIntegerField()
+    geom = models.MultiPolygonField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+
+class buff_bndry(models.Model):
+    id = models.BigIntegerField()
+    geom = models.MultiPolygonField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+
+class parcels(models.Model):
     objectid = models.IntegerField()
     joined = models.IntegerField()
     planid = models.IntegerField()
@@ -21,8 +46,21 @@ class boundary(models.Model):
         return '%s' % (self.id)
 
 
-class buff_bndry(models.Model):
-    id = models.BigIntegerField()
+class tax_areas(models.Model):
+    county = models.CharField(max_length=50)
+    shape_leng = models.FloatField()
+    shape_area = models.FloatField()
+    state = models.CharField(max_length=20)
+    name = models.CharField(max_length=50)
+    geom = models.MultiPolygonField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+
+class units(models.Model):
+    id = models.IntegerField()
     geom = models.MultiPolygonField(srid=4326)
     id = models.AutoField(primary_key = True)
 

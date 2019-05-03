@@ -157,7 +157,7 @@
     var eup_state_parks = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_eup_state_parks", {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
+	        color: '#00ffff',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
@@ -166,7 +166,7 @@
     var golf_course = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_golf_course", {
         style: {clickable: true,
                 weight: 3,
-	        color: '#006400',
+	        color: '#00FF00',
 	        fill: true,
 		fillOpacity: 0.2
 	    },
@@ -187,13 +187,13 @@
 	    style: function (feature) {
 		    switch(true) {
                             case(feature.properties.irr === "PROPOSED"):
-                                    return {color: "#A9A9A9", fill: false, weight: 2, dashArray: "5, 10"};
+                                    return {color: "#FFFF33", fill: false, weight: 2, dashArray: "5, 10"};
 			    case(feature.properties.irr === "YES"):
-				    return {color: "#A9A9A9", fill: false, weight: 2};
+				    return {color: "#FFFF33", fill: false, weight: 2};
 			    case(feature.properties.irr === "NO"):
-				    return {color: "#708090", fill: false, weight: 2};
+				    return {color: "#FFFF66", fill: false, weight: 2};
 			    case(feature.properties.irr === ""):
-				    return {color: "#A9A9A9", fill: false, weight: 2};
+				    return {color: "#FFFF99", fill: false, weight: 2};
 		    }
 
 	    },
@@ -250,7 +250,7 @@
     var mi_state_parks = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_mi_state_parks", {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
+	        color: '#d1001c',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
@@ -274,7 +274,7 @@
 
     var parcels = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_parcels", {
 	style: function (feature) {
-		return {color: randomColor(),
+		return {color: '#b666d2',
                         weight: 3};
             },
 	onEachFeature: popupFunc
@@ -384,7 +384,7 @@
     var wastewater_lines = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_wastewater_lines", {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
+	        color: '#DEB887',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
