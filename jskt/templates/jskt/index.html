@@ -44,14 +44,62 @@
 				    <div class="checkbox">
 				        <label>
                                             <input type="checkbox" name="overlayLayers" id="boundary" z-index="1" checked>
-                                            &nbsp; Reservation boundary &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            &nbsp; Tribe Boundary &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="res_trust" z-index="1">
+                                            &nbsp; Reservation Trust &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="service_area" z-index="1">
+                                            &nbsp; Service Area &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="land_consolidation" z-index="1">
+                                            &nbsp; Land Consolidation Area &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="fee_trust" z-index="1">
+                                            &nbsp; Fee Trust &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="all_prop" z-index="1">
+                                            &nbsp; All Property &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="prop_only" z-index="1">
+                                            &nbsp; Property Only &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="cl_co_prop_db" z-index="1">
+                                            &nbsp; Clallam County Property &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="jef_co_prop_db" z-index="1">
+                                            &nbsp; Jefferson County Property &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
                                     </div>
 				</div>
 	                    </div>
                         </div> <!--Closes 'panel panel-default for administrative layers'-->
 
-                        <div class="panel panel-default">
+                        <!-- <div class="panel panel-default">
                             <div class="panel-heading">
                                 <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#hydro-layers">
                                         Hydrology Layers
@@ -67,7 +115,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> <!--Closes 'panel panel-default for hydrology layers'-->
+			</div> -->
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -103,7 +151,7 @@
                                    </div>
                                 </div>
                             </div>
-                        </div>
+			</div>
 
 			<div class="panel panel-default">
                             <div class="panel-heading">
@@ -292,11 +340,7 @@
                             <div id="data-layers-admin" class="panel-collapse collapse">
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div style="padding: 15px 5px;">
-                                        <p> The <b>administrative layers</b> hosted on the webmap consist of:
-                                              <ul>
-                                                 <li> <i>Boundary</i> </li>
-                                              </ul>
-                                              <p>The administrative layers are provided by the Tribe. The layers provide the approximate reservation boundary, polygons representing five master business leases within the boundary, and a database of roads. The master business leases and roads layers can be queried for additional information.</p>
+                                        <p>The administrative layers are provided by the Tribe. The layers can be queried for additional information.</p>
                                         </p>
                                     </div>
                                 </div>
