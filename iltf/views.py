@@ -22,6 +22,8 @@ def custLogin(request):
         return HttpResponseRedirect(reverse('bmic_index'))
     elif request.user.username == 'comanche_user':
         return HttpResponseRedirect(reverse('comanche_index'))
+    elif request.user.username == 'jskt_user':
+        return HttpResponseRedirect(reverse('jskt_index'))
     elif request.user.username == 'lbst_user':
         return HttpResponseRedirect(reverse('lbst_index'))
     elif request.user.username == 'tamaya_user':

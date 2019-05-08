@@ -1,0 +1,165 @@
+{% block vector_layers %}
+
+	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.min.js'></script>
+
+
+<script>
+
+///////////////////////////
+////// Vector Layers //////
+///////////////////////////
+
+    function popupFunc(feature, layer) {
+            var popupContent = '';
+            for (var k in feature.properties) {
+                     var v = String(feature.properties[k]);
+                     popupContent += '<strong>' + k + '</strong>' + ': ' + v + '</br>';
+            };
+            return layer.bindPopup(popupContent);
+    };
+
+    function rndmPolys(feature) {
+	    var col = randomColor()
+	    return {color: col,
+		    weight: 3 };
+    };
+
+    function stylePolys(feature, prop) {
+	    d = feature.properties.get(prop);
+	    return d == 'ST. MARYS DRAINAGE BASIN' ? {color: '#00FF7F', opacity: 0.7}:
+		    {color: '#ffffff', opacity: 1};
+    };
+
+    var baseVectorURL = 'http://216.218.220.139:8081/geoserver/iltf/ows?service=WFS&version=1.1.0&request=GetFeature&srsName=EPSG:4326&outputFormat=json&format_options=callback:loadGeoJson'
+
+    var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_buffered_bndry', {
+        style: {clickable: true,
+                fill: true,
+		opacity: 0,
+                fillOpacity: 0,
+                zIndex: -100,
+            },
+    });
+
+
+
+    var all_prop = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_all_prop', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var boundary = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_boundary', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_buff_bndry', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var cl_co_prop_db = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_cl_co_prop_db', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var counties = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_counties', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var fee_trust = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_fee_trust', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var jef_co_prop_db = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_jef_co_prop_db', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var land_consolidation = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_land_consolidation', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var prop_only = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_prop_only', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var res_trust = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_res_trust', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var service_area = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_service_area', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var document = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_document', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+
+
+////////////////////////////
+////// Leaflet Map /////////
+////////////////////////////
+
+    map.setView(new L.LatLng(47.9195, -123.6), 9);
+    map.addLayer(boundary);
+
+</script>
+
+{% endblock vector_layers %}
