@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, {'template_name': 'registration/login.html'}),
     url(r'^boundary/', views.boundary_view, name='jskt_boundary'),
     url(r'^buff_bndry/', views.buff_bndry_view, name='jskt_buff_bndry'),
-    #url(r'^boundary_dl/', views.boundary_dl_view, name='jskt_boundary_dl'),
+    url(r'^boundary_dl/', views.boundary_view_dl, name='jskt_boundary_dl'),
     #url(r'^bulk_dens_dl/', views.bd_dl_view, name='jskt_bulk_dens_dl'),
     #url(r'^landfire_dl/$', views.landfire_dl_view, name = 'landfire_dl'),
     #url(r'^ndvi_2005_dl/$', views.ndvi_2005_dl_view, name = 'ndvi_2005_dl'),
