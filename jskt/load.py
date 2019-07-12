@@ -641,6 +641,22 @@ service_area_mapping = {
 
 service_area_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'jskt', 'service_area.shp'))
 
+def run_db(verbose=True):
+
+    jef_co_prop_db_lm = LayerMapping(
+        models.jef_co_prop_db, jef_co_prop_db_shp, jef_co_prop_db_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    jef_co_prop_db_lm.save(strict=True, verbose=verbose)
+
+    cl_co_prop_db_lm = LayerMapping(
+        models.cl_co_prop_db, cl_co_prop_db_shp, cl_co_prop_db_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    cl_co_prop_db_lm.save(strict=True, verbose=verbose)
+
+
+
 def run(verbose=True):
 
     all_prop_lm = LayerMapping(
