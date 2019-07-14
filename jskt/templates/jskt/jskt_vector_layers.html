@@ -63,18 +63,18 @@
 
     var clco_parcels = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_clco_parcels', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#FFFFFF',
-	        fill: true,
+                weight: 1,
+	        color: '#000000',
+	        fill: false,
 	    },
 	onEachFeature: popupFunc
     });
 
     var jefco_parcels = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_jefco_parcels', {
         style: {clickable: false,
-                weight: 3,
+                weight: 1,
 	        color: '#732600',
-	        fill: true,
+	        fill: false,
 	    },
 	onEachFeature: popupFunc
     });
@@ -108,9 +108,9 @@
 
     var jst_land_consol_area = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_jst_land_consol_area', {
         style: {clickable: false,
-                weight: 3,
+                weight: 4,
 	        color: '#D7C29E',
-	        fill: true,
+	        fill: false,
 	    },
 	onEachFeature: popupFunc
     });
