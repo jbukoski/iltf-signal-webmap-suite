@@ -503,3 +503,129 @@ def all_prop_view_dl(request):
 
     return response
   
+
+## Layer Views
+
+def boundary_view(request):
+    boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field='geom', fields = ('aiannhce', 'aiannhns', 'affgeoid', 'geoid', 'name', 'lsad', 'aland', 'awater', 'geom', 'id'))
+    return HttpResponse(boundary_json, content_type='json')
+
+def buff_bndry_view(request):
+    buff_bndry_json = serialize('geojson', models.buff_bndry.objects.all(), geometry_field='geom', fields = ('objectid', 'geom', 'id'))
+    return HttpResponse(buff_bndry_json, content_type='json')
+
+def jefco_parcels_view(request):
+    jefco_parcels_json = serialize('geojson', models.jefco_parcels.objects.all(), geometry_field='geom', fields = ('pin', 'pin_string', 'prop_id', 'township', 'range', 'section_field', 'qtr_sectio', 'situs_addr', 'situs_city', 'situs_zip', 'owner', 'status', 'prev_own', 'acres', 'tribal', 'shape_leng', 'shape_area', 'geom', 'id'))
+    return HttpResponse(jefco_parcels_json, content_type='json')
+
+def jst_boundary_clco_view(request):
+    jst_boundary_clco_json = serialize('geojson', models.jst_boundary_clco.objects.all(), geometry_field='geom', fields = ('pnum', 'prop_id', 'acres_gis', 'situs_addr', 'situs_dir', 'situs_rd', 'situs_ext', 'situs_city', 'zip_code', 'pacs_link', 'pmt_link', 'tribal', 'ownership', 'jskt_statu', 'prev_owner', 'shape_leng', 'shape_area', 'geom', 'id'))
+    return HttpResponse(jst_boundary_clco_json, content_type='json')
+
+def jst_trust_parcels_clco_view(request):
+    jst_trust_parcels_clco_json = serialize('geojson', models.jst_trust_parcels_clco.objects.all(), geometry_field='geom', fields = ('pnum', 'prop_id', 'acres_gis', 'situs_addr', 'situs_dir', 'situs_rd', 'situs_ext', 'situs_city', 'zip_code', 'pacs_link', 'pmt_link', 'tribal', 'ownership', 'jskt_statu', 'prev_owner', 'shape_leng', 'shape_area', 'geom', 'id'))
+    return HttpResponse(jst_trust_parcels_clco_json, content_type='json')
+
+def jst_land_consol_area_view(request):
+    jst_land_consol_area_json = serialize('geojson', models.jst_land_consol_area.objects.all(), geometry_field='geom', fields = ('fid_pttown', 'data', 'fid_servic', 'area', 'shape_leng', 'shape_area', 'geom', 'id'))
+    return HttpResponse(jst_land_consol_area_json, content_type='json')
+
+def jst_reservation_parcels_clco_view(request):
+    jst_reservation_parcels_clco_json = serialize('geojson', models.jst_reservation_parcels_clco.objects.all(), geometry_field='geom', fields = ('pnum', 'prop_id', 'acres_gis', 'situs_addr', 'situs_dir', 'situs_rd', 'situs_ext', 'situs_city', 'zip_code', 'pacs_link', 'pmt_link', 'tribal', 'ownership', 'jskt_statu', 'prev_owner', 'shape_leng', 'shape_area', 'geom', 'id'))
+    return HttpResponse(jst_reservation_parcels_clco_json, content_type='json')
+
+def document_view(request):
+    document_json = serialize('geojson', models.document.objects.all(), geometry_field='geom', fields = ('id', 'name', 'docfile'))
+    return HttpResponse(document_json, content_type='json')
+
+def clco_parcels_view(request):
+    clco_parcels_json = serialize('geojson', models.clco_parcels.objects.all(), geometry_field='geom', fields = ('pnum', 'prop_id', 'acres_gis', 'situs_addr', 'situs_dir', 'situs_rd', 'situs_ext', 'situs_city', 'zip_code', 'pacs_link', 'pmt_link', 'tribal', 'ownership', 'jskt_statu', 'prev_owner', 'shape_leng', 'shape_area', 'geom', 'id'))
+    return HttpResponse(clco_parcels_json, content_type='json')
+
+def jst_boundary_jefco_view(request):
+    jst_boundary_jefco_json = serialize('geojson', models.jst_boundary_jefco.objects.all(), geometry_field='geom', fields = ('pin', 'pin_string', 'prop_id', 'township', 'range', 'section_field', 'qtr_sectio', 'situs_addr', 'situs_city', 'situs_zip', 'owner', 'status', 'prev_own', 'acres', 'tribal', 'shape_leng', 'shape_area', 'geom', 'id'))
+    return HttpResponse(jst_boundary_jefco_json, content_type='json')
+
+def jst_fee_parcels_clco_view(request):
+    jst_fee_parcels_clco_json = serialize('geojson', models.jst_fee_parcels_clco.objects.all(), geometry_field='geom', fields = ('pnum', 'prop_id', 'acres_gis', 'situs_addr', 'situs_dir', 'situs_rd', 'situs_ext', 'situs_city', 'zip_code', 'pacs_link', 'pmt_link', 'tribal', 'ownership', 'jskt_statu', 'prev_owner', 'shape_leng', 'shape_area', 'geom', 'id'))
+    return HttpResponse(jst_fee_parcels_clco_json, content_type='json')
+
+## Layer Download Views
+
+def boundary_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'boundary.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="boundary.zip"'
+
+    return response
+  
+def buff_bndry_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'buff_bndry.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="buff_bndry.zip"'
+
+    return response
+  
+def jefco_parcels_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jefco_parcels.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jefco_parcels.zip"'
+
+    return response
+  
+def jst_boundary_clco_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jst_boundary_clco.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jst_boundary_clco.zip"'
+
+    return response
+  
+def jst_trust_parcels_clco_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jst_trust_parcels_clco.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jst_trust_parcels_clco.zip"'
+
+    return response
+  
+def jst_land_consol_area_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jst_land_consol_area.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jst_land_consol_area.zip"'
+
+    return response
+  
+def jst_reservation_parcels_clco_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jst_reservation_parcels_clco.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jst_reservation_parcels_clco.zip"'
+
+    return response
+  
+def document_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'document.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="document.zip"'
+
+    return response
+  
+def clco_parcels_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'clco_parcels.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="clco_parcels.zip"'
+
+    return response
+  
+def jst_boundary_jefco_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jst_boundary_jefco.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jst_boundary_jefco.zip"'
+
+    return response
+  
+def jst_fee_parcels_clco_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jst_fee_parcels_clco.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jst_fee_parcels_clco.zip"'
+
+    return response
+  
