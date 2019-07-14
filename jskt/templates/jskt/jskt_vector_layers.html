@@ -32,7 +32,7 @@
 
     var baseVectorURL = 'http://216.218.220.139:8081/geoserver/iltf/ows?service=WFS&version=1.1.0&request=GetFeature&srsName=EPSG:4326&outputFormat=json&format_options=callback:loadGeoJson'
 
-    var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_buff_bndry', {
+    var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_buffered_bndry', {
         style: {clickable: true,
                 fill: true,
 		opacity: 0,
@@ -43,15 +43,6 @@
 
 
 
-    var all_prop = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_all_prop', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
     var boundary = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_boundary', {
         style: {clickable: false,
                 weight: 3,
@@ -61,7 +52,7 @@
 	onEachFeature: popupFunc
     });
 
-    var cl_co_prop_db = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_cl_co_prop_db', {
+    var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_buff_bndry', {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
@@ -70,64 +61,73 @@
 	onEachFeature: popupFunc
     });
 
-    var counties = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_counties', {
+    var clco_parcels = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_clco_parcels', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
+	        color: '#FFFFFF',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
     });
 
-    var fee_trust = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_fee_trust', {
+    var jefco_parcels = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_jefco_parcels', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
+	        color: '#732600',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
     });
 
-    var jef_co_prop_db = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_jef_co_prop_db', {
+    var jst_boundary_clco = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_jst_boundary_clco', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
+	        color: '#C2BEF7',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
     });
 
-    var land_consolidation = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_land_consolidation', {
+    var jst_boundary_jefco = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_jst_boundary_jefco', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
+	        color: '#A3FF73',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
     });
 
-    var prop_only = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_prop_only', {
+    var jst_fee_parcels_clco = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_jst_fee_parcels_clco', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
+	        color: '#A3FF73',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
     });
 
-    var res_trust = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_res_trust', {
+    var jst_land_consol_area = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_jst_land_consol_area', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
+	        color: '#D7C29E',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
     });
 
-    var service_area = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_service_area', {
+    var jst_reservation_parcels_clco = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_jst_reservation_parcels_clco', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
+	        color: '#FF7F7F',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var jst_trust_parcels_clco = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_jst_trust_parcels_clco', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#FFAA00',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
@@ -148,7 +148,7 @@
 ////// Leaflet Map /////////
 ////////////////////////////
 
-    map.setView(new L.LatLng(47.9195, -123.6), 9);
+    map.setView(new L.LatLng(46.4188, -84.4149), 11);
     map.addLayer(boundary);
 
 </script>
