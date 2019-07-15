@@ -3,7 +3,7 @@ from django.contrib.gis.db import models
 class boundary(models.Model):
     aiannhce = models.CharField(max_length=4)
     aiannhns = models.CharField(max_length=8)
-    affgeoid = models.CharField(null=True, max_length=13)
+    affgeoid = models.CharField(max_length=13, null = True)
     geoid = models.CharField(max_length=4)
     name = models.CharField(max_length=100)
     lsad = models.CharField(max_length=2)
@@ -18,6 +18,18 @@ class boundary(models.Model):
 
 class buff_bndry(models.Model):
     id = models.BigIntegerField()
+    geom = models.MultiPolygonField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+
+class ceded_territories(models.Model):
+    label = models.CharField(max_length=48)
+    treaty = models.BigIntegerField()
+    disputed = models.BigIntegerField()
+    website_la = models.CharField(max_length=14)
     geom = models.MultiPolygonField(srid=4326)
     id = models.AutoField(primary_key = True)
 

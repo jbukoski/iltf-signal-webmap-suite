@@ -469,3 +469,85 @@ def document_view_dl(request):
 
     return response
   
+
+## Layer Views
+
+def boundary_view(request):
+    boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field='geom', fields = ('aiannhce', 'aiannhns', 'affgeoid', 'geoid', 'name', 'lsad', 'aland', 'awater', 'geom', 'id'))
+    return HttpResponse(boundary_json, content_type='json')
+
+def buff_bndry_view(request):
+    buff_bndry_json = serialize('geojson', models.buff_bndry.objects.all(), geometry_field='geom', fields = ('geom', 'id'))
+    return HttpResponse(buff_bndry_json, content_type='json')
+
+def units_view(request):
+    units_json = serialize('geojson', models.units.objects.all(), geometry_field='geom', fields = ('geom', 'id'))
+    return HttpResponse(units_json, content_type='json')
+
+def ceded_territories_view(request):
+    ceded_territories_json = serialize('geojson', models.ceded_territories.objects.all(), geometry_field='geom', fields = ('label', 'treaty', 'disputed', 'website_la', 'geom', 'id'))
+    return HttpResponse(ceded_territories_json, content_type='json')
+
+def document_view(request):
+    document_json = serialize('geojson', models.document.objects.all(), geometry_field='geom', fields = ('id', 'name', 'docfile'))
+    return HttpResponse(document_json, content_type='json')
+
+def tax_areas_view(request):
+    tax_areas_json = serialize('geojson', models.tax_areas.objects.all(), geometry_field='geom', fields = ('county', 'shape_leng', 'shape_area', 'state', 'name', 'geom', 'id'))
+    return HttpResponse(tax_areas_json, content_type='json')
+
+def parcels_view(request):
+    parcels_json = serialize('geojson', models.parcels.objects.all(), geometry_field='geom', fields = ('objectid', 'joined', 'planid', 'name', 'type', 'statedarea', 'shape_leng', 'shape_area', 'category', 'address', 'city', 'wateracces', 'zip', 'geom', 'id'))
+    return HttpResponse(parcels_json, content_type='json')
+
+## Layer Download Views
+
+def boundary_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'ssmt', 'boundary.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="boundary.zip"'
+
+    return response
+  
+def buff_bndry_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'ssmt', 'buff_bndry.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="buff_bndry.zip"'
+
+    return response
+  
+def units_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'ssmt', 'units.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="units.zip"'
+
+    return response
+  
+def ceded_territories_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'ssmt', 'ceded_territories.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="ceded_territories.zip"'
+
+    return response
+  
+def document_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'ssmt', 'document.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="document.zip"'
+
+    return response
+  
+def tax_areas_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'ssmt', 'tax_areas.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="tax_areas.zip"'
+
+    return response
+  
+def parcels_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'ssmt', 'parcels.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="parcels.zip"'
+
+    return response
+  

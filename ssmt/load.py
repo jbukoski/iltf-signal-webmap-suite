@@ -23,6 +23,16 @@ buff_bndry_mapping = {
 
 buff_bndry_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'ssmt', 'buff_bndry.shp'))
 
+ceded_territories_mapping = {
+    'label' : 'LABEL',
+    'treaty' : 'TREATY',
+    'disputed' : 'DISPUTED',
+    'website_la' : 'WEBSITE_LA',
+    'geom' : 'MULTIPOLYGON25D',
+}
+
+ceded_territories_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'ssmt', 'ceded_territories.shp'))
+
 parcels_mapping = {
     'objectid' : 'OBJECTID',
     'joined' : 'Joined',
@@ -73,6 +83,12 @@ def run(verbose=True):
         transform=False, encoding='iso-8859-1'
     )
     buff_bndry_lm.save(strict=True, verbose=verbose)
+
+    ceded_territories_lm = LayerMapping(
+        models.ceded_territories, ceded_territories_shp, ceded_territories_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    ceded_territories_lm.save(strict=True, verbose=verbose)
 
     parcels_lm = LayerMapping(
         models.parcels, parcels_shp, parcels_mapping,
