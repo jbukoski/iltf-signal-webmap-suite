@@ -59,7 +59,7 @@ echo "{% block vector_layers %}
 
     var baseVectorURL = 'http://216.218.220.139:8081/geoserver/iltf/ows?service=WFS&version=1.1.0&request=GetFeature&srsName=EPSG:4326&outputFormat=json&format_options=callback:loadGeoJson'
 
-    var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:${TRIBE}_buffered_bndry', {
+    var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:${TRIBE}_buff_bndry', {
         style: {clickable: true,
                 fill: true,
 		opacity: 0,
