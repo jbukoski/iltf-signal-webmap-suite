@@ -52,15 +52,6 @@
 	onEachFeature: popupFunc
     });
 
-    var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_buff_bndry', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
     var clco_parcels = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:jskt_clco_parcels', {
         style: {clickable: false,
                 weight: 1,
