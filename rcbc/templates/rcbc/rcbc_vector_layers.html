@@ -1,0 +1,210 @@
+{% block vector_layers %}
+
+	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.min.js'></script>
+
+
+<script>
+
+///////////////////////////
+////// Vector Layers //////
+///////////////////////////
+
+    function popupFunc(feature, layer) {
+            var popupContent = '';
+            for (var k in feature.properties) {
+                     var v = String(feature.properties[k]);
+                     popupContent += '<strong>' + k + '</strong>' + ': ' + v + '</br>';
+            };
+            return layer.bindPopup(popupContent);
+    };
+
+    function rndmPolys(feature) {
+	    var col = randomColor()
+	    return {color: col,
+		    weight: 3 };
+    };
+
+    function stylePolys(feature, prop) {
+	    d = feature.properties.get(prop);
+	    return d == 'ST. MARYS DRAINAGE BASIN' ? {color: '#00FF7F', opacity: 0.7}:
+		    {color: '#ffffff', opacity: 1};
+    };
+
+    var baseVectorURL = 'http://216.218.220.139:8081/geoserver/iltf/ows?service=WFS&version=1.1.0&request=GetFeature&srsName=EPSG:4326&outputFormat=json&format_options=callback:loadGeoJson'
+
+    var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_buffered_bndry', {
+        style: {clickable: true,
+                fill: true,
+		opacity: 0,
+                fillOpacity: 0,
+                zIndex: -100,
+            },
+    });
+
+
+
+    var ashland_cnty = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_ashland_cnty', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var bayfield_cnty = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_bayfield_cnty', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var beachroute = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_beachroute', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var boundary = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_boundary', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var claytoncreektrail = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_claytoncreektrail', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var conservationmgmtarea = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_conservationmgmtarea', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var easyroute = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_easyroute', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var fbtnp = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_fbtnp', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var frogbaytrails = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_frogbaytrails', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var rc_zoning_districts = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_rc_zoning_districts', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var s_fld_haz_ar = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_s_fld_haz_ar', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var s_fld_haz_ln = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_s_fld_haz_ln', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var s_trnsport_ln = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_s_trnsport_ln', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var s_wtr_ar = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_s_wtr_ar', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var s_wtr_ln = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_s_wtr_ln', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var watersheds = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_watersheds', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var document = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_document', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+
+
+////////////////////////////
+////// Leaflet Map /////////
+////////////////////////////
+
+    map.setView(new L.LatLng(46.9117, -90.8316), 11);
+    map.addLayer(boundary);
+
+</script>
+
+{% endblock vector_layers %}

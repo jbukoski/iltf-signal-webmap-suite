@@ -46,8 +46,9 @@ INSTALLED_APPS = [
     'comanche',
     'jskt',
     'lbst',
-    'tamaya',
+    'rcbc',
     'ssmt',
+    'tamaya',
     'wms',
 ]
 
@@ -71,6 +72,7 @@ TEMPLATES = [
                  'comanche/templates/comanche',
                  'jskt/templates/jskt',
                  'lbst/templates/lbst',
+                 'rcbc/templates/rcbc',
                  'ssmt/templates/ssmt',
                  'tamaya/templates/tamaya',
                 ],

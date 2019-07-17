@@ -7,6 +7,7 @@ from bmic.admin import bmic_admin
 from comanche.admin import comanche_admin
 from jskt.admin import jskt_admin
 from lbst.admin import lbst_admin
+from rcbc.admin import rcbc_admin
 from ssmt.admin import ssmt_admin
 from tamaya.admin import tamaya_admin
 from . import views
@@ -27,6 +28,8 @@ urlpatterns = [
     url(r'^jskt/admin', include(jskt_admin.urls)),
     url(r'^lbst/', include('lbst.urls')),
     url(r'^lbst/admin', include(lbst_admin.urls)),
+    url(r'^rcbc/', include('rcbc.urls'), name='rcbc'),
+    url(r'^rcbc/admin/', include(rcbc_admin.urls)),
     url(r'^ssmt/', include('ssmt.urls'), name='ssmt'),
     url(r'^ssmt/admin/', include(ssmt_admin.urls)),
     url(r'^tamaya/', include('tamaya.urls'), name='tamaya'),

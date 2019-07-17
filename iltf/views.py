@@ -25,10 +25,12 @@ def custLogin(request):
         return HttpResponseRedirect(reverse('jskt_index'))
     elif request.user.username == 'lbst_user':
         return HttpResponseRedirect(reverse('lbst_index'))
-    elif request.user.username == 'tamaya_user':
-        return HttpResponseRedirect(reverse('tamaya_index'))
+    elif request.user.username == 'rcbc_user':
+        return HttpResponseRedirect(reverse('rcbc_index'))
     elif request.user.username == 'ssmt_user':
         return HttpResponseRedirect(reverse('ssmt_index'))
+    elif request.user.username == 'tamaya_user':
+        return HttpResponseRedirect(reverse('tamaya_index'))
     else:
         return redirect('iltf_index')
 

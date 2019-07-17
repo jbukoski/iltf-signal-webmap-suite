@@ -1,0 +1,499 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block side_bar %}
+
+    <title>{{ title }}</title>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle btn" data-toggle="collapse" data-target=".navbar-collapse" style="height: 34px; padding: 5px 10px; margin-right: 10px;"><i class="fa fa-ellipsis-v" style="color: white"></i></button>
+            <button id="toggle" type="button" class="navbar-toggle btn" style="height: 34px; padding: 5px 10px; margin-right: 10px;"><i id="toggleIcon" class="fa fa-check-square-o" style="color: white"></i></button>
+            <a class="navbar-brand" href="http://redcliff-nsn.gov/" target="_blank_">Red Cliff Band of Lake Superior Chippewa</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav pull-left">
+                <a class="navbar-brand" href="#" style="font-size: 0.75m; color: gray;">Land & Natural Assets Map</a>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <a class="navbar-brand" href="{% url 'signout' %}" style="font-size: 18px; color: grey;">Log Out</a>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row" id="container">
+        <div class="col-sm-3 col-lg-3" id="sidebar" style="padding: 10px; overflow: auto;">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active"><a href="#layers" data-toggle="tab"><i class="fa fa-check-square-o"></i>&nbsp;Layers</a></li>
+                <li><a href="#upload" data-toggle="tab"><i class="fa fa-upload"></i>&nbsp;Import</a></li>
+                <li><a href="#documentation" data-toggle="tab"><i class="fa fa-info-circle"></i>&nbsp;Documentation</a></li>
+            </ul>
+
+            <div class="tab-content" style="padding-top: 10px;">
+                <div class="tab-pane active" id="layers">
+                    <div class="panel-group">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#admin-layers">
+                                    Administrative Layers
+                                </a>
+                            </div>
+                            <div id="admin-layers" class="panel-collapse collapse in">
+                                <div class="panel-body" style="padding: 0px 15px;">
+				    <div class="checkbox">
+				        <label>
+                                            <input type="checkbox" name="overlayLayers" id="boundary" z-index="1" checked>
+                                            &nbsp; Reservation boundary &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				</div>
+	                    </div>
+                        </div> <!--Closes 'panel panel-default for administrative layers'-->
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#hydro-layers">
+                                        Hydrology Layers
+                                </a>
+                            </div>
+                            <div id="hydro-layers" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="watersheds" z-index="3">
+                                            &nbsp; ENTER HYDROLOGY LAYERS &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!--Closes 'panel panel-default for hydrology layers'-->
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#vegetation-layers">
+                                    Vegetation Layers
+                                </a>
+                            </div>
+                            <div id="vegetation-layers" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                   <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="landfireEVT" z-index="3">
+                                            &nbsp; LANDFIRE Vegetation Type &nbsp; <a href="{% url 'landfire_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                   </div>
+                                   <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="ndvi2005" z-index="3">
+                                            &nbsp; Mean Annual NDVI - 2005 &nbsp; <a href="{% url 'ndvi_2005_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                   </div>
+                                   <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="ndvi2010" z-index="3">
+                                            &nbsp; Mean Annual NDVI - 2010 &nbsp; <a href="{% url 'ndvi_2010_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                   </div>
+                                   <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="ndvi2015" z-index="3">
+                                            &nbsp; Mean Annual NDVI - 2015 &nbsp; <a href="{% url 'ndvi_2015_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                   </div>
+                                </div>
+                            </div>
+                        </div>
+
+			<div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#carbon-layers">
+                                    Carbon Layers
+                                </a>
+                            </div>
+                            <div id="carbon-layers" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="agc" z-index="3">
+                                            &nbsp; Forest aboveground carbon &nbsp; <a href="{% url 'agc_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="bgc" z-index="3">
+                                            &nbsp; Forest belowground carbon &nbsp; <a href="{% url 'bgc_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+			    	    <label>
+                                            <input type="checkbox" name="overlayLayers" id="gssurgoSOC" z-index="3">
+                                            &nbsp; Soil organic carbon &nbsp; <a href="{% url 'soc_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+            		        </div>
+            		    </div>
+                        </div>
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#user-layers">
+                                        User-defined Layers
+                                </a>
+                            </div>
+                            <div id="user-layers" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <!-- List of uploaded documents -->
+                                    {% if documents %}
+                                        {% for document in documents %}
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="uploadLayers" id="{{ document.docfile.name }}" z-index="5" value="{{ document.docfile.name }}" onclick="show_static('{{ document.docfile.name }}')">
+                                                        <div style="display: inline-block;">
+                                                            {{ document.name }}
+                                                        </div>
+                                                    </input>
+                                                </label>
+                                                <div style="display: inline-block; float:right;">
+                                                <form role="form" method="POST" action="{% url 'delete_single' %}" enctype="multipart/form-data" style="display: inline-block;">
+                                                    {% csrf_token %}
+                                                    <input name="dat" value={{ document.docfile }} style="display: none;">
+                                                        <button class="fa fa-trash-o" type="submit" style="color: red; border: none; background: none;"></button>
+                                                    </input>
+                                                </form>
+                                                <form role="form" method="POST" action="{% url 'download_single' %}" enctype="multipart/form-data" style="display: inline-block;">
+                                                    {% csrf_token %}
+                                                    <input name="dl_file" value={{ document.docfile }} style="display: none;">
+                                                        <button class="fa fa-download" type="submit" style="color: #428BCA; border: none; background: none;"></button>
+                                                    </input>
+                                                </form>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p style="padding: 15px 0px 0px 0px;"><i>No documents uploaded.</i></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+        	        </div> <!--Closes 'panel panel-default'-->
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#imagery">
+                                        Base Layers
+                                </a>
+                            </div>
+                            <div id="imagery" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                		    <div class="radio">
+                		        <label>
+                                            <input type="radio" name="basemapLayers" id="esriWorld" checked>
+                                                &nbsp; World Imagery, ESRI
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="basemapLayers" id="topo">
+                                                &nbsp; Topography, ESRI
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="basemapLayers" id="osmBaseMap">
+                                                &nbsp; Open Street Map
+                                        </label>
+                                    </div>
+            		        </div>
+        	            </div>
+                        </div> <!-- closes 'Base Layers' panel -->
+
+            	        <br>
+                    </div>  <!--Closes 'panel group'-->
+                </div> <!--Closes 'layers' panel-->
+
+                <div class="tab-pane" id="upload">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4><b>Upload Data Layers:</b></h4>
+                            </br>
+                            <p> New data layers in GeoJSON format (<b>.geojson</b>) and in a <b>EPSG:4326</b> projection may be uploaded to this webmap and used along with existing data for interactivity and visualizations.</p>
+                            <div style="height: 20px;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Upload local <i>.geojson</i> file:</h4>
+                            <form role="form" method="POST" action="{% url 'sample_up' %}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="file" name="docfile" onchange="uploader()" id="upload_file">
+                                <div style="height: 15px;"></div>
+                                <div id="show_upload" style="padding-bottom: 15px;"></div>
+                                <button id="send_upload" class="btn btn-danger" style="display: none" type="submit">Upload File</button>
+                            </form>
+                            <div style="height: 20px;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Delete Uploaded GeoJSON:</h4>
+                            <p>Delete <strong>all</strong> previously uploaded GeoJSON files from the server. <i>Please note that this action cannot be undone.</i></p>
+                            <form role="form" method="POST" action="{% url 'delete_up' %}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input name="del_files" type="file" id="del_files" value="{{ request.path }}" style="display: none;">
+                                <button id="del_uploads" class="btn btn-info" type="submit">Delete Files</button>
+                            </form>
+                            <div style="height: 50px;"></div>
+                        </div>
+                    </div>
+                </div> <!--Closes tab-pane="upload"-->
+
+                <div class="tab-pane" id="documentation">
+                    <div class="panel-group">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#overview">
+                                    Webmap Overview
+                                </a>
+                            </div>
+                            <div id="overview" class="panel-collapse collapse in">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> This webmap is a collaborative product between the <a href="http://redcliff-nsn.gov/" target="_blank">Red Cliff Band of the Lake Superior Chippewa</a>, the <a href="https://iltf.org/" target="_blank">Indian Land Tenure Foundation</a> and the <a href="http://sig-nal.org/" target="_blank">Spatial Informatics Group Natural Assets Laboratory (SIG-NAL)</a>. </p>
+                                        <p> The webmap compiles the Red Cliff Band's data layers with publically available environmental raster layers and several functions designed to facilitate environmental decision-making within the Band's jurisdiction.</p>
+                                        <p> For more information on the various data layers and webmap functions provided, expand the tabs below.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-overview">
+                                    Data Layers Overview
+                                </a>
+                            </div>
+                            <div id="data-layers-overview" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The data layers hosted on this webmap are a combination of layers provided by the Pueblo and publically accessible environmental data layers. Additional information on the layers metadata and sources are provided in the Data Layers tabs below. </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-admin" style="padding: 0px 0px 0px 15px;">
+                                    <i>Data Layers: Administrative</i>
+                                </a>
+                            </div>
+                            <div id="data-layers-admin" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The <b>administrative layers</b> hosted on the webmap consist of:
+                                              <ul>
+                                                 <li> <i>Reservation boundary</i> </li>
+                                                 <li> <i>Master business leases</i> </li>
+                                                 <li> <i>Reservation roads</i> </li>
+                                              </ul>
+                                              <p>The administrative layers are provided by the Band. The layers provide the approximate reservation boundary, polygons representing five master business leases within the boundary, and a database of roads. The master business leases and roads layers can be queried for additional information.</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-hydro" style="padding: 0px 0px 0px 15px;">
+                                    <i>Data Layers: Hydrology</i>
+                                </a>
+                            </div>
+                            <div id="data-layers-hydro" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The <b>hydrology layers</b> hosted on the webmap consist of:
+                                              <ul>
+                                                 <li> <i>Watersheds</i> </li>
+                                                 <li> <i>Subwatersheds</i> </li>
+                                                 <li> <i>Surface hydrology</i> </li>
+                                              </ul>
+                                              <p>The hydrology layers are provided by the Pueblo and represent the geographic boundaries of watersheds, subwatersheds, and surface hydrology for the region. The watershed and subwatershed layers can be queried for additional information.</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-soil" style="padding: 0px 0px 0px 15px;">
+                                    <i>Data Layers: Soil Characteristics</i>
+                                </a>
+                            </div>
+                            <div id="data-layers-soil" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The <b>soil characteristics layers</b> hosted on the webmap consist of:
+                                              <ul>
+                                                 <li> <i>Soil bulk density</i> </li>
+                                                 <li> <i>Composting cover</i> </li>
+                                                 <li> <i>Organic matter</i> </li>
+                                                 <li> <i>Surface pH, weighted average</i> </li>
+                                                 <li> <i>Taxonomic classification</i> </li>
+                                                 <li> <i>Texture</i> </li>
+                                              </ul>
+                                              <p>The soil characteristics layers provide key soil characteristics data for managing landscapes. The soil characteristics data are provided for distinct sampling units that as identified by the National Cooperative Soil Survey. The data is provided by the Soil Survey Geographic database (SSURGO). More information on the soil characteristics layers can be found <a href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/soils/survey/?cid=nrcs142p2_053627">here</a>.</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-vegetation" style="padding: 0px 0px 0px 15px;">
+                                    <i>Data Layers: Vegetation</i>
+                                </a>
+                            </div>
+                            <div id="data-layers-vegetation" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The <b>vegetation layers</b> hosted on the webmap consist of:
+                                              <ul>
+                                                 <li> <i>LANDFIRE Existing Vegetation Type</i> </li>
+                                                 <li> <i>Mean Annual NDVI for three different years</i> </li>
+                                              </ul>
+                                              <p>The <b>LANDFIRE Existing Vegetation Type</b> is a product of the United States Geological Survey that provides the existing vegetation type on the landscape for 2014. More information on LANDFIRE EVT can be found <a href="https://www.landfire.gov/NationalProductDescriptions21.php">here</a>.</p>
+                                              <p>The <b>mean annual Normalized Difference Vegetation Index</b> (NDVI) layers provide the mean annual NDVI for 2005, 2010, and 2015 (i.e., the average NDVI value for each pixel in the landscape for the year of interest). NDVI is an indicator of "greenness" in a landscape, and provides a proxy for presence of healthy, green vegetation. More information on NDVI can be found <a href="https://en.wikipedia.org/wiki/Normalized_Difference_Vegetation_Index" target="_blank">here</a>.</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-carbon" style="padding: 0px 0px 0px 15px;">
+                                    <i>Data Layers: Carbon</i>
+                                </a>
+                            </div>
+                            <div id="data-layers-carbon" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The <b>carbon layers</b> hosted on the webmap consist of:
+                                              <ul>
+                                                 <li> <i>Aboveground forest carbon</i> </li>
+                                                 <li> <i>Belowground forest carbon</i> </li>
+                                                 <li> <i>Soil organic carbon</i> </li>
+                                              </ul>
+                                              <p>All of the carbon layers are taken from the United States Department of Agriculture's <a href="www.carbonscapes.org" target="_blank">CarbonScapes</a> Initiative, which seeks to providely publically accessible data on geospatial patterns of terrestrial carbon within the United States.</p>
+				              <p>The <b>aboveground forest carbon</b> data layer provides estimates of aboveground biomass carbon (g/cm<sup>3</sup>) gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=93">here</a>.</p>
+                                              <p>The <b>belowground forest carbon</b> data layer provides estimates of belowground biomass carbon (g/cm<sup>3</sup> gridded at a 250 x 250 m resolution. The data is provided by the USDA Forest Service's Forest Inventory and Analysis, and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=94">here</a>.</p>
+                                              <p>The <b>soil organic carbon</b> provides data on organic carbon (g/cm<sup>3</sup>) from 0 - 100 cm, gridded to a 10 x 10 m resolution. The data is provided by the gridded Soil Survey Geographic Database (gSSURGO), and additional details can be found <a href="http://www.carbonscapes.org/USDA/MapLayerInfo/MapLayerInfo.aspx?id=80">here</a>.</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#functions-overview">
+                                    Functions Overview
+                                </a>
+                            </div>
+                            <div id="functions-overview" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The webmap's functions are designed to empower its users in environmental decision-making. The primary functions comprise of:</p>
+                                        <ul>
+                                            <li><i>Layer query</i></li>
+                                            <li><i>Layer import</i></li>
+                                            <li><i>Raster summary statistics</i></li>
+                                        </ul>
+                                        <p> The functions are described in greater detail below.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#legend" style="padding: 0px 0px 0px 15px;">
+                                    <i>Functions: Layer Query</i>
+                                </a>
+                            </div>
+                            <div id="legend" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The various vector layers hold attribute data that can be accessed by clicking on the polygon or line. In addition, the raster data of the <b>vegetation layers</b> can be queried by turning on each of the layers and clicking on the map. A popup will be returned that displays the information of interest.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#import-doc" style="padding: 0px 0px 0px 15px;">
+                                    <i>Functions: Layer Import</i>
+                                </a>
+                            </div>
+                            <div id="import-doc" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The <b>layer import</b> function can be accessed through the <b><i>Import</i></b> tab. To import a vector layer to the webmap, there are two key criteria: </p>
+                                        <ol>
+                                            <li>The layer must be in <b>.geojson</b> format.</li>
+                                            <li>The layer must be in <b>EPSG:4326</b> projection. </li>
+                                        </ol>
+                                        <p> GeoJSON is a native format for webmapping, as is the EPSG:4326 projection. If files are uploaded, but cannot be displayed on the webmap, it is likely that one of these two criteria is not met. ESRI Shapefiles can be converted to GeoJSON format and EPSG:4326 projection through basic, free and open source GIS software such as <a href="http://www.qgis.org/en/site/" target="_blank">QGIS</a>.</p>
+                                        <p> To import a layer, simply select the <b><i>Import</i></b> tab and click on the <b><i>Choose file</i></b> button. Navigate to the GeoJSON file you'd like to upload, and select it. After doing so, basic information about the file will be displayed. Select the red <b><i>Upload file</i></b> button to upload the file. The layer should not be available within the <b><i>User-defined Layers</i></b> section under the <b><i>Layers</i></b> tab.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#sum-stats" style="padding: 0px 0px 0px 15px;">
+                                    <i>Functions: Summary Statistics</i>
+                                </a>
+                            </div>
+                            <div id="sum-stats" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The <b>summary statistics</b> function provides a means of estimating pools of carbon over select geographic areas within the landscape. In short, the function allows the user to summarize any of the carbon layers within a polygon of interest.</p>
+                                        <p> To run the <b>summary statistics</b> function, simply turn on any or all of the <b>carbon layers</b>. Then, use the one of the <b>draw</b> tools (the square and pentagon buttons directly below the image of the printer) to draw a polygon on the map. After the polygon is drawn, click on it and a pop-up will display showing the summary statistics of the selected layer. Note that for large polygons, the summary function may take several seconds to run. </p>
+					<p> To select a different polygon, you must either <b>edit</b>, or <b>delete</b> the existing polygon. Click on the pencil icon to <b>edit</b>, or the trashcan icon to <b>delete</b> the polygon (select the trashcan, click the polygon, and then select "save"). You will then be able to <b>draw</b> a new polygon. </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </br>
+
+                    </div> <!-- closes 'panel-group' -->
+                </div> <!--Closes tab-pane="documentation"-->
+
+            </div> <!--Closes 'tab-content'-->
+        </div> <!--Closes ID="sidebar"-->
+
+        <div class="col-sm-9 col-lg-9" id="map"></div>
+
+        </div> <!--Closes ID="container"-->
+
+{% endblock side_bar %}
+
+{% block layers %}
+
+<script type="text/javascript" href="http://depot.ign.fr/geoportail/api/develop/tech-docs-js/examples/js/geoportalLeaflet.js"></script>
+
+    {% include 'rcbc_vector_layers.html' %}
+    {% include 'rcbc_raster_layers.html' %}
+
+{% endblock layers %}
+
