@@ -63,6 +63,23 @@
 	                    </div>
                         </div> <!--Closes 'panel panel-default for administrative layers'-->
 
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#zoning-layers">
+                                        Zoning Layers
+                                </a>
+                            </div>
+                            <div id="zoning-layers" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="rc_zoning_districts" z-index="3">
+                                            &nbsp; Red Cliff Band Zoning &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!--Closes 'panel panel-default for zoning layers'-->
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -86,7 +103,7 @@
                                     </div>				    
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="overlayLayers" id="s_transport_ln" z-index="3">
+                                            <input type="checkbox" name="overlayLayers" id="s_trnsport_ln" z-index="3">
                                             &nbsp; Evacuation routes &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
 				    </div>
@@ -104,11 +121,77 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> <!--Closes 'panel panel-default for hydrology layers'-->
-
-
+                        </div> <!--Closes 'panel panel-default for FEMA Flood layers'-->
 
                         <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#natAssets-layers">
+                                        Natural Assets
+                                </a>
+                            </div>
+                            <div id="natAssets-layers" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="conservationmgmtarea" z-index="3">
+                                            &nbsp; Conservation Management Areas &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="wetlands" z-index="3">
+                                            &nbsp; Wetlands &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="fbtnp" z-index="3">
+                                            &nbsp; Frog Bay Tribal National Park &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!--Closes 'panel panel-default for hydrology layers'-->
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#trail-layers">
+                                        Trails
+                                </a>
+                            </div>
+                            <div id="trail-layers" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="claytoncreektrail" z-index="3">
+                                            &nbsp; Clayton Creek Trail &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="frogbaytrails" z-index="3">
+                                            &nbsp; Frog Bay Trails &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="beachroute" z-index="3">
+                                            &nbsp; Beach Route &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="easyroute" z-index="3">
+                                            &nbsp; Easy Route &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!--Closes 'panel panel-default for trail layers'-->
+
+
+
+                        <!--<div class="panel panel-default">
                             <div class="panel-heading">
                                 <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#hydro-layers">
                                         Hydrology Layers
@@ -124,7 +207,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> <!--Closes 'panel panel-default for hydrology layers'-->
+                        </div> Closes 'panel panel-default for hydrology layers'-->
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
