@@ -332,6 +332,16 @@ watersheds_mapping = {
 
 watersheds_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rcbc', 'watersheds.shp'))
 
+def load_buff_bndry(verbose=True):
+
+    buff_bndry_lm = LayerMapping(
+        models.buff_bndry, buff_bndry_shp, buff_bndry_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    buff_bndry_lm.save(strict=True, verbose=verbose)
+
+
+
 def run(verbose=True):
 
     ashland_cnty_lm = LayerMapping(

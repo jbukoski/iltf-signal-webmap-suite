@@ -43,7 +43,7 @@ def index(request):
         doc_counter += 1
 
     return render(request, 'rcbc/index.html', {
-        'title': 'Santa Ana Pueblo of NM',
+        'title': 'Red Cliff Band of the Lake Superior Chippewa',
         'bndry': bndry,
         'documents': documents
     })
