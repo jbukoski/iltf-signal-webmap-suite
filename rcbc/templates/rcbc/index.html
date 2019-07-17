@@ -44,24 +44,69 @@
 				    <div class="checkbox">
 				        <label>
                                             <input type="checkbox" name="overlayLayers" id="boundary" z-index="1" checked>
-                                            &nbsp; Reservation boundary &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            &nbsp; Red Cliff Band Boundary &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
                                     </div>
 				    <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="overlayLayers" id="boundary" z-index="1" checked>
-                                            &nbsp; Reservation boundary &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            <input type="checkbox" name="overlayLayers" id="ashland_cnty" z-index="1" checked>
+                                            &nbsp; Ashland County &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
                                     </div>
 				    <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="overlayLayers" id="boundary" z-index="1" checked>
-                                            &nbsp; Reservation boundary &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                            <input type="checkbox" name="overlayLayers" id="bayfield_cnty" z-index="1" checked>
+                                            &nbsp; Bayfield County &nbsp; <a href="{% url 'boundary_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
                                     </div>
 				</div>
 	                    </div>
                         </div> <!--Closes 'panel panel-default for administrative layers'-->
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#fema-layers">
+                                        FEMA Flood Layers
+                                </a>
+                            </div>
+                            <div id="fema-layers" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="s_fld_haz_ar" z-index="3">
+                                            &nbsp; Flood zones &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="s_fld_haz_ln" z-index="3">
+                                            &nbsp; Flood zone boundaries &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>				    
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="s_transport_ln" z-index="3">
+                                            &nbsp; Evacuation routes &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+				    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="s_wtr_ar" z-index="3">
+                                            &nbsp; Surface water bodies &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+				    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="s_wtr_ln" z-index="3">
+                                            &nbsp; Linear surface water &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!--Closes 'panel panel-default for hydrology layers'-->
+
+
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
