@@ -629,3 +629,60 @@ def jst_fee_parcels_clco_view_dl(request):
 
     return response
   
+## Raster download links
+## Vegetation
+
+def jst_landfire_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jskt_evt.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jskt_landfire_evt.tif"'
+
+    return response
+
+def jst_ndvi_2005_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jskt_ndvi_2005.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jskt_ndvi_2005.tif"'
+
+    return response
+
+def jst_ndvi_2010_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jskt_ndvi_2010.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jskt_ndvi_2010.tif"'
+
+    return response
+
+def jst_ndvi_2015_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jskt_ndvi_2015.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jskt_ndvi_2015.tif"'
+
+    return response
+
+## Carbon
+
+def jst_agc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jskt_agc.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jskt_agc.tif"'
+
+    return response
+
+def jst_bgc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jskt_bgc.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jskt_bgc.tif"'
+
+    return response
+
+def jst_soc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'jskt', 'jskt_soc.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="jskt_soc.tif"'
+
+    return response
+
+
+
+
