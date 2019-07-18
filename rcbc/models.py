@@ -235,7 +235,6 @@ class fbtnp(models.Model):
 
 
 class frogbaytrails(models.Model):
-    id = models.IntegerField()
     length = models.FloatField()
     name = models.CharField(max_length=20)
     geom = models.MultiLineStringField(srid=4326)
@@ -251,7 +250,6 @@ class rc_zoning_districts(models.Model):
     rbd4_field = models.BigIntegerField()
     rbd4_id = models.BigIntegerField()
     rbd4_name = models.CharField(max_length=30)
-    id = models.BigIntegerField()
     district = models.CharField(max_length=50)
     shape_leng = models.FloatField()
     shape_area = models.FloatField()

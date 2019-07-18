@@ -219,7 +219,6 @@ fbtnp_mapping = {
 fbtnp_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rcbc', 'fbtnp.shp'))
 
 frogbaytrails_mapping = {
-    'id' : 'Id',
     'length' : 'Length',
     'name' : 'Name',
     'geom' : 'MULTILINESTRING',
@@ -233,7 +232,6 @@ rc_zoning_districts_mapping = {
     'rbd4_field' : 'RBD4_',
     'rbd4_id' : 'RBD4_ID',
     'rbd4_name' : 'RBD4_NAME',
-    'id' : 'Id',
     'district' : 'District',
     'shape_leng' : 'Shape_Leng',
     'shape_area' : 'Shape_Area',
@@ -332,13 +330,19 @@ watersheds_mapping = {
 
 watersheds_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rcbc', 'watersheds.shp'))
 
-def load_buff_bndry(verbose=True):
+def run_again(verbose=True):
 
-    buff_bndry_lm = LayerMapping(
-        models.buff_bndry, buff_bndry_shp, buff_bndry_mapping,
+    rc_zoning_districts_lm = LayerMapping(
+        models.rc_zoning_districts, rc_zoning_districts_shp, rc_zoning_districts_mapping,
         transform=False, encoding='iso-8859-1'
     )
-    buff_bndry_lm.save(strict=True, verbose=verbose)
+    rc_zoning_districts_lm.save(strict=True, verbose=verbose)
+
+    frogbaytrails_lm = LayerMapping(
+        models.frogbaytrails, frogbaytrails_shp, frogbaytrails_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    frogbaytrails_lm.save(strict=True, verbose=verbose)
 
 
 
