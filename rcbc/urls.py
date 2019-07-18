@@ -51,5 +51,12 @@ urlpatterns = [
     url(r'^watersheds_dl/', views.watersheds_view_dl, name = 'rcbc_watersheds_dl'),
     url(r'^document/', views.document_view, name = 'rcbc_document'),
     url(r'^document_dl/', views.document_view_dl, name = 'rcbc_document_dl'),
+    url(r'^rcbc_landfire_dl/$', views.rcbc_landfire_dl_view, name = 'rcbc_landfire_dl'),
+    url(r'^rcbc_ndvi_2005_dl/$', views.rcbc_ndvi_2005_dl_view, name = 'rcbc_ndvi_2005_dl'),
+    url(r'^rcbc_ndvi_2010_dl/$', views.rcbc_ndvi_2010_dl_view, name = 'rcbc_ndvi_2010_dl'),
+    url(r'^rcbc_ndvi_2015_dl/$', views.rcbc_ndvi_2015_dl_view, name = 'rcbc_ndvi_2015_dl'),
+    #url(r'^rcbc_agc_dl/$', views.rcbc_agc_dl_view, name = 'rcbc_agc_dl'),
+    #url(r'^rcbc_bgc_dl/$', views.rcbc_bgc_dl_view, name = 'rcbc_bgc_dl'),
+    url(r'^rcbc_soc_dl/$', views.rcbc_soc_dl_view, name = 'rcbc_soc_dl'),
 
 ]

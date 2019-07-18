@@ -569,3 +569,60 @@ def claytoncreektrail_view_dl(request):
 
     return response
   
+## Raster download links
+
+## Vegetation
+
+def rcbc_landfire_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'rcbc_landfire_evt.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="rcbc_evt.tif"'
+
+    return response
+
+def rcbc_ndvi_2005_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'rcbc_ndvi_2005.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="rcbc_ndvi_2005.tif"'
+
+    return response
+
+def rcbc_ndvi_2010_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'rcbc_ndvi_2010.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="rcbc_ndvi_2010.tif"'
+
+    return response
+
+def rcbc_ndvi_2015_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'rcbc_ndvi_2015.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="rcbc_ndvi_2015.tif"'
+
+    return response
+
+
+## Carbon
+
+def rcbc_agc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'rcbc_agc.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="rcbc_agc.tif"'
+
+    return response
+
+def rcbc_bgc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'rcbc_bgc.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="rcbc_bgc.tif"'
+
+    return response
+
+def rcbc_soc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'rcbc_gssurgo_soc.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="rcbc_soc.tif"'
+
+    return response
+
+
