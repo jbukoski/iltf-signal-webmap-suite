@@ -204,13 +204,13 @@
                                                     </input>
                                                 </label>
                                                 <div style="display: inline-block; float:right;">
-                                                <form role="form" method="POST" action="{% url 'delete_single' %}" enctype="multipart/form-data" style="display: inline-block;">
+                                                <form role="form" method="POST" action="{% url 'jskt_delete_single' %}" enctype="multipart/form-data" style="display: inline-block;">
                                                     {% csrf_token %}
                                                     <input name="dat" value={{ document.docfile }} style="display: none;">
                                                         <button class="fa fa-trash-o" type="submit" style="color: red; border: none; background: none;"></button>
                                                     </input>
                                                 </form>
-                                                <form role="form" method="POST" action="{% url 'download_single' %}" enctype="multipart/form-data" style="display: inline-block;">
+                                                <form role="form" method="POST" action="{% url 'jskt_download_single' %}" enctype="multipart/form-data" style="display: inline-block;">
                                                     {% csrf_token %}
                                                     <input name="dl_file" value={{ document.docfile }} style="display: none;">
                                                         <button class="fa fa-download" type="submit" style="color: #428BCA; border: none; background: none;"></button>
@@ -272,7 +272,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4>Upload local <i>.geojson</i> file:</h4>
-                            <form role="form" method="POST" action="{% url 'sample_up' %}" enctype="multipart/form-data">
+                            <form role="form" method="POST" action="{% url 'jskt_sample_up' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <input type="file" name="docfile" onchange="uploader()" id="upload_file">
                                 <div style="height: 15px;"></div>
@@ -286,7 +286,7 @@
                         <div class="col-md-12">
                             <h4>Delete Uploaded GeoJSON:</h4>
                             <p>Delete <strong>all</strong> previously uploaded GeoJSON files from the server. <i>Please note that this action cannot be undone.</i></p>
-                            <form role="form" method="POST" action="{% url 'delete_up' %}" enctype="multipart/form-data">
+                            <form role="form" method="POST" action="{% url 'jskt_delete_up' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <input name="del_files" type="file" id="del_files" value="{{ request.path }}" style="display: none;">
                                 <button id="del_uploads" class="btn btn-info" type="submit">Delete Files</button>
