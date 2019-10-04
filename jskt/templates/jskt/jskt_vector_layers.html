@@ -141,8 +141,10 @@
 ////// Leaflet Map /////////
 ////////////////////////////
 
-    map.setView(new L.LatLng(47.9865, -123.0556), 11);
+    map.setView(new L.LatLng(48.0565, -123.0056), 11);
     map.addLayer(boundary);
+    map.removeLayer(esriWorld);
+    map.addLayer(topo);
 
 </script>
 
