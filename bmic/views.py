@@ -482,6 +482,10 @@ def wastewater_lines_view(request):
     wastewater_lines_json = serialize('geojson', models.wastewater_lines.objects.all(), geometry_field='geom', fields = ('objectid', 'type', 'size', 'constructi', 'repair_dat', 'contractor', 'original_c', 'replacemen', 'flow_vol', 'shape_leng', 'geom', 'id'))
     return HttpResponse(wastewater_lines_json, content_type='json')
 
+def watermains_view(request):
+    watermains_json = serialize('geojson', models.watermains.objects.all(), geometry_field='geom', fields = ('id', 'rdname', 'cnt_rdname', 'irr', 'route_95', 'class_95', 'constru_95', 'surface_95', 'owner_95', 'sect_95', 'sec_nam_95', 'z5_length', 'z3_surface', 'z3_conditi', 'z3_constru', 'z3_owner', 'z3_other', 'on_reserva', 'length', 'length_mil', 'need_01', 'wtrmn_clss', 'pro_surfac', 'pro_should', 'pro_width', 'cost', 'length2010'))
+    return HttpResponse(watermains_json, content_type='json')
+
 def waishkey_ptnl_wtlnd_rstrn_view(request):
     waishkey_ptnl_wtlnd_rstrn_json = serialize('geojson', models.waishkey_ptnl_wtlnd_rstrn.objects.all(), geometry_field='geom', fields = ('objectid_1', 'objectid', 'res_rank', 'acres', 'area_field', 'shape_star', 'shape_stle', 'shapestare', 'shapestlen', 'geom', 'id'))
     return HttpResponse(waishkey_ptnl_wtlnd_rstrn_json, content_type='json')
@@ -760,6 +764,13 @@ def waishkey_ptnl_wtlnd_rstrn_view_dl(request):
     download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'waishkey_ptnl_wtlnd_rstrn.zip'), 'rb')
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="waishkey_ptnl_wtlnd_rstrn.zip"'
+
+    return response
+
+def watermains_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'bmic', 'watermains.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="watermains.zip"'
 
     return response
   
