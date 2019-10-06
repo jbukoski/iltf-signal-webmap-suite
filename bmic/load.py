@@ -741,6 +741,38 @@ wastewater_lines_mapping = {
 
 wastewater_lines_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'bmic', 'wastewater_lines.shp'))
 
+watermains_mapping = {
+    'rdname' : 'RDNAME',
+    'cnt_rdname' : 'CNT_RDNAME',
+    'irr' : 'IRR',
+    'route_95' : 'ROUTE_95',
+    'class_95' : 'CLASS_95',
+    'constru_95' : 'CONSTRU_95',
+    'surface_95' : 'SURFACE_95',
+    'owner_95' : 'OWNER_95',
+    'sect_95' : 'SECT_95',
+    'sec_nam_95' : 'SEC_NAM_95',
+    'z5_length' : 'Z5_LENGTH',
+    'z3_surface' : 'Z3_SURFACE',
+    'z3_conditi' : 'Z3_CONDITI',
+    'z3_constru' : 'Z3_CONSTRU',
+    'z3_owner' : 'Z3_OWNER',
+    'z3_other' : 'Z3_OTHER',
+    'on_reserva' : 'ON_RESERVA',
+    'length' : 'LENGTH',
+    'length_mil' : 'LENGTH_MIL',
+    'need_01' : 'NEED_01',
+    'wtrmn_clss' : 'wtrmn_clss',
+    'pro_surfac' : 'Pro_Surfac',
+    'pro_should' : 'Pro_Should',
+    'pro_width' : 'Pro_Width',
+    'cost' : 'Cost',
+    'length2010' : 'Length2010',
+    'geom' : 'MULTILINESTRING',
+}
+
+watermains_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'bmic', 'watermains.shp'))
+
 wellhead_protection_mapping = {
     'objectid' : 'OBJECTID',
     'michiganwe' : 'michiganWE',
@@ -794,37 +826,11 @@ whitefish_bay_reserve_shp = os.path.abspath(os.path.join(os.path.dirname(os.path
 
 def load_additional(verbose=True):
 
-    trails_lm = LayerMapping(
-        models.trails, trails_shp, trails_mapping,
+    watermains_lm = LayerMapping(
+        models.watermains, watermains_shp, watermains_mapping,
         transform=False, encoding='iso-8859-1'
     )
-    trails_lm.save(strict=True, verbose=verbose)
-
-    drainfields_lm = LayerMapping(
-        models.drainfields, drainfields_shp, drainfields_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    drainfields_lm.save(strict=True, verbose=verbose)
-
-    onsitewaste_lm = LayerMapping(
-        models.onsitewaste, onsitewaste_shp, onsitewaste_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    onsitewaste_lm.save(strict=True, verbose=verbose)
-
-    onsitewastewater_lm = LayerMapping(
-        models.onsitewastewater, onsitewastewater_shp, onsitewastewater_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    onsitewastewater_lm.save(strict=True, verbose=verbose)
-
-    septic_tanks_lm = LayerMapping(
-        models.septic_tanks, septic_tanks_shp, septic_tanks_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    septic_tanks_lm.save(strict=True, verbose=verbose)
-
-
+    watermains_lm.save(strict=True, verbose=verbose)
 
 def run(verbose=True):
 
@@ -1013,6 +1019,12 @@ def run(verbose=True):
         transform=False, encoding='iso-8859-1'
     )
     wastewater_lines_lm.save(strict=True, verbose=verbose)
+
+    watermains_lm = LayerMapping(
+        models.watermains, watermains_shp, watermains_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    watermains_lm.save(strict=True, verbose=verbose)
 
     wellhead_protection_lm = LayerMapping(
         models.wellhead_protection, wellhead_protection_shp, wellhead_protection_mapping,

@@ -804,6 +804,39 @@ class wastewater_lines(models.Model):
     def __str__(self):
         return '%s' % (self.id)
 
+class watermains(models.Model):
+    rdname = models.CharField(max_length=254)
+    cnt_rdname = models.IntegerField()
+    irr = models.CharField(max_length=25)
+    route_95 = models.CharField(max_length=10)
+    class_95 = models.CharField(max_length=20)
+    constru_95 = models.CharField(max_length=30)
+    surface_95 = models.CharField(max_length=35)
+    owner_95 = models.CharField(max_length=25)
+    sect_95 = models.CharField(max_length=25)
+    sec_nam_95 = models.CharField(max_length=40)
+    z5_length = models.FloatField()
+    z3_surface = models.CharField(max_length=40)
+    z3_conditi = models.CharField(max_length=40)
+    z3_constru = models.CharField(max_length=40)
+    z3_owner = models.CharField(max_length=40)
+    z3_other = models.CharField(max_length=50)
+    on_reserva = models.CharField(max_length=15)
+    length = models.FloatField()
+    length_mil = models.FloatField()
+    need_01 = models.IntegerField()
+    wtrmn_clss = models.FloatField()
+    pro_surfac = models.CharField(max_length=150)
+    pro_should = models.FloatField()
+    pro_width = models.IntegerField()
+    cost = models.IntegerField()
+    length2010 = models.FloatField()
+    geom = models.MultiLineStringField()
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
 
 class wellhead_protection(models.Model):
     objectid = models.BigIntegerField()
