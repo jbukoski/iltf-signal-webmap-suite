@@ -390,17 +390,6 @@
 	onEachFeature: popupFunc
     });
 
-
-    var watermains = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_watermains", {
-        style: {clickable: false,
-                weight: 3,
-                color: '#0000ff',
-                fill: true,
-            },
-        onEachFeature: popupFunc
-    });
-
-
     var wellhead_protection = new L.GeoJSON.AJAX(baseVectorURL + "&typeName=iltf:bmic_wellhead_protection", {
 	    style: function(feature) {
                     switch(true) {
