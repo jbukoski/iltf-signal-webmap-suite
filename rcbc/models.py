@@ -211,13 +211,9 @@ class frog_bay_trails(models.Model):
     county_fip = models.CharField(max_length=3)
     road_name = models.CharField(max_length=100)
     route_type = models.CharField(max_length=1)
-    tiger_feat = models.CharField(max_length=5)
-    shape_len = models.FloatField()
     id = models.IntegerField()
     length = models.FloatField()
     name = models.CharField(max_length=20)
-    layer = models.CharField(max_length=100)
-    path = models.CharField(max_length=200)
     geom = models.MultiLineStringField(srid=4326)
     id = models.AutoField(primary_key = True)
 
