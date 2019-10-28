@@ -126,18 +126,6 @@ bayfield_cnty_mapping = {
 
 bayfield_cnty_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rcbc', 'bayfield_cnty.shp'))
 
-beachroute_mapping = {
-    'state_fips' : 'STATE_FIPS',
-    'county_fip' : 'COUNTY_FIP',
-    'road_name' : 'ROAD_NAME',
-    'route_type' : 'ROUTE_TYPE',
-    'tiger_feat' : 'TIGER_FEAT',
-    'shape_len' : 'SHAPE_LEN',
-    'geom' : 'MULTILINESTRING',
-}
-
-beachroute_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rcbc', 'beachroute.shp'))
-
 boundary_mapping = {
     'dfirm_id' : 'DFIRM_ID',
     'version_id' : 'VERSION_ID',
@@ -199,18 +187,6 @@ conservationmgmtarea_mapping = {
 
 conservationmgmtarea_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rcbc', 'conservationmgmtarea.shp'))
 
-easyroute_mapping = {
-    'state_fips' : 'STATE_FIPS',
-    'county_fip' : 'COUNTY_FIP',
-    'road_name' : 'ROAD_NAME',
-    'route_type' : 'ROUTE_TYPE',
-    'tiger_feat' : 'TIGER_FEAT',
-    'shape_len' : 'SHAPE_LEN',
-    'geom' : 'MULTILINESTRING',
-}
-
-easyroute_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rcbc', 'easyroute.shp'))
-
 fbtnp_mapping = {
     'id' : 'Id',
     'geom' : 'MULTIPOLYGON',
@@ -218,27 +194,22 @@ fbtnp_mapping = {
 
 fbtnp_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rcbc', 'fbtnp.shp'))
 
-frogbaytrails_mapping = {
+frog_bay_trails_mapping = {
+    'state_fips' : 'STATE_FIPS',
+    'county_fip' : 'COUNTY_FIP',
+    'road_name' : 'ROAD_NAME',
+    'route_type' : 'ROUTE_TYPE',
+    'tiger_feat' : 'TIGER_FEAT',
+    'shape_len' : 'SHAPE_LEN',
+    'id' : 'Id',
     'length' : 'Length',
     'name' : 'Name',
+    'layer' : 'layer',
+    'path' : 'path',
     'geom' : 'MULTILINESTRING',
 }
 
-frogbaytrails_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rcbc', 'frogbaytrails.shp'))
-
-rc_zoning_districts_mapping = {
-    'objectid' : 'OBJECTID',
-    'area' : 'AREA',
-    'rbd4_field' : 'RBD4_',
-    'rbd4_id' : 'RBD4_ID',
-    'rbd4_name' : 'RBD4_NAME',
-    'district' : 'District',
-    'shape_leng' : 'Shape_Leng',
-    'shape_area' : 'Shape_Area',
-    'geom' : 'MULTIPOLYGON',
-}
-
-rc_zoning_districts_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rcbc', 'rc_zoning_districts.shp'))
+frog_bay_trails_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rcbc', 'frog_bay_trails.shp'))
 
 s_fld_haz_ar_mapping = {
     'dfirm_id' : 'DFIRM_ID',
@@ -330,21 +301,13 @@ watersheds_mapping = {
 
 watersheds_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rcbc', 'watersheds.shp'))
 
-def run_again(verbose=True):
+def run_new(verbose=True):
 
-    rc_zoning_districts_lm = LayerMapping(
-        models.rc_zoning_districts, rc_zoning_districts_shp, rc_zoning_districts_mapping,
+    frog_bay_trails_lm = LayerMapping(
+        models.frog_bay_trails, frog_bay_trails_shp, frog_bay_trails_mapping,
         transform=False, encoding='iso-8859-1'
     )
-    rc_zoning_districts_lm.save(strict=True, verbose=verbose)
-
-    frogbaytrails_lm = LayerMapping(
-        models.frogbaytrails, frogbaytrails_shp, frogbaytrails_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    frogbaytrails_lm.save(strict=True, verbose=verbose)
-
-
+    frog_bay_trails_lm.save(strict=True, verbose=verbose)
 
 def run(verbose=True):
 
@@ -359,12 +322,6 @@ def run(verbose=True):
         transform=False, encoding='iso-8859-1'
     )
     bayfield_cnty_lm.save(strict=True, verbose=verbose)
-
-    beachroute_lm = LayerMapping(
-        models.beachroute, beachroute_shp, beachroute_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    beachroute_lm.save(strict=True, verbose=verbose)
 
     boundary_lm = LayerMapping(
         models.boundary, boundary_shp, boundary_mapping,
@@ -390,29 +347,17 @@ def run(verbose=True):
     )
     conservationmgmtarea_lm.save(strict=True, verbose=verbose)
 
-    easyroute_lm = LayerMapping(
-        models.easyroute, easyroute_shp, easyroute_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    easyroute_lm.save(strict=True, verbose=verbose)
-
     fbtnp_lm = LayerMapping(
         models.fbtnp, fbtnp_shp, fbtnp_mapping,
         transform=False, encoding='iso-8859-1'
     )
     fbtnp_lm.save(strict=True, verbose=verbose)
 
-    frogbaytrails_lm = LayerMapping(
-        models.frogbaytrails, frogbaytrails_shp, frogbaytrails_mapping,
+    frog_bay_trails_lm = LayerMapping(
+        models.frog_bay_trails, frog_bay_trails_shp, frog_bay_trails_mapping,
         transform=False, encoding='iso-8859-1'
     )
-    frogbaytrails_lm.save(strict=True, verbose=verbose)
-
-    rc_zoning_districts_lm = LayerMapping(
-        models.rc_zoning_districts, rc_zoning_districts_shp, rc_zoning_districts_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    rc_zoning_districts_lm.save(strict=True, verbose=verbose)
+    frog_bay_trails_lm.save(strict=True, verbose=verbose)
 
     s_fld_haz_ar_lm = LayerMapping(
         models.s_fld_haz_ar, s_fld_haz_ar_shp, s_fld_haz_ar_mapping,

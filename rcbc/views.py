@@ -417,8 +417,8 @@ def document_view(request):
     document_json = serialize('geojson', models.document.objects.all(), geometry_field='geom', fields = ('id', 'name', 'docfile'))
     return HttpResponse(document_json, content_type='json')
 
-def frogbaytrails_view(request):
-    frogbaytrails_json = serialize('geojson', models.frogbaytrails.objects.all(), geometry_field='geom', fields = ('length', 'name', 'geom', 'id'))
+def frog_bay_trails_view(request):
+    frog_bay_trails_json = serialize('geojson', models.frog_bay_trails.objects.all(), geometry_field='geom', fields = ('length', 'name', 'geom', 'id'))
     return HttpResponse(frogbaytrails_json, content_type='json')
 
 def easyroute_view(request):
@@ -471,13 +471,6 @@ def s_fld_haz_ln_view_dl(request):
 
     return response
   
-def rc_zoning_districts_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'rc_zoning_districts.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="rc_zoning_districts.zip"'
-
-    return response
-  
 def boundary_view_dl(request):
     download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'boundary.zip'), 'rb')
     response = HttpResponse(download_file, content_type='application/force-download')
@@ -489,13 +482,6 @@ def buff_bndry_view_dl(request):
     download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'buff_bndry.zip'), 'rb')
     response = HttpResponse(download_file, content_type='application/force-download')
     response['Content-Disposition'] = 'attachment; filename="buff_bndry.zip"'
-
-    return response
-  
-def beachroute_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'beachroute.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="beachroute.zip"'
 
     return response
   
@@ -527,17 +513,10 @@ def document_view_dl(request):
 
     return response
   
-def frogbaytrails_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'frogbaytrails.zip'), 'rb')
+def frog_bay_trails_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'frog_bay_trails.zip'), 'rb')
     response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="frogbaytrails.zip"'
-
-    return response
-  
-def easyroute_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'rcbc', 'easyroute.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="easyroute.zip"'
+    response['Content-Disposition'] = 'attachment; filename="frog_bay_trails.zip"'
 
     return response
   

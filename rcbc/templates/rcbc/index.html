@@ -65,24 +65,6 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#zoning-layers">
-                                        Zoning Layers
-                                </a>
-                            </div>
-                            <div id="zoning-layers" class="panel-collapse collapse">
-                                <div class="panel-body" style="padding: 0px 15px;">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="rc_zoning_districts" z-index="3">
-                                            &nbsp; Red Cliff Band Zoning &nbsp; <a href="{% url 'rcbc_rc_zoning_districts_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <!--Closes 'panel panel-default for zoning layers'-->
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
                                 <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#fema-layers">
                                         FEMA Flood Layers
                                 </a>
@@ -170,19 +152,7 @@
 				    <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="frogbaytrails" z-index="3">
-                                            &nbsp; Frog Bay Trails &nbsp; <a href="{% url 'rcbc_frogbaytrails_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-				    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="beachroute" z-index="3">
-                                            &nbsp; Beach Route &nbsp; <a href="{% url 'rcbc_beachroute_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
-                                        </label>
-                                    </div>
-				    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="easyroute" z-index="3">
-                                            &nbsp; Easy Route &nbsp; <a href="{% url 'rcbc_easyroute_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                            &nbsp; Frog Bay Trails &nbsp; <a href="{% url 'rcbc_frog_bay_trails_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
                                 </div>

@@ -61,15 +61,6 @@
 	onEachFeature: popupFunc
     });
 
-    var beachroute = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_beachroute', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
     var boundary = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_boundary', {
         style: {clickable: false,
                 weight: 3,
@@ -97,15 +88,6 @@
 	onEachFeature: popupFunc
     });
 
-    var easyroute = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_easyroute', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
     var fbtnp = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_fbtnp', {
         style: {clickable: false,
                 weight: 3,
@@ -115,16 +97,7 @@
 	onEachFeature: popupFunc
     });
 
-    var frogbaytrails = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_frogbaytrails', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var rc_zoning_districts = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_rc_zoning_districts', {
+    var frogbaytrails = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_frog_bay_trails', {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',

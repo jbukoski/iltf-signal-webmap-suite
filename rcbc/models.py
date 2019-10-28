@@ -128,20 +128,6 @@ class bayfield_cnty(models.Model):
         return '%s' % (self.id)
 
 
-class beachroute(models.Model):
-    state_fips = models.CharField(max_length=2)
-    county_fip = models.CharField(max_length=3)
-    road_name = models.CharField(max_length=100)
-    route_type = models.CharField(max_length=1)
-    tiger_feat = models.CharField(max_length=5)
-    shape_len = models.FloatField()
-    geom = models.MultiLineStringField(srid=4326)
-    id = models.AutoField(primary_key = True)
-
-    def __str__(self):
-        return '%s' % (self.id)
-
-
 class boundary(models.Model):
     dfirm_id = models.CharField(max_length=6)
     version_id = models.CharField(max_length=11)
@@ -211,20 +197,6 @@ class conservationmgmtarea(models.Model):
         return '%s' % (self.id)
 
 
-class easyroute(models.Model):
-    state_fips = models.CharField(max_length=2)
-    county_fip = models.CharField(max_length=3)
-    road_name = models.CharField(max_length=100)
-    route_type = models.CharField(max_length=1)
-    tiger_feat = models.CharField(max_length=5)
-    shape_len = models.FloatField()
-    geom = models.MultiLineStringField(srid=4326)
-    id = models.AutoField(primary_key = True)
-
-    def __str__(self):
-        return '%s' % (self.id)
-
-
 class fbtnp(models.Model):
     id = models.IntegerField()
     geom = models.MultiPolygonField(srid=4326)
@@ -234,26 +206,19 @@ class fbtnp(models.Model):
         return '%s' % (self.id)
 
 
-class frogbaytrails(models.Model):
+class frog_bay_trails(models.Model):
+    state_fips = models.CharField(max_length=2)
+    county_fip = models.CharField(max_length=3)
+    road_name = models.CharField(max_length=100)
+    route_type = models.CharField(max_length=1)
+    tiger_feat = models.CharField(max_length=5)
+    shape_len = models.FloatField()
+    id = models.IntegerField()
     length = models.FloatField()
     name = models.CharField(max_length=20)
+    layer = models.CharField(max_length=100)
+    path = models.CharField(max_length=200)
     geom = models.MultiLineStringField(srid=4326)
-    id = models.AutoField(primary_key = True)
-
-    def __str__(self):
-        return '%s' % (self.id)
-
-
-class rc_zoning_districts(models.Model):
-    objectid = models.BigIntegerField()
-    area = models.FloatField()
-    rbd4_field = models.BigIntegerField()
-    rbd4_id = models.BigIntegerField()
-    rbd4_name = models.CharField(max_length=30)
-    district = models.CharField(max_length=50)
-    shape_leng = models.FloatField()
-    shape_area = models.FloatField()
-    geom = models.MultiPolygonField(srid=4326)
     id = models.AutoField(primary_key = True)
 
     def __str__(self):
