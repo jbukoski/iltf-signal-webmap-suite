@@ -45,8 +45,8 @@
 
     var ashland_cnty = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_ashland_cnty', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
+                weight: 2,
+	        color: '#98FB98',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
@@ -54,8 +54,8 @@
 
     var bayfield_cnty = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_bayfield_cnty', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
+                weight: 2,
+	        color: '#fed8b1',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
@@ -64,8 +64,9 @@
     var boundary = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_boundary', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
-	        fill: true,
+	        color: '#ffffff',
+	        fill: false,
+		dashArray: "4,1",
 	    },
 	onEachFeature: popupFunc
     });
@@ -73,8 +74,8 @@
     var claytoncreektrail = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_claytoncreektrail', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
-	        fill: true,
+	        color: '#00Fa9a',
+	        fill: false,
 	    },
 	onEachFeature: popupFunc
     });
@@ -82,34 +83,42 @@
     var conservationmgmtarea = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_conservationmgmtarea', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
+	        color: '#ffa500',
 	        fill: true,
 	    },
-	onEachFeature: popupFunc
+        onEachFeature: function(feature, layer) {
+                layer.bindPopup(
+                        "<strong>Name:&nbsp;</strong> Conservation Management Area &nbsp; &nbsp; &nbsp;"
+                );
+        }
     });
 
     var fbtnp = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_fbtnp', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
+	        color: '#ffc966',
 	        fill: true,
-	    },
-	onEachFeature: popupFunc
+	},
+	onEachFeature: function(feature, layer) {
+		layer.bindPopup(
+			"<strong>Name:&nbsp;</strong> Frog Bay Tribal National Park &nbsp; &nbsp; &nbsp;"
+		);
+	}
     });
 
     var frogbaytrails = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_frog_bay_trails', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
-	        fill: true,
+	        color: '#00FF00',
+	        fill: false,
 	    },
 	onEachFeature: popupFunc
     });
 
     var s_fld_haz_ar = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_s_fld_haz_ar', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
+                weight: 1,
+	        color: '#6666ff',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
@@ -117,26 +126,26 @@
 
     var s_fld_haz_ln = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_s_fld_haz_ln', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
+                weight: 2,
+	        color: '#6666ff',
+	        fill: false,
 	    },
 	onEachFeature: popupFunc
     });
 
     var s_trnsport_ln = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_s_trnsport_ln', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
+                weight: 2,
+	        color: '#d3d3d3',
+	        fill: false,
 	    },
 	onEachFeature: popupFunc
     });
 
     var s_wtr_ar = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_s_wtr_ar', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
+                weight: 1,
+	        color: '#3232ff',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
@@ -144,9 +153,9 @@
 
     var s_wtr_ln = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_s_wtr_ln', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
+                weight: 2,
+	        color: '#3232ff',
+	        fill: false,
 	    },
 	onEachFeature: popupFunc
     });
@@ -154,7 +163,7 @@
     var watersheds = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:rcbc_watersheds', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
+	        color: '#b2b2ff',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
