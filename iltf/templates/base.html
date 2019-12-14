@@ -151,7 +151,7 @@
                         "z-index": $(this).attr("z-index"),
                         "layer": $(this)
                     });
-                }
+		}
             });
             // Sort layers array by z-index
             var orderedLayers = sortByKey(layers, "z-index");
@@ -159,7 +159,7 @@
             $.each(orderedLayers, function () {
                 map.addLayer(window[$(this)[0].layer[0].id]);
             });
-        } else {
+	} else {
             // Simply remove unchecked layers
             map.removeLayer(window[$(this).attr("id")]);
         }
@@ -267,13 +267,13 @@
     map.addControl(drawControlFull);
 
     map.on('draw:created', function (e) {
-        var layer = e.layer;
-        drawnItems.addLayer(layer);
+        var layer = e.layer;														   
+	drawnItems.addLayer(layer);
         drawControlFull.remove(map);
         drawControlEditOnly.addTo(map);
         legCheck = false;
-
     });
+
 
     map.on('draw:deleted', function(e) {
         if (drawnItems.getLayers().length === 0) {
@@ -450,6 +450,8 @@ var lyrs_arr = [];
     $("div#vegetation-layers input[type='checkbox'], div#carbon-layers input[type='checkbox']").change(function () {
         lyrs = $("div#vegetation-layers input:checkbox:checked, div#carbon-layers input:checkbox:checked").map(function() {return this.id});
         legendFunction(lyrs);
+	map.removeLayer(drawnItems);
+	map.addLayer(drawnItems);
     });
 
     function legendFunction( lyrs ) {
