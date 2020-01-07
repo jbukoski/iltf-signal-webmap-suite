@@ -127,20 +127,14 @@ bayfield_cnty_mapping = {
 bayfield_cnty_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rcbc', 'bayfield_cnty.shp'))
 
 boundary_mapping = {
-    'dfirm_id' : 'DFIRM_ID',
-    'version_id' : 'VERSION_ID',
-    'pol_ar_id' : 'POL_AR_ID',
-    'pol_name1' : 'POL_NAME1',
-    'pol_name2' : 'POL_NAME2',
-    'pol_name3' : 'POL_NAME3',
-    'co_fips' : 'CO_FIPS',
-    'st_fips' : 'ST_FIPS',
-    'comm_no' : 'COMM_NO',
-    'cid' : 'CID',
-    'ani_tf' : 'ANI_TF',
-    'ani_firm' : 'ANI_FIRM',
-    'com_nfo_id' : 'COM_NFO_ID',
-    'source_cit' : 'SOURCE_CIT',
+    'area' : 'AREA',
+    'perimeter' : 'PERIMETER',
+    'rbd4_field' : 'RBD4_',
+    'rbd4_id' : 'RBD4_ID',
+    'rbd4_name' : 'RBD4_NAME',
+    'acres' : 'ACRES',
+    'shape_leng' : 'Shape_Leng',
+    'shape_area' : 'Shape_Area',
     'geom' : 'MULTIPOLYGON',
 }
 

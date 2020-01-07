@@ -129,20 +129,14 @@ class bayfield_cnty(models.Model):
 
 
 class boundary(models.Model):
-    dfirm_id = models.CharField(max_length=6)
-    version_id = models.CharField(max_length=11)
-    pol_ar_id = models.CharField(max_length=32)
-    pol_name1 = models.CharField(max_length=50)
-    pol_name2 = models.CharField(max_length=50)
-    pol_name3 = models.CharField(max_length=50)
-    co_fips = models.CharField(max_length=3)
-    st_fips = models.CharField(max_length=2)
-    comm_no = models.CharField(max_length=4)
-    cid = models.CharField(max_length=6)
-    ani_tf = models.CharField(max_length=1)
-    ani_firm = models.CharField(max_length=6)
-    com_nfo_id = models.CharField(max_length=32)
-    source_cit = models.CharField(max_length=21)
+    area = models.FloatField(null=True)
+    perimeter = models.FloatField(null = True)
+    rbd4_field = models.BigIntegerField(null = True)
+    rbd4_id = models.BigIntegerField(null = True)
+    rbd4_name = models.CharField(max_length=30, null = True)
+    acres = models.FloatField(null = True)
+    shape_leng = models.FloatField(null = True)
+    shape_area = models.FloatField(null = True)
     geom = models.MultiPolygonField(srid=4326)
     id = models.AutoField(primary_key = True)
 
