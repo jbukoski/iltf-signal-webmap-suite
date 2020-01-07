@@ -293,11 +293,11 @@ watersheds_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__
 
 def run_new(verbose=True):
 
-    frog_bay_trails_lm = LayerMapping(
-        models.frog_bay_trails, frog_bay_trails_shp, frog_bay_trails_mapping,
+    boundary_lm = LayerMapping(
+        models.boundary, boundary_shp, boundary_mapping,
         transform=False, encoding='iso-8859-1'
     )
-    frog_bay_trails_lm.save(strict=True, verbose=verbose)
+    boundary_lm.save(strict=True, verbose=verbose)
 
 
 def run(verbose=True):
