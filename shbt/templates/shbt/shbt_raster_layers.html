@@ -1,0 +1,98 @@
+{% block raster_layers %}
+
+<script>
+
+///////////////////////////
+////// Raster Layers //////
+///////////////////////////
+
+    var agc = new L.tileLayer.wms('http://216.218.220.139:8081/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:shbt_agc',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
+
+    var bgc = new L.tileLayer.wms('http://216.218.220.139:8081/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:shbt_bgc',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
+
+    var gssurgoSOC = new L.tileLayer.wms('http://216.218.220.139:8081/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:shbt_soc',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
+
+    var landfireEVT = new L.tileLayer.wms('http://216.218.220.139:8081/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:shbt_evt',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
+
+    var ndvi2005 = new L.tileLayer.wms('http://216.218.220.139:8081/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:shbt_ndvi_2005',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
+
+    var ndvi2010 = new L.tileLayer.wms('http://216.218.220.139:8081/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:shbt_ndvi_2010',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
+
+    var ndvi2015 = new L.tileLayer.wms('http://216.218.220.139:8081/geoserver/iltf/wms?', {
+        service: 'WMS',
+        version: '1.1.1',
+        request: 'GetMap',
+        format: 'image/png',
+        layers: 'iltf:shbt_ndvi_2015',
+        transparent: true,
+        tiled: true,
+        zIndex: 10,
+        bgcolor: '#FFFFFF'
+    });
+
+
+
+</script>
+
+
+{% endblock raster_layers %}

@@ -27,6 +27,8 @@ def custLogin(request):
         return HttpResponseRedirect(reverse('lbst_index'))
     elif request.user.username == 'rcbc_user':
         return HttpResponseRedirect(reverse('rcbc_index'))
+    elif request.user.username == 'shbt_user':
+        return HttpResponseRedirect(reverse('shbt_index'))
     elif request.user.username == 'ssmt_user':
         return HttpResponseRedirect(reverse('ssmt_index'))
     elif request.user.username == 'tamaya_user':
