@@ -43,7 +43,7 @@ def index(request):
         doc_counter += 1
 
     return render(request, 'shbt/index.html', {
-        'title': 'Shoshone-Bannock Tribe of ID',
+        'title': 'Santa Ana Pueblo of NM',
         'bndry': bndry,
         'documents': documents
     })
@@ -377,137 +377,6 @@ def boundary_view(request):
     boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field='geom', fields = ('sec', 't', 'r', 'poly_area', 'area_geo', 'perimeter', 'perim_geo', 'geom', 'id'))
     return HttpResponse(boundary_json, content_type='json')
 
-def districts_view(request):
-    districts_json = serialize('geojson', models.districts.objects.all(), geometry_field='geom', fields = ('total_ac', 'name', 'geom', 'id'))
-    return HttpResponse(districts_json, content_type='json')
-
-def document_view(request):
-    document_json = serialize('geojson', models.document.objects.all(), geometry_field='geom', fields = ('id', 'name', 'docfile'))
-    return HttpResponse(document_json, content_type='json')
-
-def ownership_view(request):
-    ownership_json = serialize('geojson', models.ownership.objects.all(), geometry_field='geom', fields = ('area', 'perimeter', 'lstmoss_wg', 'lstmoss_1', 'lstmoss_at', 'lease_a', 'original', 'status', 'lease_b', 'lease_c', 'key', 'recording_field', 'key2', 'lease_d', 'rpd_num', 'tenant', 'section', 'township', 'range', 'lstatus', 'shape_leng', 'shape_area', 'curr_own', 'tribal_int', 'acreage', 'res_code', 'trib_own_m', 'trib_own_s', 'poly_area', 'geom', 'id'))
-    return HttpResponse(ownership_json, content_type='json')
-
-## Layer Download Views
-
-def range_units_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'range_units.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="range_units.zip"'
-
-    return response
-  
-def boundary_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'boundary.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="boundary.zip"'
-
-    return response
-  
-def districts_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'districts.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="districts.zip"'
-
-    return response
-  
-def document_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'document.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="document.zip"'
-
-    return response
-  
-def ownership_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'ownership.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="ownership.zip"'
-
-    return response
-  
-
-## Layer Views
-
-def range_units_view(request):
-    range_units_json = serialize('geojson', models.range_units.objects.all(), geometry_field='geom', fields = ('area', 'perimeter', 'rnge_field', 'rnge_id', 'acres', 'range_id', 'bnd_ft', 'draw', 'shoshone', 'tranlattio', 'bannock', 'geom', 'id'))
-    return HttpResponse(range_units_json, content_type='json')
-
-def boundary_view(request):
-    boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field='geom', fields = ('sec', 't', 'r', 'poly_area', 'area_geo', 'perimeter', 'perim_geo', 'geom', 'id'))
-    return HttpResponse(boundary_json, content_type='json')
-
-def buff_bndry_view(request):
-    buff_bndry_json = serialize('geojson', models.buff_bndry.objects.all(), geometry_field='geom', fields = ('fid', 'geom', 'id'))
-    return HttpResponse(buff_bndry_json, content_type='json')
-
-def districts_view(request):
-    districts_json = serialize('geojson', models.districts.objects.all(), geometry_field='geom', fields = ('total_ac', 'name', 'geom', 'id'))
-    return HttpResponse(districts_json, content_type='json')
-
-def document_view(request):
-    document_json = serialize('geojson', models.document.objects.all(), geometry_field='geom', fields = ('id', 'name', 'docfile'))
-    return HttpResponse(document_json, content_type='json')
-
-def ownership_view(request):
-    ownership_json = serialize('geojson', models.ownership.objects.all(), geometry_field='geom', fields = ('area', 'perimeter', 'lstmoss_wg', 'lstmoss_1', 'lstmoss_at', 'lease_a', 'original', 'status', 'lease_b', 'lease_c', 'key', 'recording_field', 'key2', 'lease_d', 'rpd_num', 'tenant', 'section', 'township', 'range', 'lstatus', 'shape_leng', 'shape_area', 'curr_own', 'tribal_int', 'acreage', 'res_code', 'trib_own_m', 'trib_own_s', 'poly_area', 'geom', 'id'))
-    return HttpResponse(ownership_json, content_type='json')
-
-## Layer Download Views
-
-def range_units_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'range_units.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="range_units.zip"'
-
-    return response
-  
-def boundary_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'boundary.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="boundary.zip"'
-
-    return response
-  
-def buff_bndry_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'buff_bndry.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="buff_bndry.zip"'
-
-    return response
-  
-def districts_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'districts.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="districts.zip"'
-
-    return response
-  
-def document_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'document.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="document.zip"'
-
-    return response
-  
-def ownership_view_dl(request):
-    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'ownership.zip'), 'rb')
-    response = HttpResponse(download_file, content_type='application/force-download')
-    response['Content-Disposition'] = 'attachment; filename="ownership.zip"'
-
-    return response
-  
-
-## Layer Views
-
-def range_units_view(request):
-    range_units_json = serialize('geojson', models.range_units.objects.all(), geometry_field='geom', fields = ('area', 'perimeter', 'rnge_field', 'rnge_id', 'acres', 'range_id', 'bnd_ft', 'draw', 'shoshone', 'tranlattio', 'bannock', 'geom', 'id'))
-    return HttpResponse(range_units_json, content_type='json')
-
-def boundary_view(request):
-    boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field='geom', fields = ('sec', 't', 'r', 'poly_area', 'area_geo', 'perimeter', 'perim_geo', 'geom', 'id'))
-    return HttpResponse(boundary_json, content_type='json')
-
 def counties_view(request):
     counties_json = serialize('geojson', models.counties.objects.all(), geometry_field='geom', fields = ('objectid', 'name', 'state_name', 'state_fips', 'cnty_fips', 'fips', 'population', 'pop_sqmi', 'pop2010', 'pop10_sqmi', 'white', 'black', 'ameri_es', 'asian', 'hawn_pi', 'hispanic', 'other', 'mult_race', 'males', 'females', 'age_under5', 'age_5_9', 'age_10_14', 'age_15_19', 'age_20_24', 'age_25_34', 'age_35_44', 'age_45_54', 'age_55_64', 'age_65_74', 'age_75_84', 'age_85_up', 'med_age', 'med_age_m', 'med_age_f', 'households', 'ave_hh_sz', 'hsehld_1_m', 'hsehld_1_f', 'marhh_chd', 'marhh_no_c', 'mhh_child', 'fhh_child', 'families', 'ave_fam_sz', 'hse_units', 'vacant', 'owner_occ', 'renter_occ', 'no_farms12', 'ave_size12', 'crop_acr12', 'ave_sale12', 'sqmi', 'shape_leng', 'shape_area', 'geom', 'id'))
     return HttpResponse(counties_json, content_type='json')
@@ -590,3 +459,56 @@ def nsi_flowlines_view_dl(request):
 
     return response
   
+## Raster download links
+## Vegetation
+
+def shbt_landfire_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'shbt_evt.tif'), "rb")
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=shbt_landfire_evt.tif'
+
+    return response
+
+def shbt_ndvi_2005_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'shbt_ndvi_2005.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=shbt_ndvi_2005.tif'
+
+    return response
+
+def shbt_ndvi_2010_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'shbt_ndvi_2010.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=shbt_ndvi_2010.tif'
+
+    return response
+
+def shbt_ndvi_2015_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'shbt_ndvi_2015.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=shbt_ndvi_2015.tif'
+
+    return response
+
+## Carbon
+
+def shbt_agc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'shbt_agc.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=shbt_agc.tif'
+
+    return response
+
+def shbt_bgc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'shbt_bgc.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=shbt_bgc.tif'
+
+    return response
+
+def shbt_soc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'shbt_soc.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=shbt_soc.tif'
+
+    return response

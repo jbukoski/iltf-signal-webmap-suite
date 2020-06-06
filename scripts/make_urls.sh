@@ -18,7 +18,14 @@ urlpatterns = [
     url(r'^delete_up/', views.delete_up_view, name='${TRIBE}_delete_up'),
     url(r'^legend/', views.legend_view, name='legend'),
     url(r'^sumstats/', views.sumstats_view, name='sumstats'),
-    url(r'^admin/logout/$', views.signout_view, name='signout')," > ../$TRIBE/urls.py
+    url(r'^admin/logout/$', views.signout_view, name='signout'),
+    url(r'^${TRIBE}_landfire_dl/$', views.${TRIBE}_landfire_dl_view, name = '${TRIBE}_landfire_dl'),
+    url(r'^${TRIBE}_ndvi_2005_dl/$', views.${TRIBE}_ndvi_2005_dl_view, name = '${TRIBE}_ndvi_2005_dl'),
+    url(r'^${TRIBE}_ndvi_2010_dl/$', views.${TRIBE}_ndvi_2010_dl_view, name = '${TRIBE}_ndvi_2010_dl'),
+    url(r'^${TRIBE}_ndvi_2015_dl/$', views.${TRIBE}_ndvi_2015_dl_view, name = '${TRIBE}_ndvi_2015_dl'),
+    url(r'^${TRIBE}_agc_dl/$', views.${TRIBE}_agc_dl_view, name = '${TRIBE}_agc_dl'),
+    url(r'^${TRIBE}_bgc_dl/$', views.${TRIBE}_bgc_dl_view, name = '${TRIBE}_bgc_dl'),
+    url(r'^${TRIBE}_soc_dl/$', views.${TRIBE}_soc_dl_view, name = '${TRIBE}_soc_dl')," > ../$TRIBE/urls.py
 
 # Generate model-specific URLs
 

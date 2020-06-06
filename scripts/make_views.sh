@@ -59,3 +59,58 @@ for i in "${!fields[@]}"; do
     return response\n  " >> ../$TRIBE/views.py
 
 done
+
+echo -e "## Raster download links
+## Vegetation
+
+def ${TRIBE}_landfire_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', '${TRIBE}', '${TRIBE}_evt.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="${TRIBE}_landfire_evt.tif"'
+
+    return response
+
+def ${TRIBE}_ndvi_2005_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', '${TRIBE}', '${TRIBE}_ndvi_2005.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="${TRIBE}_ndvi_2005.tif"'
+
+    return response
+
+def ${TRIBE}_ndvi_2010_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', '${TRIBE}', '${TRIBE}_ndvi_2010.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="${TRIBE}_ndvi_2010.tif"'
+
+    return response
+
+def ${TRIBE}_ndvi_2015_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', '${TRIBE}', '${TRIBE}_ndvi_2015.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="${TRIBE}_ndvi_2015.tif"'
+
+    return response
+
+## Carbon
+
+def ${TRIBE}_agc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', '${TRIBE}', '${TRIBE}_agc.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="${TRIBE}_agc.tif"'
+
+    return response
+
+def ${TRIBE}_bgc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', '${TRIBE}', '${TRIBE}_bgc.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="${TRIBE}_bgc.tif"'
+
+    return response
+
+def ${TRIBE}_soc_dl_view(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', '${TRIBE}', '${TRIBE}_soc.tif'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="${TRIBE}_soc.tif"'
+
+    return response " >> ../$TRIBE/views.py
+
