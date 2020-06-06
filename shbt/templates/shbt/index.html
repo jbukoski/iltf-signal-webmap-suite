@@ -55,6 +55,13 @@
                                     </div>
                                     <div class="checkbox">
                                         <label>
+                                            <input type="checkbox" name="overlayLayers" id="counties" z-index="1">
+                                            &nbsp; Counties &nbsp; <a href="{% url 'shbt_counties_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+
+                                    <div class="checkbox">
+                                        <label>
                                             <input type="checkbox" name="overlayLayers" id="ownership" z-index="1">
                                             &nbsp; Ownership &nbsp; <a href="{% url 'shbt_ownership_dl' %}"><i style="float:right;" class = "fa fa-download"></i></a>
                                         </label>
@@ -69,7 +76,7 @@
 	                    </div>
                         </div> <!--Closes 'panel panel-default for administrative layers'-->
 
-                        <!--<div class="panel panel-default">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
                                 <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#hydro-layers">
                                         Hydrology Layers
@@ -79,13 +86,13 @@
                                 <div class="panel-body" style="padding: 0px 15px;">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="overlayLayers" id="watersheds" z-index="3">
-                                            &nbsp; ENTER HYDROLOGY LAYERS &nbsp; <a href="{% url 'watersheds_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                            <input type="checkbox" name="overlayLayers" id="nsi_flowlines" z-index="3">
+                                            &nbsp; NSI Flowlines &nbsp; <a href="{% url 'shbt_nsi_flowlines_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
                                 </div>
                             </div>
-			</div>-->
+			</div>
 
                         <div class="panel panel-default">
                             <div class="panel-heading">

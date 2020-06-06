@@ -52,7 +52,34 @@
 	onEachFeature: popupFunc
     });
 
+    var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_buff_bndry', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var counties = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_counties', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
     var districts = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_districts', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var nsi_flowlines = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_nsi_flowlines', {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
@@ -94,7 +121,7 @@
 ////// Leaflet Map /////////
 ////////////////////////////
 
-    map.setView(new L.LatLng(42.9659, -112.3831), 10);
+    map.setView(new L.LatLng(42.9659, -112.3831), 9);
     map.addLayer(boundary);
 
 </script>
