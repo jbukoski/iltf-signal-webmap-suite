@@ -80,9 +80,9 @@ def legend_view(request):
                 agc = str(round(results[0][5] / 100, 4)) + " Mg/ha"
                 bgc = str(round(results[0][6] / 100, 4)) + " Mg/ha"
         if results[0][6] is None:
-            soc = 'No soil caron present'
+            soc = 'No soil carbon present'
         else:
-            soc = round(results[0][7] / 100, 4)
+            soc = str(round(results[0][7] / 100, 4)) + "Mg/ha"
         conn.close()
 
         legText = {"landfireEVT": "&nbsp&nbsp<b>LANDFIRE EVT: </b>" + str(evtClass) + "</br>",
@@ -91,7 +91,7 @@ def legend_view(request):
                     "ndvi2015": "&nbsp&nbsp<b>Mean Annual NDVI, 2015: </b>" + str(ndvi2015) + "</br>",
                     "agc": "&nbsp&nbsp<b>Aboveground forest carbon: </b>" + str(agc) + "</br>",
                     "bgc": "&nbsp&nbsp<b>Belowground forest carbon: </b>" + str(bgc) + "</br>",
-                    "gssurgoSOC": "&nbsp&nbsp<b>Soil organic carbon: </b>" + str(soc) + "&nbsp;Mg/ha</br>"}
+                    "gssurgoSOC": "&nbsp&nbsp<b>Soil organic carbon: </b>" + str(soc) + "</br>"}
 
         print("\n\n", legText, "\n\n")
 
