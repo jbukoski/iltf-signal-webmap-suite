@@ -1,6 +1,8 @@
 boundary 'sec','t','r','poly_area','area_geo','perimeter','perim_geo','geom','id'
 buff_bndry 'fid','geom','id'
+counties 'objectid','name','state_name','state_fips','cnty_fips','fips','population','pop_sqmi','pop2010','pop10_sqmi','white','black','ameri_es','asian','hawn_pi','hispanic','other','mult_race','males','females','age_under5','age_5_9','age_10_14','age_15_19','age_20_24','age_25_34','age_35_44','age_45_54','age_55_64','age_65_74','age_75_84','age_85_up','med_age','med_age_m','med_age_f','households','ave_hh_sz','hsehld_1_m','hsehld_1_f','marhh_chd','marhh_no_c','mhh_child','fhh_child','families','ave_fam_sz','hse_units','vacant','owner_occ','renter_occ','no_farms12','ave_size12','crop_acr12','ave_sale12','sqmi','shape_leng','shape_area','geom','id'
 districts 'total_ac','name','geom','id'
+nsi_flowlines 'comid','fdate','resolution','gnis_id','gnis_name','lengthkm','reachcode','flowdir','ftype','fcode','areasqkm','totdasqkm','dup_comid','dup_arsqkm','dup_length','layer','path','geom','id'
 ownership 'area','perimeter','lstmoss_wg','lstmoss_1','lstmoss_at','lease_a','original','status','lease_b','lease_c','key','recording_field','key2','lease_d','rpd_num','tenant','section','township','range','lstatus','shape_leng','shape_area','curr_own','tribal_int','acreage','res_code','trib_own_m','trib_own_s','poly_area','geom','id'
 range_units 'area','perimeter','rnge_field','rnge_id','acres','range_id','bnd_ft','draw','shoshone','tranlattio','bannock','geom','id'
 document 'id','name','docfile'

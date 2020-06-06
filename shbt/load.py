@@ -22,6 +22,68 @@ buff_bndry_mapping = {
 
 buff_bndry_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'shbt', 'buff_bndry.shp'))
 
+counties_mapping = {
+    'objectid' : 'OBJECTID',
+    'name' : 'NAME',
+    'state_name' : 'STATE_NAME',
+    'state_fips' : 'STATE_FIPS',
+    'cnty_fips' : 'CNTY_FIPS',
+    'fips' : 'FIPS',
+    'population' : 'POPULATION',
+    'pop_sqmi' : 'POP_SQMI',
+    'pop2010' : 'POP2010',
+    'pop10_sqmi' : 'POP10_SQMI',
+    'white' : 'WHITE',
+    'black' : 'BLACK',
+    'ameri_es' : 'AMERI_ES',
+    'asian' : 'ASIAN',
+    'hawn_pi' : 'HAWN_PI',
+    'hispanic' : 'HISPANIC',
+    'other' : 'OTHER',
+    'mult_race' : 'MULT_RACE',
+    'males' : 'MALES',
+    'females' : 'FEMALES',
+    'age_under5' : 'AGE_UNDER5',
+    'age_5_9' : 'AGE_5_9',
+    'age_10_14' : 'AGE_10_14',
+    'age_15_19' : 'AGE_15_19',
+    'age_20_24' : 'AGE_20_24',
+    'age_25_34' : 'AGE_25_34',
+    'age_35_44' : 'AGE_35_44',
+    'age_45_54' : 'AGE_45_54',
+    'age_55_64' : 'AGE_55_64',
+    'age_65_74' : 'AGE_65_74',
+    'age_75_84' : 'AGE_75_84',
+    'age_85_up' : 'AGE_85_UP',
+    'med_age' : 'MED_AGE',
+    'med_age_m' : 'MED_AGE_M',
+    'med_age_f' : 'MED_AGE_F',
+    'households' : 'HOUSEHOLDS',
+    'ave_hh_sz' : 'AVE_HH_SZ',
+    'hsehld_1_m' : 'HSEHLD_1_M',
+    'hsehld_1_f' : 'HSEHLD_1_F',
+    'marhh_chd' : 'MARHH_CHD',
+    'marhh_no_c' : 'MARHH_NO_C',
+    'mhh_child' : 'MHH_CHILD',
+    'fhh_child' : 'FHH_CHILD',
+    'families' : 'FAMILIES',
+    'ave_fam_sz' : 'AVE_FAM_SZ',
+    'hse_units' : 'HSE_UNITS',
+    'vacant' : 'VACANT',
+    'owner_occ' : 'OWNER_OCC',
+    'renter_occ' : 'RENTER_OCC',
+    'no_farms12' : 'NO_FARMS12',
+    'ave_size12' : 'AVE_SIZE12',
+    'crop_acr12' : 'CROP_ACR12',
+    'ave_sale12' : 'AVE_SALE12',
+    'sqmi' : 'SQMI',
+    'shape_leng' : 'Shape_Leng',
+    'shape_area' : 'Shape_Area',
+    'geom' : 'MULTIPOLYGON',
+}
+
+counties_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'shbt', 'counties.shp'))
+
 districts_mapping = {
     'total_ac' : 'Total_Ac',
     'name' : 'Name',
@@ -29,6 +91,29 @@ districts_mapping = {
 }
 
 districts_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'shbt', 'districts.shp'))
+
+nsi_flowlines_mapping = {
+    'comid' : 'ComID',
+    'fdate' : 'FDate',
+    'resolution' : 'RESOLUTION',
+    'gnis_id' : 'GNIS_ID',
+    'gnis_name' : 'GNIS_Name',
+    'lengthkm' : 'LengthKM',
+    'reachcode' : 'ReachCode',
+    'flowdir' : 'FLOWDIR',
+    'ftype' : 'FTYPE',
+    'fcode' : 'FCode',
+    'areasqkm' : 'AreaSqKM',
+    'totdasqkm' : 'TotDASqKM',
+    'dup_comid' : 'DUP_COMID',
+    'dup_arsqkm' : 'DUP_ArSqKM',
+    'dup_length' : 'DUP_Length',
+    'layer' : 'layer',
+    'path' : 'path',
+    'geom' : 'MULTILINESTRING',
+}
+
+nsi_flowlines_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'shbt', 'nsi_flowlines.shp'))
 
 ownership_mapping = {
     'area' : 'AREA',
@@ -83,11 +168,19 @@ range_units_mapping = {
 range_units_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'shbt', 'range_units.shp'))
 
 def run_dos(verbose=True):
-    buff_bndry_lm = LayerMapping(
-            models.buff_bndry, buff_bndry_shp, buff_bndry_mapping,
-            transform=False, encoding='iso-8859-1'
+
+    counties_lm = LayerMapping(
+        models.counties, counties_shp, counties_mapping,
+        transform=False, encoding='iso-8859-1'
     )
-    buff_bndry_lm.save(strict=True, verbose=verbose)
+    counties_lm.save(strict=True, verbose=verbose)
+
+    nsi_flowlines_lm = LayerMapping(
+        models.nsi_flowlines, nsi_flowlines_shp, nsi_flowlines_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    nsi_flowlines_lm.save(strict=True, verbose=verbose)
+
 
 
 def run(verbose=True):
@@ -104,11 +197,23 @@ def run(verbose=True):
     )
     buff_bndry_lm.save(strict=True, verbose=verbose)
 
+    counties_lm = LayerMapping(
+        models.counties, counties_shp, counties_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    counties_lm.save(strict=True, verbose=verbose)
+
     districts_lm = LayerMapping(
         models.districts, districts_shp, districts_mapping,
         transform=False, encoding='iso-8859-1'
     )
     districts_lm.save(strict=True, verbose=verbose)
+
+    nsi_flowlines_lm = LayerMapping(
+        models.nsi_flowlines, nsi_flowlines_shp, nsi_flowlines_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    nsi_flowlines_lm.save(strict=True, verbose=verbose)
 
     ownership_lm = LayerMapping(
         models.ownership, ownership_shp, ownership_mapping,
