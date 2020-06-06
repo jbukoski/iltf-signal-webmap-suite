@@ -15,6 +15,15 @@ class boundary(models.Model):
         return '%s' % (self.id)
 
 
+class buff_bndry(models.Model):
+    fid = models.BigIntegerField()
+    geom = models.MultiPolygonField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+
 class districts(models.Model):
     total_ac = models.CharField(max_length=50)
     name = models.CharField(max_length=20)

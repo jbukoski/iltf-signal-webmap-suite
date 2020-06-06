@@ -15,6 +15,13 @@ boundary_mapping = {
 
 boundary_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'shbt', 'boundary.shp'))
 
+buff_bndry_mapping = {
+    'fid' : 'FID',
+    'geom' : 'MULTIPOLYGON',
+}
+
+buff_bndry_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'shbt', 'buff_bndry.shp'))
+
 districts_mapping = {
     'total_ac' : 'Total_Ac',
     'name' : 'Name',
@@ -75,6 +82,14 @@ range_units_mapping = {
 
 range_units_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'shbt', 'range_units.shp'))
 
+def run_dos(verbose=True):
+    buff_bndry_lm = LayerMapping(
+            models.buff_bndry, buff_bndry_shp, buff_bndry_mapping,
+            transform=False, encoding='iso-8859-1'
+    )
+    buff_bndry_lm.save(strict=True, verbose=verbose)
+
+
 def run(verbose=True):
 
     boundary_lm = LayerMapping(
@@ -82,6 +97,12 @@ def run(verbose=True):
         transform=False, encoding='iso-8859-1'
     )
     boundary_lm.save(strict=True, verbose=verbose)
+
+    buff_bndry_lm = LayerMapping(
+        models.buff_bndry, buff_bndry_shp, buff_bndry_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    buff_bndry_lm.save(strict=True, verbose=verbose)
 
     districts_lm = LayerMapping(
         models.districts, districts_shp, districts_mapping,

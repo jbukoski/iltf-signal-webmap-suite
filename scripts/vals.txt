@@ -1,4 +1,5 @@
 boundary 'sec','t','r','poly_area','area_geo','perimeter','perim_geo','geom','id'
+buff_bndry 'fid','geom','id'
 districts 'total_ac','name','geom','id'
 ownership 'area','perimeter','lstmoss_wg','lstmoss_1','lstmoss_at','lease_a','original','status','lease_b','lease_c','key','recording_field','key2','lease_d','rpd_num','tenant','section','township','range','lstatus','shape_leng','shape_area','curr_own','tribal_int','acreage','res_code','trib_own_m','trib_own_s','poly_area','geom','id'
 range_units 'area','perimeter','rnge_field','rnge_id','acres','range_id','bnd_ft','draw','shoshone','tranlattio','bannock','geom','id'

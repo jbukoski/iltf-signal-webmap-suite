@@ -426,3 +426,74 @@ def ownership_view_dl(request):
 
     return response
   
+
+## Layer Views
+
+def range_units_view(request):
+    range_units_json = serialize('geojson', models.range_units.objects.all(), geometry_field='geom', fields = ('area', 'perimeter', 'rnge_field', 'rnge_id', 'acres', 'range_id', 'bnd_ft', 'draw', 'shoshone', 'tranlattio', 'bannock', 'geom', 'id'))
+    return HttpResponse(range_units_json, content_type='json')
+
+def boundary_view(request):
+    boundary_json = serialize('geojson', models.boundary.objects.all(), geometry_field='geom', fields = ('sec', 't', 'r', 'poly_area', 'area_geo', 'perimeter', 'perim_geo', 'geom', 'id'))
+    return HttpResponse(boundary_json, content_type='json')
+
+def buff_bndry_view(request):
+    buff_bndry_json = serialize('geojson', models.buff_bndry.objects.all(), geometry_field='geom', fields = ('fid', 'geom', 'id'))
+    return HttpResponse(buff_bndry_json, content_type='json')
+
+def districts_view(request):
+    districts_json = serialize('geojson', models.districts.objects.all(), geometry_field='geom', fields = ('total_ac', 'name', 'geom', 'id'))
+    return HttpResponse(districts_json, content_type='json')
+
+def document_view(request):
+    document_json = serialize('geojson', models.document.objects.all(), geometry_field='geom', fields = ('id', 'name', 'docfile'))
+    return HttpResponse(document_json, content_type='json')
+
+def ownership_view(request):
+    ownership_json = serialize('geojson', models.ownership.objects.all(), geometry_field='geom', fields = ('area', 'perimeter', 'lstmoss_wg', 'lstmoss_1', 'lstmoss_at', 'lease_a', 'original', 'status', 'lease_b', 'lease_c', 'key', 'recording_field', 'key2', 'lease_d', 'rpd_num', 'tenant', 'section', 'township', 'range', 'lstatus', 'shape_leng', 'shape_area', 'curr_own', 'tribal_int', 'acreage', 'res_code', 'trib_own_m', 'trib_own_s', 'poly_area', 'geom', 'id'))
+    return HttpResponse(ownership_json, content_type='json')
+
+## Layer Download Views
+
+def range_units_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'range_units.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="range_units.zip"'
+
+    return response
+  
+def boundary_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'boundary.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="boundary.zip"'
+
+    return response
+  
+def buff_bndry_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'buff_bndry.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="buff_bndry.zip"'
+
+    return response
+  
+def districts_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'districts.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="districts.zip"'
+
+    return response
+  
+def document_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'document.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="document.zip"'
+
+    return response
+  
+def ownership_view_dl(request):
+    download_file = open(os.path.join(os.path.dirname(path), 'data', 'shbt', 'ownership.zip'), 'rb')
+    response = HttpResponse(download_file, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="ownership.zip"'
+
+    return response
+  
