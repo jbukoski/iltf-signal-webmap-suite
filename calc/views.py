@@ -82,7 +82,7 @@ def legend_view(request):
         if results[0][6] is None:
             soc = 'No soil carbon present'
         else:
-            soc = str(round(results[0][7] / 100, 4)) + "Mg/ha"
+            soc = str(round(results[0][7] / 100, 4)) + " Mg/ha"
         conn.close()
 
         legText = {"landfireEVT": "&nbsp&nbsp<b>LANDFIRE EVT: </b>" + str(evtClass) + "</br>",
