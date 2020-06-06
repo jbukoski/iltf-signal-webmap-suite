@@ -79,7 +79,10 @@ def legend_view(request):
         else:
                 agc = str(round(results[0][5] / 100, 4)) + " Mg/ha"
                 bgc = str(round(results[0][6] / 100, 4)) + " Mg/ha"
-        soc = round(results[0][7] / 100, 4)
+        if results[0][6] is None:
+            soc = 'No soil caron present'
+        else:
+            soc = round(results[0][7] / 100, 4)
         conn.close()
 
         legText = {"landfireEVT": "&nbsp&nbsp<b>LANDFIRE EVT: </b>" + str(evtClass) + "</br>",
