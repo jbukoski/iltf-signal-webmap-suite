@@ -47,7 +47,8 @@
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
-	        fill: true,
+	        fill: false,
+		dashArray: 4,
 	    },
 	onEachFeature: popupFunc
     });
@@ -62,27 +63,43 @@
     });
 
     var counties = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_counties', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
+        style: function(feature) {
+		switch(true) {
+			case(feature.properties.name === "Bingham"):
+				return {color: "#3e8ec4", fill: true, fillOpacity: 0.3, weight: 1};
+			case(feature.properties.name === "Caribou"):
+				return {color: "#98FB98", fill: true, fillOpacity: 0.3, weight: 1};
+			case(feature.properties.name === "Bannock"):
+				return {color: "#3232ff", fill: true, fillOpacity: 0.3, weight: 1};
+			case(feature.properties.name === "Power"):
+				return {color: "#00Fa9a", fill: true, fillOpacity: 0.3, weight: 1};
+	    }
+	},
 	onEachFeature: popupFunc
     });
 
     var districts = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_districts', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
+	    style: function(feature) {
+		switch(true) {
+			case(feature.properties.name === "Lincoln Creek"):
+			    	return {color: "#8f30d8", fill: true, fillOpacity: 0.3, weight: 1};
+			case(feature.properties.name === "Ross Fork"):
+				return {color: "#0f0c67", fill: true, fillOpacity: 0.3, weight: 1};
+			case(feature.properties.name === "Gibson"):
+				return {color: "#f9702a", fill: true, fillOpacity: 0.3, weight: 1};
+			case(feature.properties.name === "Fort Hall"):
+				return {color: "#54aeae", fill: true, fillOpacity: 0.3, weight: 1};
+			case(feature.properties.name === "Bannock Creek"):
+				return {color: "#30972a", fill: true, fillOpacity: 0.3, weight: 1};
+		    }
 	    },
 	onEachFeature: popupFunc
     });
 
     var nsi_flowlines = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_nsi_flowlines', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
+                weight: 1,
+	        color: '#0000FF',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
