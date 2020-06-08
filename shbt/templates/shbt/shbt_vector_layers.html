@@ -54,12 +54,12 @@
     });
 
     var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_buff_bndry', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
+        style: {clickable: true,
 	        fill: true,
+		opacity: 0,
+		fillOpacity: 0,
+		zIndex: -100,
 	    },
-	onEachFeature: popupFunc
     });
 
     var counties = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_counties', {
