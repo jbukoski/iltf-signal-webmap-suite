@@ -43,7 +43,7 @@ def index(request):
         doc_counter += 1
 
     return render(request, 'shbt/index.html', {
-        'title': 'Santa Ana Pueblo of NM',
+        'title': 'Shoshone Bannock Tribe of Idaho',
         'bndry': bndry,
         'documents': documents
     })
