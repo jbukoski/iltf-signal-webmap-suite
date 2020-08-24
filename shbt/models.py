@@ -98,6 +98,33 @@ class districts(models.Model):
         return '%s' % (self.id)
 
 
+class existing_wm(models.Model):
+    name = models.CharField(max_length=60)
+    geom = models.MultiLineStringField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+
+class lagoon(models.Model):
+    name = models.CharField(max_length=60)
+    geom = models.MultiPolygonField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+
+class lift_stations(models.Model):
+    name = models.CharField(max_length=60)
+    geom = models.MultiPointField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+
 class nsi_flowlines(models.Model):
     comid = models.IntegerField()
     fdate = models.DateField()
@@ -160,6 +187,16 @@ class ownership(models.Model):
         return '%s' % (self.id)
 
 
+class pumphouses(models.Model):
+    name = models.CharField(max_length=60)
+    storage = models.IntegerField()
+    geom = models.MultiPolygonField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+
 class range_units(models.Model):
     area = models.FloatField()
     perimeter = models.FloatField()
@@ -173,6 +210,31 @@ class range_units(models.Model):
     tranlattio = models.CharField(max_length=35)
     bannock = models.CharField(max_length=25)
     geom = models.MultiPolygonField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+
+class sewage_lines(models.Model):
+    fnode_field = models.IntegerField()
+    tnode_field = models.IntegerField()
+    lpoly_field = models.IntegerField()
+    rpoly_field = models.IntegerField()
+    length = models.FloatField()
+    sewer_field = models.IntegerField()
+    sewer_id = models.IntegerField()
+    desc_field = models.CharField(max_length=15)
+    geom = models.MultiLineStringField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+
+class storage_tanks(models.Model):
+    name = models.CharField(max_length=60)
+    geom = models.MultiPointField(srid=4326)
     id = models.AutoField(primary_key = True)
 
     def __str__(self):

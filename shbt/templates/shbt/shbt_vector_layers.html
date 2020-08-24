@@ -47,59 +47,69 @@
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
-	        fill: false,
-		dashArray: 4,
+	        fill: true,
 	    },
 	onEachFeature: popupFunc
     });
 
     var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_buff_bndry', {
-        style: {clickable: true,
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
 	        fill: true,
-		opacity: 0,
-		fillOpacity: 0,
-		zIndex: -100,
 	    },
+	onEachFeature: popupFunc
     });
 
     var counties = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_counties', {
-        style: function(feature) {
-		switch(true) {
-			case(feature.properties.name === "Bingham"):
-				return {color: "#3e8ec4", fill: true, fillOpacity: 0.3, weight: 1};
-			case(feature.properties.name === "Caribou"):
-				return {color: "#98FB98", fill: true, fillOpacity: 0.3, weight: 1};
-			case(feature.properties.name === "Bannock"):
-				return {color: "#3232ff", fill: true, fillOpacity: 0.3, weight: 1};
-			case(feature.properties.name === "Power"):
-				return {color: "#00Fa9a", fill: true, fillOpacity: 0.3, weight: 1};
-	    }
-	},
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
 	onEachFeature: popupFunc
     });
 
     var districts = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_districts', {
-	    style: function(feature) {
-		switch(true) {
-			case(feature.properties.name === "Lincoln Creek"):
-			    	return {color: "#8f30d8", fill: true, fillOpacity: 0.3, weight: 1};
-			case(feature.properties.name === "Ross Fork"):
-				return {color: "#0f0c67", fill: true, fillOpacity: 0.3, weight: 1};
-			case(feature.properties.name === "Gibson"):
-				return {color: "#f9702a", fill: true, fillOpacity: 0.3, weight: 1};
-			case(feature.properties.name === "Fort Hall"):
-				return {color: "#54aeae", fill: true, fillOpacity: 0.3, weight: 1};
-			case(feature.properties.name === "Bannock Creek"):
-				return {color: "#30972a", fill: true, fillOpacity: 0.3, weight: 1};
-		    }
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var existing_wm = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_existing_wm', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var lagoon = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_lagoon', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var lift_stations = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_lift_stations', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
 	    },
 	onEachFeature: popupFunc
     });
 
     var nsi_flowlines = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_nsi_flowlines', {
         style: {clickable: false,
-                weight: 1,
-	        color: '#0000FF',
+                weight: 3,
+	        color: '#000000',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
@@ -114,7 +124,34 @@
 	onEachFeature: popupFunc
     });
 
+    var pumphouses = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_pumphouses', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
     var range_units = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_range_units', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var sewage_lines = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_sewage_lines', {
+        style: {clickable: false,
+                weight: 3,
+	        color: '#000000',
+	        fill: true,
+	    },
+	onEachFeature: popupFunc
+    });
+
+    var storage_tanks = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_storage_tanks', {
         style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
@@ -138,7 +175,7 @@
 ////// Leaflet Map /////////
 ////////////////////////////
 
-    map.setView(new L.LatLng(42.9659, -112.3831), 9);
+    map.setView(new L.LatLng(42.9583, -112.4063), 9);
     map.addLayer(boundary);
 
 </script>
