@@ -78,6 +78,55 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#utilities-layers">
+                                        Utilities Layers
+                                </a>
+                            </div>
+                            <div id="utilities-layers" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="existing_wm" z-index="3">
+                                            &nbsp; Existing Water Main &nbsp; <a href="{% url 'shbt_existing_wm_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="sewage_lines" z-index="3">
+                                            &nbsp; Sewer Lines &nbsp; <a href="{% url 'shbt_sewage_lines_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="lagoon" z-index="3">
+                                            &nbsp; Sewer Lagoons &nbsp; <a href="{% url 'shbt_lagoon_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="lift_stations" z-index="3">
+                                            &nbsp; Sewer Lift Stations &nbsp; <a href="{% url 'shbt_lift_stations_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+				    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="storage_tanks" z-index="3">
+                                            &nbsp; Storage Tanks &nbsp; <a href="{% url 'shbt_storage_tanks_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="pumphouses" z-index="3">
+                                            &nbsp; Pumphouses &nbsp; <a href="{% url 'shbt_pumphouses_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
                                 <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#hydro-layers">
                                         Hydrology Layers
                                 </a>
