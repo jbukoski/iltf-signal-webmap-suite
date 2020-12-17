@@ -196,6 +196,22 @@ range_units_mapping = {
 
 range_units_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'shbt', 'range_units.shp'))
 
+res_soils_mapping = {
+    'areasymbol' : 'AREASYMBOL',
+    'spatialver' : 'SPATIALVER',
+    'musym' : 'MUSYM',
+    'mukey' : 'MUKEY',
+    'mu_name' : 'mu_name',
+    'mu_farmcls' : 'mu_farmcls',
+    'co_drain' : 'co_drain',
+    'co_geomrp' : 'co_geomrp',
+    'co_taxcl' : 'co_taxcl',
+    'co_mstrcls' : 'co_mstrcls',
+    'geom' : 'MULTIPOLYGON',
+}
+
+res_soils_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'shbt', 'res_soils.shp'))
+
 sewage_lines_mapping = {
     'fnode_field' : 'FNODE_',
     'tnode_field' : 'TNODE_',
@@ -216,46 +232,6 @@ storage_tanks_mapping = {
 }
 
 storage_tanks_shp = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'shbt', 'storage_tanks.shp'))
-
-def run_new(verbose=True):
-
-    existing_wm_lm = LayerMapping(
-        models.existing_wm, existing_wm_shp, existing_wm_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    existing_wm_lm.save(strict=True, verbose=verbose)
-
-    lagoon_lm = LayerMapping(
-        models.lagoon, lagoon_shp, lagoon_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    lagoon_lm.save(strict=True, verbose=verbose)
-
-    lift_stations_lm = LayerMapping(
-        models.lift_stations, lift_stations_shp, lift_stations_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    lift_stations_lm.save(strict=True, verbose=verbose)
-
-    pumphouses_lm = LayerMapping(
-        models.pumphouses, pumphouses_shp, pumphouses_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    pumphouses_lm.save(strict=True, verbose=verbose)
-
-    sewage_lines_lm = LayerMapping(
-        models.sewage_lines, sewage_lines_shp, sewage_lines_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    sewage_lines_lm.save(strict=True, verbose=verbose)
-
-    storage_tanks_lm = LayerMapping(
-        models.storage_tanks, storage_tanks_shp, storage_tanks_mapping,
-        transform=False, encoding='iso-8859-1'
-    )
-    storage_tanks_lm.save(strict=True, verbose=verbose)
-
-
 
 def run(verbose=True):
 
@@ -324,6 +300,12 @@ def run(verbose=True):
         transform=False, encoding='iso-8859-1'
     )
     range_units_lm.save(strict=True, verbose=verbose)
+
+    res_soils_lm = LayerMapping(
+        models.res_soils, res_soils_shp, res_soils_mapping,
+        transform=False, encoding='iso-8859-1'
+    )
+    res_soils_lm.save(strict=True, verbose=verbose)
 
     sewage_lines_lm = LayerMapping(
         models.sewage_lines, sewage_lines_shp, sewage_lines_mapping,

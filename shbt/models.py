@@ -216,6 +216,24 @@ class range_units(models.Model):
         return '%s' % (self.id)
 
 
+class res_soils(models.Model):
+    areasymbol = models.CharField(max_length=80)
+    spatialver = models.FloatField()
+    musym = models.CharField(max_length=80)
+    mukey = models.CharField(max_length=80)
+    mu_name = models.CharField(max_length=143)
+    mu_farmcls = models.CharField(max_length=133)
+    co_drain = models.CharField(max_length=80)
+    co_geomrp = models.CharField(max_length=80)
+    co_taxcl = models.CharField(max_length=89)
+    co_mstrcls = models.CharField(max_length=80)
+    geom = models.MultiPolygonField(srid=4326)
+    id = models.AutoField(primary_key = True)
+
+    def __str__(self):
+        return '%s' % (self.id)
+
+
 class sewage_lines(models.Model):
     fnode_field = models.IntegerField()
     tnode_field = models.IntegerField()
