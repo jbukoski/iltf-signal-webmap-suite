@@ -9,7 +9,7 @@ nsi_flowlines 'comid','fdate','resolution','gnis_id','gnis_name','lengthkm','rea
 ownership 'area','perimeter','lstmoss_wg','lstmoss_1','lstmoss_at','lease_a','original','status','lease_b','lease_c','key','recording_field','key2','lease_d','rpd_num','tenant','section','township','range','lstatus','shape_leng','shape_area','curr_own','tribal_int','acreage','res_code','trib_own_m','trib_own_s','poly_area','geom','id'
 pumphouses 'name','storage','geom','id'
 range_units 'area','perimeter','rnge_field','rnge_id','acres','range_id','bnd_ft','draw','shoshone','tranlattio','bannock','geom','id'
-res_soils 'areasymbol','spatialver','musym','mukey','mu_name','mu_farmcls','co_drain','co_geomrp','co_taxcl','co_mstrcls','geom','id'
+res_soils 'areasymbol','spatialver','musym','mukey','mu_name','farm_class','drainage','geomorph','taxonomy','soil_order','suborder','grt_group','moisture','geom','id'
 sewage_lines 'fnode_field','tnode_field','lpoly_field','rpoly_field','length','sewer_field','sewer_id','desc_field','geom','id'
 storage_tanks 'name','geom','id'
 document 'id','name','docfile'
