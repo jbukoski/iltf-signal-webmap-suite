@@ -53,45 +53,92 @@
     });
 
     var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_buff_bndry', {
-        style: {clickable: false,
+	style: {clickable: false,
                 weight: 3,
 	        color: '#000000',
 	        fill: true,
+	        fill: false,
+		dashArray: '15, 5',
 	    },
 	onEachFeature: popupFunc
     });
 
     var counties = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_counties', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
+	style: function(feature) {
+                    switch(true) {
+                            case(feature.properties.name === "Power"):
+                                return {weight: 1, color: '#228B22', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.name === "Bingham"):
+                                return {weight: 1, color: '#98FB98', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.name === "Bannock"):
+                                return {weight: 1, color: '#00FF00', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.name === "Caribou"):
+                                return {weight: 1, color: '#006400', fill: true, fillOpacity: 0.3};
+                    }
+            },
 	onEachFeature: popupFunc
     });
 
     var districts = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_districts', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
+	style: function(feature) {
+                    switch(true) {
+                            case(feature.properties.name === "Lincoln Creek"):
+                                return {weight: 1, color: '#c4d4e5', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.name === "Ross Fork"):
+                                return {weight: 1, color: '#99badd', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.name === "Gibson"):
+                                return {weight: 1, color: '#6598ce', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.name === "Fort Hall"):
+                                return {weight: 1, color: '#2570bf', fill: true, fillOpacity: 0.3};
+			    case(feature.properties.name === "Bannock Creek"):
+				return {weight: 1, color: '#0f0fb9', fill: true, fillOpacity: 0.3};
+		    }
+            },
 	onEachFeature: popupFunc
     });
 
     var existing_wm = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_existing_wm', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
+                weight: 2,
+	        color: '#3232ff',
+	        fill: false,
 	    },
 	onEachFeature: popupFunc
     });
 
+    var farm_class = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_res_soils', {
+        style: function(feature) {
+                    switch(true) {
+                            case(feature.properties.farm_class === "Farmland of statewide importance, if irrigated"):
+                                return {weight: 1, color: '#IF78B4', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.farm_class === "Farmland of statewide importance, if irrigated and drained"):
+                                return {weight: 1, color: '#32908F', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.farm_class === "Farmland of statewide importance, if irrigated and reclaimed of excess salts and sodium"):
+                                return {weight: 1, color: '#44A86A', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.farm_class === "Farmland of statewide importance, if irrigated and either protected from flooding or not frequently flooded during the growing season"):
+                                return {weight: 1, color: '#64C159', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.farm_class === "Prime farmland if irrigated"):
+                                return {weight: 1, color: '#8CE582', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.farm_class === "Prime farmland if irrigated and drained"):
+                                return {weight: 1, color: '#A3F7B9', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.farm_class === "Prime farmland if irrigated and reclaimed of excess salts and sodium"):
+                                return {weight: 1, color: '#A8E8AD', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.farm_class === "Prime farmland if irrigated and either protected from flooding or not frequently flooded during the growing season"):
+                                return {weight: 1, color: '#BIC795', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.farm_class === "Not prime farmland"):
+                                return {weight: 1, color: '#CA7158', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.farm_class === ""):
+                                return {weight: 1, color: '#B6B6B6', fill: true, fillOpacity: 0.3};
+                    }
+            },
+        onEachFeature: popupFunc
+    });
+
+
     var lagoon = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_lagoon', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
+                weight: 2,
+	        color: '#b2b2ff',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
@@ -99,8 +146,8 @@
 
     var lift_stations = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_lift_stations', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
+                weight: 2,
+	        color: '#6666ff',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
@@ -108,16 +155,16 @@
 
     var nsi_flowlines = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_nsi_flowlines', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
+                weight: 1,
+	        color: '#3232ff',
+	        fill: false,
 	    },
 	onEachFeature: popupFunc
     });
 
     var ownership = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_ownership', {
         style: {clickable: false,
-                weight: 3,
+                weight: 2,
 	        color: '#000000',
 	        fill: true,
 	    },
@@ -126,8 +173,8 @@
 
     var pumphouses = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_pumphouses', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
+                weight: 2,
+	        color: '#ffa500',
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
@@ -135,34 +182,52 @@
 
     var range_units = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_range_units', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
+                weight: 2,
+		color: randomColor({hue: 'red'}),
 	        fill: true,
 	    },
 	onEachFeature: popupFunc
     });
 
     var res_soils = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_res_soils', {
-        style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	    },
+	style: function(feature) {
+                    switch(true) {
+                            case(feature.properties.soil_order === "Mollisols"):
+                                return {weight: 1, color: '#34BB5E', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.soil_order === "Entisols"):
+                                return {weight: 1, color: '#E5E28A', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.soil_order === "Aridisols"):
+                                return {weight: 1, color: '#b27084', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.soil_order === "Histosols"):
+                                return {weight: 1, color: '#7A7CED', fill: true, fillOpacity: 0.3};
+			    case(feature.properties.soil_order === "Inceptisols"):
+				return {weight: 1, color: '#E088E2', fill: true, fillOpacity: 0.3};
+			    case(feature.properties.soil_order === "Andisols"):
+                                return {weight: 1, color: '#000000', fill: true, fillOpacity: 0.3};
+			    case(feature.properties.soil_order === "Alifisols"):
+                                return {weight: 1, color: '#000000', fill: true, fillOpacity: 0.3};
+			    case(feature.properties.soil_order === "Vertisols"):
+                                return {weight: 1, color: '#000000', fill: true, fillOpacity: 0.3};
+                            case(feature.properties.soil_order === ""):
+                                return {weight: 1, color: '#B6B6B6', fill: true, fillOpacity: 0.3};
+
+		    }
+            },
 	onEachFeature: popupFunc
     });
 
     var sewage_lines = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_sewage_lines', {
         style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
+                weight: 2,
+	        color: '#99badd',
+	        fill: false,
 	    },
 	onEachFeature: popupFunc
     });
 
     var storage_tanks = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_storage_tanks', {
         style: {clickable: false,
-                weight: 3,
+                weight: 2,
 	        color: '#000000',
 	        fill: true,
 	    },
@@ -184,7 +249,7 @@
 ////// Leaflet Map /////////
 ////////////////////////////
 
-    map.setView(new L.LatLng(46.4188, -84.4149), 11);
+    map.setView(new L.LatLng(42.9, -112.4), 9);
     map.addLayer(boundary);
 
 </script>

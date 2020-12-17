@@ -154,7 +154,13 @@
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="res_soils" z-index="3">
-                                            &nbsp; Soil layers &nbsp; <a href="{% url 'shbt_nsi_flowlines_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                            &nbsp; Soil Characteristics &nbsp; <a href="{% url 'shbt_res_soils_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
+                                        </label>
+                                    </div>
+				    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="overlayLayers" id="farm_class" z-index="3">
+                                            &nbsp; Farmland Class &nbsp; <a href="{% url 'shbt_res_soils_dl' %}"><i style="float:right;" class="fa fa-download"></i></a>
                                         </label>
                                     </div>
                                 </div>
@@ -421,6 +427,28 @@
                                 </div>
                             </div>
 			</div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle btn-block" data-toggle="collapse" data-parent="#accordion_" href="#data-layers-soil" style="padding: 0px 0px 0px 15px;">
+                                    <i>Data Layers: Soil Characteristics</i>
+                                </a>
+                            </div>
+                            <div id="data-layers-soil" class="panel-collapse collapse">
+                                <div class="panel-body" style="padding: 0px 15px;">
+                                    <div style="padding: 15px 5px;">
+                                        <p> The <b>soil layers</b> hosted on the webmap consist of:
+                                              <ul>
+                                                 <li> <i>Soil Characteristics</i> </li>
+						 <li> <i>Farmland Class</i> </li>
+                                              </ul>
+                                              <p>The soil layers were obtained from the Natural Resources Conservation Services's Soil Survey Geographic Database (SSURGO). Additional information on the NRCS SSURGO database can be found <a href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/soils/survey/?cid=nrcs142p2_053627" target="_blank">here</a>. The soil layers can be queried for additional information on individual soil mapping units.</p>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
