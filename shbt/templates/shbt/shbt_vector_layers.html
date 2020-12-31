@@ -46,8 +46,8 @@
     var boundary = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_boundary', {
         style: {clickable: false,
                 weight: 3,
-	        color: '#000000',
-	        fill: true,
+	        color: '#A900E6',
+	        fill: false,
 	    },
 	onEachFeature: popupFunc
     });
@@ -163,11 +163,25 @@
     });
 
     var ownership = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_ownership', {
-        style: {clickable: false,
-                weight: 2,
-	        color: '#000000',
-	        fill: true,
-	    },
+	style: function(feature) {
+        	switch(true) {
+			case(feature.properties.status === "EXCL"):
+				return {weight: 1, color: '#F0A0B0', fill: true, fillOpacity: 0.3};
+			case(feature.properties.status === "Fee"):
+                                return {weight: 1, color: '#F5F28D', fill: true, fillOpacity: 0.3};
+                        case(feature.properties.status === "Govt"):
+                                return {weight: 1, color: '#EBEBEB', fill: true, fillOpacity: 0.3};
+                        case(feature.properties.status === "Ind"):
+                                return {weight: 1, color: '#A597F2', fill: true, fillOpacity: 0.3};
+                        case(feature.properties.status === "T Fee"):
+                                return {weight: 1, color: '#F2AA87', fill: true, fillOpacity: 0.3};
+                        case(feature.properties.status === "Trib"):
+                                return {weight: 1, color: '#F5AF8D', fill: true, fillOpacity: 0.3};
+
+
+
+                    }
+            },
 	onEachFeature: popupFunc
     });
 
