@@ -48,16 +48,6 @@
                 weight: 3,
 	        color: '#A900E6',
 	        fill: false,
-	    },
-	onEachFeature: popupFunc
-    });
-
-    var buff_bndry = new L.GeoJSON.AJAX(baseVectorURL + '&typeName=iltf:shbt_buff_bndry', {
-	style: {clickable: false,
-                weight: 3,
-	        color: '#000000',
-	        fill: true,
-	        fill: false,
 		dashArray: '15, 5',
 	    },
 	onEachFeature: popupFunc
